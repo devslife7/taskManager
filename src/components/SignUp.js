@@ -1,5 +1,7 @@
 import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core"
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setCurrentUser } from "../actions/user"
 import { Link } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
@@ -30,6 +32,7 @@ function Copyright() {
 }
 
 function SignUp({ history }) {
+  const dispatch = useDispatch()
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
@@ -72,7 +75,7 @@ function SignUp({ history }) {
           // } else {
           localStorage.token = data.token
           localStorage.userId = data.user.id
-          // dispatch(setCurrentUser(data.user))
+          dispatch(setCurrentUser(data.user))
           history.push("/")
           clearForm()
         }

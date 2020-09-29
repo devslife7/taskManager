@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-
+import { useDispatch } from "react-redux"
+import { setCurrentUser } from "../actions/user"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -32,6 +33,7 @@ function Copyright() {
 }
 
 function Login({ history }) {
+  const dispatch = useDispatch()
   const classes = useStyles()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -65,7 +67,7 @@ function Login({ history }) {
           localStorage.token = data.token
           localStorage.userId = data.user.id
           console.log("this is the data.user from fetch: ", data.user)
-          // dispatch(setCurrentUser(data.user))
+          dispatch(setCurrentUser(data.user))
           history.push("/")
           // }
         })
