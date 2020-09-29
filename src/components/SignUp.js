@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: "10vh",
     padding: "4vh",
-    maxWidth: "50vh",
+    maxWidth: "40vh",
     margin: "auto"
   },
   submit: {

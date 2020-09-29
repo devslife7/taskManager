@@ -1,15 +1,15 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch } from "react-redux"
-import { setCurrentUser } from "../actions/user"
-import React, { useState } from "react"
+import { setCurrentUser, logOutCurrentUser } from "../actions/user"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: "10vh",
     padding: "4vh",
-    maxWidth: "50vh",
+    maxWidth: "40vh",
     margin: "auto"
   },
   submit: {
@@ -37,6 +37,11 @@ function Login({ history }) {
   const classes = useStyles()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+
+  useEffect(() => {
+    localStorage.clear()
+    dispatch(logOutCurrentUser())
+  }, [dispatch])
 
   const handleLogin = e => {
     const logInURL = "http://localhost:3000/login"

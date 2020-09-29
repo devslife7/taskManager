@@ -1,3 +1,5 @@
+const usersURL = "http://localhost:3000/users/"
+
 export const setCurrentUser = user => {
   return {
     type: "SET_CURRENT_USER",
@@ -5,8 +7,13 @@ export const setCurrentUser = user => {
   }
 }
 
-export const fetchUser = () => {
-  return dispatch => {}
+export const fetchUser = userId => {
+  console.log("runs fetchuser action")
+  return dispatch => {
+    fetch(usersURL + userId)
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: "SET_CURRENT_USER", payload: data }))
+  }
 }
 
 export const logOutCurrentUser = () => {
