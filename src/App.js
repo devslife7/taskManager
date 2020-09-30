@@ -11,9 +11,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!!localStorage.userId) {
-      dispatch(fetchUser(localStorage.userId))
-    }
+    if (!!localStorage.userId) dispatch(fetchUser(localStorage.userId))
   }, [dispatch])
 
   return (
