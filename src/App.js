@@ -5,9 +5,10 @@ import { useDispatch } from "react-redux"
 import { fetchUser } from "./actions/user"
 import Login from "./components/Login"
 import SignUp from "./components/SignUp"
-// import HomePage from "./components/HomePage"
-import Projects from "./components/Projects"
+// import Projects from "./components/Projects"
 import Tasks from "./components/Tasks"
+import Home from "./components/Home"
+import ProjectDetails from "./components/ProjectDetails"
 
 function App() {
   const dispatch = useDispatch()
@@ -20,10 +21,11 @@ function App() {
     <Router>
       <Container disableGutters>
         <Route exact path='/' component={Login} />
-        <Route exact path='/projects' component={Projects} />
-        <Route exact path='/tasks' component={Tasks} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={SignUp} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/project/details' component={ProjectDetails} />
+        <Route exact path='/task/details' component={Tasks} />
       </Container>
     </Router>
   )

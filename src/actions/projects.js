@@ -10,6 +10,7 @@ export const fetchProjects = () => {
   }
 }
 export const fetchCurrentProject = projectId => {
+  console.log("runs fetchCurrentproject action")
   return dispatch => {
     dispatch({ type: "LOADING_DATA" })
 

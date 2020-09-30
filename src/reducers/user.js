@@ -16,6 +16,7 @@ export default (state = initialState, action) => {
       }
 
     case "LOGOUT_CURRENT_USER":
+      localStorage.clear()
       return {
         ...state,
         currentUser: {},

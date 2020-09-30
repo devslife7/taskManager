@@ -1,15 +1,11 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchCurrentProject } from "../actions/projects"
 
 function ProjectCard({ project }) {
-  const dispatch = useDispatch()
-
   const handleLink = () => {
-    console.log("handles links")
-    dispatch(fetchCurrentProject(project.id))
+    localStorage.currentProjectId = project.id
   }
+
   return (
     <div>
       <h1>{project.name}</h1>
@@ -19,7 +15,7 @@ function ProjectCard({ project }) {
       <p>completion percentage: {project.completion_percentage}</p>
       <p>created at: {project.created_at}</p>
       <p>updated at: {project.updated_at}</p>
-      <Link to='/tasks' onClick={handleLink}>
+      <Link to='/project/details' onClick={handleLink}>
         details
       </Link>
     </div>

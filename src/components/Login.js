@@ -39,7 +39,6 @@ function Login({ history }) {
   const [password, setPassword] = useState("")
 
   useEffect(() => {
-    localStorage.clear()
     dispatch(logOutCurrentUser())
   }, [dispatch])
 
@@ -73,7 +72,7 @@ function Login({ history }) {
           localStorage.userId = data.user.id
           console.log("this is the data.user from fetch: ", data.user)
           dispatch(setCurrentUser(data.user))
-          history.push("/projects")
+          history.push("/home")
           // }
         })
       setUsername("")

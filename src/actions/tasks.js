@@ -1,0 +1,14 @@
+const tasksURL = "http://localhost:3000/tasks/"
+
+export const fetchCurrentTask = taskId => {
+  console.log("runs fetchCurrenTask action")
+  return dispatch => {
+    dispatch({ type: "LOADING_DATA" })
+
+    console.log("makes current Task fetchcall")
+    fetch(tasksURL + taskId)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+    // .then(data => dispatch({ type: "SET_CURRENT_PROJECT", payload: data }))
+  }
+}

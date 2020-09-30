@@ -17,9 +17,9 @@ function Projects() {
   const renderProjects = () => {
     return projects.map((proj, idx) => <ProjectCard key={idx} project={proj} />)
   }
+
   return (
     <div>
-      <h3>Projects page</h3>
       {loading ? (
         <Typography variant='h1' style={{ fontSize: "1.3em", marginTop: "90px" }}>
           Loading...
