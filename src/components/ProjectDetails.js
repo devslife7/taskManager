@@ -15,6 +15,15 @@ function ProjectDetails() {
   const renderTasks = () => {
     return currentProject.tasks.map((t, idx) => <TaskCard key={idx} task={t} />)
   }
+
+  const handleDelete = () => {
+    const projURL = "http://localhost:3000/projects/"
+
+    fetch(projURL + currentProject.id, { method: "DELETE" })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
+
   return (
     <div style={{ backgroundColor: "white", padding: "2em", marginTop: "0.5em" }}>
       <h2>ProjectDetails page</h2>
@@ -31,7 +40,7 @@ function ProjectDetails() {
         <Button variant='contained' color='primary'>
           edit
         </Button>
-        <Button variant='outlined' color='primary'>
+        <Button variant='outlined' color='primary' onClick={handleDelete}>
           delete
         </Button>
       </div>

@@ -20,3 +20,10 @@ export const fetchCurrentProject = projectId => {
       .then(data => dispatch({ type: "SET_CURRENT_PROJECT", payload: data }))
   }
 }
+export const addProject = project => {
+  console.log("enters addproject action")
+  return {
+    type: "ADD_PROJECT",
+    payload: project
+  }
+}

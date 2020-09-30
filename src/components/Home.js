@@ -1,8 +1,11 @@
 import { Button, TextField } from "@material-ui/core"
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addProject } from "../actions/projects"
 import Projects from "./Projects"
 
 function Home() {
+  const dispatch = useDispatch()
   const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -15,7 +18,34 @@ function Home() {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    const projURL = "http://localhost:3000/projects"
+
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json"
+      },
+      body: JSON.stringify({
+        project: {
+          name: name,
+          description: description,
+          start_date: startDate,
+          deadline: endDate,
+          completion_percentage: "0%"
+        }
+      })
+    }
+
+    fetch(projURL, configObj)
+      .then(resp => resp.json())
+      .then(data => dispatch(addProject(data)))
+
     setShowForm(false)
+    setName("")
+    setDescription("")
+    setStartDate("")
+    setEndDate("")
   }
 
   return (
@@ -34,9 +64,9 @@ function Home() {
             label='Name'
             autoFocus
             value={name}
-            // onChange={e => {
-            //   setUsername(e.target.value)
-            // }}
+            onChange={e => {
+              setName(e.target.value)
+            }}
           />
           <TextField
             variant='outlined'
@@ -45,9 +75,9 @@ function Home() {
             fullWidth
             label='Description'
             value={description}
-            // onChange={e => {
-            //   setPassword(e.target.value)
-            // }}
+            onChange={e => {
+              setDescription(e.target.value)
+            }}
           />
           <TextField
             variant='outlined'
@@ -56,9 +86,9 @@ function Home() {
             fullWidth
             label='Start Date'
             value={startDate}
-            // onChange={e => {
-            //   setPassword(e.target.value)
-            // }}
+            onChange={e => {
+              setStartDate(e.target.value)
+            }}
           />
           <TextField
             variant='outlined'
@@ -67,9 +97,9 @@ function Home() {
             fullWidth
             label='End Date'
             value={endDate}
-            // onChange={e => {
-            //   setPassword(e.target.value)
-            // }}
+            onChange={e => {
+              setEndDate(e.target.value)
+            }}
           />
           <Button type='submit' fullWidth variant='contained' color='primary'>
             Submit

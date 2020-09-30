@@ -28,6 +28,13 @@ export default (state = initialState, action) => {
         loading: false
       }
 
+    case "ADD_PROJECT":
+      console.log("enters add prije action", state)
+      return {
+        ...state,
+        allProjects: [...state.allProjects, action.payload]
+      }
+
     default:
       return state
   }

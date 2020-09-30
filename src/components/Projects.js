@@ -15,7 +15,7 @@ function Projects() {
   }, [dispatch])
 
   const renderProjects = () => {
-    return projects.map((proj, idx) => <ProjectCard key={idx} project={proj} />)
+    return projects.map((proj, idx) => <ProjectCard key={idx} project={proj} />).reverse()
   }
 
   return (
