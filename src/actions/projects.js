@@ -10,7 +10,6 @@ export const fetchProjects = () => {
   }
 }
 export const fetchCurrentProject = projectId => {
-  console.log("runs fetchCurrentproject action")
   return dispatch => {
     dispatch({ type: "LOADING_DATA" })
 
@@ -21,9 +20,14 @@ export const fetchCurrentProject = projectId => {
   }
 }
 export const addProject = project => {
-  console.log("enters addproject action")
   return {
     type: "ADD_PROJECT",
     payload: project
+  }
+}
+export const removeProject = projectId => {
+  return {
+    type: "REMOVE_PROJECT",
+    payload: projectId
   }
 }

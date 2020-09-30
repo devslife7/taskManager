@@ -13,7 +13,7 @@ function Home() {
   const [endDate, setEndDate] = useState("")
 
   const handleAddProject = e => {
-    setShowForm(true)
+    setShowForm(!showForm)
   }
 
   const handleSubmit = e => {
