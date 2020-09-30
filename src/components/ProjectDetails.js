@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject, removeProject } from "../actions/projects"
-import { addTask } from "../actions/tasks"
+import { addTask } from "../actions/projects"
 import TaskCard from "./TaskCard"
 
 function ProjectDetails({ history }) {
@@ -20,7 +20,7 @@ function ProjectDetails({ history }) {
   }, [])
 
   const renderTasks = () => {
-    return currentProject.tasks.map((t, idx) => <TaskCard key={idx} task={t} />)
+    return currentProject.tasks.map((t, idx) => <TaskCard key={idx} task={t} />).reverse()
   }
 
   const handleDelete = () => {

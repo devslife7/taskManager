@@ -11,9 +11,3 @@ export const fetchCurrentTask = taskId => {
       .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }
 }
-export const addTask = task => {
-  return {
-    type: "ADD_TASK",
-    payload: task
-  }
-}

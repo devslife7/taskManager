@@ -19,12 +19,6 @@ export default (state = initialState, action) => {
         currentTask: action.payload,
         loading: false
       }
-    case "ADD_TASK":
-      return {
-        ...state,
-        currentTask: action.payload,
-        loading: false
-      }
 
     default:
       return state

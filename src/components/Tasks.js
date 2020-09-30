@@ -1,5 +1,5 @@
-import { Button, Grid } from "@material-ui/core"
-import React, { useEffect } from "react"
+import { Button, Grid, TextField } from "@material-ui/core"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
 import { fetchCurrentTask } from "../actions/tasks"
@@ -9,6 +9,11 @@ function Tasks() {
   const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
   const currentTask = useSelector(state => state.tasks.currentTask)
+  const currentUser = useSelector(state => state.user.currentUser)
+  const [date, setDate] = useState("")
+  const [notes, setNotes] = useState("")
+  const [completionPercentage, setCompletionPercentage] = useState("")
+  const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     !!localStorage.currentTaskId && dispatch(fetchCurrentTask(localStorage.currentTaskId))
@@ -17,6 +22,48 @@ function Tasks() {
 
   const renderEntries = () => {
     return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />)
+  }
+
+  const handleDeleteTask = () => {
+    console.log("delete task")
+
+    const tasksURL = "http://localhost:3000/tasks/"
+
+    fetch(tasksURL + currentTask.id, { method: "DELETE" })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
+
+  const handleAddEntry = () => {
+    console.log("add entry")
+    setShowForm(!showForm)
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    const entriesURL = "http://localhost:3000/entries/"
+
+    const configuratinObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        entry: {
+          date: date,
+          notes: notes,
+          completion_percentage: completionPercentage,
+          user_id: currentUser.id,
+          task_id: currentTask.id
+        }
+      })
+    }
+    fetch(entriesURL, configuratinObj)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+
+    setShowForm(false)
   }
 
   return (
@@ -45,14 +92,45 @@ function Tasks() {
           <Button variant='contained' color='primary'>
             edit
           </Button>
-          <Button variant='outlined' color='primary'>
+          <Button variant='outlined' color='primary' onClick={handleDeleteTask}>
             delete
           </Button>
         </Grid>
       </Grid>
-      <Button variant='contained' color='primary'>
+      <Button variant='contained' color='primary' onClick={handleAddEntry}>
         Add Entry
       </Button>
+
+      {showForm && (
+        <form noValidate onSubmit={handleSubmit}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            required
+            label='Date'
+            autoFocus
+            value={date}
+            onChange={e => {
+              setDate(e.target.value)
+            }}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Notes'
+            value={notes}
+            onChange={e => {
+              setNotes(e.target.value)
+            }}
+          />
+          <Button type='submit' fullWidth variant='contained' color='primary'>
+            Submit
+          </Button>
+        </form>
+      )}
 
       <h4>Tasks entries: {renderEntries()}</h4>
     </div>
