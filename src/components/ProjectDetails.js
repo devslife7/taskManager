@@ -2,6 +2,7 @@ import { Button, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject, removeProject } from "../actions/projects"
+import { addTask } from "../actions/tasks"
 import TaskCard from "./TaskCard"
 
 function ProjectDetails({ history }) {
@@ -43,7 +44,7 @@ function ProjectDetails({ history }) {
     const configurationObj = {
       method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         task: {
@@ -52,6 +53,7 @@ function ProjectDetails({ history }) {
           start_date: startDate,
           end_date: endDate,
           hours: hours,
+          project_id: currentProject.id,
           completion_percentage: "0%"
         }
       })
@@ -59,7 +61,7 @@ function ProjectDetails({ history }) {
 
     fetch(tasksURL, configurationObj)
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => dispatch(addTask(data)))
 
     setShowForm(false)
   }
@@ -96,21 +98,32 @@ function ProjectDetails({ history }) {
             required
             label='Name'
             autoFocus
-            // value={name}
-            // onChange={e => {
-            //   setName(e.target.value)
-            // }}
+            value={name}
+            onChange={e => {
+              setName(e.target.value)
+            }}
           />
           <TextField
             variant='outlined'
             margin='normal'
             required
             fullWidth
-            label='Description'
-            // value={description}
-            // onChange={e => {
-            //   setDescription(e.target.value)
-            // }}
+            label='Notes'
+            value={notes}
+            onChange={e => {
+              setNotes(e.target.value)
+            }}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Hours'
+            value={hours}
+            onChange={e => {
+              setHours(e.target.value)
+            }}
           />
           <TextField
             variant='outlined'
