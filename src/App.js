@@ -7,6 +7,7 @@ import Login from "./components/Login"
 import SignUp from "./components/SignUp"
 // import HomePage from "./components/HomePage"
 import Projects from "./components/Projects"
+import Tasks from "./components/Tasks"
 
 function App() {
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ function App() {
       <Container disableGutters>
         <Route exact path='/' component={Login} />
         <Route exact path='/projects' component={Projects} />
+        <Route exact path='/tasks' component={Tasks} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={SignUp} />
       </Container>

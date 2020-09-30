@@ -1,12 +1,12 @@
 const initialState = {
   allProjects: [],
+  currentProject: {},
   loading: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "LOADING_PROJECTS":
-      console.log("enters loading projects reducer")
+    case "LOADING_DATA":
       return {
         ...state,
         loading: true
@@ -16,6 +16,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         allProjects: action.payload,
+        loading: false
+      }
+
+    case "SET_CURRENT_PROJECT":
+      return {
+        ...state,
+        currentProject: action.payload,
         loading: false
       }
 
