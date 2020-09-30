@@ -8,7 +8,6 @@ export const fetchCurrentTask = taskId => {
     console.log("makes current Task fetchcall")
     fetch(tasksURL + taskId)
       .then(resp => resp.json())
-      .then(data => console.log(data))
-    // .then(data => dispatch({ type: "SET_CURRENT_PROJECT", payload: data }))
+      .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }
 }

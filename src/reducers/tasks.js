@@ -1,5 +1,7 @@
 const initialState = {
-  currentTask: {},
+  currentTask: {
+    entries: []
+  },
   loading: false
 }
 
@@ -11,7 +13,7 @@ export default (state = initialState, action) => {
         loading: true
       }
 
-    case "SET_CURRENT_PROJECT":
+    case "SET_CURRENT_TASK":
       return {
         ...state,
         currentTask: action.payload,
