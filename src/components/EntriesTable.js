@@ -10,6 +10,8 @@ import Paper from "@material-ui/core/Paper"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { Button, IconButton } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
+import EditIcon from "@material-ui/icons/Edit"
 
 const useStyles = makeStyles({
   table: {
@@ -21,10 +23,13 @@ export default function EntriesTable() {
   const classes = useStyles()
   const currentTask = useSelector(state => state.tasks.currentTask)
 
-  // const handleLink = () => {
-  //   console.log("click task details")
-  //   localStorage.currentTaskId = task.id
-  // }
+  const handleDelete = entryId => {
+    const entriesURL = "http://localhost:3000/entries/"
+
+    fetch(entriesURL + entryId, { method: "DELETE" })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
 
   const renderRows = () => {
     return currentTask.entries.map((entry, idx) => (
@@ -38,26 +43,16 @@ export default function EntriesTable() {
         <TableCell align='right'>{entry.created_at}</TableCell>
         <TableCell align='right'>{entry.updated_at}</TableCell>
         <TableCell align='right'>
-          {/* <IconButton onClick={handleDelete}>
+          <IconButton>
+            <EditIcon color='primary' />
+          </IconButton>
+          <IconButton onClick={() => handleDelete(entry.id)}>
             <DeleteIcon color='error' />
-          </IconButton> */}
+          </IconButton>
         </TableCell>
       </TableRow>
     ))
   }
-  // const renderRows = () => {
-  //   return rows.map(row => (
-  //     <TableRow key={row.name}>
-  //       <TableCell component='th' scope='row'>
-  //         {row.name}
-  //       </TableCell>
-  //       <TableCell align='right'>{row.calories}</TableCell>
-  //       <TableCell align='right'>{row.fat}</TableCell>
-  //       <TableCell align='right'>{row.carbs}</TableCell>
-  //       <TableCell align='right'>{row.protein}</TableCell>
-  //     </TableRow>
-  //   ))
-  // }
 
   return (
     <TableContainer component={Paper}>
