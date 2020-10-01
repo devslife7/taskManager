@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
 import { addEntry, fetchCurrentTask } from "../actions/tasks"
 import EntriesCard from "./EntriesCard"
+import EntriesTable from "./EntriesTable"
 
 function Tasks() {
   const dispatch = useDispatch()
@@ -12,6 +13,7 @@ function Tasks() {
   const currentUser = useSelector(state => state.user.currentUser)
   const [date, setDate] = useState("")
   const [notes, setNotes] = useState("")
+  const [completionPercentage, setCompletionPercentage] = useState("")
   const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
@@ -20,7 +22,7 @@ function Tasks() {
   }, [])
 
   const renderEntries = () => {
-    return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />)
+    return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()
   }
 
   const handleDeleteTask = () => {
@@ -52,7 +54,7 @@ function Tasks() {
         entry: {
           date: date,
           notes: notes,
-          completion_percentage: "0%",
+          completion_percentage: completionPercentage,
           user_id: currentUser.id,
           task_id: currentTask.id
         }
@@ -125,11 +127,24 @@ function Tasks() {
               setNotes(e.target.value)
             }}
           />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Progress %'
+            value={completionPercentage}
+            onChange={e => {
+              setCompletionPercentage(e.target.value)
+            }}
+          />
           <Button type='submit' fullWidth variant='contained' color='primary'>
             Submit
           </Button>
         </form>
       )}
+
+      <EntriesTable />
 
       <h4>Tasks entries: {renderEntries()}</h4>
     </div>

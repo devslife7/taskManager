@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject, removeProject } from "../actions/projects"
 import { addTask } from "../actions/projects"
+import BasicTable from "./BasicTable"
+import Table from "./BasicTable"
 import TaskCard from "./TaskCard"
 
 function ProjectDetails({ history }) {
@@ -153,6 +155,7 @@ function ProjectDetails({ history }) {
         </form>
       )}
 
+      <BasicTable />
       {renderTasks()}
     </div>
   )
