@@ -49,9 +49,9 @@ function Home() {
   }
 
   return (
-    <div style={{ backgroundColor: "white", padding: "2em", marginTop: "0.5em" }}>
-      <h1>Home Page</h1>
-      <Button variant='contained' color='primary' onClick={handleAddProject}>
+    <div style={{ backgroundColor: "white", padding: "0px" }}>
+      <h1 style={{ margin: "0px" }}>Home Page</h1>
+      <Button variant='contained' color='secondary' onClick={handleAddProject}>
         Add Project
       </Button>
       {showForm && (

@@ -19,7 +19,7 @@ function Tasks() {
   useEffect(() => {
     !!localStorage.currentTaskId && dispatch(fetchCurrentTask(localStorage.currentTaskId))
     !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
-  }, [])
+  }, [dispatch])
 
   const renderEntries = () => {
     return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()

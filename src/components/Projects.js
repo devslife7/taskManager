@@ -6,11 +6,10 @@ import ProjectCard from "./ProjectCard"
 
 function Projects() {
   const dispatch = useDispatch()
-  const projects = useSelector(state => state.projects.allProjects)
   const loading = useSelector(state => state.projects.loading)
+  const projects = useSelector(state => state.projects.allProjects)
 
   useEffect(() => {
-    console.log("project page did mount")
     dispatch(fetchProjects())
   }, [dispatch])
 

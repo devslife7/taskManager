@@ -1,11 +1,7 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchCurrentTask } from "../actions/tasks"
 
 function TaskCard({ task }) {
-  const dispatch = useDispatch()
-
   const handleLink = () => {
     console.log("click task details")
     localStorage.currentTaskId = task.id

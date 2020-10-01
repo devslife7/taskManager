@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject, removeProject } from "../actions/projects"
 import { addTask } from "../actions/projects"
 import BasicTable from "./BasicTable"
-import Table from "./BasicTable"
 import TaskCard from "./TaskCard"
 
 function ProjectDetails({ history }) {
@@ -19,7 +18,7 @@ function ProjectDetails({ history }) {
 
   useEffect(() => {
     !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
-  }, [])
+  }, [dispatch])
 
   const renderTasks = () => {
     return currentProject.tasks.map((t, idx) => <TaskCard key={idx} task={t} />).reverse()
