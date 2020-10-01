@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
-import { fetchCurrentTask } from "../actions/tasks"
+import { addEntry, fetchCurrentTask } from "../actions/tasks"
 import EntriesCard from "./EntriesCard"
 
 function Tasks() {
@@ -12,7 +12,6 @@ function Tasks() {
   const currentUser = useSelector(state => state.user.currentUser)
   const [date, setDate] = useState("")
   const [notes, setNotes] = useState("")
-  const [completionPercentage, setCompletionPercentage] = useState("")
   const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
@@ -53,7 +52,7 @@ function Tasks() {
         entry: {
           date: date,
           notes: notes,
-          completion_percentage: completionPercentage,
+          completion_percentage: "0%",
           user_id: currentUser.id,
           task_id: currentTask.id
         }
@@ -61,7 +60,7 @@ function Tasks() {
     }
     fetch(entriesURL, configuratinObj)
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => dispatch(addEntry(data)))
 
     setShowForm(false)
   }

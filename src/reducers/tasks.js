@@ -20,6 +20,15 @@ export default (state = initialState, action) => {
         loading: false
       }
 
+    case "ADD_ENTRY":
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          entries: [...state.currentTask.entries, action.payload]
+        }
+      }
+
     default:
       return state
   }

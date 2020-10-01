@@ -11,3 +11,10 @@ export const fetchCurrentTask = taskId => {
       .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }
 }
+export const addEntry = entry => {
+  console.log("enter addEntry action")
+  return {
+    type: "ADD_ENTRY",
+    payload: entry
+  }
+}

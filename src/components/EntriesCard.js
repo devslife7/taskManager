@@ -4,7 +4,6 @@ import React from "react"
 function EntriesCard({ entry }) {
   return (
     <div>
-      <h3>Entry here</h3>
       <h5>entry date: {entry.date}</h5>
       <h5>notes: {entry.notes}</h5>
       <h5>completion percentage: {entry.completion_percentage}</h5>
