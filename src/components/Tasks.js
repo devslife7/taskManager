@@ -1,10 +1,12 @@
-import { Button, Grid, TextField } from "@material-ui/core"
+import { Button, Grid, IconButton, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
 import { addEntry, fetchCurrentTask } from "../actions/tasks"
 import EntriesCard from "./EntriesCard"
 import EntriesTable from "./EntriesTable"
+import TasksTable from "./TasksTable"
+import CreateIcon from "@material-ui/icons/Create"
 
 function Tasks() {
   const dispatch = useDispatch()
@@ -16,137 +18,125 @@ function Tasks() {
   const [completionPercentage, setCompletionPercentage] = useState("")
   const [showForm, setShowForm] = useState(false)
 
-  useEffect(() => {
-    !!localStorage.currentTaskId && dispatch(fetchCurrentTask(localStorage.currentTaskId))
-    !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
-  }, [dispatch])
+  // useEffect(() => {
+  //   !!localStorage.currentTaskId && dispatch(fetchCurrentTask(localStorage.currentTaskId))
+  //   !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
+  // }, [dispatch])
 
-  const renderEntries = () => {
-    return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()
-  }
+  // const renderEntries = () => {
+  //   return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()
+  // }
 
-  const handleDeleteTask = () => {
-    console.log("delete task")
+  // const handleDeleteTask = () => {
+  //   console.log("delete task")
 
-    const tasksURL = "http://localhost:3000/tasks/"
+  //   const tasksURL = "http://localhost:3000/tasks/"
 
-    fetch(tasksURL + currentTask.id, { method: "DELETE" })
-      .then(resp => resp.json())
-      .then(data => console.log(data))
-  }
+  //   fetch(tasksURL + currentTask.id, { method: "DELETE" })
+  //     .then(resp => resp.json())
+  //     .then(data => console.log(data))
+  // }
 
   const handleAddEntry = () => {
     console.log("add entry")
     setShowForm(!showForm)
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  // const handleSubmit = e => {
+  //   e.preventDefault()
 
-    const entriesURL = "http://localhost:3000/entries/"
+  //   const entriesURL = "http://localhost:3000/entries/"
 
-    const configuratinObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        entry: {
-          date: date,
-          notes: notes,
-          completion_percentage: completionPercentage,
-          user_id: currentUser.id,
-          task_id: currentTask.id
-        }
-      })
-    }
-    fetch(entriesURL, configuratinObj)
-      .then(resp => resp.json())
-      .then(data => dispatch(addEntry(data)))
+  //   const configuratinObj = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       entry: {
+  //         date: date,
+  //         notes: notes,
+  //         completion_percentage: completionPercentage,
+  //         user_id: currentUser.id,
+  //         task_id: currentTask.id
+  //       }
+  //     })
+  //   }
+  //   fetch(entriesURL, configuratinObj)
+  //     .then(resp => resp.json())
+  //     .then(data => dispatch(addEntry(data)))
 
-    setShowForm(false)
-  }
+  //   setShowForm(false)
+  // }
+
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   return (
-    <div style={{ backgroundColor: "white", padding: "2em", marginTop: "0.5em" }}>
-      <h2>Task page</h2>
+    <div>
+      {!!currentMilestone.id ? (
+        <>
+          <h2>
+            {currentMilestone.name} ({`${currentMilestone.progress}%`})
+            <IconButton onClick={handleAddEntry}>
+              <CreateIcon fontSize='small' />
+            </IconButton>
+          </h2>
 
-      <Grid container style={{ textAlign: "center" }}>
-        <Grid item xs={6}>
-          <h2>{currentProject.name}</h2>
-          <p>Description: {currentProject.description}</p>
-          <p>start date: {currentProject.start_date}</p>
-          <p>deadline: {currentProject.deadline}</p>
-          <p>completion percentage: {currentProject.completion_percentage}</p>
-          <p>created at: {currentProject.created_at}</p>
-          <p>updated at: {currentProject.updated_at}</p>
-        </Grid>
-        <Grid item xs={6}>
-          <h1>{currentTask.name}</h1>
-          <p>notes: {currentTask.notes}</p>
-          <p>start date: {currentTask.start_date}</p>
-          <p>end date: {currentTask.end_date}</p>
-          <p>hours: {currentTask.hours}</p>
-          <p>completion percentage: {currentTask.completion_percentage}</p>
-          <p>created at: {currentTask.created_at}</p>
-          <p>updated at: {currentTask.updated_at}</p>
-          <Button variant='contained' color='primary'>
-            edit
-          </Button>
-          <Button variant='outlined' color='primary' onClick={handleDeleteTask}>
-            delete
-          </Button>
-        </Grid>
-      </Grid>
-      <Button variant='contained' color='primary' onClick={handleAddEntry}>
-        Add Entry
-      </Button>
+          {showForm && (
+            <form noValidate>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                required
+                label='Date'
+                autoFocus
+                value={date}
+                onChange={e => {
+                  setDate(e.target.value)
+                }}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                label='Notes'
+                value={notes}
+                onChange={e => {
+                  setNotes(e.target.value)
+                }}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                label='Progress %'
+                value={completionPercentage}
+                onChange={e => {
+                  setCompletionPercentage(e.target.value)
+                }}
+              />
+              <Button type='submit' fullWidth variant='contained' color='primary'>
+                Submit
+              </Button>
+            </form>
+          )}
 
-      {showForm && (
-        <form noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            required
-            label='Date'
-            autoFocus
-            value={date}
-            onChange={e => {
-              setDate(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Notes'
-            value={notes}
-            onChange={e => {
-              setNotes(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Progress %'
-            value={completionPercentage}
-            onChange={e => {
-              setCompletionPercentage(e.target.value)
-            }}
-          />
-          <Button type='submit' fullWidth variant='contained' color='primary'>
-            Submit
-          </Button>
-        </form>
+          <p>hours: {currentMilestone.hours}</p>
+          <p>
+            {currentMilestone.start_date} - {currentMilestone.end_date}
+          </p>
+          <TasksTable />
+        </>
+      ) : (
+        <div>{"Select a Milestone"}</div>
       )}
 
-      <EntriesTable />
+      {/* <EntriesTable /> */}
 
-      <h4>Tasks entries: {renderEntries()}</h4>
+      {/* <h4>Tasks entries: {renderEntries()}</h4> */}
     </div>
   )
 }

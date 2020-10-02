@@ -16,8 +16,8 @@ const useStyles = makeStyles({
   }
 })
 
-export default function BasicTable() {
-  const currentProject = useSelector(state => state.projects.currentProject)
+export default function TasksTable() {
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   const classes = useStyles()
 
@@ -27,7 +27,7 @@ export default function BasicTable() {
   // }
 
   const renderRows = () => {
-    return currentProject.tasks.map((task, idx) => (
+    return currentMilestone.tasks.map((task, idx) => (
       <TableRow key={idx}>
         <TableCell component='th' scope='row'>
           {task.name}
@@ -43,7 +43,7 @@ export default function BasicTable() {
         <TableCell align='right'>{task.end_date}</TableCell>
         <TableCell align='right'>{task.hours}</TableCell>
         <TableCell align='right'>{"Owner"}</TableCell>
-        <TableCell align='right'>{task.completion_percentage}</TableCell>
+        <TableCell align='right'>{task.progress}</TableCell>
         <TableCell align='right'>{task.notes}</TableCell>
       </TableRow>
     ))
@@ -64,11 +64,11 @@ export default function BasicTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
+      <Table className={classes.table} size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align='right'>Start Date</TableCell>
+            <TableCell>Start Date</TableCell>
             <TableCell align='right'>End Date</TableCell>
             <TableCell align='right'>Hours</TableCell>
             <TableCell align='right'>Owner</TableCell>
