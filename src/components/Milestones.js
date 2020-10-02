@@ -5,6 +5,7 @@ import { fetchCurrentProject } from "../actions/projects"
 import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
 import CreateIcon from "@material-ui/icons/Create"
+import MilestonesGraph from "./MilestonesGraph"
 
 function Milestones() {
   const dispatch = useDispatch()
@@ -38,6 +39,8 @@ function Milestones() {
           <br />
           <br />
           <MilestonesTable />
+
+          <MilestonesGraph />
         </>
       ) : (
         <div>{"Select a Project"}</div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
 
-function TasksGraph() {
+function MilestonesGraph() {
   const [options, setOptions] = useState({
     chart: {
       // background: "#f4f4f4"
@@ -14,16 +14,16 @@ function TasksGraph() {
   const [series, setSeries] = useState([
     {
       name: "Progress",
-      data: [10, 40, 30, 70, 80]
+      data: [20, 10, 30, 50, 80]
     }
   ])
 
   return (
     <div>
       {/* <h2>Chart Here</h2> */}
-      <Chart options={options} series={series} type='line' heigth='450' width='90%' />
+      <Chart options={options} series={series} type='line' heigth='450' width='100%' />
     </div>
   )
 }
 
-export default TasksGraph
+export default MilestonesGraph

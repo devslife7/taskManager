@@ -9,6 +9,7 @@ import TasksTable from "./TasksTable"
 import CreateIcon from "@material-ui/icons/Create"
 import { fetchCurrentMilestone } from "../actions/milestones"
 import AddIcon from "@material-ui/icons/Add"
+import TasksGraph from "./TasksGraph"
 
 function Tasks() {
   const dispatch = useDispatch()
@@ -139,6 +140,8 @@ function Tasks() {
           <br />
           <br />
           <TasksTable />
+
+          <TasksGraph />
         </>
       ) : (
         <div>{"Select a Milestone"}</div>

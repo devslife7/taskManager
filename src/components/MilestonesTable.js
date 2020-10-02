@@ -48,7 +48,7 @@ export default function MilestonesTable() {
           </IconButton>
         </TableCell>
         <TableCell>{milestone.progress}</TableCell>
-        <TableCell>{"owner"}</TableCell>
+        {/* <TableCell>{"owner"}</TableCell> */}
         <TableCell>{milestone.hours}</TableCell>
         <TableCell>{milestone.end_date}</TableCell>
         {/* <TableCell> */}
@@ -71,7 +71,7 @@ export default function MilestonesTable() {
             {/* <TableCell>Name</TableCell> */}
             <TableCell style={{ width: "100px" }}>Name </TableCell>
             <TableCell>Progress %</TableCell>
-            <TableCell>Owner</TableCell>
+            {/* <TableCell>Owner</TableCell> */}
             <TableCell>Hours</TableCell>
             <TableCell>Due</TableCell>
             {/* <TableCell>Delete</TableCell> */}

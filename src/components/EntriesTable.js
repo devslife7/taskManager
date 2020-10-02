@@ -36,9 +36,9 @@ export default function EntriesTable() {
         <TableCell component='th' scope='row'>
           {entry.date}
         </TableCell>
-        <TableCell align='right'>{entry.progress}</TableCell>
-        <TableCell align='right'>{"owner"}</TableCell>
-        <TableCell align='right'>{entry.notes}</TableCell>
+        <TableCell>{entry.progress}</TableCell>
+        <TableCell>{"owner"}</TableCell>
+        <TableCell>{entry.notes}</TableCell>
         {/* <TableCell align='right'>{entry.created_at}</TableCell>
         <TableCell align='right'>{entry.updated_at}</TableCell> */}
         {/* <TableCell align='right'>

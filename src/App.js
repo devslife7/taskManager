@@ -10,6 +10,7 @@ import ProjectDetails from "./components/ProjectDetails"
 import NavBar from "./containers/NavBar"
 import Profile from "./containers/Profile"
 import Milestones from "./components/Milestones"
+import Entries from "./components/Entries"
 
 function App() {
   const dispatch = useDispatch()
@@ -27,8 +28,8 @@ function App() {
       <Route exact path='/dashboard' component={DashBoard} />
       <Route exact path='/profile' component={Profile} />
       <Route exact path='/project/details' component={ProjectDetails} />
-      <Route exact path='/milestone/details' component={Milestones} />
-      <Route exact path='/task/details' component={Tasks} />
+      <Route exact path='/milestone/details' component={Tasks} />
+      <Route exact path='/task/details' component={Entries} />
     </Router>
   )
 }
