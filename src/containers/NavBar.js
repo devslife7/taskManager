@@ -52,8 +52,8 @@ function NavBar() {
           <Grid item xs={4} container alignContent='center' className={classes.gridHeight}>
             {loggedIn && (
               <>
-                <Link to='/home' className={`${classes.links} ${classes.onHover}`}>
-                  Home
+                <Link to='/dashboard' className={`${classes.links} ${classes.onHover}`}>
+                  Dashboard
                 </Link>
                 <Link to='/project/details' className={`${classes.links} ${classes.onHover}`}>
                   Project

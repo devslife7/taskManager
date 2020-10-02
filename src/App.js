@@ -5,7 +5,7 @@ import { fetchUser } from "./actions/user"
 import Login from "./components/Login"
 import SignUp from "./components/SignUp"
 import Tasks from "./components/Tasks"
-import Home from "./components/Home"
+import DashBoard from "./containers/DashBoard"
 import ProjectDetails from "./components/ProjectDetails"
 import NavBar from "./containers/NavBar"
 import Profile from "./containers/Profile"
@@ -23,7 +23,7 @@ function App() {
       <Route exact path='/' component={Login} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/signup' component={SignUp} />
-      <Route exact path='/home' component={Home} />
+      <Route exact path='/dashboard' component={DashBoard} />
       <Route exact path='/profile' component={Profile} />
       <Route exact path='/project/details' component={ProjectDetails} />
       <Route exact path='/task/details' component={Tasks} />
