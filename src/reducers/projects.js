@@ -1,7 +1,7 @@
 const initialState = {
   allProjects: [],
   currentProject: {
-    tasks: []
+    milestones: []
   },
   loading: false
 }

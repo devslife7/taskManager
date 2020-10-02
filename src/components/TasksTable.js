@@ -7,44 +7,55 @@ import TableContainer from "@material-ui/core/TableContainer"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { IconButton } from "@material-ui/core"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
+import { fetchCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650
+    // minWidth: 650
   }
 })
 
 export default function TasksTable() {
-  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
-
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   // const handleLink = () => {
   //   console.log("click task details")
   //   localStorage.currentTaskId = task.id
   // }
 
+  const handleLink = taskId => {
+    localStorage.currentTaskId = taskId
+    dispatch(fetchCurrentTask())
+  }
+
   const renderRows = () => {
     return currentMilestone.tasks.map((task, idx) => (
       <TableRow key={idx}>
         <TableCell component='th' scope='row'>
           {task.name}
-          <Link
+          {/* <Link
             to='/task/details'
             onClick={() => (localStorage.currentTaskId = task.id)}
             style={{ marginLeft: "30px" }}
           >
             details
-          </Link>
+          </Link> */}
+          <IconButton onClick={() => handleLink(task.id)}>
+            <ArrowForwardIosIcon />
+          </IconButton>
         </TableCell>
-        <TableCell align='right'>{task.start_date}</TableCell>
-        <TableCell align='right'>{task.end_date}</TableCell>
-        <TableCell align='right'>{task.hours}</TableCell>
-        <TableCell align='right'>{"Owner"}</TableCell>
-        <TableCell align='right'>{task.progress}</TableCell>
-        <TableCell align='right'>{task.notes}</TableCell>
+        {/* <TableCell align='right'>{task.start_date}</TableCell> */}
+        <TableCell>{task.end_date}</TableCell>
+        <TableCell>{task.hours}</TableCell>
+        <TableCell>{"Owner"}</TableCell>
+        <TableCell>{task.progress}</TableCell>
+        <TableCell>{task.notes}</TableCell>
       </TableRow>
     ))
   }
@@ -68,7 +79,7 @@ export default function TasksTable() {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Start Date</TableCell>
+            {/* <TableCell>Start Date</TableCell> */}
             <TableCell align='right'>End Date</TableCell>
             <TableCell align='right'>Hours</TableCell>
             <TableCell align='right'>Owner</TableCell>

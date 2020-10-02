@@ -7,6 +7,8 @@ import EntriesCard from "./EntriesCard"
 import EntriesTable from "./EntriesTable"
 import TasksTable from "./TasksTable"
 import CreateIcon from "@material-ui/icons/Create"
+import { fetchCurrentMilestone } from "../actions/milestones"
+import AddIcon from "@material-ui/icons/Add"
 
 function Tasks() {
   const dispatch = useDispatch()
@@ -18,10 +20,9 @@ function Tasks() {
   const [completionPercentage, setCompletionPercentage] = useState("")
   const [showForm, setShowForm] = useState(false)
 
-  // useEffect(() => {
-  //   !!localStorage.currentTaskId && dispatch(fetchCurrentTask(localStorage.currentTaskId))
-  //   !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
-  // }, [dispatch])
+  useEffect(() => {
+    !!localStorage.currentMilestoneId && dispatch(fetchCurrentMilestone())
+  }, [dispatch])
 
   // const renderEntries = () => {
   //   return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()
@@ -128,15 +129,20 @@ function Tasks() {
           <p>
             {currentMilestone.start_date} - {currentMilestone.end_date}
           </p>
+
+          <br />
+          <br />
+          <span style={{ fontSize: "1.5rem" }}>Tasks</span>
+          <IconButton>
+            <AddIcon style={{ color: "green" }} />
+          </IconButton>
+          <br />
+          <br />
           <TasksTable />
         </>
       ) : (
         <div>{"Select a Milestone"}</div>
       )}
-
-      {/* <EntriesTable /> */}
-
-      {/* <h4>Tasks entries: {renderEntries()}</h4> */}
     </div>
   )
 }

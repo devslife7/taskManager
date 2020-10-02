@@ -1,12 +1,12 @@
 const tasksURL = "http://localhost:3000/tasks/"
 
-export const fetchCurrentTask = taskId => {
+export const fetchCurrentTask = () => {
   console.log("runs fetchCurrenTask action")
   return dispatch => {
-    dispatch({ type: "LOADING_DATA" })
+    dispatch({ type: "LOADING_TASK" })
 
     console.log("makes current Task fetchcall")
-    fetch(tasksURL + taskId)
+    fetch(tasksURL + localStorage.currentTaskId)
       .then(resp => resp.json())
       .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }

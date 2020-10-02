@@ -58,6 +58,9 @@ function NavBar() {
                 <Link to='/project/details' className={`${classes.links} ${classes.onHover}`}>
                   Project
                 </Link>
+                <Link to='/milestone/details' className={`${classes.links} ${classes.onHover}`}>
+                  Milestone
+                </Link>
                 <Link to='/task/details' className={`${classes.links} ${classes.onHover}`}>
                   Task
                 </Link>

@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject, removeProject } from "../actions/projects"
 import { addTask } from "../actions/projects"
-import BasicTable from "./TasksTable"
-import TaskCard from "./TaskCard"
+import MilestonesTable from "./MilestonesTable"
 
 function ProjectDetails({ history }) {
   const dispatch = useDispatch()
@@ -17,12 +16,12 @@ function ProjectDetails({ history }) {
   const [hours, setHours] = useState("")
 
   useEffect(() => {
-    !!localStorage.currentProjectId && dispatch(fetchCurrentProject(localStorage.currentProjectId))
+    !!localStorage.currentProjectId && dispatch(fetchCurrentProject())
   }, [dispatch])
 
-  const renderTasks = () => {
-    return currentProject.tasks.map((t, idx) => <TaskCard key={idx} task={t} />).reverse()
-  }
+  // const renderTasks = () => {
+  //   return currentProject.milestones.map((t, idx) => <TaskCard key={idx} task={t} />).reverse()
+  // }
 
   const handleDelete = () => {
     const projURL = "http://localhost:3000/projects/"
@@ -75,8 +74,8 @@ function ProjectDetails({ history }) {
 
         <p>Description: {currentProject.description}</p>
         <p>start date: {currentProject.start_date}</p>
-        <p>deadline: {currentProject.deadline}</p>
-        <p>completion percentage: {currentProject.completion_percentage}</p>
+        <p>deadline: {currentProject.end_date}</p>
+        <p>Progress: {`${currentProject.progress} %`}</p>
         <p>created at: {currentProject.created_at}</p>
         <p>updated at: {currentProject.updated_at}</p>
 
@@ -148,14 +147,15 @@ function ProjectDetails({ history }) {
               setEndDate(e.target.value)
             }}
           />
-          <Button type='submit' fullWidth variant='contained' color='primary'>
+          <Button type='submit' fullfWidth variant='contained' color='primary'>
             Submit
           </Button>
         </form>
       )}
 
-      <BasicTable />
-      {renderTasks()}
+      <MilestonesTable />
+      {/* <BasicTable /> */}
+      {/* {renderTasks()} */}
     </div>
   )
 }

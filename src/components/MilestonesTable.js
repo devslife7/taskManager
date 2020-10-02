@@ -47,18 +47,18 @@ export default function MilestonesTable() {
             <ArrowForwardIosIcon fontSize='small' />
           </IconButton>
         </TableCell>
-        <TableCell align='right'>{milestone.progress}</TableCell>
-        <TableCell align='right'>{"owner"}</TableCell>
-        <TableCell align='right'>{milestone.hours}</TableCell>
-        <TableCell align='right'>{milestone.end_date}</TableCell>
-        <TableCell align='right'>
-          {/* <IconButton>
+        <TableCell>{milestone.progress}</TableCell>
+        <TableCell>{"owner"}</TableCell>
+        <TableCell>{milestone.hours}</TableCell>
+        <TableCell>{milestone.end_date}</TableCell>
+        {/* <TableCell> */}
+        {/* <IconButton>
             <EditIcon fontSize='small' color='primary' />
           </IconButton> */}
-          <IconButton>
+        {/* <IconButton>
             <DeleteIcon fontSize='small' color='error' />
-          </IconButton>
-        </TableCell>
+          </IconButton> */}
+        {/* </TableCell> */}
       </TableRow>
     ))
   }
@@ -74,7 +74,7 @@ export default function MilestonesTable() {
             <TableCell>Owner</TableCell>
             <TableCell>Hours</TableCell>
             <TableCell>Due</TableCell>
-            <TableCell>Delete</TableCell>
+            {/* <TableCell>Delete</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>{renderRows()}</TableBody>

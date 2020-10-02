@@ -14,7 +14,7 @@ import EditIcon from "@material-ui/icons/Edit"
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650
+    // minWidth: 650
   }
 })
 
@@ -36,36 +36,36 @@ export default function EntriesTable() {
         <TableCell component='th' scope='row'>
           {entry.date}
         </TableCell>
-        <TableCell align='right'>{entry.completion_percentage}</TableCell>
+        <TableCell align='right'>{entry.progress}</TableCell>
         <TableCell align='right'>{"owner"}</TableCell>
         <TableCell align='right'>{entry.notes}</TableCell>
-        <TableCell align='right'>{entry.created_at}</TableCell>
-        <TableCell align='right'>{entry.updated_at}</TableCell>
-        <TableCell align='right'>
+        {/* <TableCell align='right'>{entry.created_at}</TableCell>
+        <TableCell align='right'>{entry.updated_at}</TableCell> */}
+        {/* <TableCell align='right'>
           <IconButton>
             <EditIcon color='primary' />
           </IconButton>
           <IconButton onClick={() => handleDelete(entry.id)}>
             <DeleteIcon color='error' />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
     ))
   }
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
+      <Table className={classes.table} size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
             {/* <TableCell>Name</TableCell> */}
             <TableCell>Date</TableCell>
-            <TableCell align='right'>Progress %</TableCell>
-            <TableCell align='right'>Owner</TableCell>
-            <TableCell align='right'>Notes</TableCell>
-            <TableCell align='right'>Created At</TableCell>
-            <TableCell align='right'>Updated At</TableCell>
-            <TableCell align='right'>Options</TableCell>
+            <TableCell>Progress %</TableCell>
+            <TableCell>Owner</TableCell>
+            <TableCell>Notes</TableCell>
+            {/* <TableCell align='right'>Created At</TableCell>
+            <TableCell align='right'>Updated At</TableCell> */}
+            {/* <TableCell align='right'>Options</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>{renderRows()}</TableBody>

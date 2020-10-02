@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "LOADING_DATA":
+    case "LOADING_TASK":
       return {
         ...state,
         loading: true

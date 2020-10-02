@@ -1,5 +1,6 @@
 import { Grid } from "@material-ui/core"
 import React from "react"
+import Entries from "../components/Entries"
 import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
 import Tasks from "../components/Tasks"
@@ -17,7 +18,7 @@ function DashBoard() {
         <Tasks />
       </Grid>
       <Grid item style={{ backgroundColor: "white", width: "24vw" }}>
-        <div>entries</div>
+        <Entries />
       </Grid>
     </Grid>
   )
