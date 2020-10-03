@@ -13,6 +13,7 @@ function Profile() {
         Last Name: {currentUser.last_name}
       </div>
       <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>Username: {currentUser.username}</div>
+      <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>Role: {currentUser.role}</div>
     </div>
   )
 }

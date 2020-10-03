@@ -11,6 +11,7 @@ import { useSelector } from "react-redux"
 import { IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
+import moment from "moment"
 
 const useStyles = makeStyles({
   table: {
@@ -34,9 +35,10 @@ export default function EntriesTable() {
     return currentTask.entries.map((entry, idx) => (
       <TableRow key={idx}>
         <TableCell component='th' scope='row'>
-          {entry.date}
+          {/* {entry.date} */}
+          {moment.unix(entry.date).format("ll").toString()}
         </TableCell>
-        <TableCell>{entry.progress}</TableCell>
+        <TableCell>{`${entry.progress}%`}</TableCell>
         <TableCell>{"owner"}</TableCell>
         <TableCell>{entry.notes}</TableCell>
         {/* <TableCell align='right'>{entry.created_at}</TableCell>
@@ -60,7 +62,7 @@ export default function EntriesTable() {
           <TableRow>
             {/* <TableCell>Name</TableCell> */}
             <TableCell>Date</TableCell>
-            <TableCell>Progress %</TableCell>
+            <TableCell>Progress%</TableCell>
             <TableCell>Owner</TableCell>
             <TableCell>Notes</TableCell>
             {/* <TableCell align='right'>Created At</TableCell>

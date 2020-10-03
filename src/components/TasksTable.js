@@ -12,6 +12,7 @@ import { Link } from "react-router-dom"
 import { IconButton } from "@material-ui/core"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentTask } from "../actions/tasks"
+import moment from "moment"
 
 const useStyles = makeStyles({
   table: {
@@ -50,11 +51,11 @@ export default function TasksTable() {
             <ArrowForwardIosIcon />
           </IconButton>
         </TableCell>
-        {/* <TableCell align='right'>{task.start_date}</TableCell> */}
-        <TableCell>{task.end_date}</TableCell>
-        <TableCell>{task.hours}</TableCell>
+        <TableCell>{`${task.progress}%`}</TableCell>
         <TableCell>{"Owner"}</TableCell>
-        <TableCell>{task.progress}</TableCell>
+        <TableCell>{task.hours}</TableCell>
+        <TableCell>{moment.unix(task.start_date).format("ll").toString()}</TableCell>
+        <TableCell>{moment.unix(task.end_date).format("ll").toString()}</TableCell>
         <TableCell>{task.notes}</TableCell>
       </TableRow>
     ))
@@ -79,12 +80,12 @@ export default function TasksTable() {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            {/* <TableCell>Start Date</TableCell> */}
-            <TableCell align='right'>End Date</TableCell>
-            <TableCell align='right'>Hours</TableCell>
-            <TableCell align='right'>Owner</TableCell>
-            <TableCell align='right'>Progress %</TableCell>
-            <TableCell align='right'>Notes</TableCell>
+            <TableCell>Progress%</TableCell>
+            <TableCell>Owner</TableCell>
+            <TableCell>Hours</TableCell>
+            <TableCell>Start</TableCell>
+            <TableCell>End</TableCell>
+            <TableCell>Notes</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{renderRows()}</TableBody>

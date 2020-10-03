@@ -37,15 +37,15 @@ function DashBoard() {
       <Grid item className={classes.projects}>
         <Projects />
       </Grid>
-      {/* <Grid item className={classes.milestones}>
+      <Grid item className={classes.milestones}>
         <Milestones />
-      </Grid> */}
-      {/* <Grid item className={classes.tasks}>
+      </Grid>
+      <Grid item className={classes.tasks}>
         <Tasks />
-      </Grid> */}
-      {/* <Grid item className={classes.entries}>
+      </Grid>
+      <Grid item className={classes.entries}>
         <Entries />
-      </Grid> */}
+      </Grid>
     </Grid>
   )
 }

@@ -3,6 +3,7 @@ import React from "react"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useDispatch } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
+import moment from "moment"
 
 function ProjectCard({ project }) {
   const dispatch = useDispatch()
@@ -22,8 +23,8 @@ function ProjectCard({ project }) {
         </IconButton>
       </div>
       <p>{project.description}</p>
-      <p>START: {project.start_date}</p>
-      <p>END: {project.end_date}</p>
+      <p>START: {moment.unix(project.start_date).format("ll").toString()}</p>
+      <p>END: {moment.unix(project.end_date).format("ll").toString()}</p>
       {/* </Paper> */}
     </>
   )
