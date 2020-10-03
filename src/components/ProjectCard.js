@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core"
+import { IconButton, Paper } from "@material-ui/core"
 import React from "react"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useDispatch } from "react-redux"
@@ -13,16 +13,19 @@ function ProjectCard({ project }) {
   }
 
   return (
-    <div>
-      <h4>
-        {project.name} - ({`${project.progress}%`})
+    <>
+      {/* <Paper style={{ padding: "1rem" }}> */}
+      <div style={{ margin: "0px", fontWeight: "400" }}>
+        {project.name} ({`${project.progress}%`})
         <IconButton onClick={handleSetCurrentProject}>
           <ArrowForwardIosIcon />
         </IconButton>
-      </h4>
+      </div>
       <p>{project.description}</p>
-      <p>{project.end_date}</p>
-    </div>
+      <p>START: {project.start_date}</p>
+      <p>END: {project.end_date}</p>
+      {/* </Paper> */}
+    </>
   )
 }
 

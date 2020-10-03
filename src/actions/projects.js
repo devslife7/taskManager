@@ -2,7 +2,7 @@ const projectsURL = "http://localhost:3000/projects/"
 
 export const fetchProjects = () => {
   return dispatch => {
-    dispatch({ type: "LOADING_DATA" })
+    dispatch({ type: "LOADING_PROJECT" })
 
     fetch(projectsURL)
       .then(resp => resp.json())

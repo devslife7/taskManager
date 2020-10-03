@@ -7,9 +7,11 @@ import CreateIcon from "@material-ui/icons/Create"
 
 const useStyles = makeStyles(theme => ({
   mainDiv: {
-    backgroundColor: "#fafafa"
+    // backgroundColor: "#fafafa"
     // backgroundColor: theme.palette.secondary.main
     // color: "white"
+    // color: "gray"
+    // padding: "2rem"
   }
 }))
 

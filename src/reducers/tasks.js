@@ -2,7 +2,7 @@ const initialState = {
   currentTask: {
     entries: []
   },
-  loading: false
+  loadingTask: false
 }
 
 export default (state = initialState, action) => {
@@ -10,14 +10,14 @@ export default (state = initialState, action) => {
     case "LOADING_TASK":
       return {
         ...state,
-        loading: true
+        loadingTask: true
       }
 
     case "SET_CURRENT_TASK":
       return {
         ...state,
         currentTask: action.payload,
-        loading: false
+        loadingTask: false
       }
 
     case "ADD_ENTRY":

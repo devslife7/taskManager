@@ -3,29 +3,29 @@ const initialState = {
   currentProject: {
     milestones: []
   },
-  loading: false
+  loadingProject: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "LOADING_DATA":
+    case "LOADING_PROJECT":
       return {
         ...state,
-        loading: true
+        loadingProject: true
       }
 
     case "SET_ALL_PROJECTS":
       return {
         ...state,
         allProjects: action.payload,
-        loading: false
+        loadingProject: false
       }
 
     case "SET_CURRENT_PROJECT":
       return {
         ...state,
         currentProject: action.payload,
-        loading: false
+        loadingProject: false
       }
 
     case "ADD_PROJECT":

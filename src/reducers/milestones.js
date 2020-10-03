@@ -2,7 +2,7 @@ const initialState = {
   currentMilestone: {
     tasks: []
   },
-  loading: false
+  loadingMilestone: false
 }
 
 export default (state = initialState, action) => {
@@ -10,14 +10,14 @@ export default (state = initialState, action) => {
     case "LOADING_MILESTONE":
       return {
         ...state,
-        loading: true
+        loadingMilestone: true
       }
 
     case "SET_CURRENT_MILESTONE":
       return {
         ...state,
         currentMilestone: action.payload,
-        loading: false
+        loadingMilestone: false
       }
 
     default:
