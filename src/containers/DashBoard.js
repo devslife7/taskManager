@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from "@material-ui/core"
+import { Grid, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import SimpleBreadcrumbs from "../components/SimpleBreadcrumbs"
 import Entries from "../components/Entries"
@@ -37,6 +37,8 @@ function DashBoard() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
   const currentTask = useSelector(state => state.tasks.currentTask)
   const loadingProject = useSelector(state => state.projects.loadingProject)
+  const loadingMilestone = useSelector(state => state.milestones.loadingMilestone)
+  const loadingTask = useSelector(state => state.tasks.loadingTask)
 
   return (
     <Grid container wrap='nowrap'>
@@ -48,13 +50,43 @@ function DashBoard() {
         {!!currentProject.id ? (
           <>
             {!!currentMilestone.id ? (
-              <>{!!currentTask.id ? <Entries /> : <Tasks />}</>
+              <>
+                {!!currentTask.id ? (
+                  <Entries />
+                ) : (
+                  <>
+                    {loadingTask ? (
+                      <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+                        Loading...
+                      </Typography>
+                    ) : (
+                      <Tasks />
+                    )}
+                  </>
+                )}
+              </>
             ) : (
-              <Milestones />
+              <>
+                {loadingMilestone ? (
+                  <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+                    Loading...
+                  </Typography>
+                ) : (
+                  <Milestones />
+                )}
+              </>
             )}
           </>
         ) : (
-          <>{loadingProject ? <div>Loading...</div> : <Overview />}</>
+          <>
+            {loadingProject ? (
+              <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+                Loading...
+              </Typography>
+            ) : (
+              <Overview />
+            )}
+          </>
         )}
       </Grid>
     </Grid>
