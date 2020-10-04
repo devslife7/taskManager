@@ -1,9 +1,11 @@
 import { Grid, makeStyles } from "@material-ui/core"
 import React from "react"
+import SimpleBreadcrumbs from "../components/SimpleBreadcrumbs"
 import Entries from "../components/Entries"
 import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
 import Tasks from "../components/Tasks"
+import { useSelector } from "react-redux"
 
 const useStyles = makeStyles({
   projects: {
@@ -31,22 +33,34 @@ const useStyles = makeStyles({
 
 function DashBoard() {
   const classes = useStyles()
+  const currentProject = useSelector(state => state.projects.currentProject)
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
+  const currentTask = useSelector(state => state.tasks.currentTask)
 
   return (
-    <Grid container justify='space-evenly' wrap='nowrap'>
-      <Grid item className={classes.projects}>
-        <Projects />
+    <>
+      {/* <SimpleBreadcrumbs /> */}
+      <Grid container justify='space-evenly' wrap='nowrap'>
+        <Grid item className={classes.projects}>
+          <Projects />
+        </Grid>
+        {!!currentProject.id && (
+          <Grid item className={classes.milestones}>
+            <Milestones />
+          </Grid>
+        )}
+        {!!currentMilestone.id && (
+          <Grid item className={classes.tasks}>
+            <Tasks />
+          </Grid>
+        )}
+        {!!currentTask.id && (
+          <Grid item className={classes.entries}>
+            <Entries />
+          </Grid>
+        )}
       </Grid>
-      <Grid item className={classes.milestones}>
-        <Milestones />
-      </Grid>
-      <Grid item className={classes.tasks}>
-        <Tasks />
-      </Grid>
-      <Grid item className={classes.entries}>
-        <Entries />
-      </Grid>
-    </Grid>
+    </>
   )
 }
 

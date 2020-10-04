@@ -8,7 +8,7 @@ function TasksGraph() {
       // foreColor: "#333"
     },
     xaxis: {
-      categories: ["date", "date", "date", "date"]
+      categories: ["date one", "date two", "date three", "date four", "date five"]
     }
   })
   const [series, setSeries] = useState([

@@ -10,6 +10,7 @@ import CreateIcon from "@material-ui/icons/Create"
 import { fetchCurrentMilestone } from "../actions/milestones"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
+import moment from "moment"
 
 function Tasks() {
   const dispatch = useDispatch()
@@ -128,7 +129,8 @@ function Tasks() {
 
           <p>hours: {currentMilestone.hours}</p>
           <p>
-            {currentMilestone.start_date} - {currentMilestone.end_date}
+            {moment.unix(currentMilestone.start_date).format("ll").toString()} -{" "}
+            {moment.unix(currentMilestone.end_date).format("ll").toString()}
           </p>
 
           <br />
