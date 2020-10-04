@@ -18,6 +18,11 @@ export const fetchCurrentProject = () => {
       .then(data => dispatch({ type: "SET_CURRENT_PROJECT", payload: data }))
   }
 }
+export const clearCurrentProject = () => {
+  return {
+    type: "CLEAR_CURRENT_PROJECT"
+  }
+}
 export const addProject = project => {
   return {
     type: "ADD_PROJECT",

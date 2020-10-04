@@ -38,7 +38,7 @@ function DashBoard() {
   const currentTask = useSelector(state => state.tasks.currentTask)
 
   return (
-    <Grid container wrap='nowrap'>
+    <Grid container>
       <Grid item className={classes.projects}>
         <Projects />
       </Grid>
@@ -49,10 +49,9 @@ function DashBoard() {
           <Milestones />
         </>
       ) : (
-        // </Grid>
         <Overview />
       )}
-      {!!currentMilestone.id && (
+      {/* {!!currentMilestone.id && (
         <Grid item className={classes.tasks}>
           <Tasks />
         </Grid>
@@ -61,7 +60,7 @@ function DashBoard() {
         <Grid item className={classes.entries}>
           <Entries />
         </Grid>
-      )}
+      )} */}
     </Grid>
   )
 }

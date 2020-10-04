@@ -2,21 +2,23 @@ import React from "react"
 import Typography from "@material-ui/core/Typography"
 import Breadcrumbs from "@material-ui/core/Breadcrumbs"
 import { Link } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { clearCurrentProject } from "../actions/projects"
 
 export default function SimpleBreadcrumbs() {
   const dispatch = useDispatch()
+  const currentProject = useSelector(state => state.projects.currentProject)
 
-  const clearCurrentProject = () => {
-    // dispatch(clearCurrentProject())
+  const clearProject = () => {
+    dispatch(clearCurrentProject())
   }
 
   return (
     <>
       <Breadcrumbs aria-label='breadcrumb'>
-        <Link onClick={clearCurrentProject}>Overview</Link>
-        <Link to='/milestone/details'>Core</Link>
-        <Typography color='textPrimary'>Breadcrumb</Typography>
+        <Link onClick={clearProject}>Overview</Link>
+        {/* <Link to='/milestone/details'>Core</Link> */}
+        <Typography color='textPrimary'>{currentProject.name}</Typography>
       </Breadcrumbs>
     </>
   )

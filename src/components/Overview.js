@@ -3,7 +3,7 @@ import OverviewGraph from "./OverviewGraph"
 
 export default function Overview() {
   return (
-    <div style={{ width: "100%", backgroundColor: "fafafa" }}>
+    <div style={{ backgroundColor: "gray" }}>
       <OverviewGraph />
     </div>
   )

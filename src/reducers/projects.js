@@ -28,6 +28,12 @@ export default (state = initialState, action) => {
         loadingProject: false
       }
 
+    case "CLEAR_CURRENT_PROJECT":
+      return {
+        ...state,
+        currentProject: { milestones: [] }
+      }
+
     case "ADD_PROJECT":
       return {
         ...state,
