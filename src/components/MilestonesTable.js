@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
+// import { makeStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
@@ -9,20 +9,20 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { useDispatch, useSelector } from "react-redux"
 import { IconButton } from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
+// import DeleteIcon from "@material-ui/icons/Delete"
 // import EditIcon from "@material-ui/icons/Edit"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentMilestone } from "../actions/milestones"
 import moment from "moment"
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650
-  }
-})
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 650
+//   }
+// })
 
 export default function MilestonesTable() {
-  const classes = useStyles()
+  // const classes = useStyles()
   const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
 

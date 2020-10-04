@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Chart from "react-apexcharts"
 
 function MilestonesGraph() {
-  const [options, setOptions] = useState({
+  const [options] = useState({
     chart: {
       // background: "#f4f4f4"
       // foreColor: "#333"
@@ -11,7 +11,7 @@ function MilestonesGraph() {
       categories: ["date", "date", "date", "date"]
     }
   })
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: "Progress",
       data: [20, 10, 30, 50, 80]

@@ -9,7 +9,7 @@ import DashBoard from "./containers/DashBoard"
 import ProjectDetails from "./components/ProjectDetails"
 import NavBar from "./containers/NavBar"
 import Profile from "./containers/Profile"
-import Milestones from "./components/Milestones"
+// import Milestones from "./components/Milestones"
 import Entries from "./components/Entries"
 
 function App() {

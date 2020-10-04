@@ -8,9 +8,9 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { useSelector } from "react-redux"
-import { IconButton } from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
+// import { IconButton } from "@material-ui/core"
+// import DeleteIcon from "@material-ui/icons/Delete"
+// import EditIcon from "@material-ui/icons/Edit"
 import moment from "moment"
 
 const useStyles = makeStyles({
@@ -23,13 +23,13 @@ export default function EntriesTable() {
   const classes = useStyles()
   const currentTask = useSelector(state => state.tasks.currentTask)
 
-  const handleDelete = entryId => {
-    const entriesURL = "http://localhost:3000/entries/"
+  // const handleDelete = entryId => {
+  //   const entriesURL = "http://localhost:3000/entries/"
 
-    fetch(entriesURL + entryId, { method: "DELETE" })
-      .then(resp => resp.json())
-      .then(data => console.log(data))
-  }
+  //   fetch(entriesURL + entryId, { method: "DELETE" })
+  //     .then(resp => resp.json())
+  //     .then(data => console.log(data))
+  // }
 
   const renderRows = () => {
     return currentTask.entries.map((entry, idx) => (

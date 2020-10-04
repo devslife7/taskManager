@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 
 export default function OverviewGraph() {
-  const allProjects = useSelector(state => state.projects.allProjects)
-  const [options, setOptions] = useState({
+  // const allProjects = useSelector(state => state.projects.allProjects)
+  const [options] = useState({
     chart: {
       background: "gray",
       foreColor: "#333"
@@ -28,7 +28,7 @@ export default function OverviewGraph() {
       }
     }
   })
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: "Progress",
       data: ["0%", 40, 30, 70, 80]

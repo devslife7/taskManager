@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Chart from "react-apexcharts"
 
 function TasksGraph() {
-  const [options, setOptions] = useState({
+  const [options] = useState({
     chart: {
       // background: "#f4f4f4"
       // foreColor: "#333"
@@ -11,7 +11,7 @@ function TasksGraph() {
       categories: ["date one", "date two", "date three", "date four", "date five"]
     }
   })
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: "Progress",
       data: [10, 40, 30, 70, 80]

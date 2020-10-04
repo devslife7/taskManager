@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@material-ui/core"
+import { IconButton } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
@@ -15,7 +15,7 @@ function Milestones() {
 
   useEffect(() => {
     !!localStorage.currentProjectId && dispatch(fetchCurrentProject())
-  }, [])
+  }, [dispatch])
 
   return (
     <div>

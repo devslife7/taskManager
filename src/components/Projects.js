@@ -1,7 +1,7 @@
 import {
   Button,
   Divider,
-  IconButton,
+  // IconButton,
   InputAdornment,
   makeStyles,
   TextField,
@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addProject, fetchProjects } from "../actions/projects"
 import ProjectCard from "./ProjectCard"
-import CreateIcon from "@material-ui/icons/Create"
+// import CreateIcon from "@material-ui/icons/Create"
 import SearchIcon from "@material-ui/icons/Search"
 
 const useStyles = makeStyles(theme => ({
@@ -41,9 +41,9 @@ function Projects() {
   const [endDate, setEndDate] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
 
-  const handleAddProject = e => {
-    setShowForm(!showForm)
-  }
+  // const handleAddProject = e => {
+  //   setShowForm(!showForm)
+  // }
 
   const handleSubmit = e => {
     e.preventDefault()

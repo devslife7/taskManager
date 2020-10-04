@@ -1,10 +1,10 @@
-import { Button, Grid, IconButton, TextField } from "@material-ui/core"
+import { Button, IconButton, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCurrentProject } from "../actions/projects"
-import { addEntry, fetchCurrentTask } from "../actions/tasks"
-import EntriesCard from "./EntriesCard"
-import EntriesTable from "./EntriesTable"
+// import { fetchCurrentProject } from "../actions/projects"
+// import { addEntry, fetchCurrentTask } from "../actions/tasks"
+// import EntriesCard from "./EntriesCard"
+// import EntriesTable from "./EntriesTable"
 import TasksTable from "./TasksTable"
 import CreateIcon from "@material-ui/icons/Create"
 import { fetchCurrentMilestone } from "../actions/milestones"
@@ -14,9 +14,9 @@ import moment from "moment"
 
 function Tasks() {
   const dispatch = useDispatch()
-  const currentProject = useSelector(state => state.projects.currentProject)
-  const currentTask = useSelector(state => state.tasks.currentTask)
-  const currentUser = useSelector(state => state.user.currentUser)
+  // const currentProject = useSelector(state => state.projects.currentProject)
+  // const currentTask = useSelector(state => state.tasks.currentTask)
+  // const currentUser = useSelector(state => state.user.currentUser)
   const [date, setDate] = useState("")
   const [notes, setNotes] = useState("")
   const [completionPercentage, setCompletionPercentage] = useState("")
