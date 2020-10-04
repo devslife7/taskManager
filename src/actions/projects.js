@@ -11,7 +11,7 @@ export const fetchProjects = () => {
 }
 export const fetchCurrentProject = () => {
   return dispatch => {
-    dispatch({ type: "LOADING_DATA" })
+    dispatch({ type: "LOADING_PROJECT" })
 
     fetch(projectsURL + localStorage.currentProjectId)
       .then(resp => resp.json())

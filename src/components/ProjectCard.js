@@ -1,8 +1,10 @@
 import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import { useDispatch } from "react-redux"
-import { fetchCurrentProject } from "../actions/projects"
+import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
 import moment from "moment"
+import { clearCurrentMilestone } from "../actions/milestones"
+import { clearCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
@@ -17,6 +19,9 @@ function ProjectCard({ project }) {
   const handleSetCurrentProject = () => {
     localStorage.currentProjectId = project.id
     dispatch(fetchCurrentProject())
+    dispatch(clearCurrentProject())
+    dispatch(clearCurrentMilestone())
+    dispatch(clearCurrentTask())
   }
 
   return (

@@ -36,6 +36,7 @@ function DashBoard() {
   const currentProject = useSelector(state => state.projects.currentProject)
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
   const currentTask = useSelector(state => state.tasks.currentTask)
+  const loadingProject = useSelector(state => state.projects.loadingProject)
 
   return (
     <Grid container wrap='nowrap'>
@@ -53,7 +54,7 @@ function DashBoard() {
             )}
           </>
         ) : (
-          <Overview />
+          <>{loadingProject ? <div>Loading...</div> : <Overview />}</>
         )}
       </Grid>
     </Grid>
