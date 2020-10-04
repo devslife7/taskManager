@@ -38,19 +38,22 @@ function DashBoard() {
   const currentTask = useSelector(state => state.tasks.currentTask)
 
   return (
-    <Grid container>
+    <Grid container wrap='nowrap'>
       <Grid item className={classes.projects}>
         <Projects />
       </Grid>
-      {!!currentProject.id ? (
-        // <Grid item className={classes.milestones}>
-        <>
-          <SimpleBreadcrumbs />
-          <Milestones />
-        </>
-      ) : (
-        <Overview />
-      )}
+      <Grid item container direction='column' style={{ padding: "1vw" }}>
+        <SimpleBreadcrumbs />
+        {!!currentProject.id ? (
+          // <Grid item className={classes.milestones}>
+          <>
+            <Milestones />
+          </>
+        ) : (
+          <Overview />
+        )}
+      </Grid>
+
       {/* {!!currentMilestone.id && (
         <Grid item className={classes.tasks}>
           <Tasks />

@@ -9,6 +9,13 @@ export const fetchCurrentTask = () => {
       .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }
 }
+
+export const clearCurrentTask = () => {
+  return {
+    type: "CLEAR_CURRENT_TASK"
+  }
+}
+
 export const addEntry = entry => {
   return {
     type: "ADD_ENTRY",

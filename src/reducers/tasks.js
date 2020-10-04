@@ -20,6 +20,12 @@ export default (state = initialState, action) => {
         loadingTask: false
       }
 
+    case "CLEAR_CURRENT_TASK":
+      return {
+        ...state,
+        currentTask: { entries: [] }
+      }
+
     case "ADD_ENTRY":
       return {
         ...state,

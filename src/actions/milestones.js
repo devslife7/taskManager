@@ -9,3 +9,8 @@ export const fetchCurrentMilestone = () => {
       .then(data => dispatch({ type: "SET_CURRENT_MILESTONE", payload: data }))
   }
 }
+export const clearCurrentMilestone = () => {
+  return {
+    type: "CLEAR_CURRENT_MILESTONE"
+  }
+}

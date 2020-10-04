@@ -20,6 +20,12 @@ export default (state = initialState, action) => {
         loadingMilestone: false
       }
 
+    case "CLEAR_CURRENT_MILESTONE":
+      return {
+        ...state,
+        currentMilestone: { tasks: [] }
+      }
+
     default:
       return state
   }
