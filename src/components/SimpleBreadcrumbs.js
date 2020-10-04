@@ -22,19 +22,29 @@ export default function SimpleBreadcrumbs() {
   }
 
   return (
-    <Breadcrumbs aria-label='breadcrumb' separator={<NavigateNextIcon />}>
-      <Button onClick={clearCurrentData} style={{ textDecoration: "none" }}>
+    <Breadcrumbs
+      aria-label='breadcrumb'
+      separator={<NavigateNextIcon />}
+      style={{ marginBottom: "5vh" }}
+    >
+      <Button variant='outlined' onClick={clearCurrentData} style={{ textDecoration: "none" }}>
         <Typography color='textPrimary'>Overview</Typography>
       </Button>
-      <Button>
-        <Typography color='textPrimary'>{currentProject.name}</Typography>
-      </Button>
-      <Button>
-        <Typography color='textPrimary'>{currentMilestone.name}</Typography>
-      </Button>
-      <Button>
-        <Typography color='textPrimary'>{currentTask.name}</Typography>
-      </Button>
+      {currentProject.id && (
+        <Button>
+          <Typography color='textPrimary'>{currentProject.name}</Typography>
+        </Button>
+      )}
+      {currentMilestone.id && (
+        <Button>
+          <Typography color='textPrimary'>{currentMilestone.name}</Typography>
+        </Button>
+      )}
+      {currentTask.id && (
+        <Button>
+          <Typography color='textPrimary'>{currentTask.name}</Typography>
+        </Button>
+      )}
     </Breadcrumbs>
   )
 }

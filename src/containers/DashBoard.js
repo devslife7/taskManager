@@ -45,25 +45,17 @@ function DashBoard() {
       <Grid item container direction='column' style={{ padding: "1vw" }}>
         <SimpleBreadcrumbs />
         {!!currentProject.id ? (
-          // <Grid item className={classes.milestones}>
           <>
-            <Milestones />
+            {!!currentMilestone.id ? (
+              <>{!!currentTask.id ? <Entries /> : <Tasks />}</>
+            ) : (
+              <Milestones />
+            )}
           </>
         ) : (
           <Overview />
         )}
       </Grid>
-
-      {/* {!!currentMilestone.id && (
-        <Grid item className={classes.tasks}>
-          <Tasks />
-        </Grid>
-      )}
-      {!!currentTask.id && (
-        <Grid item className={classes.entries}>
-          <Entries />
-        </Grid>
-      )} */}
     </Grid>
   )
 }
