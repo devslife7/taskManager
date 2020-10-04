@@ -1,9 +1,18 @@
-import { Button, IconButton, makeStyles, TextField, Typography } from "@material-ui/core"
+import {
+  Button,
+  Divider,
+  IconButton,
+  InputAdornment,
+  makeStyles,
+  TextField,
+  Typography
+} from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addProject, fetchProjects } from "../actions/projects"
 import ProjectCard from "./ProjectCard"
 import CreateIcon from "@material-ui/icons/Create"
+import SearchIcon from "@material-ui/icons/Search"
 
 const useStyles = makeStyles(theme => ({
   mainDiv: {
@@ -12,6 +21,11 @@ const useStyles = makeStyles(theme => ({
     // color: "white"
     // color: "gray"
     // padding: "2rem"
+  },
+  searchBox: {
+    // marginLeft: "20px",
+    // marginBottom: "1rem"
+    margin: "1rem 3rem"
   }
 }))
 
@@ -19,12 +33,13 @@ function Projects() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const loading = useSelector(state => state.projects.loading)
-  const projects = useSelector(state => state.projects.allProjects)
+  const allProjects = useSelector(state => state.projects.allProjects)
   const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
 
   const handleAddProject = e => {
     setShowForm(!showForm)
@@ -67,15 +82,30 @@ function Projects() {
   }, [dispatch])
 
   const renderProjects = () => {
-    return projects.map((proj, idx) => <ProjectCard key={idx} project={proj} />).reverse()
+    const filterProjects = allProjects.filter(proj =>
+      proj.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
+    return filterProjects.map((proj, idx) => <ProjectCard key={idx} project={proj} />).reverse()
   }
 
   return (
     <div className={classes.mainDiv}>
-      <span style={{ fontSize: "1.6rem", margin: "90px 0px 0px 50px" }}>Projects</span>
-      <IconButton onClick={handleAddProject}>
-        <CreateIcon />
-      </IconButton>
+      <TextField
+        value={searchTerm}
+        onChange={event => setSearchTerm(event.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment>
+              <SearchIcon />
+            </InputAdornment>
+          )
+        }}
+        className={classes.searchBox}
+        label='Search Projects'
+      />
+      <Divider />
+
       {showForm && (
         <form noValidate onSubmit={handleSubmit}>
           <TextField

@@ -10,9 +10,8 @@ import { useSelector } from "react-redux"
 const useStyles = makeStyles({
   projects: {
     backgroundColor: "#E1F0FA",
-    minWidth: "12vw",
-    maxWidth: "40vw",
-    padding: "1rem"
+    width: "15vw",
+    height: "95vh"
   },
   milestones: {
     backgroundColor: "#fafafa",
@@ -38,29 +37,29 @@ function DashBoard() {
   const currentTask = useSelector(state => state.tasks.currentTask)
 
   return (
-    <>
-      {/* <SimpleBreadcrumbs /> */}
-      <Grid container justify='space-evenly' wrap='nowrap'>
-        <Grid item className={classes.projects}>
-          <Projects />
-        </Grid>
-        {!!currentProject.id && (
-          <Grid item className={classes.milestones}>
-            <Milestones />
-          </Grid>
-        )}
-        {!!currentMilestone.id && (
-          <Grid item className={classes.tasks}>
-            <Tasks />
-          </Grid>
-        )}
-        {!!currentTask.id && (
-          <Grid item className={classes.entries}>
-            <Entries />
-          </Grid>
-        )}
+    <Grid container wrap='nowrap'>
+      <Grid item className={classes.projects}>
+        <Projects />
       </Grid>
-    </>
+      {!!currentProject.id ? (
+        <Grid item className={classes.milestones}>
+          <SimpleBreadcrumbs />
+          <Milestones />
+        </Grid>
+      ) : (
+        <div>All Project Graphs</div>
+      )}
+      {!!currentMilestone.id && (
+        <Grid item className={classes.tasks}>
+          <Tasks />
+        </Grid>
+      )}
+      {!!currentTask.id && (
+        <Grid item className={classes.entries}>
+          <Entries />
+        </Grid>
+      )}
+    </Grid>
   )
 }
 

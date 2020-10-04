@@ -1,4 +1,12 @@
-import { IconButton, Paper } from "@material-ui/core"
+import {
+  Divider,
+  Grid,
+  IconButton,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography
+} from "@material-ui/core"
 import React from "react"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useDispatch } from "react-redux"
@@ -15,17 +23,23 @@ function ProjectCard({ project }) {
 
   return (
     <>
-      {/* <Paper style={{ padding: "1rem" }}> */}
-      <div style={{ margin: "0px", fontWeight: "400" }}>
-        {project.name} ({`${project.progress}%`})
-        <IconButton onClick={handleSetCurrentProject}>
-          <ArrowForwardIosIcon />
-        </IconButton>
-      </div>
-      <p>{project.description}</p>
-      <p>START: {moment.unix(project.start_date).format("ll").toString()}</p>
-      <p>END: {moment.unix(project.end_date).format("ll").toString()}</p>
-      {/* </Paper> */}
+      <ListItem button style={{ padding: "0.7rem 3rem" }}>
+        <Grid container direction='column'>
+          <Grid item>
+            <ListItemText primary={project.name} />
+          </Grid>
+          <Grid item container justify='space-between'>
+            <Typography variant='subtitle2' color='textSecondary' gutterBottom>
+              {moment.unix(project.end_date).format("ll").toString()}
+            </Typography>
+            <Typography variant='subtitle2' color='textSecondary' gutterBottom>
+              {`${project.progress}%`}
+            </Typography>
+          </Grid>
+        </Grid>
+      </ListItem>
+
+      <Divider />
     </>
   )
 }
