@@ -85,7 +85,7 @@ function Projects() {
     const filterProjects = allProjects.filter(proj =>
       proj.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
-
+    filterProjects.sort((a, b) => b.end_date - a.end_date) // Sorts Projects by end_date
     return filterProjects.map((proj, idx) => <ProjectCard key={idx} project={proj} />).reverse()
   }
 

@@ -1,0 +1,50 @@
+import React, { useState } from "react"
+import Chart from "react-apexcharts"
+import { useSelector } from "react-redux"
+
+export default function OverviewGraph() {
+  const allProjects = useSelector(state => state.projects.allProjects)
+  const [options, setOptions] = useState({
+    chart: {
+      background: "gray",
+      foreColor: "#333"
+    },
+    xaxis: {
+      categories: ["date one", "date two", "date three", "date four", "date five"]
+    },
+    fill: {
+      colors: ["#f44336"]
+    },
+    dalaLabels: {
+      enabled: false
+    },
+    title: {
+      text: "Projects Overview",
+      align: "center",
+      margin: 40,
+      offsetY: 20,
+      style: {
+        fontSize: "1.6rem"
+      }
+    }
+  })
+  const [series, setSeries] = useState([
+    {
+      name: "Progress",
+      data: ["0%", 40, 30, 70, 80]
+    }
+  ])
+
+  return (
+    <div>
+      <Chart
+        options={options}
+        series={series}
+        type='bar'
+        heigth='450'
+        width='900'
+        style={{ margin: "5vh 0 0 10vw" }}
+      />
+    </div>
+  )
+}

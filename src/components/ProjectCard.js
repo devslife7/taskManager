@@ -1,19 +1,17 @@
-import {
-  Divider,
-  Grid,
-  IconButton,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography
-} from "@material-ui/core"
+import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useDispatch } from "react-redux"
 import { fetchCurrentProject } from "../actions/projects"
 import moment from "moment"
 
+const useStyles = makeStyles(theme => ({
+  ListItem: {
+    padding: "0.7rem 3rem"
+  }
+}))
+
 function ProjectCard({ project }) {
+  const classes = useStyles()
   const dispatch = useDispatch()
 
   const handleSetCurrentProject = () => {
@@ -23,7 +21,7 @@ function ProjectCard({ project }) {
 
   return (
     <>
-      <ListItem button style={{ padding: "0.7rem 3rem" }}>
+      <ListItem button className={classes.ListItem} onClick={handleSetCurrentProject}>
         <Grid container direction='column'>
           <Grid item>
             <ListItemText primary={project.name} />

@@ -6,6 +6,7 @@ import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
 import Tasks from "../components/Tasks"
 import { useSelector } from "react-redux"
+import Overview from "../components/Overview"
 
 const useStyles = makeStyles({
   projects: {
@@ -42,12 +43,14 @@ function DashBoard() {
         <Projects />
       </Grid>
       {!!currentProject.id ? (
-        <Grid item className={classes.milestones}>
+        // <Grid item className={classes.milestones}>
+        <>
           <SimpleBreadcrumbs />
           <Milestones />
-        </Grid>
+        </>
       ) : (
-        <div>All Project Graphs</div>
+        // </Grid>
+        <Overview />
       )}
       {!!currentMilestone.id && (
         <Grid item className={classes.tasks}>
