@@ -5,15 +5,22 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
   Grid,
+  Input,
+  InputLabel,
   makeStyles,
-  TextField
+  Switch,
+  TextField,
+  Typography
 } from "@material-ui/core"
 import React, { useState } from "react"
 import OverviewGraph from "./OverviewGraph"
 import AddIcon from "@material-ui/icons/Add"
 import { useDispatch } from "react-redux"
-import DatePicker from "./DatePicker"
+
+import DateFnsUtils from "@date-io/date-fns"
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -21,17 +28,32 @@ const useStyles = makeStyles(theme => ({
     margin: "5vh 0 0 10vw",
     fontSize: "1rem",
     backgroundColor: "#2b9af7"
+  },
+  KeyboardDatePicker: {
+    // width: "7.5vw"
+    width: "140px"
+  },
+  DialogContent: {
+    height: "250px",
+    width: "350px"
   }
 }))
 
 export default function Overview() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
+  const [openDialog, setOpenDialog] = useState(false)
+  const [displayImport, setDisplayImport] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [importFile, setImportFile] = useState("")
+
+  const handleOpenDialog = () => setOpenDialog(true)
+  const handleCloseDialog = () => setOpenDialog(false)
+  const handleSetStartDate = date => setStartDate(date)
+  const handleSetEndDate = date => setEndDate(date)
 
   // const handleAddProject = e => {
   //   setShowForm(!showForm)
@@ -69,13 +91,6 @@ export default function Overview() {
   //   setEndDate("")
   // }
 
-  const [openDialog, setOpenDialog] = useState(false)
-
-  const handleOpenDialog = () => setOpenDialog(true)
-  const handleCloseDialog = () => {
-    setOpenDialog(false)
-  }
-
   return (
     <div style={{ backgroundColor: "#fafafa" }}>
       <Button
@@ -90,21 +105,42 @@ export default function Overview() {
       <OverviewGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{"Create New Project"}</DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText id='alert-dialog-description'>
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
-          </DialogContentText> */}
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+          {"Create New Project"}
+        </Typography>
 
-          <form noValidate>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={displayImport}
+              onChange={() => setDisplayImport(!displayImport)}
+              name='checkedB'
+              color='primary'
+            />
+          }
+          label='Import From Excel File'
+          style={{ marginTop: "20px", marginLeft: "15px", marginBottom: "10px" }}
+        />
+
+        {displayImport ? (
+          <DialogContent className={classes.DialogContent}>
+            <InputLabel htmlFor='my-input' style={{ margin: "20px 0px" }}>
+              Select Import File
+            </InputLabel>
+            <input
+              id='customFile'
+              type='file'
+              onChange={e => setImportFile(e.target.files[0])}
+              // style={{ color: "red", backgroundColor: "yellow" }}
+            />
+          </DialogContent>
+        ) : (
+          <DialogContent className={classes.DialogContent}>
             <TextField
               variant='outlined'
               margin='normal'
               fullWidth
-              required
               label='Name'
-              autoFocus
               value={name}
               onChange={e => {
                 setName(e.target.value)
@@ -120,9 +156,41 @@ export default function Overview() {
                 setDescription(e.target.value)
               }}
             />
-            <DatePicker />
-          </form>
-        </DialogContent>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Grid container justify='space-around'>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-inline'
+                  label='Start Date'
+                  value={startDate}
+                  onChange={handleSetStartDate}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date"
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-inline'
+                  label='End Date'
+                  value={endDate}
+                  onChange={handleSetEndDate}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date"
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+          </DialogContent>
+        )}
+
         <DialogActions>
           <Button
             variant='contained'
