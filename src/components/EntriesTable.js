@@ -16,7 +16,7 @@ import { fromUnixTime, format } from "date-fns"
 
 const useStyles = makeStyles({
   table: {
-    width: "65vw",
+    width: "45vw",
     marginTop: "1vh",
     marginLeft: "10vw",
   },
@@ -37,11 +37,11 @@ export default function EntriesTable() {
   const renderRows = () => {
     return currentTask.entries.map((entry, idx) => (
       <TableRow key={idx}>
-        <TableCell component='th' scope='row'>
+        <TableCell>{"owner"}</TableCell>
+        <TableCell align='right'>{`${entry.progress}%`}</TableCell>
+        <TableCell align='right' component='th' scope='row'>
           {format(fromUnixTime(entry.date), "PP")}
         </TableCell>
-        <TableCell align='right'>{`${entry.progress}%`}</TableCell>
-        <TableCell align='right'>{"owner"}</TableCell>
         <TableCell align='right'>{entry.notes}</TableCell>
 
         <TableCell align='right'>
@@ -72,9 +72,9 @@ export default function EntriesTable() {
       <Table size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
+            <TableCell>Owner</TableCell>
             <TableCell align='right'>Progress%</TableCell>
-            <TableCell align='right'>Owner</TableCell>
+            <TableCell align='right'>Date</TableCell>
             <TableCell align='right'>Notes</TableCell>
             <TableCell align='right'>Actions</TableCell>
           </TableRow>
