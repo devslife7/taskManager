@@ -7,6 +7,7 @@ import Projects from "../components/Projects"
 import Tasks from "../components/Tasks"
 import { useSelector } from "react-redux"
 import Overview from "../components/Overview"
+import DatePicker from "../components/DatePicker"
 
 const useStyles = makeStyles({
   projects: {
@@ -35,6 +36,7 @@ function DashBoard() {
       </Grid>
       <Grid item container direction='column' style={{ padding: "1vw" }}>
         <Breadcrumbs />
+        <DatePicker />
         {!!currentProject.id ? (
           <>
             {!!currentMilestone.id ? (

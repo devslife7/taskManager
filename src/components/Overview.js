@@ -1,8 +1,18 @@
-import { Button, makeStyles, TextField } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  makeStyles,
+  TextField
+} from "@material-ui/core"
 import React, { useState } from "react"
 import OverviewGraph from "./OverviewGraph"
 import AddIcon from "@material-ui/icons/Add"
 import { useDispatch } from "react-redux"
+import DatePicker from "./DatePicker"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -58,6 +68,13 @@ export default function Overview() {
   //   setEndDate("")
   // }
 
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleOpenDialog = () => setOpenDialog(true)
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+  }
+
   return (
     <div style={{ backgroundColor: "#fafafa" }}>
       <Button
@@ -65,63 +82,65 @@ export default function Overview() {
         color='secondary'
         startIcon={<AddIcon />}
         className={classes.button}
+        onClick={handleOpenDialog}
       >
         Add Project
       </Button>
       <OverviewGraph />
 
-      {showForm && (
-        <form noValidate>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            required
-            label='Name'
-            autoFocus
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Description'
-            value={description}
-            onChange={e => {
-              setDescription(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Start Date'
-            value={startDate}
-            onChange={e => {
-              setStartDate(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='End Date'
-            value={endDate}
-            onChange={e => {
-              setEndDate(e.target.value)
-            }}
-          />
-          <Button type='submit' fullWidth variant='contained' color='primary'>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{"Create New Project"}</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText id='alert-dialog-description'>
+            Let Google help apps determine location. This means sending anonymous location data to
+            Google, even when no apps are running.
+          </DialogContentText> */}
+
+          <form noValidate>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              required
+              label='Name'
+              autoFocus
+              value={name}
+              onChange={e => {
+                setName(e.target.value)
+              }}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              label='Description'
+              value={description}
+              onChange={e => {
+                setDescription(e.target.value)
+              }}
+            />
+            <DatePicker />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleCloseDialog}
+            color='primary'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleCloseDialog}
+            color='primary'
+          >
             Submit
           </Button>
-        </form>
-      )}
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }
