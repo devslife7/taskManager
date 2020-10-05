@@ -1,15 +1,16 @@
 import {
-  Button,
+  // Button,
   Divider,
   // IconButton,
   InputAdornment,
   makeStyles,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addProject, fetchProjects } from "../actions/projects"
+// import { addProject } from "../actions/projects"
+import { fetchProjects } from "../actions/projects"
 import ProjectCard from "./ProjectCard"
 // import CreateIcon from "@material-ui/icons/Create"
 import SearchIcon from "@material-ui/icons/Search"
@@ -25,8 +26,8 @@ const useStyles = makeStyles(theme => ({
   searchBox: {
     // marginLeft: "20px",
     // marginBottom: "1rem"
-    margin: "1rem 3rem"
-  }
+    margin: "1rem 3rem",
+  },
 }))
 
 function Projects() {
@@ -63,7 +64,7 @@ function Projects() {
             <InputAdornment>
               <SearchIcon />
             </InputAdornment>
-          )
+          ),
         }}
         className={classes.searchBox}
         label='Search Projects'

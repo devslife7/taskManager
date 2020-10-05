@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, makeStyles, TextField, Typography } from "@material-ui/core"
+import { Button, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { fetchCurrentProject } from "../actions/projects"
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 // import EntriesCard from "./EntriesCard"
 // import EntriesTable from "./EntriesTable"
 import TasksTable from "./TasksTable"
-import CreateIcon from "@material-ui/icons/Create"
+// import CreateIcon from "@material-ui/icons/Create"
 import { fetchCurrentMilestone } from "../actions/milestones"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
@@ -31,7 +31,7 @@ function Tasks() {
   const [date, setDate] = useState("")
   const [notes, setNotes] = useState("")
   const [completionPercentage, setCompletionPercentage] = useState("")
-  const [showForm, setShowForm] = useState(false)
+  // const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     !!localStorage.currentMilestoneId && dispatch(fetchCurrentMilestone())
@@ -51,10 +51,10 @@ function Tasks() {
   //     .then(data => console.log(data))
   // }
 
-  const handleAddEntry = () => {
-    console.log("add entry")
-    setShowForm(!showForm)
-  }
+  // const handleAddEntry = () => {
+  //   console.log("add entry")
+  //   setShowForm(!showForm)
+  // }
 
   // const handleSubmit = e => {
   //   e.preventDefault()
@@ -98,47 +98,46 @@ function Tasks() {
             align='center'>{`Progress: ${currentMilestone.progress}%`}</Typography>
           <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
 
-          {showForm && (
-            <form noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                required
-                label='Date'
-                autoFocus
-                value={date}
-                onChange={e => {
-                  setDate(e.target.value)
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                label='Notes'
-                value={notes}
-                onChange={e => {
-                  setNotes(e.target.value)
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                label='Progress %'
-                value={completionPercentage}
-                onChange={e => {
-                  setCompletionPercentage(e.target.value)
-                }}
-              />
-              <Button type='submit' fullWidth variant='contained' color='primary'>
-                Submit
-              </Button>
-            </form>
-          )}
+          {/* {showForm && ( */}
+          <form noValidate>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              required
+              label='Date'
+              autoFocus
+              value={date}
+              onChange={e => {
+                setDate(e.target.value)
+              }}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Notes'
+              value={notes}
+              onChange={e => {
+                setNotes(e.target.value)
+              }}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Progress %'
+              value={completionPercentage}
+              onChange={e => {
+                setCompletionPercentage(e.target.value)
+              }}
+            />
+            <Button type='submit' fullWidth variant='contained' color='primary'>
+              Submit
+            </Button>
+          </form>
 
           <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
             Add Task

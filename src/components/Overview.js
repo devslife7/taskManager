@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
+  // DialogTitle,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -15,7 +15,7 @@ import {
 import React, { useState } from "react"
 import OverviewGraph from "./OverviewGraph"
 import AddIcon from "@material-ui/icons/Add"
-import { useDispatch } from "react-redux"
+// import { useDispatch } from "react-redux"
 
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
@@ -39,21 +39,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function Overview() {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [openDialog, setOpenDialog] = useState(false)
   const [displayImport, setDisplayImport] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const [importFile, setImportFile] = useState("")
+  // const [importFile, setImportFile] = useState("")
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
   const handleCloseDialog = () => {
     setOpenDialog(false)
-    setImportFile("")
+    // setImportFile("")
     setDisplayImport(false)
   }
 
@@ -127,7 +127,7 @@ export default function Overview() {
             <input
               id='customFile'
               type='file'
-              onChange={e => setImportFile(e.target.files[0])}
+              // onChange={e => setImportFile(e.target.files[0])}
               // style={{ color: "red", backgroundColor: "yellow" }}
             />
           </DialogContent>
