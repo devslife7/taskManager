@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core"
+import { Button, IconButton, makeStyles, Typography } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { fetchCurrentMilestone } from "../actions/milestones"
@@ -8,7 +8,18 @@ import { fetchCurrentTask } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
 import { fromUnixTime, format } from "date-fns"
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    textTransform: "none",
+    fontSize: "1rem",
+    backgroundColor: "#2b9af7",
+    marginLeft: "10vw",
+    marginTop: "2vh",
+  },
+}))
+
 function Entries() {
+  const classes = useStyles()
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
 
@@ -17,35 +28,25 @@ function Entries() {
   }, [dispatch])
 
   return (
-    <div>
-      {!!currentTask.id ? (
-        <>
-          <h2>
-            {currentTask.name} ({`${currentTask.progress}%`})
-            <IconButton>
-              <CreateIcon fontSize='small' />
-            </IconButton>
-          </h2>
+    <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
+      <>
+        <Typography variant='h6' align='center'>
+          {currentTask.notes}
+        </Typography>
+        <Typography variant='subtitle1' align='center'>
+          {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
+          {format(fromUnixTime(currentTask.end_date), "PP")}
+        </Typography>
+        <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
+        <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
+        <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
 
-          <p>hours: {currentTask.hours}</p>
-          <p>
-            {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
-            {format(fromUnixTime(currentTask.end_date), "PP")}
-          </p>
+        <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
+          Add Entry
+        </Button>
 
-          <br />
-          <br />
-          <span style={{ fontSize: "1.5rem" }}>Entries</span>
-          <IconButton>
-            <AddIcon style={{ color: "green" }} />
-          </IconButton>
-          <br />
-          <br />
-          <EntriesTable />
-        </>
-      ) : (
-        <div>{"Select a Task"}</div>
-      )}
+        <EntriesTable />
+      </>
     </div>
   )
 }

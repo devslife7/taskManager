@@ -70,7 +70,7 @@ export default function MilestonesTable() {
       <Table size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell>Milestones</TableCell>
             {/* <TableCell style={{ width: "100px" }}>Name </TableCell> */}
             <TableCell align='right'>Progress%</TableCell>
             <TableCell align='right'>Hours</TableCell>

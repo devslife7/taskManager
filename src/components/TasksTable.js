@@ -66,7 +66,7 @@ export default function TasksTable() {
       <Table size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell>Tasks</TableCell>
             <TableCell align='right'>Progress%</TableCell>
             <TableCell align='right'>Owner</TableCell>
             <TableCell align='right'>Hours</TableCell>

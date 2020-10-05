@@ -8,15 +8,18 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { useSelector } from "react-redux"
-// import { IconButton } from "@material-ui/core"
-// import DeleteIcon from "@material-ui/icons/Delete"
-// import EditIcon from "@material-ui/icons/Edit"
+import { IconButton } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
+import EditIcon from "@material-ui/icons/Edit"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fromUnixTime, format } from "date-fns"
 
 const useStyles = makeStyles({
   table: {
-    // minWidth: 650
-  }
+    width: "65vw",
+    marginTop: "1vh",
+    marginLeft: "10vw",
+  },
 })
 
 export default function EntriesTable() {
@@ -37,9 +40,19 @@ export default function EntriesTable() {
         <TableCell component='th' scope='row'>
           {format(fromUnixTime(entry.date), "PP")}
         </TableCell>
-        <TableCell>{`${entry.progress}%`}</TableCell>
-        <TableCell>{"owner"}</TableCell>
-        <TableCell>{entry.notes}</TableCell>
+        <TableCell align='right'>{`${entry.progress}%`}</TableCell>
+        <TableCell align='right'>{"owner"}</TableCell>
+        <TableCell align='right'>{entry.notes}</TableCell>
+
+        <TableCell align='right'>
+          <IconButton>
+            <EditIcon fontSize='small' color='primary' />
+          </IconButton>
+          <IconButton>
+            <DeleteIcon fontSize='small' color='error' />
+          </IconButton>
+        </TableCell>
+
         {/* <TableCell align='right'>{entry.created_at}</TableCell>
         <TableCell align='right'>{entry.updated_at}</TableCell> */}
         {/* <TableCell align='right'>
@@ -55,18 +68,15 @@ export default function EntriesTable() {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size='small' aria-label='simple table'>
+    <TableContainer component={Paper} className={classes.table}>
+      <Table size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
-            {/* <TableCell>Name</TableCell> */}
             <TableCell>Date</TableCell>
-            <TableCell>Progress%</TableCell>
-            <TableCell>Owner</TableCell>
-            <TableCell>Notes</TableCell>
-            {/* <TableCell align='right'>Created At</TableCell>
-            <TableCell align='right'>Updated At</TableCell> */}
-            {/* <TableCell align='right'>Options</TableCell> */}
+            <TableCell align='right'>Progress%</TableCell>
+            <TableCell align='right'>Owner</TableCell>
+            <TableCell align='right'>Notes</TableCell>
+            <TableCell align='right'>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{renderRows()}</TableBody>
