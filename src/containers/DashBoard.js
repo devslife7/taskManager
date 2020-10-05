@@ -36,7 +36,6 @@ function DashBoard() {
       </Grid>
       <Grid item container direction='column' style={{ padding: "1vw" }}>
         <Breadcrumbs />
-        <DatePicker />
         {!!currentProject.id ? (
           <>
             {!!currentMilestone.id ? (

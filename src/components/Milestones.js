@@ -6,7 +6,7 @@ import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
 import CreateIcon from "@material-ui/icons/Create"
 import MilestonesGraph from "./MilestonesGraph"
-import moment from "moment"
+// import moment from "moment"
 
 function Milestones() {
   const dispatch = useDispatch()
@@ -29,8 +29,8 @@ function Milestones() {
           </h2>
           <div>{currentProject.description}</div>
           <div>
-            {moment.unix(currentProject.start_date).format("ll").toString()} -{" "}
-            {moment.unix(currentProject.end_date).format("ll").toString()}
+            {/* {moment.unix(currentProject.start_date).format("ll").toString()} -{" "}
+            {moment.unix(currentProject.end_date).format("ll").toString()} */}
           </div>
           <br />
           <br />

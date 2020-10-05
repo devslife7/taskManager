@@ -2,7 +2,7 @@ import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@
 import React from "react"
 import { useDispatch } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
-import moment from "moment"
+import { fromUnixTime, format } from "date-fns"
 import { clearCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask } from "../actions/tasks"
 
@@ -33,7 +33,7 @@ function ProjectCard({ project }) {
           </Grid>
           <Grid item container justify='space-between'>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
-              {moment.unix(project.end_date).format("ll").toString()}
+              {format(fromUnixTime(project.end_date), "PP")}
             </Typography>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
               {`${project.progress}%`}

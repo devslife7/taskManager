@@ -13,7 +13,7 @@ import { IconButton } from "@material-ui/core"
 // import EditIcon from "@material-ui/icons/Edit"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentMilestone } from "../actions/milestones"
-import moment from "moment"
+// import moment from "moment"
 
 // const useStyles = makeStyles({
 //   table: {
@@ -51,8 +51,8 @@ export default function MilestonesTable() {
         <TableCell>{`${milestone.progress}%`}</TableCell>
         {/* <TableCell>{"owner"}</TableCell> */}
         <TableCell>{milestone.hours}</TableCell>
-        <TableCell>{moment.unix(milestone.start_date).format("ll").toString()} </TableCell>
-        <TableCell>{moment.unix(milestone.end_date).format("ll").toString()} </TableCell>
+        {/* <TableCell>{moment.unix(milestone.start_date).format("ll").toString()} </TableCell>
+        <TableCell>{moment.unix(milestone.end_date).format("ll").toString()} </TableCell> */}
         {/* <TableCell> */}
         {/* <IconButton>
             <EditIcon fontSize='small' color='primary' />
