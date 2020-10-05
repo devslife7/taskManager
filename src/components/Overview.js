@@ -3,11 +3,9 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormControlLabel,
   Grid,
-  Input,
   InputLabel,
   makeStyles,
   Switch,
@@ -51,13 +49,13 @@ export default function Overview() {
   const [importFile, setImportFile] = useState("")
 
   const handleOpenDialog = () => setOpenDialog(true)
-  const handleCloseDialog = () => setOpenDialog(false)
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
-
-  // const handleAddProject = e => {
-  //   setShowForm(!showForm)
-  // }
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+    setImportFile("")
+    setDisplayImport(false)
+  }
 
   // const handleSubmit = e => {
   //   e.preventDefault()
