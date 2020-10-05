@@ -10,7 +10,7 @@ import {
   makeStyles,
   Switch,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core"
 import React, { useState } from "react"
 import OverviewGraph from "./OverviewGraph"
@@ -25,16 +25,16 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     margin: "5vh 0 0 10vw",
     fontSize: "1rem",
-    backgroundColor: "#2b9af7"
+    backgroundColor: "#2b9af7",
   },
   KeyboardDatePicker: {
     // width: "7.5vw"
-    width: "140px"
+    width: "140px",
   },
   DialogContent: {
     height: "250px",
-    width: "350px"
-  }
+    width: "350px",
+  },
 }))
 
 export default function Overview() {
@@ -96,8 +96,7 @@ export default function Overview() {
         color='secondary'
         startIcon={<AddIcon />}
         className={classes.button}
-        onClick={handleOpenDialog}
-      >
+        onClick={handleOpenDialog}>
         Add Project
       </Button>
       <OverviewGraph />
@@ -166,7 +165,7 @@ export default function Overview() {
                   value={startDate}
                   onChange={handleSetStartDate}
                   KeyboardButtonProps={{
-                    "aria-label": "change date"
+                    "aria-label": "change date",
                   }}
                   className={classes.KeyboardDatePicker}
                 />
@@ -180,7 +179,7 @@ export default function Overview() {
                   value={endDate}
                   onChange={handleSetEndDate}
                   KeyboardButtonProps={{
-                    "aria-label": "change date"
+                    "aria-label": "change date",
                   }}
                   className={classes.KeyboardDatePicker}
                 />
@@ -190,20 +189,10 @@ export default function Overview() {
         )}
 
         <DialogActions>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseDialog}
-            color='primary'
-          >
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseDialog}
-            color='primary'
-          >
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Submit
           </Button>
         </DialogActions>

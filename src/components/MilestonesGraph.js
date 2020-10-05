@@ -4,24 +4,23 @@ import Chart from "react-apexcharts"
 function MilestonesGraph() {
   const [options] = useState({
     chart: {
-      // background: "#f4f4f4"
+      background: "#f4f4f4",
       // foreColor: "#333"
     },
     xaxis: {
-      categories: ["date", "date", "date", "date"]
-    }
+      categories: ["date", "date", "date", "date"],
+    },
   })
   const [series] = useState([
     {
       name: "Progress",
-      data: [20, 10, 30, 50, 80]
-    }
+      data: [20, 10, 30, 50, 80],
+    },
   ])
 
   return (
-    <div>
-      {/* <h2>Chart Here</h2> */}
-      <Chart options={options} series={series} type='line' heigth='450' width='100%' />
+    <div style={{ width: "50vw", marginTop: "2vh", marginLeft: "10vw" }}>
+      <Chart options={options} series={series} type='line' heigth='100' width='100%' />
     </div>
   )
 }

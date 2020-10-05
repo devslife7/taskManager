@@ -13,11 +13,11 @@ const useStyles = makeStyles({
   projects: {
     backgroundColor: "#E1F0FA",
     width: "15vw",
-    height: "95vh"
+    height: "95vh",
   },
   loading: {
-    margin: "8vh 0vw 0vh 18vw"
-  }
+    margin: "8vh 0 0 18vw",
+  },
 })
 
 function DashBoard() {
@@ -34,7 +34,7 @@ function DashBoard() {
       <Grid item className={classes.projects}>
         <Projects />
       </Grid>
-      <Grid item container direction='column' style={{ padding: "1vw" }}>
+      <Grid item container direction='column' style={{ padding: "0 1vw" }}>
         <Breadcrumbs />
         {!!currentProject.id ? (
           <>

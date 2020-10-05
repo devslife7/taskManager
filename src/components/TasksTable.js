@@ -8,27 +8,25 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { useDispatch, useSelector } from "react-redux"
-// import { Link } from "react-router-dom"
 import { IconButton } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
+import EditIcon from "@material-ui/icons/Edit"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentTask } from "../actions/tasks"
 import { fromUnixTime, format } from "date-fns"
 
 const useStyles = makeStyles({
   table: {
-    // minWidth: 650
-  }
+    width: "65vw",
+    marginTop: "1vh",
+    marginLeft: "10vw",
+  },
 })
 
 export default function TasksTable() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
-
-  // const handleLink = () => {
-  //   console.log("click task details")
-  //   localStorage.currentTaskId = task.id
-  // }
 
   const handleLink = taskId => {
     localStorage.currentTaskId = taskId
@@ -40,53 +38,42 @@ export default function TasksTable() {
       <TableRow key={idx}>
         <TableCell component='th' scope='row'>
           {task.name}
-          {/* <Link
-            to='/task/details'
-            onClick={() => (localStorage.currentTaskId = task.id)}
-            style={{ marginLeft: "30px" }}
-          >
-            details
-          </Link> */}
+        </TableCell>
+        <TableCell align='right'>{`${task.progress}%`}</TableCell>
+        <TableCell align='right'>{"Owner"}</TableCell>
+        <TableCell align='right'>{task.hours}</TableCell>
+        <TableCell align='right'>{format(fromUnixTime(task.start_date), "PP")}</TableCell>
+        <TableCell align='right'>{format(fromUnixTime(task.end_date), "PP")}</TableCell>
+        <TableCell align='right'>{task.notes}</TableCell>
+
+        <TableCell align='right'>
+          <IconButton>
+            <EditIcon fontSize='small' color='primary' />
+          </IconButton>
+          <IconButton>
+            <DeleteIcon fontSize='small' color='error' />
+          </IconButton>
           <IconButton onClick={() => handleLink(task.id)}>
-            <ArrowForwardIosIcon />
+            <ArrowForwardIosIcon fontSize='small' />
           </IconButton>
         </TableCell>
-        <TableCell>{`${task.progress}%`}</TableCell>
-        <TableCell>{"Owner"}</TableCell>
-        <TableCell>{task.hours}</TableCell>
-        <TableCell>{format(fromUnixTime(task.start_date), "PP")}</TableCell>
-        <TableCell>{format(fromUnixTime(task.end_date), "PP")}</TableCell>
-
-        <TableCell>{task.notes}</TableCell>
       </TableRow>
     ))
   }
-  // const renderRows = () => {
-  //   return rows.map(row => (
-  //     <TableRow key={row.name}>
-  //       <TableCell component='th' scope='row'>
-  //         {row.name}
-  //       </TableCell>
-  //       <TableCell align='right'>{row.calories}</TableCell>
-  //       <TableCell align='right'>{row.fat}</TableCell>
-  //       <TableCell align='right'>{row.carbs}</TableCell>
-  //       <TableCell align='right'>{row.protein}</TableCell>
-  //     </TableRow>
-  //   ))
-  // }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size='small' aria-label='simple table'>
+    <TableContainer component={Paper} className={classes.table}>
+      <Table size='small' aria-label='simple table'>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Progress%</TableCell>
-            <TableCell>Owner</TableCell>
-            <TableCell>Hours</TableCell>
-            <TableCell>Start</TableCell>
-            <TableCell>End</TableCell>
-            <TableCell>Notes</TableCell>
+            <TableCell align='right'>Progress%</TableCell>
+            <TableCell align='right'>Owner</TableCell>
+            <TableCell align='right'>Hours</TableCell>
+            <TableCell align='right'>Start</TableCell>
+            <TableCell align='right'>End</TableCell>
+            <TableCell align='right'>Notes</TableCell>
+            <TableCell align='right'>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{renderRows()}</TableBody>

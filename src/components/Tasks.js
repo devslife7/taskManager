@@ -1,4 +1,4 @@
-import { Button, IconButton, TextField } from "@material-ui/core"
+import { Button, Grid, IconButton, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { fetchCurrentProject } from "../actions/projects"
@@ -12,7 +12,18 @@ import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
 import { fromUnixTime, format } from "date-fns"
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    textTransform: "none",
+    fontSize: "1rem",
+    backgroundColor: "#2b9af7",
+    marginLeft: "10vw",
+    marginTop: "2vh",
+  },
+}))
+
 function Tasks() {
+  const classes = useStyles()
   const dispatch = useDispatch()
   // const currentProject = useSelector(state => state.projects.currentProject)
   // const currentTask = useSelector(state => state.tasks.currentTask)
@@ -75,15 +86,17 @@ function Tasks() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   return (
-    <div>
+    <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
       {!!currentMilestone.id ? (
         <>
-          <h2>
-            {currentMilestone.name} ({`${currentMilestone.progress}%`})
-            <IconButton onClick={handleAddEntry}>
-              <CreateIcon fontSize='small' />
-            </IconButton>
-          </h2>
+          <Typography variant='subtitle1' align='center'>
+            {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
+            {format(fromUnixTime(currentMilestone.end_date), "PP")}
+          </Typography>
+          <Typography
+            variant='subtitle1'
+            align='center'>{`Progress: ${currentMilestone.progress}%`}</Typography>
+          <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
 
           {showForm && (
             <form noValidate>
@@ -127,22 +140,11 @@ function Tasks() {
             </form>
           )}
 
-          <p>hours: {currentMilestone.hours}</p>
-          <p>
-            {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
-            {format(fromUnixTime(currentMilestone.end_date), "PP")}
-          </p>
+          <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
+            Add Task
+          </Button>
 
-          <br />
-          <br />
-          <span style={{ fontSize: "1.5rem" }}>Tasks</span>
-          <IconButton>
-            <AddIcon style={{ color: "green" }} />
-          </IconButton>
-          <br />
-          <br />
           <TasksTable />
-
           <TasksGraph />
         </>
       ) : (

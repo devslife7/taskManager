@@ -4,24 +4,23 @@ import Chart from "react-apexcharts"
 function TasksGraph() {
   const [options] = useState({
     chart: {
-      // background: "#f4f4f4"
+      background: "#f4f4f4",
       // foreColor: "#333"
     },
     xaxis: {
-      categories: ["date one", "date two", "date three", "date four", "date five"]
-    }
+      categories: ["date one", "date two", "date three", "date four", "date five"],
+    },
   })
   const [series] = useState([
     {
       name: "Progress",
-      data: [10, 40, 30, 70, 80]
-    }
+      data: [10, 40, 30, 70, 80],
+    },
   ])
 
   return (
-    <div>
-      {/* <h2>Chart Here</h2> */}
-      <Chart options={options} series={series} type='line' heigth='450' width='90%' />
+    <div style={{ width: "65vw", marginTop: "2vh", marginLeft: "10vw" }}>
+      <Chart options={options} series={series} type='line' heigth='100' width='100%' />
     </div>
   )
 }

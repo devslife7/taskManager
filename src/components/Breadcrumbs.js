@@ -9,11 +9,11 @@ import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles({
   mainDiv: {
-    marginBottom: "2vh"
+    height: "5vh",
   },
   iconButton: {
-    margin: "0vh 0.5vw"
-  }
+    margin: "0vh 0.5vw",
+  },
 })
 
 export default function Breadcrumbs() {
