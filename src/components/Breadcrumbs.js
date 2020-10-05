@@ -1,14 +1,23 @@
 import React from "react"
 import Typography from "@material-ui/core/Typography"
-// import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
-import { Button, IconButton, MenuItem, Select } from "@material-ui/core"
+import { Button, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core"
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 
-export default function SimpleBreadcrumbs() {
+const useStyles = makeStyles({
+  mainDiv: {
+    marginBottom: "2vh"
+  },
+  iconButton: {
+    margin: "0vh 0.5vw"
+  }
+})
+
+export default function Breadcrumbs() {
+  const classes = useStyles()
   const dispatch = useDispatch()
   const allProjects = useSelector(state => state.projects.allProjects)
   const currentProject = useSelector(state => state.projects.currentProject)
@@ -55,13 +64,13 @@ export default function SimpleBreadcrumbs() {
   }
 
   return (
-    <div aria-label='breadcrumb' style={{ marginBottom: "5vh" }}>
+    <div aria-label='breadcrumb' className={classes.mainDiv}>
       <Button variant='outlined' onClick={clearProject}>
         <Typography color='textPrimary'>Overview</Typography>
       </Button>
       {currentProject.id && (
         <>
-          <IconButton onClick={clearMilestone} style={{ margin: "0vh 0.5vw" }}>
+          <IconButton onClick={clearMilestone} className={classes.iconButton}>
             <NavigateNextIcon />
           </IconButton>
           <Select value={currentProject.id} onChange={handleSetCurrentProject}>
@@ -71,7 +80,7 @@ export default function SimpleBreadcrumbs() {
       )}
       {currentMilestone.id && (
         <>
-          <IconButton onClick={clearTask} style={{ margin: "0vh 0.5vw" }}>
+          <IconButton onClick={clearTask} className={classes.iconButton}>
             <NavigateNextIcon />
           </IconButton>
           <Select value={currentMilestone.id} onChange={handleSetCurrentMilestone}>
@@ -81,7 +90,7 @@ export default function SimpleBreadcrumbs() {
       )}
       {currentTask.id && (
         <>
-          <IconButton disabled onClick={clearTask} style={{ margin: "0vh 0.5vw" }}>
+          <IconButton disabled onClick={clearTask} className={classes.iconButton}>
             <NavigateNextIcon />
           </IconButton>
           <Select value={currentTask.id} onChange={handleSetCurrentTask}>

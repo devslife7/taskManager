@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
-import SimpleBreadcrumbs from "../components/SimpleBreadcrumbs"
+import Breadcrumbs from "../components/Breadcrumbs"
 import Entries from "../components/Entries"
 import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
@@ -14,20 +14,8 @@ const useStyles = makeStyles({
     width: "15vw",
     height: "95vh"
   },
-  milestones: {
-    backgroundColor: "#fafafa",
-    minWidth: "32vw",
-    padding: "1rem"
-  },
-  tasks: {
-    backgroundColor: "#E1F0FA",
-    minWidth: "32vw",
-    padding: "1rem"
-  },
-  entries: {
-    backgroundColor: "#fafafa",
-    minWidth: "24vw",
-    padding: "1rem"
+  loading: {
+    margin: "8vh 0vw 0vh 18vw"
   }
 })
 
@@ -46,7 +34,7 @@ function DashBoard() {
         <Projects />
       </Grid>
       <Grid item container direction='column' style={{ padding: "1vw" }}>
-        <SimpleBreadcrumbs />
+        <Breadcrumbs />
         {!!currentProject.id ? (
           <>
             {!!currentMilestone.id ? (
@@ -56,7 +44,7 @@ function DashBoard() {
                 ) : (
                   <>
                     {loadingTask ? (
-                      <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+                      <Typography variant='h6' className={classes.loading}>
                         Loading...
                       </Typography>
                     ) : (
@@ -68,7 +56,7 @@ function DashBoard() {
             ) : (
               <>
                 {loadingMilestone ? (
-                  <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+                  <Typography variant='h6' className={classes.loading}>
                     Loading...
                   </Typography>
                 ) : (
@@ -80,7 +68,7 @@ function DashBoard() {
         ) : (
           <>
             {loadingProject ? (
-              <Typography variant='h5' style={{ margin: "8vh 0vw 0vh 18vw" }}>
+              <Typography variant='h6' className={classes.loading}>
                 Loading...
               </Typography>
             ) : (

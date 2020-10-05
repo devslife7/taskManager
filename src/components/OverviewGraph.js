@@ -6,14 +6,14 @@ export default function OverviewGraph() {
   // const allProjects = useSelector(state => state.projects.allProjects)
   const [options] = useState({
     chart: {
-      background: "gray",
+      background: "#dcdcdc",
       foreColor: "#333"
     },
     xaxis: {
       categories: ["date one", "date two", "date three", "date four", "date five"]
     },
     fill: {
-      colors: ["#f44336"]
+      // colors: ["#345183"]
     },
     dalaLabels: {
       enabled: false
