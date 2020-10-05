@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { IconButton } from "@material-ui/core"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentTask } from "../actions/tasks"
-// import moment from "moment"
+import { fromUnixTime, format } from "date-fns"
 
 const useStyles = makeStyles({
   table: {
@@ -54,8 +54,9 @@ export default function TasksTable() {
         <TableCell>{`${task.progress}%`}</TableCell>
         <TableCell>{"Owner"}</TableCell>
         <TableCell>{task.hours}</TableCell>
-        {/* <TableCell>{moment.unix(task.start_date).format("ll").toString()}</TableCell>
-        <TableCell>{moment.unix(task.end_date).format("ll").toString()}</TableCell> */}
+        <TableCell>{format(fromUnixTime(task.start_date), "PP")}</TableCell>
+        <TableCell>{format(fromUnixTime(task.end_date), "PP")}</TableCell>
+
         <TableCell>{task.notes}</TableCell>
       </TableRow>
     ))

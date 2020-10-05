@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add"
 import CreateIcon from "@material-ui/icons/Create"
 import { fetchCurrentTask } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
-// import moment from "moment"
+import { fromUnixTime, format } from "date-fns"
 
 function Entries() {
   const dispatch = useDispatch()
@@ -29,8 +29,8 @@ function Entries() {
 
           <p>hours: {currentTask.hours}</p>
           <p>
-            {/* {moment.unix(currentTask.start_date).format("ll").toString()} -{" "}
-            {moment.unix(currentTask.end_date).format("ll").toString()} */}
+            {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
+            {format(fromUnixTime(currentTask.end_date), "PP")}
           </p>
 
           <br />
