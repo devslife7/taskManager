@@ -1,6 +1,6 @@
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 function Milestones() {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
 
   return (

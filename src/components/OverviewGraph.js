@@ -1,22 +1,26 @@
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
-// import { useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
 export default function OverviewGraph() {
-  // const allProjects = useSelector(state => state.projects.allProjects)
+  const allProjects = useSelector(state => state.projects.allProjects)
+
+  const projectNames = allProjects.map(proj => proj.name)
+  const projectProgress = allProjects.map(proj => proj.progress)
+
   const [options] = useState({
     chart: {
       background: "#dcdcdc",
-      foreColor: "#333"
+      foreColor: "#333",
     },
     xaxis: {
-      categories: ["date one", "date two", "date three", "date four", "date five"]
+      categories: projectNames,
     },
     fill: {
       // colors: ["#345183"]
     },
     dalaLabels: {
-      enabled: false
+      enabled: false,
     },
     title: {
       text: "Projects Overview",
@@ -24,15 +28,15 @@ export default function OverviewGraph() {
       margin: 40,
       offsetY: 20,
       style: {
-        fontSize: "1.6rem"
-      }
-    }
+        fontSize: "1.6rem",
+      },
+    },
   })
   const [series] = useState([
     {
       name: "Progress",
-      data: ["0%", 40, 30, 70, 80]
-    }
+      data: projectProgress,
+    },
   ])
 
   return (

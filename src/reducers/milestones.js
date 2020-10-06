@@ -21,6 +21,8 @@ export default (state = initialState, action) => {
       }
 
     case "CLEAR_CURRENT_MILESTONE":
+      localStorage.removeItem("currentMilestoneId")
+
       return {
         ...state,
         currentMilestone: { tasks: [] },

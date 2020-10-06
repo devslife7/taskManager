@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
       }
 
     case "CLEAR_CURRENT_TASK":
+      localStorage.removeItem("currentTaskId")
       return {
         ...state,
         currentTask: { entries: [] },

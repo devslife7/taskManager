@@ -1,20 +1,33 @@
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
+import { useSelector } from "react-redux"
 
 function TasksGraph() {
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
+  const currentMilestoneSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date)
+  const timelineSeries = currentMilestoneSorted.map(t => [t.end_date, t.progress])
+
+  console.log(timelineSeries)
+
   const [options] = useState({
     chart: {
-      background: "#f4f4f4",
-      // foreColor: "#333"
+      height: 380,
+      width: "100%",
+      type: "area",
+      animations: {
+        initialAnimation: {
+          enabled: false,
+        },
+      },
     },
     xaxis: {
-      categories: ["date one", "date two", "date three", "date four", "date five"],
+      type: "datetime",
     },
   })
   const [series] = useState([
     {
       name: "Progress",
-      data: [10, 40, 30, 70, 80],
+      data: timelineSeries, //[[1324508400000, 34], [1324594800000, 54] , ... , [1326236400000, 43]]
     },
   ])
 

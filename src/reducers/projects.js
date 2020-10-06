@@ -52,6 +52,7 @@ export default (state = initialState, action) => {
       }
 
     case "CLEAR_CURRENT_PROJECT":
+      localStorage.removeItem("currentProjectId")
       return {
         ...state,
         currentProject: { milestones: [] },

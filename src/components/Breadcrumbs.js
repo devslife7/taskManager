@@ -38,6 +38,7 @@ export default function Breadcrumbs() {
   }
 
   const renderMenuItems = list => {
+    // console.log(list)
     return list.map((item, idx) => (
       <MenuItem key={idx} value={item.id}>
         <Typography color='textPrimary' variant='subtitle1'>

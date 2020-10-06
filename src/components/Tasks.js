@@ -1,13 +1,13 @@
 import { Button, makeStyles, TextField, Typography } from "@material-ui/core"
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
 // import { fetchCurrentProject } from "../actions/projects"
 // import { addEntry, fetchCurrentTask } from "../actions/tasks"
 // import EntriesCard from "./EntriesCard"
 // import EntriesTable from "./EntriesTable"
 import TasksTable from "./TasksTable"
 // import CreateIcon from "@material-ui/icons/Create"
-import { fetchCurrentMilestone } from "../actions/milestones"
+// import { fetchCurrentMilestone } from "../actions/milestones"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
 import { fromUnixTime, format } from "date-fns"
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 function Tasks() {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const currentProject = useSelector(state => state.projects.currentProject)
   // const currentTask = useSelector(state => state.tasks.currentTask)
   // const currentUser = useSelector(state => state.user.currentUser)
@@ -32,10 +32,6 @@ function Tasks() {
   const [notes, setNotes] = useState("")
   const [completionPercentage, setCompletionPercentage] = useState("")
   // const [showForm, setShowForm] = useState(false)
-
-  useEffect(() => {
-    !!localStorage.currentMilestoneId && dispatch(fetchCurrentMilestone())
-  }, [dispatch])
 
   // const renderEntries = () => {
   //   return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()

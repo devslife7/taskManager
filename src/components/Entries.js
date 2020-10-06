@@ -8,10 +8,10 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
-import { createEntryFetch, fetchCurrentTask } from "../actions/tasks"
+import { createEntryFetch } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
@@ -47,10 +47,6 @@ export default function Entries() {
     setSliderValue("50")
     setNotes("")
   }
-
-  useEffect(() => {
-    !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
-  }, [dispatch])
 
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue)

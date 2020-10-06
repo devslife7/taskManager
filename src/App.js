@@ -9,14 +9,19 @@ import DashBoard from "./containers/DashBoard"
 import ProjectDetails from "./components/ProjectDetails"
 import NavBar from "./containers/NavBar"
 import Profile from "./containers/Profile"
-// import Milestones from "./components/Milestones"
 import Entries from "./components/Entries"
+import { fetchCurrentProject } from "./actions/projects"
+import { fetchCurrentMilestone } from "./actions/milestones"
+import { fetchCurrentTask } from "./actions/tasks"
 
 function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    !!localStorage.userId && dispatch(fetchUser(localStorage.userId))
+    !!localStorage.userId && dispatch(fetchUser())
+    !!localStorage.currentProjectId && dispatch(fetchCurrentProject())
+    !!localStorage.currentMilestoneId && dispatch(fetchCurrentMilestone())
+    !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
   }, [dispatch])
 
   return (
