@@ -3,17 +3,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  // FormControlLabel,
-  Grid,
   makeStyles,
   Slider,
-  // Switch,
   TextField,
   Typography,
 } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-// import { fetchCurrentMilestone } from "../actions/milestones"
 import AddIcon from "@material-ui/icons/Add"
 import { fetchCurrentTask } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
@@ -29,50 +25,55 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "10vw",
     marginTop: "2vh",
   },
+  KeyboardDatePicker: {
+    width: "140px",
+  },
 }))
 
-function Entries() {
+export default function Entries() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
   const [openDialog, setOpenDialog] = useState(false)
+  const [date, setDate] = useState(new Date())
   const [sliderValue, setSliderValue] = useState("50")
+  const [notes, setNotes] = useState("")
 
   const handleOpenDialog = () => setOpenDialog(true)
-  const handleCloseDialog = () => setOpenDialog(false)
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+    setDate(new Date())
+    setSliderValue("50")
+    setNotes("")
+  }
 
   useEffect(() => {
     !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
-    console.log("ENTRIS DID MOUNT HERE")
   }, [dispatch])
 
-  function valuetext(value) {
-    console.log("THIS IS VALUE: ", value)
-    setSliderValue(value)
-    return `${value}°C`
+  const handleSliderChange = (event, newValue) => {
+    setSliderValue(newValue)
+  }
+
+  const handleEditSubmit = () => {
+    // const requestBody = {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+
+    //   })
+    // }
+    handleCloseDialog()
   }
 
   const marks = [
-    {
-      value: 5,
-      label: "5%",
-    },
-    {
-      value: 25,
-      label: "25%",
-    },
-    {
-      value: 50,
-      label: "50%",
-    },
-    {
-      value: 75,
-      label: "75%",
-    },
-    {
-      value: 100,
-      label: "100%",
-    },
+    { value: 5, label: "5%" },
+    { value: 25, label: "25%" },
+    { value: 50, label: "50%" },
+    { value: 75, label: "75%" },
+    { value: 100, label: "100%" },
   ]
 
   return (
@@ -104,55 +105,38 @@ function Entries() {
       <EntriesTable />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "20px" }}>
           {"New Entry"}
         </Typography>
 
-        {/* <FormControlLabel
-          control={
-            <Switch
-              checked={displayImport}
-              onChange={() => setDisplayImport(!displayImport)}
-              name='checkedB'
-              color='primary'
-            />
-          }
-          label='Import From Excel File'
-          style={{ marginTop: "20px", marginLeft: "15px", marginBottom: "10px" }}
-        /> */}
-
         <DialogContent className={classes.DialogContent}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='flex-start'>
-              <KeyboardDatePicker
-                disableToolbar
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                label='Date'
-                // value={startDate}
-                // onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
+            <KeyboardDatePicker
+              disableToolbar
+              variant='inline'
+              format='MM/dd/yyyy'
+              margin='normal'
+              id='date-picker-inline'
+              label='Date'
+              value={date}
+              onChange={setDate}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+              className={classes.KeyboardDatePicker}
+            />
           </MuiPickersUtilsProvider>
 
-          <Typography id='discrete-slider-small-steps' gutterBottom style={{ margin: "20px 0px 30px 0px" }}>
-            Progress:
+          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
+            Progress: {`${sliderValue}%`}
           </Typography>
           <Slider
             defaultValue={50}
-            // getAriaValueText={valuetext}
-            aria-labelledby='discrete-slider-small-steps'
             step={5}
             marks={marks}
             min={5}
             max={100}
-            valueLabelDisplay='on'
+            onChange={handleSliderChange}
             style={{ marginBottom: "30px" }}
           />
 
@@ -163,9 +147,9 @@ function Entries() {
             multiline
             rows={2}
             label='Notes'
-            // value={description}
+            value={notes}
             onChange={e => {
-              // setDescription(e.target.value)
+              setNotes(e.target.value)
             }}
           />
         </DialogContent>
@@ -174,7 +158,7 @@ function Entries() {
           <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
             Submit
           </Button>
         </DialogActions>
@@ -182,5 +166,3 @@ function Entries() {
     </div>
   )
 }
-
-export default Entries
