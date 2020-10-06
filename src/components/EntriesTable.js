@@ -13,13 +13,16 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { fromUnixTime, format } from "date-fns"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   table: {
     width: "45vw",
     marginTop: "1vh",
     marginLeft: "10vw",
   },
-})
+  editIcon: {
+    color: theme.palette.success.main,
+  },
+}))
 
 export default function EntriesTable() {
   const classes = useStyles()
@@ -45,7 +48,7 @@ export default function EntriesTable() {
 
         <TableCell align='right'>
           <IconButton>
-            <EditIcon fontSize='small' color='primary' />
+            <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
           <IconButton>
             <DeleteIcon fontSize='small' color='error' />

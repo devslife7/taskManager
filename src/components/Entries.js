@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
     fontSize: "1rem",
-    backgroundColor: "#2b9af7",
+    color: "white",
     marginLeft: "10vw",
     marginTop: "2vh",
   },
@@ -36,6 +36,7 @@ function Entries() {
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
   const [openDialog, setOpenDialog] = useState(false)
+  const [sliderValue, setSliderValue] = useState("50")
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleCloseDialog = () => setOpenDialog(false)
@@ -44,6 +45,35 @@ function Entries() {
     !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
     console.log("ENTRIS DID MOUNT HERE")
   }, [dispatch])
+
+  function valuetext(value) {
+    console.log("THIS IS VALUE: ", value)
+    setSliderValue(value)
+    return `${value}°C`
+  }
+
+  const marks = [
+    {
+      value: 5,
+      label: "5%",
+    },
+    {
+      value: 25,
+      label: "25%",
+    },
+    {
+      value: 50,
+      label: "50%",
+    },
+    {
+      value: 75,
+      label: "75%",
+    },
+    {
+      value: 100,
+      label: "100%",
+    },
+  ]
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
@@ -64,7 +94,7 @@ function Entries() {
 
       <Button
         variant='contained'
-        color='secondary'
+        color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
         onClick={handleOpenDialog}>
@@ -93,7 +123,7 @@ function Entries() {
 
         <DialogContent className={classes.DialogContent}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='center'>
+            <Grid container justify='flex-start'>
               <KeyboardDatePicker
                 disableToolbar
                 variant='inline'
@@ -111,18 +141,19 @@ function Entries() {
             </Grid>
           </MuiPickersUtilsProvider>
 
-          <Typography id='discrete-slider-small-steps' gutterBottom>
-            Progress
+          <Typography id='discrete-slider-small-steps' gutterBottom style={{ margin: "20px 0px 30px 0px" }}>
+            Progress:
           </Typography>
           <Slider
             defaultValue={50}
             // getAriaValueText={valuetext}
             aria-labelledby='discrete-slider-small-steps'
             step={5}
-            marks
+            marks={marks}
             min={5}
             max={100}
-            valueLabelDisplay='auto'
+            valueLabelDisplay='on'
+            style={{ marginBottom: "30px" }}
           />
 
           <TextField

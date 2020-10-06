@@ -15,8 +15,8 @@ import { fromUnixTime, format } from "date-fns"
 const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
+    color: "white",
     fontSize: "1rem",
-    backgroundColor: "#2b9af7",
     marginLeft: "10vw",
     marginTop: "2vh",
   },
@@ -135,7 +135,7 @@ function Tasks() {
         </Button>
       </form>
 
-      <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
+      <Button variant='contained' color='primary' startIcon={<AddIcon />} className={classes.button}>
         Add Task
       </Button>
 

@@ -22,7 +22,9 @@ const theme = createMuiTheme({
     primary: {
       // main: "#2196f3" // blue
 
-      main: "#33435F" // dark blue
+      // main: "#33435F" // dark blue
+      main: "#2196f3", // graph blue
+      dark: "#0C60A6",
       // main: "#6D84AB" // dark blue complementary color
       // main: "#4B6EAB" // dark blue complementary color
 
@@ -32,9 +34,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       // main: "#fca21c" // orange
-      main: "#395F75" // dark blue but a bit lighter
-    }
-  }
+      main: "#F2A122", // complementary orange
+    },
+  },
 })
 
 ReactDOM.render(

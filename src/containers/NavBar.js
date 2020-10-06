@@ -9,13 +9,14 @@ import Grid from "@material-ui/core/Grid"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
     // padding: "12px 0px",
     height: "100%",
     fontSize: "1.55rem",
-    fontWeight: "400"
+    fontWeight: "400",
+    color: "white",
   },
   links: {
     color: "white",
@@ -24,18 +25,21 @@ const useStyles = makeStyles(theme => ({
     padding: "0px 20px",
     height: "100%",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   gridHeight: {
-    height: "100%"
+    height: "100%",
   },
   onHover: {
     "&:hover": {
       // color: "rgb(255, 255, 255, 0.6)" // white with opacity of 0.6
-      color: theme.palette.primary.main,
-      backgroundColor: "white"
-    }
-  }
+      color: theme.palette.primary.dark,
+      backgroundColor: "white",
+    },
+  },
+  appBar: {
+    backgroundColor: theme.palette.primary.dark,
+  },
 }))
 
 function NavBar() {
@@ -47,7 +51,7 @@ function NavBar() {
 
   return (
     <>
-      <AppBar position='static' color='primary'>
+      <AppBar position='static' className={classes.appBar}>
         <Grid container style={{ height: "5vh" }} alignItems='center'>
           <Grid item xs={4} container alignContent='center' className={classes.gridHeight}>
             {loggedIn && (
@@ -72,14 +76,7 @@ function NavBar() {
               Task Manager
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={4}
-            container
-            alignItems='center'
-            justify='flex-end'
-            className={classes.gridHeight}
-          >
+          <Grid item xs={4} container alignItems='center' justify='flex-end' className={classes.gridHeight}>
             {loggedIn && (
               <>
                 <Link className={`${classes.links} ${classes.onHover}`} to='/profile'>

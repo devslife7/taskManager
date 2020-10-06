@@ -12,7 +12,7 @@ import { fetchCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles({
   projects: {
-    backgroundColor: "#E1F0FA",
+    backgroundColor: "#fafafa",
     width: "15vw",
     height: "95vh",
   },

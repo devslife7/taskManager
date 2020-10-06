@@ -17,9 +17,9 @@ import SearchIcon from "@material-ui/icons/Search"
 
 const useStyles = makeStyles(theme => ({
   mainDiv: {
-    // backgroundColor: "#fafafa"
-    // backgroundColor: theme.palette.secondary.main
-    // color: "white"
+    // backgroundColor: "#fafafa",
+    // backgroundColor: "#79b0f7",
+    // color: "white",
     // color: "gray"
     // padding: "2rem"
   },

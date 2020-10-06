@@ -3,32 +3,38 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
-// import CreateIcon from "@material-ui/icons/Create"
+import DeleteIcon from "@material-ui/icons/Delete"
+import EditIcon from "@material-ui/icons/Edit"
 import MilestonesGraph from "./MilestonesGraph"
 import { fromUnixTime, format } from "date-fns"
 
 const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
+    color: "white",
     fontSize: "1rem",
-    backgroundColor: "#2b9af7",
     marginLeft: "10vw",
     marginTop: "2vh",
   },
   editButton: {
     textTransform: "none",
-    // margin: "5vh 0 0 10vw",
     fontSize: "1rem",
-    // backgroundColor: "#2b9af7",
-    backgroundColor: "green",
+    color: "white",
+    backgroundColor: theme.palette.success.main,
+    "&:hover": {
+      backgroundColor: theme.palette.success.dark,
+    },
   },
   removeButton: {
     textTransform: "none",
-    // margin: "5vh 0 0 10vw",
     fontSize: "1rem",
-    backgroundColor: "red",
+    color: "white",
+    backgroundColor: theme.palette.error.main,
     marginLeft: "20px",
+
+    "&:hover": {
+      backgroundColor: theme.palette.error.dark,
+    },
   },
 }))
 
@@ -47,15 +53,15 @@ function Milestones() {
           <Grid item style={{ padding: "0", marginBottom: "20px" }}>
             <Button
               variant='contained'
-              color='secondary'
-              startIcon={<AddIcon />}
+              color='primary'
+              startIcon={<EditIcon />}
               className={classes.editButton}>
               Edit Project
             </Button>
             <Button
               variant='contained'
-              color='secondary'
-              startIcon={<DeleteForeverIcon />}
+              color='primary'
+              startIcon={<DeleteIcon />}
               className={classes.removeButton}>
               Remove Project
             </Button>
@@ -68,7 +74,7 @@ function Milestones() {
         </Grid>
       </Grid>
 
-      <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
+      <Button variant='contained' color='primary' startIcon={<AddIcon />} className={classes.button}>
         Add Milestone
       </Button>
 

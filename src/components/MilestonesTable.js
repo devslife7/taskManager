@@ -14,13 +14,22 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentMilestone } from "../actions/milestones"
 import { fromUnixTime, format } from "date-fns"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   table: {
     width: "50vw",
     marginTop: "1vh",
     marginLeft: "10vw",
   },
-})
+  editIcon: {
+    color: theme.palette.success.main,
+  },
+  deleteIcon: {
+    color: theme.palette.error.dark,
+  },
+  forwardIcon: {
+    color: theme.palette.primary.main,
+  },
+}))
 
 export default function MilestonesTable() {
   const classes = useStyles()
@@ -52,13 +61,13 @@ export default function MilestonesTable() {
         <TableCell align='right'>{format(fromUnixTime(milestone.end_date), "PP")} </TableCell>
         <TableCell align='right'>
           <IconButton>
-            <EditIcon fontSize='small' color='primary' />
+            <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
           <IconButton>
-            <DeleteIcon fontSize='small' color='error' />
+            <DeleteIcon fontSize='small' className={classes.deleteIcon} />
           </IconButton>
           <IconButton onClick={() => handleSetCurrentMilestone(milestone.id)}>
-            <ArrowForwardIosIcon fontSize='small' />
+            <ArrowForwardIosIcon fontSize='small' className={classes.forwardIcon} />
           </IconButton>
         </TableCell>
       </TableRow>

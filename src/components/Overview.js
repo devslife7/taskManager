@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     margin: "5vh 0 0 10vw",
     fontSize: "1rem",
-    backgroundColor: "#2b9af7",
+    color: "white",
   },
   KeyboardDatePicker: {
     // width: "7.5vw"
@@ -93,7 +93,7 @@ export default function Overview() {
     <div style={{ backgroundColor: "#fafafa" }}>
       <Button
         variant='contained'
-        color='secondary'
+        color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
         onClick={handleOpenDialog}>

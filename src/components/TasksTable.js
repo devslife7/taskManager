@@ -15,13 +15,19 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { fetchCurrentTask } from "../actions/tasks"
 import { fromUnixTime, format } from "date-fns"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   table: {
     width: "65vw",
     marginTop: "1vh",
     marginLeft: "10vw",
   },
-})
+  editIcon: {
+    color: theme.palette.success.main,
+  },
+  deleteIcon: {
+    color: theme.palette.error.dark,
+  },
+}))
 
 export default function TasksTable() {
   const classes = useStyles()
@@ -48,13 +54,13 @@ export default function TasksTable() {
 
         <TableCell align='right'>
           <IconButton>
-            <EditIcon fontSize='small' color='primary' />
+            <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
           <IconButton>
-            <DeleteIcon fontSize='small' color='error' />
+            <DeleteIcon fontSize='small' className={classes.deleteIcon} />
           </IconButton>
           <IconButton onClick={() => handleLink(task.id)}>
-            <ArrowForwardIosIcon fontSize='small' />
+            <ArrowForwardIosIcon fontSize='small' color='primary' />
           </IconButton>
         </TableCell>
       </TableRow>
