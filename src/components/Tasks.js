@@ -87,68 +87,60 @@ function Tasks() {
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
-      {!!currentMilestone.id ? (
-        <>
-          <Typography variant='subtitle1' align='center'>
-            {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
-            {format(fromUnixTime(currentMilestone.end_date), "PP")}
-          </Typography>
-          <Typography
-            variant='subtitle1'
-            align='center'>{`Progress: ${currentMilestone.progress}%`}</Typography>
-          <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
+      <Typography variant='subtitle1' align='center'>
+        {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
+        {format(fromUnixTime(currentMilestone.end_date), "PP")}
+      </Typography>
+      <Typography variant='subtitle1' align='center'>{`Progress: ${currentMilestone.progress}%`}</Typography>
+      <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
 
-          {/* {showForm && ( */}
-          <form noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              required
-              label='Date'
-              autoFocus
-              value={date}
-              onChange={e => {
-                setDate(e.target.value)
-              }}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              label='Notes'
-              value={notes}
-              onChange={e => {
-                setNotes(e.target.value)
-              }}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              label='Progress %'
-              value={completionPercentage}
-              onChange={e => {
-                setCompletionPercentage(e.target.value)
-              }}
-            />
-            <Button type='submit' fullWidth variant='contained' color='primary'>
-              Submit
-            </Button>
-          </form>
+      {/* {showForm && ( */}
+      <form noValidate>
+        <TextField
+          variant='outlined'
+          margin='normal'
+          fullWidth
+          required
+          label='Date'
+          autoFocus
+          value={date}
+          onChange={e => {
+            setDate(e.target.value)
+          }}
+        />
+        <TextField
+          variant='outlined'
+          margin='normal'
+          required
+          fullWidth
+          label='Notes'
+          value={notes}
+          onChange={e => {
+            setNotes(e.target.value)
+          }}
+        />
+        <TextField
+          variant='outlined'
+          margin='normal'
+          required
+          fullWidth
+          label='Progress %'
+          value={completionPercentage}
+          onChange={e => {
+            setCompletionPercentage(e.target.value)
+          }}
+        />
+        <Button type='submit' fullWidth variant='contained' color='primary'>
+          Submit
+        </Button>
+      </form>
 
-          <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
-            Add Task
-          </Button>
+      <Button variant='contained' color='secondary' startIcon={<AddIcon />} className={classes.button}>
+        Add Task
+      </Button>
 
-          <TasksTable />
-          <TasksGraph />
-        </>
-      ) : (
-        <div>{"Select a Milestone"}</div>
-      )}
+      <TasksTable />
+      <TasksGraph />
     </div>
   )
 }

@@ -1,12 +1,13 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core"
-import React from "react"
+import React, { useEffect } from "react"
 import Breadcrumbs from "../components/Breadcrumbs"
 import Entries from "../components/Entries"
 import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
 import Tasks from "../components/Tasks"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Overview from "../components/Overview"
+import { fetchCurrentTask } from "../actions/tasks"
 // import DatePicker from "../components/DatePicker"
 
 const useStyles = makeStyles({
@@ -22,12 +23,17 @@ const useStyles = makeStyles({
 
 function DashBoard() {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
   const currentTask = useSelector(state => state.tasks.currentTask)
   const loadingProject = useSelector(state => state.projects.loadingProject)
   const loadingMilestone = useSelector(state => state.milestones.loadingMilestone)
   const loadingTask = useSelector(state => state.tasks.loadingTask)
+
+  useEffect(() => {
+    !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
+  }, [dispatch])
 
   return (
     <Grid container wrap='nowrap'>

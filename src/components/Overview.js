@@ -103,7 +103,7 @@ export default function Overview() {
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"Create New Project"}
+          {"New Project"}
         </Typography>
 
         <FormControlLabel
