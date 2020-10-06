@@ -11,9 +11,9 @@ import {
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
-import { fetchCurrentTask } from "../actions/tasks"
+import { createEntryFetch, fetchCurrentTask } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
-import { fromUnixTime, format } from "date-fns"
+import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
 
@@ -34,6 +34,7 @@ export default function Entries() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
+  const currentUser = useSelector(state => state.user.currentUser)
   const [openDialog, setOpenDialog] = useState(false)
   const [date, setDate] = useState(new Date())
   const [sliderValue, setSliderValue] = useState("50")
@@ -56,15 +57,18 @@ export default function Entries() {
   }
 
   const handleEditSubmit = () => {
-    // const requestBody = {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
+    const requestBody = {
+      user_id: currentUser.id,
+      entry: {
+        date: getUnixTime(date),
+        progress: sliderValue,
+        notes: notes,
+        task_id: currentTask.id,
+      },
+    }
 
-    //   })
-    // }
+    dispatch(createEntryFetch(requestBody))
+
     handleCloseDialog()
   }
 
