@@ -29,7 +29,13 @@ export const createEntryFetch = requestBody => {
 
     fetch(entriesURL, configurationObject)
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        dispatch({ type: "ADD_ENTRY", payload: data.entry })
+        dispatch({ type: "UPDATE_CURRENT_TASK_PROGRESS", payload: data.task_progress })
+        dispatch({ type: "UPDATE_CURRENT_MILESTONE_PROGRESS", payload: data.milestone_progress })
+        dispatch({ type: "UPDATE_CURRENT_PROJECT_PROGRESS", payload: data.project_progress })
+      })
     // type: "CREATE_ENTRY_FETCH",
     // payload: requestBody,
   }

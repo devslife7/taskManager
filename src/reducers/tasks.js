@@ -34,6 +34,14 @@ export default (state = initialState, action) => {
           entries: [...state.currentTask.entries, action.payload],
         },
       }
+    case "UPDATE_CURRENT_TASK_PROGRESS":
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          progress: action.payload,
+        },
+      }
 
     default:
       return state
