@@ -20,6 +20,7 @@ let store = createStore(
 const theme = createMuiTheme({
   palette: {
     primary: {
+      // main: "#333333" // nice black
       // main: "#2196f3" // blue
 
       // main: "#33435F" // dark blue

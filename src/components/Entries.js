@@ -122,6 +122,7 @@ export default function Entries() {
               margin='normal'
               id='date-picker-inline'
               label='Date'
+              autoOk // autocloses picker
               value={date}
               onChange={setDate}
               KeyboardButtonProps={{

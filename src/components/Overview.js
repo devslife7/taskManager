@@ -157,6 +157,7 @@ export default function Overview() {
               <Grid container justify='space-around'>
                 <KeyboardDatePicker
                   disableToolbar
+                  autoOk
                   variant='inline'
                   format='MM/dd/yyyy'
                   margin='normal'
@@ -171,6 +172,7 @@ export default function Overview() {
                 />
                 <KeyboardDatePicker
                   disableToolbar
+                  autoOk
                   variant='inline'
                   format='MM/dd/yyyy'
                   margin='normal'
