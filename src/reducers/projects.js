@@ -32,8 +32,10 @@ export default (state = initialState, action) => {
 
     case "UPDATE_CURRENT_PROJECT_PROGRESS":
       const currentProjectUpdated = {
-        ...state.currentProject,
+        id: state.currentProject.id,
+        name: state.currentProject.name,
         progress: action.payload,
+        end_date: state.currentProject.end_date,
       }
       idx = state.allProjects.findIndex(project => project.id === state.currentProject.id)
       return {
@@ -43,7 +45,10 @@ export default (state = initialState, action) => {
           currentProjectUpdated,
           ...state.allProjects.slice(idx + 1),
         ],
-        currentProject: currentProjectUpdated,
+        currentProject: {
+          ...state.currentProject,
+          progress: action.payload,
+        },
       }
 
     case "CLEAR_CURRENT_PROJECT":
