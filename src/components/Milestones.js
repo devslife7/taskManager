@@ -22,7 +22,6 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
-    color: "white",
     fontSize: "1rem",
     marginLeft: "10vw",
     marginTop: "2vh",
@@ -78,14 +77,16 @@ function Milestones() {
           </Typography>
           <Typography
             variant='subtitle1'
-            align='center'>{`Progress: ${currentProject.progress}%`}</Typography>
+            align='center'
+          >{`Progress: ${currentProject.progress}%`}</Typography>
         </Grid>
         <Grid item xs={2} container direction='column' alignItems='flex-end' justify='space-between'>
           <Button
             variant='contained'
             color='primary'
             startIcon={<DeleteIcon />}
-            className={classes.removeButton}>
+            className={classes.removeButton}
+          >
             Remove Project
           </Button>
           <Button variant='contained' color='primary' startIcon={<EditIcon />} className={classes.editButton}>
@@ -99,7 +100,8 @@ function Milestones() {
         color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
-        onClick={handleOpenDialog}>
+        onClick={handleOpenDialog}
+      >
         Add Milestone
       </Button>
 
@@ -159,7 +161,7 @@ function Milestones() {
         </DialogContent>
 
         <DialogActions>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
           <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>

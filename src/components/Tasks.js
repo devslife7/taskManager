@@ -20,10 +20,8 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
-    color: "white",
     fontSize: "1rem",
     marginLeft: "10vw",
-    marginTop: "2vh",
   },
   KeyboardDatePicker: {
     width: "140px",
@@ -109,7 +107,8 @@ function Tasks() {
         color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
-        onClick={handleOpenDialog}>
+        onClick={handleOpenDialog}
+      >
         Add Task
       </Button>
 
@@ -191,7 +190,7 @@ function Tasks() {
         </DialogContent>
 
         <DialogActions>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
           <Button variant='contained' className={classes.button} onClick={handleDialogSubmit} color='primary'>

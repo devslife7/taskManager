@@ -15,13 +15,16 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Slider,
   TextField,
   Typography,
 } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { fromUnixTime, format } from "date-fns"
+import DateFnsUtils from "@date-io/date-fns"
 import { deleteEntryFetch } from "../actions/tasks"
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -32,6 +35,15 @@ const useStyles = makeStyles(theme => ({
   editIcon: {
     color: theme.palette.success.main,
   },
+  button: {
+    textTransform: "none",
+    fontSize: "1rem",
+    marginLeft: "10vw",
+  },
+  KeyboardDatePicker: {
+    width: "140px",
+    marginTop: 0,
+  },
 }))
 
 export default function EntriesTable() {
@@ -39,15 +51,47 @@ export default function EntriesTable() {
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const [currentEntry, setCurrentEntry] = useState({})
+  const [openEditDialog, setOpenEditDialog] = useState(false)
 
-  const handleOpenDeleteDialog = () => setOpenDeleteDialog(true)
-  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+  const [sliderValue, setSliderValue] = useState(80)
+  const [date, setDate] = useState()
+  const [notes, setNotes] = useState("")
 
-  const handleDelete = entryId => {
-    window.confirm("Press a button!")
-    // handleOpenDeleteDialog()
-    // dispatch(deleteEntryFetch(entryId))
+  const handleSliderChange = (e, newValue) => {
+    setSliderValue(newValue)
   }
+
+  const handleEditSubmit = () => {
+    console.log("Edit Submits")
+    handleCloseEditDialog()
+  }
+
+  const handleOpenEditDialog = entry => {
+    setSliderValue(entry.progress)
+    setNotes(entry.notes)
+    setDate(fromUnixTime(entry.date))
+
+    setOpenEditDialog(true)
+  }
+  const handleCloseEditDialog = () => setOpenEditDialog(false)
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+  const handleOpenDeleteDialog = entry => {
+    setOpenDeleteDialog(true)
+    setCurrentEntry(entry)
+  }
+  const handleOk = () => {
+    dispatch(deleteEntryFetch(currentEntry.id))
+    handleCloseDeleteDialog()
+  }
+
+  const marks = [
+    { value: 5, label: "5%" },
+    { value: 25, label: "25%" },
+    { value: 50, label: "50%" },
+    { value: 75, label: "75%" },
+    { value: 100, label: "100%" },
+  ]
 
   const renderRows = () => {
     return currentTask.entries.map((entry, idx) => (
@@ -59,10 +103,10 @@ export default function EntriesTable() {
         </TableCell>
         <TableCell align='right'>{entry.notes}</TableCell>
         <TableCell align='right'>
-          <IconButton>
+          <IconButton onClick={() => handleOpenEditDialog(entry)}>
             <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
-          <IconButton onClick={() => handleDelete(entry.id)}>
+          <IconButton onClick={() => handleOpenDeleteDialog(entry)}>
             <DeleteIcon fontSize='small' color='error' />
           </IconButton>
         </TableCell>
@@ -95,15 +139,78 @@ export default function EntriesTable() {
             variant='contained'
             className={classes.button}
             onClick={handleCloseDeleteDialog}
-            color='primary'>
+            color='primary'
+          >
             Cancel
           </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseDeleteDialog}
-            color='primary'>
+          <Button variant='contained' className={classes.button} onClick={handleOk} color='primary'>
             Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>Edit Entry</Typography>
+        </DialogTitle>
+
+        <DialogContent>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant='inline'
+              format='MM/dd/yyyy'
+              margin='normal'
+              id='date-picker-inline'
+              label='Date'
+              autoOk // autocloses picker
+              value={date}
+              onChange={setDate}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+              className={classes.KeyboardDatePicker}
+            />
+          </MuiPickersUtilsProvider>
+
+          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
+            Progress: {`${sliderValue}%`}
+          </Typography>
+          <Slider
+            defaultValue={sliderValue}
+            step={5}
+            marks={marks}
+            min={5}
+            max={100}
+            onChange={handleSliderChange}
+            style={{ marginBottom: "30px" }}
+          />
+
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            multiline
+            rows={2}
+            label='Notes'
+            value={notes}
+            onChange={e => {
+              setNotes(e.target.value)
+            }}
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            variant='outlined'
+            className={classes.button}
+            onClick={handleCloseEditDialog}
+            color='primary'
+          >
+            Cancel
+          </Button>
+          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

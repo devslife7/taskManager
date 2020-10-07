@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
   editIcon: {
     color: theme.palette.success.main,
   },
-  deleteIcon: {
-    color: theme.palette.error.dark,
-  },
   forwardIcon: {
     color: theme.palette.primary.main,
   },
@@ -64,7 +61,7 @@ export default function MilestonesTable() {
             <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
           <IconButton>
-            <DeleteIcon fontSize='small' className={classes.deleteIcon} />
+            <DeleteIcon fontSize='small' color='error' />
           </IconButton>
           <IconButton onClick={() => handleSetCurrentMilestone(milestone.id)}>
             <ArrowForwardIosIcon fontSize='small' className={classes.forwardIcon} />
