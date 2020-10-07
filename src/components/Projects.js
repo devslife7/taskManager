@@ -1,18 +1,8 @@
-import {
-  // Button,
-  Divider,
-  // IconButton,
-  InputAdornment,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core"
+import { Divider, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-// import { addProject } from "../actions/projects"
 import { fetchProjects } from "../actions/projects"
 import ProjectCard from "./ProjectCard"
-// import CreateIcon from "@material-ui/icons/Create"
 import SearchIcon from "@material-ui/icons/Search"
 
 const useStyles = makeStyles(theme => ({
@@ -21,11 +11,8 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: "#79b0f7",
     // color: "white",
     // color: "gray"
-    // padding: "2rem"
   },
   searchBox: {
-    // marginLeft: "20px",
-    // marginBottom: "1rem"
     margin: "1rem 3rem",
   },
 }))
@@ -35,11 +22,6 @@ function Projects() {
   const dispatch = useDispatch()
   const loading = useSelector(state => state.projects.loading)
   const allProjects = useSelector(state => state.projects.allProjects)
-  // const [showForm, setShowForm] = useState(false)
-  // const [name, setName] = useState("")
-  // const [description, setDescription] = useState("")
-  // const [startDate, setStartDate] = useState("")
-  // const [endDate, setEndDate] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {

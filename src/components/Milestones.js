@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     fontSize: "1rem",
     color: "white",
+    marginBotton: "1rem",
     backgroundColor: theme.palette.success.main,
     "&:hover": {
       backgroundColor: theme.palette.success.dark,
@@ -40,37 +41,35 @@ const useStyles = makeStyles(theme => ({
 
 function Milestones() {
   const classes = useStyles()
-  // const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
       <Grid container>
-        <Grid item xs={8}>
-          <Typography variant='h6'>{currentProject.description}</Typography>
-        </Grid>
-        <Grid item xs={4} container direction='column' alignItems='flex-end'>
-          <Grid item style={{ padding: "0", marginBottom: "20px" }}>
-            <Button
-              variant='contained'
-              color='primary'
-              startIcon={<EditIcon />}
-              className={classes.editButton}>
-              Edit Project
-            </Button>
-            <Button
-              variant='contained'
-              color='primary'
-              startIcon={<DeleteIcon />}
-              className={classes.removeButton}>
-              Remove Project
-            </Button>
-          </Grid>
-          <Typography variant='subtitle1' align='right'>
+        <Grid item xs={10}>
+          <Typography variant='h6' align='center'>
+            {currentProject.description}
+          </Typography>
+
+          <Typography variant='subtitle1' align='center'>
             {format(fromUnixTime(currentProject.start_date), "PP")} -{" "}
             {format(fromUnixTime(currentProject.end_date), "PP")}
           </Typography>
-          <Typography variant='subtitle1' align='right'>{`Progress: ${currentProject.progress}%`}</Typography>
+          <Typography
+            variant='subtitle1'
+            align='center'>{`Progress: ${currentProject.progress}%`}</Typography>
+        </Grid>
+        <Grid item xs={2} container direction='column' alignItems='flex-end' justify='space-between'>
+          <Button
+            variant='contained'
+            color='primary'
+            startIcon={<DeleteIcon />}
+            className={classes.removeButton}>
+            Remove Project
+          </Button>
+          <Button variant='contained' color='primary' startIcon={<EditIcon />} className={classes.editButton}>
+            Edit Project
+          </Button>
         </Grid>
       </Grid>
 

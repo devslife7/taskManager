@@ -59,7 +59,7 @@ function NavBar() {
                 <Link to='/dashboard' className={`${classes.links} ${classes.onHover}`}>
                   Dashboard
                 </Link>
-                <Link to='/project/details' className={`${classes.links} ${classes.onHover}`}>
+                {/* <Link to='/project/details' className={`${classes.links} ${classes.onHover}`}>
                   Project
                 </Link>
                 <Link to='/milestone/details' className={`${classes.links} ${classes.onHover}`}>
@@ -67,13 +67,13 @@ function NavBar() {
                 </Link>
                 <Link to='/task/details' className={`${classes.links} ${classes.onHover}`}>
                   Task
-                </Link>
+                </Link> */}
               </>
             )}
           </Grid>
           <Grid item xs={4} container alignItems='center' justify='center'>
             <Typography variant='h1' className={classes.title}>
-              Task Manager
+              Project Manager
             </Typography>
           </Grid>
           <Grid item xs={4} container alignItems='center' justify='flex-end' className={classes.gridHeight}>
