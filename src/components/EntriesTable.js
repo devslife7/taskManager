@@ -8,7 +8,16 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import { useDispatch, useSelector } from "react-redux"
-import { Dialog, DialogActions, DialogContent, IconButton, TextField, Typography } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  TextField,
+  Typography,
+} from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { fromUnixTime, format } from "date-fns"
@@ -35,7 +44,9 @@ export default function EntriesTable() {
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
 
   const handleDelete = entryId => {
-    dispatch(deleteEntryFetch(entryId))
+    window.confirm("Press a button!")
+    // handleOpenDeleteDialog()
+    // dispatch(deleteEntryFetch(entryId))
   }
 
   const renderRows = () => {
@@ -77,40 +88,23 @@ export default function EntriesTable() {
         </Table>
       </TableContainer>
 
-      <Dialog open={openDeleteDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"New Project"}
-        </Typography>
-
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            label='Name'
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            label='Description'
-            value={description}
-            onChange={e => {
-              setDescription(e.target.value)
-            }}
-          />
-        </DialogContent>
+      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>{"deleting this entry"}</DialogTitle>
 
         <DialogActions>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleCloseDeleteDialog}
+            color='primary'>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Submit
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleCloseDeleteDialog}
+            color='primary'>
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
