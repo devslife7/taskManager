@@ -6,6 +6,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+  let idx
   switch (action.type) {
     case "LOADING_MILESTONE":
       return {
@@ -29,11 +30,22 @@ export default (state = initialState, action) => {
       }
 
     case "UPDATE_CURRENT_MILESTONE_PROGRESS":
+      const updatedTask = {
+        ...action.payload.task,
+        progress: action.payload.taskProgress,
+      }
+
+      idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
       return {
         ...state,
         currentMilestone: {
           ...state.currentMilestone,
-          progress: action.payload,
+          progress: action.payload.milestoneProgress,
+          tasks: [
+            ...state.currentMilestone.tasks.slice(0, idx),
+            updatedTask,
+            ...state.currentMilestone.tasks.slice(idx + 1),
+          ],
         },
       }
 

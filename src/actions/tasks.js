@@ -18,7 +18,11 @@ export const clearCurrentTask = () => {
 }
 
 export const createEntryFetch = requestBody => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const {
+      tasks: { currentTask },
+      milestones: { currentMilestone },
+    } = getState()
     const configurationObject = {
       method: "POST",
       headers: {
@@ -30,11 +34,26 @@ export const createEntryFetch = requestBody => {
     fetch(entriesURL, configurationObject)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data)
-        dispatch({ type: "ADD_ENTRY", payload: data.entry })
-        dispatch({ type: "UPDATE_CURRENT_TASK_PROGRESS", payload: data.task_progress })
-        dispatch({ type: "UPDATE_CURRENT_PROJECT_PROGRESS", payload: data.project_progress })
-        dispatch({ type: "UPDATE_CURRENT_MILESTONE_PROGRESS", payload: data.milestone_progress })
+        dispatch({
+          type: "UPDATE_CURRENT_TASK_PROGRESS",
+          payload: { taskProgress: data.task_progress, entry: data.entry },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_PROGRESS",
+          payload: {
+            milestone: currentMilestone,
+            milestoneProgress: data.milestone_progress,
+            projectProgress: data.project_progress,
+          },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_PROGRESS",
+          payload: {
+            task: currentTask,
+            taskProgress: data.task_progress,
+            milestoneProgress: data.milestone_progress,
+          },
+        })
       })
   }
 }

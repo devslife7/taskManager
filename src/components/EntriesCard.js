@@ -26,5 +26,4 @@ function EntriesCard({ entry }) {
     </div>
   )
 }
-
 export default EntriesCard

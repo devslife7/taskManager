@@ -36,7 +36,6 @@ function DashBoard() {
       </Grid>
       <Grid item container direction='column' style={{ padding: "0 1vw" }}>
         <Breadcrumbs />
-        {/* {!!localStorage.currentProjectId ? ( */}
         {!!currentProject.id ? (
           <>
             {!!currentMilestone.id ? (

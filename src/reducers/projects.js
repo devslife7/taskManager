@@ -34,20 +34,32 @@ export default (state = initialState, action) => {
       const currentProjectUpdated = {
         id: state.currentProject.id,
         name: state.currentProject.name,
-        progress: action.payload,
+        progress: action.payload.projectProgress,
         end_date: state.currentProject.end_date,
       }
-      idx = state.allProjects.findIndex(project => project.id === state.currentProject.id)
+      const updatedMilestone = {
+        ...action.payload.milestone,
+        progress: action.payload.milestoneProgress,
+      }
+      let idxProject = state.allProjects.findIndex(project => project.id === state.currentProject.id)
+      let idxMilestone = state.currentProject.milestones.findIndex(
+        milestone => milestone.id === action.payload.milestone.id
+      )
       return {
         ...state,
         allProjects: [
-          ...state.allProjects.slice(0, idx),
+          ...state.allProjects.slice(0, idxProject),
           currentProjectUpdated,
-          ...state.allProjects.slice(idx + 1),
+          ...state.allProjects.slice(idxProject + 1),
         ],
         currentProject: {
           ...state.currentProject,
-          progress: action.payload,
+          progress: action.payload.projectProgress,
+          milestones: [
+            ...state.currentProject.milestones.slice(0, idxMilestone),
+            updatedMilestone,
+            ...state.currentProject.milestones.slice(idxMilestone + 1),
+          ],
         },
       }
 
