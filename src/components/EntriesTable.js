@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -7,11 +7,12 @@ import TableContainer from "@material-ui/core/TableContainer"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-import { useSelector } from "react-redux"
-import { IconButton } from "@material-ui/core"
+import { useDispatch, useSelector } from "react-redux"
+import { Dialog, DialogActions, DialogContent, IconButton, TextField, Typography } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { fromUnixTime, format } from "date-fns"
+import { deleteEntryFetch } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -26,15 +27,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function EntriesTable() {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
-  // const handleDelete = entryId => {
-  //   const entriesURL = "http://localhost:3000/entries/"
+  const handleOpenDeleteDialog = () => setOpenDeleteDialog(true)
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
 
-  //   fetch(entriesURL + entryId, { method: "DELETE" })
-  //     .then(resp => resp.json())
-  //     .then(data => console.log(data))
-  // }
+  const handleDelete = entryId => {
+    dispatch(deleteEntryFetch(entryId))
+  }
 
   const renderRows = () => {
     return currentTask.entries.map((entry, idx) => (
@@ -50,39 +52,68 @@ export default function EntriesTable() {
           <IconButton>
             <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => handleDelete(entry.id)}>
             <DeleteIcon fontSize='small' color='error' />
           </IconButton>
         </TableCell>
-
-        {/* <TableCell align='right'>{entry.created_at}</TableCell>
-        <TableCell align='right'>{entry.updated_at}</TableCell> */}
-        {/* <TableCell align='right'>
-          <IconButton>
-            <EditIcon color='primary' />
-          </IconButton>
-          <IconButton onClick={() => handleDelete(entry.id)}>
-            <DeleteIcon color='error' />
-          </IconButton>
-        </TableCell> */}
       </TableRow>
     ))
   }
 
   return (
-    <TableContainer component={Paper} className={classes.table}>
-      <Table size='small' aria-label='simple table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Owner</TableCell>
-            <TableCell align='right'>Progress%</TableCell>
-            <TableCell align='right'>Date</TableCell>
-            <TableCell align='right'>Notes</TableCell>
-            <TableCell align='right'>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{renderRows()}</TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper} className={classes.table}>
+        <Table size='small' aria-label='simple table'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Owner</TableCell>
+              <TableCell align='right'>Progress%</TableCell>
+              <TableCell align='right'>Date</TableCell>
+              <TableCell align='right'>Notes</TableCell>
+              <TableCell align='right'>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{renderRows()}</TableBody>
+        </Table>
+      </TableContainer>
+
+      <Dialog open={openDeleteDialog} onClose={handleCloseDialog}>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+          {"New Project"}
+        </Typography>
+
+        <DialogContent className={classes.DialogContent}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            label='Name'
+            value={name}
+            onChange={e => {
+              setName(e.target.value)
+            }}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            label='Description'
+            value={description}
+            onChange={e => {
+              setDescription(e.target.value)
+            }}
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+            Cancel
+          </Button>
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }

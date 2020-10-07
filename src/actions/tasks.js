@@ -57,3 +57,11 @@ export const createEntryFetch = requestBody => {
       })
   }
 }
+
+export const deleteEntryFetch = entryId => {
+  return dispatch => {
+    fetch(entriesURL + entryId, { method: "DELETE" })
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: "DELETE_ENTRY", payload: data.deleted_entry_id }))
+  }
+}

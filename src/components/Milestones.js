@@ -1,5 +1,14 @@
-import { Button, Grid, makeStyles, Typography } from "@material-ui/core"
-import React from "react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Grid,
+  makeStyles,
+  TextField,
+  Typography,
+} from "@material-ui/core"
+import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
@@ -7,6 +16,8 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import MilestonesGraph from "./MilestonesGraph"
 import { fromUnixTime, format } from "date-fns"
+import DateFnsUtils from "@date-io/date-fns"
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -43,6 +54,16 @@ function Milestones() {
   const classes = useStyles()
   const currentProject = useSelector(state => state.projects.currentProject)
 
+  const [openDialog, setOpenDialog] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [name, setName] = useState("")
+
+  const handleSetStartDate = date => setStartDate(date)
+  const handleSetEndDate = date => setEndDate(date)
+  const handleCloseDialog = () => setOpenDialog(false)
+  const handleOpenDialog = () => setOpenDialog(true)
+
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
       <Grid container>
@@ -73,12 +94,79 @@ function Milestones() {
         </Grid>
       </Grid>
 
-      <Button variant='contained' color='primary' startIcon={<AddIcon />} className={classes.button}>
+      <Button
+        variant='contained'
+        color='primary'
+        startIcon={<AddIcon />}
+        className={classes.button}
+        onClick={handleOpenDialog}>
         Add Milestone
       </Button>
 
       <MilestonesTable />
       <MilestonesGraph />
+
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+          {"New Milestone"}
+        </Typography>
+
+        <DialogContent className={classes.DialogContent}>
+          <TextField
+            label='Name'
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            value={name}
+            onChange={e => {
+              setName(e.target.value)
+            }}
+          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify='space-around'>
+              <KeyboardDatePicker
+                label='Start Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={startDate}
+                onChange={handleSetStartDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+              <KeyboardDatePicker
+                label='End Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={endDate}
+                onChange={handleSetEndDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+        </DialogContent>
+
+        <DialogActions>
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+            Cancel
+          </Button>
+          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

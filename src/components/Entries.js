@@ -62,9 +62,7 @@ export default function Entries() {
         task_id: currentTask.id,
       },
     }
-
     dispatch(createEntryFetch(requestBody))
-
     handleCloseDialog()
   }
 

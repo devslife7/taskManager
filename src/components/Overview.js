@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
     color: "white",
   },
   KeyboardDatePicker: {
-    // width: "7.5vw"
     width: "140px",
   },
   DialogContent: {

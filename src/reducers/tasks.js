@@ -6,6 +6,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+  let idx
   switch (action.type) {
     case "LOADING_TASK":
       return {
@@ -26,6 +27,7 @@ export default (state = initialState, action) => {
         ...state,
         currentTask: { entries: [] },
       }
+
     case "UPDATE_CURRENT_TASK_PROGRESS":
       return {
         ...state,
@@ -33,6 +35,16 @@ export default (state = initialState, action) => {
           ...state.currentTask,
           progress: action.payload.taskProgress,
           entries: [...state.currentTask.entries, action.payload.entry],
+        },
+      }
+
+    case "DELETE_ENTRY":
+      idx = state.currentTask.entries.findIndex(entry => entry.id === action.payload)
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          entries: [...state.currentTask.entries.slice(0, idx), ...state.currentTask.entries.slice(idx + 1)],
         },
       }
 
