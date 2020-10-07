@@ -48,17 +48,17 @@ export default function Breadcrumbs() {
   }
 
   const handleSetCurrentProject = event => {
-    localStorage.currentProjectId = event.target.value
+    localStorage.setItem("currentProjectId", `${event.target.value}`)
     dispatch(fetchCurrentProject())
     clearProject()
   }
   const handleSetCurrentMilestone = event => {
-    localStorage.currentMilestoneId = event.target.value
+    localStorage.setItem("currentMilestoneId", `${event.target.value}`)
     dispatch(fetchCurrentMilestone())
     clearMilestone()
   }
   const handleSetCurrentTask = event => {
-    localStorage.currentTaskId = event.target.value
+    localStorage.setItem("currentTaskId", `${event.target.value}`)
     dispatch(fetchCurrentTask())
     clearTask()
   }

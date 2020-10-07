@@ -35,7 +35,7 @@ export default function TasksTable() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   const handleLink = taskId => {
-    localStorage.currentTaskId = taskId
+    localStorage.setItem("currentTaskId", `${taskId}`)
     dispatch(fetchCurrentTask())
   }
 

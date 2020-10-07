@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCurrentProject, removeProject } from "../actions/projects"
+import { removeProject } from "../actions/projects"
 import { addTask } from "../actions/projects"
 import MilestonesTable from "./MilestonesTable"
 
@@ -15,13 +15,9 @@ function ProjectDetails({ history }) {
   const [endDate, setEndDate] = useState("")
   const [hours, setHours] = useState("")
 
-  useEffect(() => {
-    !!localStorage.currentProjectId && dispatch(fetchCurrentProject())
-  }, [dispatch])
-
-  // const renderTasks = () => {
-  //   return currentProject.milestones.map((t, idx) => <TaskCard key={idx} task={t} />).reverse()
-  // }
+  // useEffect(() => {
+  //   !!localStorage.getItem("currentProjectId") && dispatch(fetchCurrentProject())
+  // }, [dispatch])
 
   const handleDelete = () => {
     const projURL = "http://localhost:3000/projects/"
@@ -44,7 +40,7 @@ function ProjectDetails({ history }) {
     const configurationObj = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         task: {
@@ -54,9 +50,9 @@ function ProjectDetails({ history }) {
           end_date: endDate,
           hours: hours,
           project_id: currentProject.id,
-          completion_percentage: "0%"
-        }
-      })
+          completion_percentage: "0%",
+        },
+      }),
     }
 
     fetch(tasksURL, configurationObj)

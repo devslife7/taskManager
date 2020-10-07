@@ -5,7 +5,7 @@ export const fetchCurrentTask = () => {
   return dispatch => {
     dispatch({ type: "LOADING_TASK" })
 
-    fetch(tasksURL + localStorage.currentTaskId)
+    fetch(tasksURL + localStorage.getItem("currentTaskId"))
       .then(resp => resp.json())
       .then(data => dispatch({ type: "SET_CURRENT_TASK", payload: data }))
   }

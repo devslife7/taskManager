@@ -20,7 +20,7 @@ function ProjectCard({ project }) {
   const dispatch = useDispatch()
 
   const handleSetCurrentProject = () => {
-    if (project.id.toString() !== localStorage.currentProjectId) {
+    if (project.id.toString() !== localStorage.getItem("currentProjectId")) {
       localStorage.setItem("currentProjectId", `${project.id}`)
       dispatch(fetchCurrentProject())
       // dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject

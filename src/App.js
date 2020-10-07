@@ -18,10 +18,10 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    !!localStorage.userId && dispatch(fetchUser())
-    !!localStorage.currentProjectId && dispatch(fetchCurrentProject())
-    !!localStorage.currentMilestoneId && dispatch(fetchCurrentMilestone())
-    !!localStorage.currentTaskId && dispatch(fetchCurrentTask())
+    !!localStorage.getItem("userId") && dispatch(fetchUser())
+    !!localStorage.getItem("currentProjectId") && dispatch(fetchCurrentProject())
+    !!localStorage.getItem("currentMilestoneId") && dispatch(fetchCurrentMilestone())
+    !!localStorage.getItem("currentTaskId") && dispatch(fetchCurrentTask())
   }, [dispatch])
 
   return (

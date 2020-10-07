@@ -45,7 +45,7 @@ export default function MilestonesTable() {
   // }
 
   const handleSetCurrentMilestone = milestoneId => {
-    localStorage.currentMilestoneId = milestoneId
+    localStorage.setItem("currentMilestoneId", `${milestoneId}`)
     dispatch(fetchCurrentMilestone())
   }
 

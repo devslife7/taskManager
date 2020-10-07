@@ -74,7 +74,7 @@ function DashBoard() {
               </Typography>
             ) : (
               <>
-                {!!localStorage.currentProjectId ? (
+                {!!localStorage.getItem("currentProjectId") ? (
                   <Typography variant='h6' className={classes.loading}>
                     Loading...
                   </Typography>
