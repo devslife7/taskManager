@@ -6,8 +6,8 @@ import {
   fetchCurrentProject,
 } from "../actions/projects"
 import { fromUnixTime, format } from "date-fns"
-// import { clearCurrentMilestone } from "../actions/milestones"
-// import { clearCurrentTask } from "../actions/tasks"
+import { clearCurrentMilestone } from "../actions/milestones"
+import { clearCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
@@ -20,14 +20,13 @@ function ProjectCard({ project }) {
   const dispatch = useDispatch()
 
   const handleSetCurrentProject = () => {
-    console.log(project.id)
     if (project.id.toString() !== localStorage.currentProjectId) {
-      localStorage.currentProjectId = project.id
+      localStorage.setItem("currentProjectId", `${project.id}`)
       dispatch(fetchCurrentProject())
-      // dispatch(clearCurrentProject())
-      // dispatch(clearCurrentMilestone())
-      // dispatch(clearCurrentTask())
+      // dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
     }
+    dispatch(clearCurrentMilestone())
+    dispatch(clearCurrentTask())
   }
 
   return (
