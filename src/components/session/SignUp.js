@@ -1,7 +1,7 @@
 import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core"
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import { setCurrentUser } from "../actions/user"
+import { setCurrentUser } from "../../actions/user"
 import { Link } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
@@ -9,16 +9,16 @@ const useStyles = makeStyles(theme => ({
     marginTop: "10vh",
     padding: "4vh",
     maxWidth: "40vh",
-    margin: "auto"
+    margin: "auto",
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   links: {
     color: theme.palette.primary.main,
     textDecoration: "none",
-    fontFamily: "Arial"
-  }
+    fontFamily: "Arial",
+  },
 }))
 
 function Copyright() {
@@ -53,16 +53,16 @@ function SignUp({ history }) {
     let postRequest = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: {
           first_name: firstName,
           last_name: lastName,
           username: username,
-          password: password
-        }
-      })
+          password: password,
+        },
+      }),
     }
 
     fetch(signUpURL, postRequest)
@@ -128,13 +128,7 @@ function SignUp({ history }) {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-          >
+          <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
             Sign Up
           </Button>
           <Grid container justify='flex-end'>

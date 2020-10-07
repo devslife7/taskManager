@@ -51,7 +51,6 @@ export default function TasksTable() {
         <TableCell align='right'>{format(fromUnixTime(task.start_date), "PP")}</TableCell>
         <TableCell align='right'>{format(fromUnixTime(task.end_date), "PP")}</TableCell>
         <TableCell align='right'>{task.notes}</TableCell>
-
         <TableCell align='right'>
           <IconButton>
             <EditIcon fontSize='small' className={classes.editIcon} />

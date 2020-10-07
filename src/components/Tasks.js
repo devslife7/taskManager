@@ -53,10 +53,6 @@ function Tasks() {
 
   const handleDialogSubmit = () => console.log("submited dialog")
 
-  // const renderEntries = () => {
-  //   return currentTask.entries.map((ent, idx) => <EntriesCard key={idx} entry={ent} />).reverse()
-  // }
-
   // const handleDeleteTask = () => {
   //   console.log("delete task")
 

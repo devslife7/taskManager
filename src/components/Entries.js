@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   makeStyles,
   Slider,
   TextField,
@@ -21,12 +22,11 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
     fontSize: "1rem",
-    color: "white",
     marginLeft: "10vw",
-    marginTop: "2vh",
   },
   KeyboardDatePicker: {
     width: "140px",
+    marginTop: 0,
   },
 }))
 
@@ -48,7 +48,7 @@ export default function Entries() {
     setNotes("")
   }
 
-  const handleSliderChange = (event, newValue) => {
+  const handleSliderChange = (e, newValue) => {
     setSliderValue(newValue)
   }
 
@@ -103,11 +103,11 @@ export default function Entries() {
       <EntriesTable />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "20px" }}>
-          {"New Entry"}
-        </Typography>
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>New Entry</Typography>
+        </DialogTitle>
 
-        <DialogContent className={classes.DialogContent}>
+        <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -154,7 +154,7 @@ export default function Entries() {
         </DialogContent>
 
         <DialogActions>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
           <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>

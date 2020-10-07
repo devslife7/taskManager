@@ -58,7 +58,6 @@ export default function EntriesTable() {
           {format(fromUnixTime(entry.date), "PP")}
         </TableCell>
         <TableCell align='right'>{entry.notes}</TableCell>
-
         <TableCell align='right'>
           <IconButton>
             <EditIcon fontSize='small' className={classes.editIcon} />
