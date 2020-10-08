@@ -1,33 +1,59 @@
+import { format, fromUnixTime } from "date-fns"
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
 import { useSelector } from "react-redux"
 
 function TasksGraph() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
-  const currentMilestoneSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date)
-  const timelineSeries = currentMilestoneSorted.map(t => [t.end_date, t.progress])
+  const currentMilestoneTasksSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date).reverse()
+  const timelineSeries = currentMilestoneTasksSorted.map(t => ({
+    x: format(fromUnixTime(t.end_date), "PP"),
+    y: t.progress,
+  }))
 
   console.log(timelineSeries)
 
   const [options] = useState({
     chart: {
-      height: 380,
-      width: "100%",
-      type: "area",
-      animations: {
-        initialAnimation: {
-          enabled: false,
-        },
+      height: 350,
+      type: "line",
+      zoom: {
+        enabled: true,
+      },
+    },
+    dataLabels: {
+      enabled: true,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    title: {
+      text: "Task Progress over Time",
+      align: "center",
+    },
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        opacity: 0.5,
       },
     },
     xaxis: {
+      // categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
       type: "datetime",
     },
   })
   const [series] = useState([
     {
       name: "Progress",
-      data: timelineSeries, //[[1324508400000, 34], [1324594800000, 54] , ... , [1326236400000, 43]]
+      // data: [
+      //   [1486684800000, 34],
+      //   [1486771200000, 43],
+      //   [1486857600000, 31],
+      //   [1486944000000, 43],
+      //   [1487030400000, 33],
+      //   [1487116800000, 52],
+      // ],
+      data: timelineSeries,
     },
   ])
 
