@@ -154,8 +154,6 @@ export default function TasksTable() {
       </TableContainer>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        {/* <DialogTitle>{"deleting this task"}</DialogTitle> */}
-
         <DialogTitle disableTypography>
           <Typography variant='h5'>Deleting Task: {`${currentTask.name}`}</Typography>
         </DialogTitle>

@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     margin: "5vh 0 0 10vw",
     fontSize: "1rem",
-    color: "white",
   },
   KeyboardDatePicker: {
     width: "140px",
@@ -95,7 +94,8 @@ export default function Overview() {
         color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
-        onClick={handleOpenDialog}>
+        onClick={handleOpenDialog}
+      >
         Add Project
       </Button>
       <OverviewGraph />
@@ -190,7 +190,7 @@ export default function Overview() {
         )}
 
         <DialogActions>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
           <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>

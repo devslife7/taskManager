@@ -86,6 +86,7 @@ export default function EntriesTable() {
   }
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+
   const handleOpenDeleteDialog = entry => {
     setOpenDeleteDialog(true)
     setCurrentEntry(entry)
@@ -142,10 +143,11 @@ export default function EntriesTable() {
       </TableContainer>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        {/* <DialogTitle>{"deleting this entry"}</DialogTitle> */}
-
         <DialogTitle disableTypography>
-          <Typography variant='h5'>Deleting Entry: {`${currentEntry.name}`}</Typography>
+          <Typography variant='h5'>
+            Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), "PP")}
+            {/* Deleting Entry: {console.log(currentEntry.date)} */}
+          </Typography>
         </DialogTitle>
         <DialogContent>
           {"Are you sure you want to delete this Entry?\nThis action cannot be undone."}

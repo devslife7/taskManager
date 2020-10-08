@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   Grid,
   makeStyles,
   TextField,
@@ -23,6 +24,12 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
     fontSize: "1rem",
+    // marginLeft: "10vw",
+    // marginTop: "2vh",
+  },
+  addMilestoneButton: {
+    textTransform: "none",
+    fontSize: "1rem",
     marginLeft: "10vw",
     marginTop: "2vh",
   },
@@ -41,8 +48,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1rem",
     color: "white",
     backgroundColor: theme.palette.error.main,
-    marginLeft: "20px",
-
+    // marginLeft: "10vw",
+    // marginTop: "2vh",
     "&:hover": {
       backgroundColor: theme.palette.error.dark,
     },
@@ -60,6 +67,25 @@ function Milestones() {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [name, setName] = useState("")
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const [openEditDialog, setOpenEditDialog] = useState(false)
+  const [description, setDescription] = useState("")
+
+  const handleCloseEditDialog = () => setOpenEditDialog(false)
+  const handleOpenEditDialog = () => {
+    setName(currentProject.name)
+    setDescription(currentProject.description)
+    setOpenEditDialog(true)
+    setStartDate(fromUnixTime(currentProject.start_date))
+    setEndDate(fromUnixTime(currentProject.end_date))
+  }
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+  const handleOpenDeleteDialog = () => setOpenDeleteDialog(true)
+
+  const handleOk = () => {
+    // dispatch(deleteEntryFetch(currentEntry.id))
+    handleCloseDeleteDialog()
+  }
 
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
@@ -89,10 +115,17 @@ function Milestones() {
             color='primary'
             startIcon={<DeleteIcon />}
             className={classes.removeButton}
+            onClick={handleOpenDeleteDialog}
           >
             Remove Project
           </Button>
-          <Button variant='contained' color='primary' startIcon={<EditIcon />} className={classes.editButton}>
+          <Button
+            variant='contained'
+            color='primary'
+            startIcon={<EditIcon />}
+            className={classes.editButton}
+            onClick={handleOpenEditDialog}
+          >
             Edit Project
           </Button>
         </Grid>
@@ -102,7 +135,7 @@ function Milestones() {
         variant='contained'
         color='primary'
         startIcon={<AddIcon />}
-        className={classes.button}
+        className={classes.addMilestoneButton}
         onClick={handleOpenDialog}
       >
         Add Milestone
@@ -162,6 +195,107 @@ function Milestones() {
             Cancel
           </Button>
           <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>Deleting Project: {`${currentProject.name}`}</Typography>
+        </DialogTitle>
+        <DialogContent>
+          {"Are you sure you want to delete this Project?\nThis action cannot be undone."}
+        </DialogContent>
+
+        <DialogActions>
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDeleteDialog}>
+            Cancel
+          </Button>
+          <Button variant='contained' className={classes.removeButton} onClick={handleOk}>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+          {"Edit Project"}
+        </Typography>
+        <DialogContent className={classes.DialogContent}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            label='Name'
+            value={name}
+            onChange={e => {
+              setName(e.target.value)
+            }}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            multiline
+            rows={2}
+            label='Description'
+            value={description}
+            onChange={e => {
+              setDescription(e.target.value)
+            }}
+          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify='space-around'>
+              <KeyboardDatePicker
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                label='Start Date'
+                value={startDate}
+                onChange={handleSetStartDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+              <KeyboardDatePicker
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                label='End Date'
+                value={endDate}
+                onChange={handleSetEndDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            variant='outlined'
+            className={classes.button}
+            onClick={handleCloseEditDialog}
+            color='primary'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleCloseEditDialog}
+            color='primary'
+          >
             Submit
           </Button>
         </DialogActions>
