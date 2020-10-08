@@ -72,12 +72,17 @@ export default function TasksTable() {
     setOpenDeleteDialog(true)
   }
   const handleOpenEditDialog = task => {
+    setName(task.name)
+    setHours(task.hours)
+    setNotes(task.notes)
+    setStartDate(fromUnixTime(task.start_date))
+    setEndDate(fromUnixTime(task.end_date))
     setOpenEditDialog(true)
   }
 
   const handleDeleteConfirm = () => {
     console.log("Confirms delete task")
-    // dispatch(deleteEntryFetch(currentEntry.id))
+    // dispatch(deleteEntryFetch(currentTask.id))
     handleCloseDeleteDialog()
   }
   const handleEditDialogSubmit = () => {
