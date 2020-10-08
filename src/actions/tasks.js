@@ -58,6 +58,19 @@ export const createEntryFetch = requestBody => {
   }
 }
 
+export const editEntryFetch = (requestBody, taskId) => {
+  return dispatch => {
+    const configurationObject = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    }
+    fetch(entriesURL + taskId, configurationObject)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
+}
+
 export const deleteEntryFetch = entryId => {
   return dispatch => {
     fetch(entriesURL + entryId, { method: "DELETE" })

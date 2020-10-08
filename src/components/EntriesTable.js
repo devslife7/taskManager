@@ -21,9 +21,9 @@ import {
 } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
-import { fromUnixTime, format } from "date-fns"
+import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch } from "../actions/tasks"
+import { deleteEntryFetch, editEntryFetch } from "../actions/tasks"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 const useStyles = makeStyles(theme => ({
@@ -59,6 +59,7 @@ const useStyles = makeStyles(theme => ({
 export default function EntriesTable() {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.user.currentUser)
   const currentTask = useSelector(state => state.tasks.currentTask)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [currentEntry, setCurrentEntry] = useState({})
@@ -73,7 +74,15 @@ export default function EntriesTable() {
   }
 
   const handleEditSubmit = () => {
-    console.log("Edit Submits")
+    const requestBody = {
+      user_id: currentUser.id,
+      entry: {
+        date: getUnixTime(date),
+        progress: sliderValue,
+        notes: notes,
+      },
+    }
+    dispatch(editEntryFetch(requestBody, currentTask.id)) // sends the request body for fetch
     handleCloseEditDialog()
   }
 
@@ -81,7 +90,6 @@ export default function EntriesTable() {
     setSliderValue(entry.progress)
     setNotes(entry.notes)
     setDate(fromUnixTime(entry.date))
-
     setOpenEditDialog(true)
   }
   const handleCloseEditDialog = () => setOpenEditDialog(false)
@@ -191,7 +199,7 @@ export default function EntriesTable() {
             Progress: {`${sliderValue}%`}
           </Typography>
           <Slider
-            defaultValue={sliderValue}
+            value={sliderValue}
             step={5}
             marks={marks}
             min={5}
