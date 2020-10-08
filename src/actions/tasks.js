@@ -58,16 +58,16 @@ export const createEntryFetch = requestBody => {
   }
 }
 
-export const editEntryFetch = (requestBody, taskId) => {
+export const editEntryFetch = (requestBody, entryId) => {
   return dispatch => {
     const configurationObject = {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     }
-    fetch(entriesURL + taskId, configurationObject)
+    fetch(entriesURL + entryId, configurationObject)
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => dispatch({ type: "UPDATE_CURRENT_ENTRY", payload: data }))
   }
 }
 

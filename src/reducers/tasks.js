@@ -38,6 +38,20 @@ export default (state = initialState, action) => {
         },
       }
 
+    case "UPDATE_CURRENT_ENTRY":
+      idx = state.currentTask.entries.findIndex(entry => entry.id === action.payload.entry.id)
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          entries: [
+            ...state.currentTask.entries.slice(0, idx),
+            action.payload.entry,
+            ...state.currentTask.entries.slice(idx + 1),
+          ],
+        },
+      }
+
     case "DELETE_ENTRY":
       idx = state.currentTask.entries.findIndex(entry => entry.id === action.payload)
       return {

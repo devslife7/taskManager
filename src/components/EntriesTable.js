@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 export default function EntriesTable() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.user.currentUser)
+  // const currentUser = useSelector(state => state.user.currentUser)
   const currentTask = useSelector(state => state.tasks.currentTask)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [currentEntry, setCurrentEntry] = useState({})
@@ -75,14 +75,13 @@ export default function EntriesTable() {
 
   const handleEditSubmit = () => {
     const requestBody = {
-      user_id: currentUser.id,
       entry: {
         date: getUnixTime(date),
         progress: sliderValue,
         notes: notes,
       },
     }
-    dispatch(editEntryFetch(requestBody, currentTask.id)) // sends the request body for fetch
+    dispatch(editEntryFetch(requestBody, currentEntry.id)) // sends the request body for fetch
     handleCloseEditDialog()
   }
 
@@ -91,6 +90,7 @@ export default function EntriesTable() {
     setNotes(entry.notes)
     setDate(fromUnixTime(entry.date))
     setOpenEditDialog(true)
+    setCurrentEntry(entry)
   }
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
