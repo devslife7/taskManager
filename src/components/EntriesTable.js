@@ -44,6 +44,16 @@ const useStyles = makeStyles(theme => ({
     width: "140px",
     marginTop: 0,
   },
+  removeButton: {
+    textTransform: "none",
+    fontSize: "1rem",
+    color: "white",
+    backgroundColor: theme.palette.error.main,
+
+    "&:hover": {
+      backgroundColor: theme.palette.error.dark,
+    },
+  },
 }))
 
 export default function EntriesTable() {
@@ -132,19 +142,21 @@ export default function EntriesTable() {
       </TableContainer>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>{"deleting this entry"}</DialogTitle>
+        {/* <DialogTitle>{"deleting this entry"}</DialogTitle> */}
+
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>Deleting Entry: {`${currentEntry.name}`}</Typography>
+        </DialogTitle>
+        <DialogContent>
+          {"Are you sure you want to delete this Entry?\nThis action cannot be undone."}
+        </DialogContent>
 
         <DialogActions>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseDeleteDialog}
-            color='primary'
-          >
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDeleteDialog}>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleOk} color='primary'>
-            Confirm
+          <Button variant='contained' className={classes.removeButton} onClick={handleOk}>
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

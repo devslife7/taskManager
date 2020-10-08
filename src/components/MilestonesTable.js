@@ -158,12 +158,11 @@ export default function MilestonesTable() {
       </TableContainer>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        {/* <DialogTitle>{`Deleting Milestone: ${currentMilestone.name}`}</DialogTitle> */}
         <DialogTitle disableTypography>
           <Typography variant='h5'>Deleting Milestone: {`${currentMilestone.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this task?\nThis action cannot be undone."}
+          {"Are you sure you want to delete this Milestone?\nThis action cannot be undone."}
         </DialogContent>
 
         <DialogActions>

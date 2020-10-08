@@ -160,7 +160,7 @@ export default function TasksTable() {
           <Typography variant='h5'>Deleting Task: {`${currentTask.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this task?\nThis action cannot be undone."}
+          {"Are you sure you want to delete this Task?\nThis action cannot be undone."}
         </DialogContent>
 
         <DialogActions>
@@ -168,7 +168,7 @@ export default function TasksTable() {
             Cancel
           </Button>
           <Button variant='contained' className={classes.removeButton} onClick={handleDeleteConfirm}>
-            Confirm
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
