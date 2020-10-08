@@ -5,8 +5,10 @@ import { useSelector } from "react-redux"
 export default function OverviewGraph() {
   const allProjects = useSelector(state => state.projects.allProjects)
 
-  const projectNames = allProjects.map(proj => proj.name)
-  const projectProgress = allProjects.map(proj => proj.progress)
+  const filteredProjects = allProjects.sort((a, b) => b.end_date - a.end_date).reverse()
+
+  const projectNames = filteredProjects.map(proj => proj.name)
+  const projectProgress = filteredProjects.map(proj => proj.progress)
 
   const [options] = useState({
     chart: {

@@ -96,7 +96,8 @@ export default function Entries() {
         color='primary'
         startIcon={<AddIcon />}
         className={classes.button}
-        onClick={handleOpenDialog}>
+        onClick={handleOpenDialog}
+      >
         Add Entry
       </Button>
 

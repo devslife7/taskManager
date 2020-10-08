@@ -30,36 +30,45 @@ export default (state = initialState, action) => {
         loadingProject: false,
       }
 
-    case "UPDATE_CURRENT_PROJECT_PROGRESS":
-      const currentProjectUpdated = {
-        id: state.currentProject.id,
-        name: state.currentProject.name,
-        progress: action.payload.projectProgress,
-        end_date: state.currentProject.end_date,
+    case "UPDATE_ALLPROJECTS_PROGRESS":
+      const projectUpdated = {
+        id: action.payload.project.id,
+        name: action.payload.project.name,
+        progress: action.payload.project.progress,
+        end_date: action.payload.project.end_date,
       }
-      const updatedMilestone = {
-        ...action.payload.milestone,
-        progress: action.payload.milestoneProgress,
+      idx = state.allProjects.findIndex(project => project.id === action.payload.project.id)
+      return {
+        ...state,
+        allProjects: [
+          ...state.allProjects.slice(0, idx),
+          projectUpdated,
+          ...state.allProjects.slice(idx + 1),
+        ],
       }
-      let idxProject = state.allProjects.findIndex(project => project.id === state.currentProject.id)
-      let idxMilestone = state.currentProject.milestones.findIndex(
+
+    case "UPDATE_CURRENT_PROJECT_MILESTONE":
+      idx = state.currentProject.milestones.findIndex(
         milestone => milestone.id === action.payload.milestone.id
       )
       return {
         ...state,
-        allProjects: [
-          ...state.allProjects.slice(0, idxProject),
-          currentProjectUpdated,
-          ...state.allProjects.slice(idxProject + 1),
-        ],
+        currentProject: {
+          ...state.currentProject,
+          milestones: [
+            ...state.currentProject.milestones.slice(0, idx),
+            action.payload.milestone,
+            ...state.currentProject.milestones.slice(idx + 1),
+          ],
+        },
+      }
+
+    case "UPDATE_CURRENT_PROJECT_PROGRESS":
+      return {
+        ...state,
         currentProject: {
           ...state.currentProject,
           progress: action.payload.projectProgress,
-          milestones: [
-            ...state.currentProject.milestones.slice(0, idxMilestone),
-            updatedMilestone,
-            ...state.currentProject.milestones.slice(idxMilestone + 1),
-          ],
         },
       }
 
@@ -99,20 +108,6 @@ export default (state = initialState, action) => {
         ...state,
         allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
       }
-
-    // case "REMOVE_WATCHPARTY":
-    //   idx = state.currentUser.watchparties.findIndex(party => party.id === action.payload)
-    //   console.log("found index", idx)
-    //   return {
-    //     ...state,
-    //     currentUser: {
-    //       ...state.currentUser,
-    //       watchparties: [
-    //         ...state.currentUser.watchparties.slice(0, idx),
-    //         ...state.currentUser.watchparties.slice(idx + 1)
-    //       ]
-    //     }
-    //   }
 
     default:
       return state

@@ -18,11 +18,7 @@ export const clearCurrentTask = () => {
 }
 
 export const createEntryFetch = requestBody => {
-  return (dispatch, getState) => {
-    const {
-      tasks: { currentTask },
-      milestones: { currentMilestone },
-    } = getState()
+  return dispatch => {
     const configurationObject = {
       method: "POST",
       headers: {
@@ -35,24 +31,32 @@ export const createEntryFetch = requestBody => {
       .then(resp => resp.json())
       .then(data => {
         dispatch({
-          type: "UPDATE_CURRENT_TASK_PROGRESS",
-          payload: { taskProgress: data.task_progress, entry: data.entry },
+          type: "ADD_ENTRY",
+          payload: { entry: data.entry },
         })
         dispatch({
-          type: "UPDATE_CURRENT_PROJECT_PROGRESS",
-          payload: {
-            milestone: currentMilestone,
-            milestoneProgress: data.milestone_progress,
-            projectProgress: data.project_progress,
-          },
+          type: "UPDATE_CURRENT_TASK_PROGRESS",
+          payload: { taskProgress: data.task.progress },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_TASK",
+          payload: { task: data.task },
         })
         dispatch({
           type: "UPDATE_CURRENT_MILESTONE_PROGRESS",
-          payload: {
-            task: currentTask,
-            taskProgress: data.task_progress,
-            milestoneProgress: data.milestone_progress,
-          },
+          payload: { milestoneProgress: data.milestone.progress },
+        })
+        dispatch({
+          type: "UPDATE_ALLPROJECTS_PROGRESS",
+          payload: { project: data.project },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_MILESTONE",
+          payload: { milestone: data.milestone },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_PROGRESS",
+          payload: { projectProgress: data.project.progress },
         })
       })
   }
@@ -67,7 +71,33 @@ export const editEntryFetch = (requestBody, entryId) => {
     }
     fetch(entriesURL + entryId, configurationObject)
       .then(resp => resp.json())
-      .then(data => dispatch({ type: "UPDATE_CURRENT_ENTRY", payload: data }))
+      .then(data => {
+        dispatch({ type: "UPDATE_CURRENT_ENTRY", payload: data })
+        dispatch({
+          type: "UPDATE_CURRENT_TASK_PROGRESS",
+          payload: { taskProgress: data.task.progress },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_TASK",
+          payload: { task: data.task },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_PROGRESS",
+          payload: { milestoneProgress: data.milestone.progress },
+        })
+        dispatch({
+          type: "UPDATE_ALLPROJECTS_PROGRESS",
+          payload: { project: data.project },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_MILESTONE",
+          payload: { milestone: data.milestone },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_PROGRESS",
+          payload: { projectProgress: data.project.progress },
+        })
+      })
   }
 }
 
@@ -75,6 +105,35 @@ export const deleteEntryFetch = entryId => {
   return dispatch => {
     fetch(entriesURL + entryId, { method: "DELETE" })
       .then(resp => resp.json())
-      .then(data => dispatch({ type: "DELETE_ENTRY", payload: data.deleted_entry_id }))
+      .then(data => {
+        dispatch({
+          type: "DELETE_ENTRY",
+          payload: data.entry_id,
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_TASK_PROGRESS",
+          payload: { taskProgress: data.task.progress },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_TASK",
+          payload: { task: data.task },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_MILESTONE_PROGRESS",
+          payload: { milestoneProgress: data.milestone.progress },
+        })
+        dispatch({
+          type: "UPDATE_ALLPROJECTS_PROGRESS",
+          payload: { project: data.project },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_MILESTONE",
+          payload: { milestone: data.milestone },
+        })
+        dispatch({
+          type: "UPDATE_CURRENT_PROJECT_PROGRESS",
+          payload: { projectProgress: data.project.progress },
+        })
+      })
   }
 }

@@ -28,13 +28,21 @@ export default (state = initialState, action) => {
         currentTask: { entries: [] },
       }
 
+    case "ADD_ENTRY":
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          entries: [...state.currentTask.entries, action.payload.entry],
+        },
+      }
+
     case "UPDATE_CURRENT_TASK_PROGRESS":
       return {
         ...state,
         currentTask: {
           ...state.currentTask,
           progress: action.payload.taskProgress,
-          entries: [...state.currentTask.entries, action.payload.entry],
         },
       }
 
