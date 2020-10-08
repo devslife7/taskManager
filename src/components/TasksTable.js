@@ -48,6 +48,16 @@ const useStyles = makeStyles(theme => ({
     height: "350px",
     width: "350px",
   },
+  removeButton: {
+    textTransform: "none",
+    fontSize: "1rem",
+    color: "white",
+    backgroundColor: theme.palette.error.main,
+
+    "&:hover": {
+      backgroundColor: theme.palette.error.dark,
+    },
+  },
 }))
 
 export default function TasksTable() {
@@ -61,15 +71,16 @@ export default function TasksTable() {
   const [notes, setNotes] = useState("")
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
-  // const [currentTask, setCurrentTask] = useState()
+  const [currentTask, setCurrentTask] = useState({ name: "" })
 
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
-  const handleOpenDeleteDialog = () => {
+  const handleOpenDeleteDialog = task => {
     setOpenDeleteDialog(true)
+    setCurrentTask(task)
   }
   const handleOpenEditDialog = task => {
     setName(task.name)
@@ -111,7 +122,7 @@ export default function TasksTable() {
           <IconButton onClick={() => handleOpenEditDialog(task)}>
             <EditIcon fontSize='small' className={classes.editIcon} />
           </IconButton>
-          <IconButton onClick={handleOpenDeleteDialog}>
+          <IconButton onClick={() => handleOpenDeleteDialog(task)}>
             <DeleteIcon fontSize='small' color='error' className={classes.deleteIcon} />
           </IconButton>
           <IconButton onClick={() => handleLink(task.id)}>
@@ -143,23 +154,20 @@ export default function TasksTable() {
       </TableContainer>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>{"deleting this task"}</DialogTitle>
+        {/* <DialogTitle>{"deleting this task"}</DialogTitle> */}
+
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>Deleting Task: {`${currentTask.name}`}</Typography>
+        </DialogTitle>
+        <DialogContent>
+          {"Are you sure you want to delete this task?\nThis action cannot be undone."}
+        </DialogContent>
 
         <DialogActions>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseDeleteDialog}
-            color='primary'
-          >
+          <Button variant='outlined' className={classes.button} onClick={handleCloseDeleteDialog}>
             Cancel
           </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleDeleteConfirm}
-            color='primary'
-          >
+          <Button variant='contained' className={classes.removeButton} onClick={handleDeleteConfirm}>
             Confirm
           </Button>
         </DialogActions>

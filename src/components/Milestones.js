@@ -47,6 +47,9 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.error.dark,
     },
   },
+  KeyboardDatePicker: {
+    width: "140px",
+  },
 }))
 
 function Milestones() {
@@ -136,9 +139,6 @@ function Milestones() {
                 id='date-picker-inline'
                 value={startDate}
                 onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
                 className={classes.KeyboardDatePicker}
               />
               <KeyboardDatePicker
@@ -151,9 +151,6 @@ function Milestones() {
                 id='date-picker-inline'
                 value={endDate}
                 onChange={handleSetEndDate}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
                 className={classes.KeyboardDatePicker}
               />
             </Grid>
