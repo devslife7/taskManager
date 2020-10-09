@@ -2,7 +2,8 @@ import React from "react"
 import Typography from "@material-ui/core/Typography"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
-import { Button, Grid, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core"
+import { Button, Grid, makeStyles, MenuItem, Select } from "@material-ui/core"
+import { Breadcrumbs as Bread } from "@material-ui/core"
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
@@ -35,25 +36,14 @@ export default function Breadcrumbs() {
 
   const clearProject = () => {
     dispatch(clearCurrentProject())
-    dispatch(clearCurrentMilestone())
-    dispatch(clearCurrentTask())
+    clearMilestone()
   }
   const clearMilestone = () => {
     dispatch(clearCurrentMilestone())
-    dispatch(clearCurrentTask())
+    clearTask()
   }
   const clearTask = () => {
     dispatch(clearCurrentTask())
-  }
-
-  const renderMenuItems = list => {
-    return list.map((item, idx) => (
-      <MenuItem key={idx} value={item.id}>
-        <Typography color='textPrimary' variant='subtitle1'>
-          {item.name}
-        </Typography>
-      </MenuItem>
-    ))
   }
 
   const handleSetCurrentProject = event => {
@@ -72,16 +62,27 @@ export default function Breadcrumbs() {
     clearTask()
   }
 
+  const renderMenuItems = list => {
+    return list.map((item, idx) => (
+      <MenuItem key={idx} value={item.id}>
+        <Typography color='textPrimary' variant='subtitle1'>
+          {item.name}
+        </Typography>
+      </MenuItem>
+    ))
+  }
+
   return (
     <div aria-label='breadcrumb' className={classes.mainDiv}>
       <Grid container alignItems='center' className={classes.gridContainer}>
+        {/* <Bread> */}
         <Button startIcon={<HomeIcon />} className={classes.overviewBtn} onClick={clearProject}>
           Overview
         </Button>
 
         {currentProject.id && (
           <>
-            <NavigateNextIcon className={classes.iconButton} />
+            <NavigateNextIcon color='action' className={classes.iconButton} />
             <Button className={classes.overviewBtn} onClick={clearMilestone}>
               {currentProject.name}
             </Button>
@@ -93,7 +94,7 @@ export default function Breadcrumbs() {
         )}
         {currentMilestone.id && (
           <>
-            <NavigateNextIcon className={classes.iconButton} />
+            <NavigateNextIcon color='action' className={classes.iconButton} />
             <Button className={classes.overviewBtn} onClick={clearTask}>
               {currentMilestone.name}
             </Button>
@@ -105,14 +106,17 @@ export default function Breadcrumbs() {
         )}
         {currentTask.id && (
           <>
-            <NavigateNextIcon className={classes.iconButton} />
-            <Typography>{currentTask.name}</Typography>
+            <NavigateNextIcon color='action' className={classes.iconButton} />
+            {/* <Grid container> */}
+            <Typography color='textPrimary'>{currentTask.name}</Typography>
 
             <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentTask}>
               {renderMenuItems(currentMilestone.tasks)}
             </Select>
+            {/* </Grid> */}
           </>
         )}
+        {/* </Bread> */}
       </Grid>
     </div>
   )
