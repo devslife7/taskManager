@@ -22,6 +22,7 @@ function ProjectCard({ project }) {
       dispatch(fetchCurrentProject())
       dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
     }
+    localStorage.setItem("currentProjectId", `${project.id}`)
     dispatch(clearCurrentMilestone())
     dispatch(clearCurrentTask())
   }

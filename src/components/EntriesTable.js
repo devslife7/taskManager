@@ -16,6 +16,7 @@ import {
   DialogTitle,
   IconButton,
   Slider,
+  TableSortLabel,
   TextField,
   Typography,
 } from "@material-ui/core"
@@ -64,10 +65,11 @@ export default function EntriesTable() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [currentEntry, setCurrentEntry] = useState({})
   const [openEditDialog, setOpenEditDialog] = useState(false)
-
   const [sliderValue, setSliderValue] = useState(80)
   const [date, setDate] = useState()
   const [notes, setNotes] = useState("")
+  const [order, setOrder] = useState()
+  const [orderBy, setOrderBy] = useState()
 
   const handleSliderChange = (e, newValue) => {
     setSliderValue(newValue)
@@ -112,8 +114,43 @@ export default function EntriesTable() {
     { value: 100, label: "100%" },
   ]
 
+  // function tableSort(array, comparator) {
+  //   const stabilizedThis = array.map((el, index) => [el, index])
+  //   console.log("stabilizedThis: ", stabilizedThis)
+  //   stabilizedThis.sort((a, b) => {
+  //     const order = comparator(a[0], b[0])
+  //     if (order !== 0) return order
+  //     return a[1] - b[1]
+  //   })
+  //   console.log("stabillizedThis after Sort: ", stabilizedThis)
+  //   return stabilizedThis.map(el => el[0])
+  // }
+
+  // function getComparator(order, orderBy) {
+  //   return order === "desc"
+  //     ? (a, b) => descendingComparator(a, b, orderBy)
+  //     : (a, b) => -descendingComparator(a, b, orderBy)
+  // }
+
+  // function descendingComparator(a, b, orderBy) {
+  //   if (b[orderBy] < a[orderBy]) {
+  //     return -1
+  //   }
+  //   if (b[orderBy] > a[orderBy]) {
+  //     return 1
+  //   }
+  //   return 0
+  // }
+
+  const tableSort = entries => {
+    entries.sort((a, b) => b.date - a.date)
+    return entries
+  }
+
   const renderRows = () => {
-    return currentTask.entries.map((entry, idx) => (
+    // return currentTask.entries.map((entry, idx) => (
+    // return tableSort(currentTask.entries, getComparator(order, orderBy)).map((entry, idx) => (
+    return tableSort(currentTask.entries).map((entry, idx) => (
       <TableRow key={idx}>
         <TableCell>{"owner"}</TableCell>
         <TableCell align='right'>{`${entry.progress}%`}</TableCell>
@@ -133,6 +170,14 @@ export default function EntriesTable() {
     ))
   }
 
+  const handleSortRequest = cellName => {
+    const isAsc = orderBy === cellName && order === "asc"
+    setOrder(isAsc ? "desc" : "asc")
+    setOrderBy(cellName)
+    console.log("order: ", order)
+    console.log("orderBy: ", orderBy)
+  }
+
   return (
     <>
       <TableContainer component={Paper} className={classes.table}>
@@ -141,7 +186,15 @@ export default function EntriesTable() {
             <TableRow>
               <TableCell>Owner</TableCell>
               <TableCell align='right'>Progress%</TableCell>
-              <TableCell align='right'>Date</TableCell>
+              <TableCell align='right' sortDirection={orderBy === "Date" ? order : false}>
+                <TableSortLabel
+                  active={orderBy === "Date"}
+                  onClick={() => handleSortRequest("Date")}
+                  direction={orderBy === "Date" ? order : "asc"}
+                >
+                  Date
+                </TableSortLabel>
+              </TableCell>
               <TableCell align='right'>Notes</TableCell>
               <TableCell align='right'>Actions</TableCell>
             </TableRow>
