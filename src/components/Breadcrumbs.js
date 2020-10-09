@@ -2,17 +2,26 @@ import React from "react"
 import Typography from "@material-ui/core/Typography"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
-import { Button, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core"
+import { Button, Grid, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core"
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
+import HomeIcon from "@material-ui/icons/Home"
 
 const useStyles = makeStyles({
   mainDiv: {
-    height: "5vh",
+    // height: "5rem",
+    // backgroundColor: "green",
   },
   iconButton: {
     margin: "0vh 0.5vw",
+  },
+  overviewBtn: {
+    textTransform: "none",
+    fontSize: "1rem",
+  },
+  gridContainer: {
+    height: "3rem",
   },
 })
 
@@ -65,39 +74,46 @@ export default function Breadcrumbs() {
 
   return (
     <div aria-label='breadcrumb' className={classes.mainDiv}>
-      <Button variant='outlined' onClick={clearProject}>
-        <Typography color='textPrimary'>Overview</Typography>
-      </Button>
-      {currentProject.id && (
-        <>
-          <IconButton onClick={clearMilestone} className={classes.iconButton}>
-            <NavigateNextIcon />
-          </IconButton>
-          <Select value={currentProject.id} onChange={handleSetCurrentProject}>
-            {renderMenuItems(allProjects)}
-          </Select>
-        </>
-      )}
-      {currentMilestone.id && (
-        <>
-          <IconButton onClick={clearTask} className={classes.iconButton}>
-            <NavigateNextIcon />
-          </IconButton>
-          <Select value={currentMilestone.id} onChange={handleSetCurrentMilestone}>
-            {renderMenuItems(currentProject.milestones)}
-          </Select>
-        </>
-      )}
-      {currentTask.id && (
-        <>
-          <IconButton disabled onClick={clearTask} className={classes.iconButton}>
-            <NavigateNextIcon />
-          </IconButton>
-          <Select value={currentTask.id} onChange={handleSetCurrentTask}>
-            {renderMenuItems(currentMilestone.tasks)}
-          </Select>
-        </>
-      )}
+      <Grid container alignItems='center' className={classes.gridContainer}>
+        <Button startIcon={<HomeIcon />} className={classes.overviewBtn} onClick={clearProject}>
+          Overview
+        </Button>
+
+        {currentProject.id && (
+          <>
+            <NavigateNextIcon className={classes.iconButton} />
+            <Button className={classes.overviewBtn} onClick={clearMilestone}>
+              {currentProject.name}
+            </Button>
+
+            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentProject}>
+              {renderMenuItems(allProjects)}
+            </Select>
+          </>
+        )}
+        {currentMilestone.id && (
+          <>
+            <NavigateNextIcon className={classes.iconButton} />
+            <Button className={classes.overviewBtn} onClick={clearTask}>
+              {currentMilestone.name}
+            </Button>
+
+            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentMilestone}>
+              {renderMenuItems(currentProject.milestones)}
+            </Select>
+          </>
+        )}
+        {currentTask.id && (
+          <>
+            <NavigateNextIcon className={classes.iconButton} />
+            <Typography>{currentTask.name}</Typography>
+
+            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentTask}>
+              {renderMenuItems(currentMilestone.tasks)}
+            </Select>
+          </>
+        )}
+      </Grid>
     </div>
   )
 }

@@ -24,7 +24,8 @@ function TasksGraph() {
       enabled: true,
     },
     stroke: {
-      curve: "smooth",
+      // curve: "smooth",
+      curve: "stepline",
     },
     title: {
       text: "Task Progress",
