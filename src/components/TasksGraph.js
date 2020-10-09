@@ -15,8 +15,7 @@ function TasksGraph() {
 
   const [options] = useState({
     chart: {
-      height: 350,
-      type: "line",
+      // height: 350,
       zoom: {
         enabled: true,
       },
@@ -25,10 +24,10 @@ function TasksGraph() {
       enabled: true,
     },
     stroke: {
-      curve: "straight",
+      curve: "smooth",
     },
     title: {
-      text: "Task Progress over Time",
+      text: "Task Progress",
       align: "center",
     },
     grid: {
@@ -40,6 +39,11 @@ function TasksGraph() {
     xaxis: {
       // categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
       type: "datetime",
+    },
+    yaxis: {
+      title: {
+        text: "Progress(%)",
+      },
     },
   })
   const [series] = useState([
@@ -58,8 +62,8 @@ function TasksGraph() {
   ])
 
   return (
-    <div style={{ width: "65vw", marginTop: "2vh", marginLeft: "10vw" }}>
-      <Chart options={options} series={series} type='line' heigth='100' width='100%' />
+    <div style={{ width: "45rem", marginTop: "2vh", marginLeft: "10vw" }}>
+      <Chart options={options} series={series} type='line' />
     </div>
   )
 }

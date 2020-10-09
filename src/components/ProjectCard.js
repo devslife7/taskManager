@@ -1,10 +1,7 @@
 import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import { useDispatch } from "react-redux"
-import {
-  // clearCurrentProject,
-  fetchCurrentProject,
-} from "../actions/projects"
+import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
 import { fromUnixTime, format } from "date-fns"
 import { clearCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask } from "../actions/tasks"
@@ -23,7 +20,7 @@ function ProjectCard({ project }) {
     if (project.id.toString() !== localStorage.getItem("currentProjectId")) {
       localStorage.setItem("currentProjectId", `${project.id}`)
       dispatch(fetchCurrentProject())
-      // dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
+      dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
     }
     dispatch(clearCurrentMilestone())
     dispatch(clearCurrentTask())
