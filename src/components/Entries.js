@@ -17,6 +17,7 @@ import EntriesTable from "./EntriesTable"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
+import EntriesGraph from "./EntriesGraph"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -102,6 +103,7 @@ export default function Entries() {
       </Button>
 
       <EntriesTable />
+      <EntriesGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle disableTypography>

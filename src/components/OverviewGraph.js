@@ -18,6 +18,11 @@ export default function OverviewGraph() {
     xaxis: {
       categories: projectNames,
     },
+    yaxis: {
+      title: {
+        text: "Progress(%)",
+      },
+    },
     fill: {
       // colors: ["#345183"]
     },
