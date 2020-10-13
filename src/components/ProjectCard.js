@@ -8,7 +8,7 @@ import { clearCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
-    padding: "0.7rem 3rem",
+    padding: "0.7rem 2.2vw",
   },
 }))
 

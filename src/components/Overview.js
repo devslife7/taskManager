@@ -26,6 +26,11 @@ const useStyles = makeStyles(theme => ({
     margin: "5vh 0 0 10vw",
     fontSize: "1rem",
   },
+  AddProjectButton: {
+    textTransform: "none",
+    margin: "5vh 0 0 17.5vw",
+    fontSize: "1rem",
+  },
   KeyboardDatePicker: {
     width: "140px",
   },
@@ -88,12 +93,12 @@ export default function Overview() {
   // }
 
   return (
-    <div style={{ backgroundColor: "#fafafa" }}>
+    <div>
       <Button
         variant='contained'
         color='primary'
         startIcon={<AddIcon />}
-        className={classes.button}
+        className={classes.AddProjectButton}
         onClick={handleOpenDialog}
       >
         Add Project

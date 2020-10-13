@@ -4,12 +4,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   makeStyles,
-  Paper,
   Slider,
-  TableBody,
-  TableCell,
-  TableRow,
   TextField,
   Typography,
 } from "@material-ui/core"
@@ -17,19 +14,17 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
 import { createEntryFetch } from "../actions/tasks"
-import EntriesTable from "./EntriesTable"
 import EntriesTable2 from "./EntriesTable2"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
 import EntriesGraph from "./EntriesGraph"
-import useTable from "./useTable"
 
 const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
     fontSize: "1rem",
-    marginLeft: "10vw",
+    marginLeft: "15vw",
   },
   KeyboardDatePicker: {
     width: "140px",
@@ -46,17 +41,6 @@ export default function Entries() {
   const [date, setDate] = useState(new Date())
   const [sliderValue, setSliderValue] = useState("50")
   const [notes, setNotes] = useState("")
-
-  const headCells = [
-    { id: "owner", label: "Owner" },
-    { id: "progress", label: "Progress(%)" },
-    { id: "date", label: "Date" },
-    { id: "notes", label: "Notes", disableSorting: true },
-  ]
-  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } = useTable(
-    currentTask.entries,
-    headCells
-  )
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleCloseDialog = () => {
@@ -94,20 +78,22 @@ export default function Entries() {
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
-      <Typography variant='h6' align='center'>
-        {currentTask.notes}
-      </Typography>
-      <Typography variant='subtitle1' align='center'>
-        {!!currentTask.start_date && (
-          <>
-            {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
-            {format(fromUnixTime(currentTask.end_date), "PP")}
-          </>
-        )}
-      </Typography>
-      <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
-      <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
-      <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
+      <Grid container justify='space-evenly' style={{ margin: "2rem 0" }}>
+        <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
+        <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
+        <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
+        <Typography variant='subtitle1' align='center'>
+          {!!currentTask.start_date && (
+            <>
+              {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
+              {format(fromUnixTime(currentTask.end_date), "PP")}
+            </>
+          )}
+        </Typography>
+        <Typography variant='h6' align='center'>
+          {currentTask.notes}
+        </Typography>
+      </Grid>
 
       <Button
         variant='contained'
@@ -119,26 +105,8 @@ export default function Entries() {
         Add Entry
       </Button>
 
-      <EntriesTable />
       <EntriesTable2 />
       <EntriesGraph />
-
-      <Paper>
-        <TblContainer>
-          <TblHead />
-          <TableBody>
-            {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx}>
-                <TableCell>{"Owner"}</TableCell>
-                <TableCell>{item.progress}</TableCell>
-                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
-                <TableCell>{item.notes}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </TblContainer>
-        <TblPagination />
-      </Paper>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle disableTypography>

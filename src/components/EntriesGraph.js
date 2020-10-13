@@ -71,7 +71,7 @@ export default function EntriesGraph() {
   ])
 
   return (
-    <div style={{ width: "45rem", marginTop: "2vh", marginLeft: "10vw" }}>
+    <div style={{ width: "50rem", margin: "2rem auto" }}>
       <Paper>
         <Chart options={options} series={series} type='line' />
       </Paper>

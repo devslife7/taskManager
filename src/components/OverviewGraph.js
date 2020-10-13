@@ -47,15 +47,8 @@ export default function OverviewGraph() {
   ])
 
   return (
-    <div>
-      <Chart
-        options={options}
-        series={series}
-        type='bar'
-        heigth='450'
-        width='900'
-        style={{ margin: "5vh 0 0 10vw" }}
-      />
+    <div style={{ width: "60rem", margin: "2rem auto" }}>
+      <Chart options={options} series={series} type='bar' />
     </div>
   )
 }
