@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   makeStyles,
+  Paper,
   Slider,
   TableBody,
   TableCell,
@@ -49,9 +50,12 @@ export default function Entries() {
     { id: "owner", label: "Owner" },
     { id: "progress", label: "Progress(%)" },
     { id: "date", label: "Date" },
-    { id: "notes", label: "Notes" },
+    { id: "notes", label: "Notes", disableSorting: true },
   ]
-  const { TblContainer, TblHead } = useTable(currentTask.entries, headCells)
+  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } = useTable(
+    currentTask.entries,
+    headCells
+  )
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleCloseDialog = () => {
@@ -117,19 +121,22 @@ export default function Entries() {
       <EntriesTable />
       <EntriesGraph />
 
-      <TblContainer>
-        <TblHead />
-        <TableBody>
-          {currentTask.entries.map((item, idx) => (
-            <TableRow key={idx}>
-              <TableCell>{"Owner"}</TableCell>
-              <TableCell>{item.progress}</TableCell>
-              <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
-              <TableCell>{item.notes}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </TblContainer>
+      <Paper>
+        <TblContainer>
+          <TblHead />
+          <TableBody>
+            {recordsAfterPagingAndSorting().map((item, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{item.progress}</TableCell>
+                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
+                <TableCell>{item.notes}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TblContainer>
+        <TblPagination />
+      </Paper>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle disableTypography>
