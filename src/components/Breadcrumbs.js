@@ -87,7 +87,7 @@ export default function Breadcrumbs() {
               {currentProject.name}
             </Button>
 
-            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentProject}>
+            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentProject}>
               {renderMenuItems(allProjects)}
             </Select>
           </>
@@ -99,7 +99,7 @@ export default function Breadcrumbs() {
               {currentMilestone.name}
             </Button>
 
-            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentMilestone}>
+            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentMilestone}>
               {renderMenuItems(currentProject.milestones)}
             </Select>
           </>
@@ -110,7 +110,7 @@ export default function Breadcrumbs() {
             {/* <Grid container> */}
             <Typography color='textPrimary'>{currentTask.name}</Typography>
 
-            <Select style={{ width: "1.6rem" }} onChange={handleSetCurrentTask}>
+            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentTask}>
               {renderMenuItems(currentMilestone.tasks)}
             </Select>
             {/* </Grid> */}

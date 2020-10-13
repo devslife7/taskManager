@@ -1,3 +1,4 @@
+import { Paper } from "@material-ui/core"
 import { format, fromUnixTime } from "date-fns"
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
@@ -71,7 +72,9 @@ export default function EntriesGraph() {
 
   return (
     <div style={{ width: "45rem", marginTop: "2vh", marginLeft: "10vw" }}>
-      <Chart options={options} series={series} type='line' />
+      <Paper>
+        <Chart options={options} series={series} type='line' />
+      </Paper>
     </div>
   )
 }
