@@ -13,6 +13,7 @@ import { useSelector } from "react-redux"
 import TasksTable from "./TasksTable"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
+import TaskTable2 from "./TaskTable2"
 import { fromUnixTime, format } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
@@ -22,6 +23,11 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     fontSize: "1rem",
     marginLeft: "10vw",
+  },
+  addTaskButton: {
+    textTransform: "none",
+    fontSize: "1rem",
+    marginLeft: "6.5vw",
   },
   KeyboardDatePicker: {
     width: "140px",
@@ -95,24 +101,30 @@ function Tasks() {
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
-      <Typography variant='subtitle1' align='center'>
-        {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
-        {format(fromUnixTime(currentMilestone.end_date), "PP")}
-      </Typography>
-      <Typography variant='subtitle1' align='center'>{`Progress: ${currentMilestone.progress}%`}</Typography>
-      <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
+      <Grid container justify='space-around' style={{ margin: "1rem auto", width: "50vw" }}>
+        <Typography variant='subtitle1' align='center'>
+          {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
+          {format(fromUnixTime(currentMilestone.end_date), "PP")}
+        </Typography>
+        <Typography
+          variant='subtitle1'
+          align='center'
+        >{`Progress: ${currentMilestone.progress}%`}</Typography>
+        <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
+      </Grid>
 
       <Button
         variant='contained'
         color='primary'
         startIcon={<AddIcon />}
-        className={classes.button}
+        className={classes.addTaskButton}
         onClick={handleOpenDialog}
       >
         Add Task
       </Button>
 
-      <TasksTable />
+      {/* <TasksTable /> */}
+      <TaskTable2 />
       <TasksGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>

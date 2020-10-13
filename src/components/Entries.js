@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Grid,
   makeStyles,
+  Paper,
   Slider,
   TextField,
   Typography,
@@ -78,7 +79,8 @@ export default function Entries() {
 
   return (
     <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
-      <Grid container justify='space-evenly' style={{ margin: "2rem 0" }}>
+      {/* <Paper style={{ width: "50vw", margin: "0 auto" }}> */}
+      <Grid container justify='space-around' style={{ margin: "1rem auto", width: "50vw" }}>
         <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
         <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
         <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
@@ -94,6 +96,7 @@ export default function Entries() {
           {currentTask.notes}
         </Typography>
       </Grid>
+      {/* </Paper> */}
 
       <Button
         variant='contained'

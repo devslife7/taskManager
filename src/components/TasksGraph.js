@@ -63,7 +63,7 @@ function TasksGraph() {
   ])
 
   return (
-    <div style={{ width: "45rem", marginTop: "2vh", marginLeft: "10vw" }}>
+    <div style={{ width: "50rem", margin: "2vh auto" }}>
       <Chart options={options} series={series} type='line' />
     </div>
   )

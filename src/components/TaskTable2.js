@@ -1,14 +1,23 @@
 import React, { useState } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+} from "@material-ui/core"
 import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { useDispatch, useSelector } from "react-redux"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch } from "../actions/tasks"
+import { deleteEntryFetch, editEntryFetch, fetchCurrentTask } from "../actions/tasks"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -28,7 +37,7 @@ const useStyle = makeStyles(theme => ({
   },
   paper: {
     borderRadius: "2px",
-    width: "60rem",
+    width: "80rem",
     margin: "auto",
   },
   editIcon: {
@@ -42,6 +51,10 @@ const useStyle = makeStyles(theme => ({
   KeyboardDatePicker: {
     width: "140px",
     marginTop: 0,
+  },
+  DialogContent: {
+    height: "350px",
+    width: "350px",
   },
   removeButton: {
     textTransform: "none",
@@ -58,11 +71,14 @@ const useStyle = makeStyles(theme => ({
 export default function useTable() {
   const dispatch = useDispatch()
   const classes = useStyle()
-  const records = useSelector(state => state.tasks.currentTask.entries)
+  const records = useSelector(state => state.milestones.currentMilestone.tasks)
   const headCells = [
-    { id: "owner", label: "Owner" },
+    { id: "name", label: "Name" },
     { id: "progress", label: "Progress(%)" },
-    { id: "date", label: "Date" },
+    { id: "owner", label: "Owner" },
+    { id: "hours", label: "Hours" },
+    { id: "start", label: "Start" },
+    { id: "end", label: "End" },
     { id: "notes", label: "Notes", disableSorting: true },
     { id: "actions", label: "Actions", disableSorting: true },
   ]
@@ -74,45 +90,45 @@ export default function useTable() {
   const [orderBy, setOrderBy] = useState()
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [currentEntry, setCurrentEntry] = useState({})
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [sliderValue, setSliderValue] = useState(80)
-  const [date, setDate] = useState()
+  const [name, setName] = useState("")
+  const [hours, setHours] = useState()
   const [notes, setNotes] = useState("")
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
+  const [currentTask, setCurrentTask] = useState({ name: "" })
 
-  const handleSliderChange = (e, newValue) => {
-    setSliderValue(newValue)
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+  const handleCloseEditDialog = () => setOpenEditDialog(false)
+  const handleSetStartDate = date => setStartDate(date)
+  const handleSetEndDate = date => setEndDate(date)
+
+  const handleOpenDeleteDialog = task => {
+    setOpenDeleteDialog(true)
+    setCurrentTask(task)
+  }
+  const handleOpenEditDialog = task => {
+    setName(task.name)
+    setHours(task.hours)
+    setNotes(task.notes)
+    setStartDate(fromUnixTime(task.start_date))
+    setEndDate(fromUnixTime(task.end_date))
+    setOpenEditDialog(true)
   }
 
-  const handleEditSubmit = () => {
-    const requestBody = {
-      entry: {
-        date: getUnixTime(date),
-        progress: sliderValue,
-        notes: notes,
-      },
-    }
-    dispatch(editEntryFetch(requestBody, currentEntry.id)) // sends the request body for fetch
+  const handleDeleteConfirm = () => {
+    console.log("Confirms delete task")
+    // dispatch(deleteEntryFetch(currentTask.id))
+    handleCloseDeleteDialog()
+  }
+  const handleEditDialogSubmit = () => {
+    console.log("submits edit dialog")
     handleCloseEditDialog()
   }
 
-  const handleOpenEditDialog = entry => {
-    setSliderValue(entry.progress)
-    setNotes(entry.notes)
-    setDate(fromUnixTime(entry.date))
-    setOpenEditDialog(true)
-    setCurrentEntry(entry)
-  }
-  const handleCloseEditDialog = () => setOpenEditDialog(false)
-  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
-
-  const handleOpenDeleteDialog = entry => {
-    setOpenDeleteDialog(true)
-    setCurrentEntry(entry)
-  }
-  const handleDeleteConfirm = () => {
-    dispatch(deleteEntryFetch(currentEntry.id))
-    handleCloseDeleteDialog()
+  const handleLink = taskId => {
+    localStorage.setItem("currentTaskId", `${taskId}`)
+    dispatch(fetchCurrentTask())
   }
 
   const tableHead = () => {
@@ -217,9 +233,12 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{item.name}</TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
-                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
+                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{item.hours}</TableCell>
+                <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
+                <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
                 <TableCell>{item.notes}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
@@ -227,6 +246,9 @@ export default function useTable() {
                   </IconButton>
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
+                  </IconButton>
+                  <IconButton onClick={() => handleLink(item.id)}>
+                    <ArrowForwardIosIcon fontSize='small' color='primary' />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -238,12 +260,10 @@ export default function useTable() {
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle disableTypography>
-          <Typography variant='h5'>
-            Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), "PP")}
-          </Typography>
+          <Typography variant='h5'>Deleting Task: {`${currentTask.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Entry?\nThis action cannot be undone."}
+          {"Are you sure you want to delete this Task?\nThis action cannot be undone."}
         </DialogContent>
 
         <DialogActions>
@@ -257,54 +277,71 @@ export default function useTable() {
       </Dialog>
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>Edit Entry</Typography>
-        </DialogTitle>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "20px" }}>
+          {"Edit Task"}
+        </Typography>
 
-        <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date-picker-inline'
-              label='Date'
-              autoOk // autocloses picker
-              value={date}
-              onChange={setDate}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              className={classes.KeyboardDatePicker}
-            />
-          </MuiPickersUtilsProvider>
-
-          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
-            Progress: {`${sliderValue}%`}
-          </Typography>
-          <Slider
-            value={sliderValue}
-            step={5}
-            marks={marks}
-            min={5}
-            max={100}
-            onChange={handleSliderChange}
-            style={{ marginBottom: "30px" }}
-          />
-
+        <DialogContent className={classes.DialogContent}>
           <TextField
+            label='Name'
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            value={name}
+            onChange={e => {
+              setName(e.target.value)
+            }}
+          />
+          <TextField
+            label='Hours'
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            value={hours}
+            onChange={e => {
+              setHours(e.target.value)
+            }}
+          />
+          <TextField
+            label='Notes'
             variant='outlined'
             margin='normal'
             fullWidth
             multiline
             rows={2}
-            label='Notes'
             value={notes}
             onChange={e => {
               setNotes(e.target.value)
             }}
           />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify='space-around'>
+              <KeyboardDatePicker
+                label='Start Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={startDate}
+                onChange={handleSetStartDate}
+                className={classes.KeyboardDatePicker}
+              />
+              <KeyboardDatePicker
+                label='End Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={endDate}
+                onChange={handleSetEndDate}
+                className={classes.KeyboardDatePicker}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
         </DialogContent>
 
         <DialogActions>
@@ -316,7 +353,12 @@ export default function useTable() {
           >
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleEditDialogSubmit}
+            color='primary'
+          >
             Submit
           </Button>
         </DialogActions>
