@@ -1,24 +1,7 @@
 import React, { useState } from "react"
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  makeStyles,
-  Paper,
-  Slider,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-  TextField,
-  Typography,
-} from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@material-ui/core"
+import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
+import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import { useDispatch, useSelector } from "react-redux"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -76,7 +59,6 @@ export default function useTable() {
   const dispatch = useDispatch()
   const classes = useStyle()
   const records = useSelector(state => state.tasks.currentTask.entries)
-  console.log("records right after selector", records)
   const headCells = [
     { id: "owner", label: "Owner" },
     { id: "progress", label: "Progress(%)" },
@@ -185,7 +167,6 @@ export default function useTable() {
 
   function tableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index])
-    // console.log("stabilizedThis: ", stabilizedThis)
     stabilizedThis.sort((a, b) => {
       const order = comparator(a[0], b[0])
       if (order !== 0) return order
@@ -209,11 +190,16 @@ export default function useTable() {
   }
 
   const recordsAfterPagingAndSorting = () => {
-    console.log("records before sort", records)
-    return tableSort(records, getComparator(order, orderBy)).slice(
-      page * rowsPerPage,
-      (page + 1) * rowsPerPage
-    )
+    if (order && orderBy) {
+      return tableSort(records, getComparator(order, orderBy)).slice(
+        page * rowsPerPage,
+        (page + 1) * rowsPerPage
+      )
+    } else {
+      return tableSort(records, getComparator(order, orderBy))
+        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+        .sort((a, b) => b.id - a.id) // sorts records by date
+    }
   }
   const marks = [
     { value: 5, label: "5%" },
@@ -229,7 +215,6 @@ export default function useTable() {
         <Table className={classes.table} size='small'>
           {tableHead()}
           <TableBody>
-            {console.log("records after sort", recordsAfterPagingAndSorting())}
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
                 <TableCell>{"Owner"}</TableCell>
