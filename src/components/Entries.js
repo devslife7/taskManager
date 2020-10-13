@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
 import { createEntryFetch } from "../actions/tasks"
 import EntriesTable from "./EntriesTable"
+import EntriesTable2 from "./EntriesTable2"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
@@ -119,6 +120,7 @@ export default function Entries() {
       </Button>
 
       <EntriesTable />
+      <EntriesTable2 />
       <EntriesGraph />
 
       <Paper>

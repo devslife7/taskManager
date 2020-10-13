@@ -19,7 +19,7 @@ export default function EntriesGraph() {
     y: t.progress,
   }))
 
-  console.log(timelineSeries)
+  // console.log(timelineSeries)
 
   const [options] = useState({
     chart: {

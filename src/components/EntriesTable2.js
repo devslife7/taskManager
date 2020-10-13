@@ -1,13 +1,18 @@
 import React, { useState } from "react"
 import {
   makeStyles,
+  Paper,
   Table,
+  TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
   TableSortLabel,
 } from "@material-ui/core"
+import { fromUnixTime, format } from "date-fns"
+
+import { useSelector } from "react-redux"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -25,10 +30,22 @@ const useStyle = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
+  paper: {
+    borderRadius: "2px",
+    width: "70rem",
+    margin: "auto",
+  },
 }))
 
-export default function useTable(records, headCells) {
+export default function useTable() {
   const classes = useStyle()
+  const records = useSelector(state => state.tasks.currentTask.entries)
+  const headCells = [
+    { id: "owner", label: "Owner" },
+    { id: "progress", label: "Progress(%)" },
+    { id: "date", label: "Date" },
+    { id: "notes", label: "Notes", disableSorting: true },
+  ]
 
   const pages = [5, 10, 25]
   const [page, setPage] = useState(0)
@@ -36,15 +53,12 @@ export default function useTable(records, headCells) {
   const [order, setOrder] = useState()
   const [orderBy, setOrderBy] = useState()
 
-  const TblContainer = props => <Table className={classes.table}>{props.children}</Table>
-
-  const TblHead = props => {
+  const tableHead = () => {
     const handleSortRequest = cellId => {
       const isAsc = orderBy === cellId && order === "asc"
       setOrder(isAsc ? "desc" : "asc")
       setOrderBy(cellId)
     }
-
     return (
       <TableHead>
         <TableRow>
@@ -68,7 +82,7 @@ export default function useTable(records, headCells) {
     )
   }
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (e, newPage) => {
     setPage(newPage)
   }
   const handleChangeRowsPerPage = event => {
@@ -76,17 +90,19 @@ export default function useTable(records, headCells) {
     setPage(0)
   }
 
-  const TblPagination = () => (
-    <TablePagination
-      component='div'
-      page={page}
-      rowsPerPageOptions={pages}
-      rowsPerPage={rowsPerPage}
-      count={records.length}
-      onChangePage={handleChangePage}
-      onChangeRowsPerPage={handleChangeRowsPerPage}
-    />
-  )
+  const tablePagination = () => {
+    return (
+      <TablePagination
+        component='div'
+        page={page}
+        rowsPerPageOptions={pages}
+        rowsPerPage={rowsPerPage}
+        count={records.length}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+    )
+  }
 
   function tableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index])
@@ -96,16 +112,13 @@ export default function useTable(records, headCells) {
       if (order !== 0) return order
       return a[1] - b[1]
     })
-    // console.log("stabillizedThis after Sort: ", stabilizedThis)
     return stabilizedThis.map(el => el[0])
   }
-
   function getComparator(order, orderBy) {
     return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy)
   }
-
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1
@@ -115,7 +128,6 @@ export default function useTable(records, headCells) {
     }
     return 0
   }
-
   const recordsAfterPagingAndSorting = () => {
     return tableSort(records, getComparator(order, orderBy)).slice(
       page * rowsPerPage,
@@ -123,5 +135,24 @@ export default function useTable(records, headCells) {
     )
   }
 
-  return { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting }
+  return (
+    <>
+      <Paper className={classes.paper}>
+        <Table className={classes.table}>
+          {tableHead()}
+          <TableBody>
+            {recordsAfterPagingAndSorting().map((item, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{`${item.progress}%`}</TableCell>
+                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
+                <TableCell>{item.notes}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        {tablePagination()}
+      </Paper>
+    </>
+  )
 }
