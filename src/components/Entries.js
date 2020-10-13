@@ -6,6 +6,9 @@ import {
   DialogTitle,
   makeStyles,
   Slider,
+  TableBody,
+  TableCell,
+  TableRow,
   TextField,
   Typography,
 } from "@material-ui/core"
@@ -18,6 +21,7 @@ import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
 import EntriesGraph from "./EntriesGraph"
+import useTable from "./useTable"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -40,6 +44,14 @@ export default function Entries() {
   const [date, setDate] = useState(new Date())
   const [sliderValue, setSliderValue] = useState("50")
   const [notes, setNotes] = useState("")
+
+  const headCells = [
+    { id: "owner", label: "Owner" },
+    { id: "progress", label: "Progress(%)" },
+    { id: "date", label: "Date" },
+    { id: "notes", label: "Notes" },
+  ]
+  const { TblContainer, TblHead } = useTable(currentTask.entries, headCells)
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleCloseDialog = () => {
@@ -104,6 +116,20 @@ export default function Entries() {
 
       <EntriesTable />
       <EntriesGraph />
+
+      <TblContainer>
+        <TblHead />
+        <TableBody>
+          {currentTask.entries.map((item, idx) => (
+            <TableRow key={idx}>
+              <TableCell>{"Owner"}</TableCell>
+              <TableCell>{item.progress}</TableCell>
+              <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
+              <TableCell>{item.notes}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </TblContainer>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle disableTypography>
