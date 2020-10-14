@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   addMilestoneButton: {
     textTransform: "none",
     fontSize: "1rem",
-    marginLeft: "10vw",
+    marginLeft: "6.5vw",
     marginTop: "2vh",
   },
   editButton: {
@@ -142,7 +142,7 @@ function Milestones() {
         Add Milestone
       </Button>
 
-      <MilestonesTable />
+      {/* <MilestonesTable /> */}
       <MilestonesTable2 />
 
       <MilestonesGraph />
@@ -162,6 +162,7 @@ function Milestones() {
             onChange={e => {
               setName(e.target.value)
             }}
+            style={{ marginBottom: "20px" }}
           />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify='space-around'>
@@ -193,7 +194,7 @@ function Milestones() {
           </MuiPickersUtilsProvider>
         </DialogContent>
 
-        <DialogActions>
+        <DialogActions style={{ marginTop: "10px" }}>
           <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>

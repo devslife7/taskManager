@@ -213,17 +213,10 @@ export default function useTable() {
       )
     } else {
       return tableSort(records, getComparator(order, orderBy))
-        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
         .sort((a, b) => b.id - a.id) // sorts records by date
+        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
-  const marks = [
-    { value: 5, label: "5%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" },
-  ]
 
   return (
     <>

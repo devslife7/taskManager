@@ -197,8 +197,8 @@ export default function useTable() {
       )
     } else {
       return tableSort(records, getComparator(order, orderBy))
-        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
         .sort((a, b) => b.id - a.id) // sorts records by date
+        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
   const marks = [
@@ -217,7 +217,7 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{item.users.length > 0 ? item.users[0].first_name : "Owner"}</TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
                 <TableCell>{item.notes}</TableCell>

@@ -208,8 +208,8 @@ export default function useTable() {
       )
     } else {
       return tableSort(records, getComparator(order, orderBy))
-        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
         .sort((a, b) => b.id - a.id) // sorts records by date
+        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
   const marks = [
