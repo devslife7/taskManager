@@ -8,5 +8,5 @@ export default combineReducers({
   user: userReducer,
   projects: projectsReducer,
   milestones: milestonesReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
 })

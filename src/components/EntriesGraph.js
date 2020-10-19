@@ -5,23 +5,18 @@ import Chart from "react-apexcharts"
 import { useSelector } from "react-redux"
 
 export default function EntriesGraph() {
-  // const currentMilestone = useSelector(state => state.milestones.currentMilestone)
-  // const currentMilestoneTasksSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date).reverse()
-  // const timelineSeries = currentMilestoneTasksSorted.map(t => ({
-  //   x: format(fromUnixTime(t.end_date), "PP"),
-  //   y: t.progress,
-  // }))
+  const entries = useSelector(state => state.tasks.currentTask.entries)
 
-  const currentTask = useSelector(state => state.tasks.currentTask)
-  const currentEntriesSorted = currentTask.entries.sort((a, b) => b.end_date - a.end_date).reverse()
-  const timelineSeries = currentEntriesSorted.map(t => ({
-    x: format(fromUnixTime(t.date), "PP"),
-    y: t.progress,
-  }))
+  const sortAndFormatEntries = () => {
+    const currentEntriesSorted = entries.sort((a, b) => b.date - a.date).reverse()
 
-  // console.log(timelineSeries)
+    return currentEntriesSorted.map(t => ({
+      x: format(fromUnixTime(t.date), "PP"),
+      y: t.progress,
+    }))
+  }
 
-  const [options] = useState({
+  const options = {
     chart: {
       // height: 350,
       zoom: {
@@ -54,8 +49,9 @@ export default function EntriesGraph() {
         text: "Progress(%)",
       },
     },
-  })
-  const [series] = useState([
+  }
+
+  const series = [
     {
       name: "Progress",
       // data: [
@@ -66,9 +62,9 @@ export default function EntriesGraph() {
       //   [1487030400000, 33],
       //   [1487116800000, 52],
       // ],
-      data: timelineSeries,
+      data: sortAndFormatEntries(),
     },
-  ])
+  ]
 
   return (
     <div style={{ width: "50rem", margin: "2rem auto" }}>

@@ -60,7 +60,7 @@ export default function useTable() {
   const classes = useStyle()
   const records = useSelector(state => state.tasks.currentTask.entries)
   const headCells = [
-    { id: "owner", label: "Owner" },
+    { id: "users", label: "Owner" },
     { id: "progress", label: "Progress(%)" },
     { id: "date", label: "Date" },
     { id: "notes", label: "Notes", disableSorting: true },
@@ -217,7 +217,9 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>{item.users.length > 0 ? item.users[0].first_name : "Owner"}</TableCell>
+                <TableCell>
+                  {item.users && item.users.length > 0 ? item.users[0].first_name : "Owner"}
+                </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
                 <TableCell>{item.notes}</TableCell>

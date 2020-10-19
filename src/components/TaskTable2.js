@@ -77,8 +77,8 @@ export default function useTable() {
     { id: "progress", label: "Progress(%)" },
     { id: "owner", label: "Owner" },
     { id: "hours", label: "Hours" },
-    { id: "start", label: "Start" },
-    { id: "end", label: "End" },
+    { id: "start_date", label: "Start" },
+    { id: "end_date", label: "End" },
     { id: "notes", label: "Notes", disableSorting: true },
     { id: "actions", label: "Actions", disableSorting: true },
   ]

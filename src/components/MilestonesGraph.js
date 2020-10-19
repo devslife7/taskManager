@@ -74,7 +74,7 @@ function MilestonesGraph() {
 
   return (
     <div style={{ width: "50rem", margin: "2vh auto" }}>
-      <Chart options={options} series={series} type='line' />
+      <Chart options={options} series={series} type='bar' />
     </div>
   )
 }

@@ -78,8 +78,9 @@ export default function useTable() {
     { id: "progress", label: "Progress(%)" },
     { id: "owner", label: "Owner" },
     { id: "hours", label: "Hours" },
-    { id: "start", label: "Start" },
-    { id: "end", label: "End" },
+    { id: "start_date", label: "Start" },
+    { id: "end_date", label: "End" },
+    { id: "start", label: "Status" },
     { id: "actions", label: "Actions", disableSorting: true },
   ]
 
@@ -212,13 +213,6 @@ export default function useTable() {
         .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
-  const marks = [
-    { value: 5, label: "5%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" },
-  ]
 
   return (
     <>

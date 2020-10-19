@@ -1,11 +1,15 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 // import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
+import { logOutCurrentUser } from "../actions/user"
+import { clearCurrentProject } from "../actions/projects"
+import { clearCurrentMilestone } from "../actions/milestones"
+import { clearCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,11 +47,19 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NavBar() {
+  const dispatch = useDispatch()
   console.log("--------------------")
   console.log("renders NavBar")
   const classes = useStyles()
   const currentUser = useSelector(state => state.user.currentUser)
   const loggedIn = useSelector(state => state.user.loggedIn)
+
+  const handleSignOut = () => {
+    dispatch(logOutCurrentUser())
+    dispatch(clearCurrentProject())
+    dispatch(clearCurrentMilestone())
+    dispatch(clearCurrentTask())
+  }
 
   return (
     <>
@@ -82,7 +94,7 @@ function NavBar() {
                 <Link className={`${classes.links} ${classes.onHover}`} to='/profile'>
                   {currentUser.first_name}
                 </Link>
-                <Link className={`${classes.links} ${classes.onHover}`} to='/login'>
+                <Link className={`${classes.links} ${classes.onHover}`} to='/login' onClick={handleSignOut}>
                   Sign out
                 </Link>
               </>
