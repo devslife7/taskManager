@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core"
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
-import TasksTable from "./TasksTable"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
 import TaskTable2 from "./TaskTable2"

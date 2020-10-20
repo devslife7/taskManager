@@ -15,17 +15,12 @@ function TasksGraph() {
 
   const [options] = useState({
     chart: {
-      // height: 350,
       zoom: {
         enabled: true,
       },
     },
     dataLabels: {
       enabled: true,
-    },
-    stroke: {
-      // curve: "smooth",
-      curve: "stepline",
     },
     title: {
       text: "Task Progress",
@@ -38,13 +33,14 @@ function TasksGraph() {
       },
     },
     xaxis: {
-      // categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-      type: "datetime",
+      categories: currentMilestoneTasksSorted.map(t => t.name)
     },
     yaxis: {
       title: {
         text: "Progress(%)",
       },
+      min: 0,
+      max: 100
     },
   })
   const [series] = useState([
@@ -58,7 +54,8 @@ function TasksGraph() {
       //   [1487030400000, 33],
       //   [1487116800000, 52],
       // ],
-      data: timelineSeries,
+      // data: timelineSeries,
+      data: currentMilestoneTasksSorted.map(t => t.progress)
     },
   ])
 

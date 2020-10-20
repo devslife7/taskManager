@@ -31,7 +31,7 @@ const useStyle = makeStyles(theme => ({
       fontWeight: "300",
     },
     "& tbody tr:hover": {
-      backgroundColor: "#fffbf2",
+      // backgroundColor: "#fffbf2",
       // cursor: "pointer",
     },
   },
@@ -66,6 +66,12 @@ const useStyle = makeStyles(theme => ({
       backgroundColor: theme.palette.error.dark,
     },
   },
+  nameHover: {
+    "&:hover": {
+      textDecoration: 'underline',
+      cursor: 'pointer'
+    }
+  }
 }))
 
 export default function useTable() {
@@ -225,8 +231,8 @@ export default function useTable() {
           {tableHead()}
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>{item.name}</TableCell>
+              <TableRow key={idx}>
+                <TableCell className={classes.nameHover} onClick={() => handleLink(item.id)}>{item.name}</TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{"Owner"}</TableCell>
                 <TableCell>{item.hours}</TableCell>
@@ -240,9 +246,9 @@ export default function useTable() {
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
                   </IconButton>
-                  <IconButton onClick={() => handleLink(item.id)}>
+                  {/* <IconButton onClick={() => handleLink(item.id)}>
                     <ArrowForwardIosIcon fontSize='small' color='primary' />
-                  </IconButton>
+                  </IconButton> */}
                 </TableCell>
               </TableRow>
             ))}

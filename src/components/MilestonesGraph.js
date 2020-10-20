@@ -17,15 +17,12 @@ function MilestonesGraph() {
 
   const [options] = useState({
     chart: {
-      // height: "50vw",
-      // width: "50vw",
-      // heigth: 100,
       type: "line",
       zoom: {
         enabled: true,
       },
       animations: {
-        // enabled: false,
+        enabled: true,
       },
     },
     dataLabels: {
@@ -35,7 +32,7 @@ function MilestonesGraph() {
       curve: "smooth",
     },
     title: {
-      text: "Task Progress",
+      text: "Milestone Progress",
       align: "left",
     },
     grid: {
@@ -45,8 +42,7 @@ function MilestonesGraph() {
       },
     },
     xaxis: {
-      // categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-      type: "datetime",
+      categories: currentProjectMilestonesSorted.map(milestone => milestone.name),
       title: {
         // text: "Date",
       },
@@ -55,6 +51,8 @@ function MilestonesGraph() {
       title: {
         text: "Progress(%)",
       },
+      min: 0,
+      max: 100
     },
   })
   const [series] = useState([

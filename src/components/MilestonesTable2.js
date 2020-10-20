@@ -32,7 +32,7 @@ const useStyle = makeStyles(theme => ({
       fontWeight: "300",
     },
     "& tbody tr:hover": {
-      backgroundColor: "#fffbf2",
+      // backgroundColor: "#fffbf2",
       // cursor: "pointer",
     },
   },
@@ -53,10 +53,6 @@ const useStyle = makeStyles(theme => ({
     width: "140px",
     marginTop: 0,
   },
-  // DialogContent: {
-  //   height: "160px",
-  //   width: "350px",
-  // },
   removeButton: {
     textTransform: "none",
     fontSize: "1rem",
@@ -67,6 +63,12 @@ const useStyle = makeStyles(theme => ({
       backgroundColor: theme.palette.error.dark,
     },
   },
+  nameHover: {
+    "&:hover": {
+      textDecoration: 'underline',
+      cursor: 'pointer'
+    }
+  }
 }))
 
 export default function useTable() {
@@ -222,21 +224,19 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>{item.name}</TableCell>
+                <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>{item.name}</TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{"Owner"}</TableCell>
                 <TableCell>{item.hours}</TableCell>
                 <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
                 <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
+                <TableCell>{"status"}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <EditIcon fontSize='small' className={classes.editIcon} />
                   </IconButton>
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
-                  </IconButton>
-                  <IconButton onClick={() => handleSetCurrentMilestone(item.id)}>
-                    <ArrowForwardIosIcon fontSize='small' color='primary' />
                   </IconButton>
                 </TableCell>
               </TableRow>
