@@ -8,6 +8,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 import HomeIcon from "@material-ui/icons/Home"
+import { BorderStyleOutlined } from "@material-ui/icons"
 
 const useStyles = makeStyles({
   mainDiv: {
@@ -24,6 +25,16 @@ const useStyles = makeStyles({
   gridContainer: {
     height: "3rem",
   },
+  nameHover: {
+    "&:hover": {
+      textDecoration: 'underline',
+      cursor: 'pointer'
+    }
+  },
+  select: {
+    // backgroundColor: 'red',
+    // borderStyle: 'dotted'
+  }
 })
 
 export default function Breadcrumbs() {
@@ -83,11 +94,11 @@ export default function Breadcrumbs() {
         {currentProject.id && (
           <>
             <NavigateNextIcon color='action' className={classes.iconButton} />
-            <Button className={classes.overviewBtn} onClick={clearMilestone}>
+            <div className={classes.nameHover} onClick={clearMilestone}>
               {currentProject.name}
-            </Button>
+            </div>
 
-            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentProject}>
+            <Select className={classes.select} value='' onChange={handleSetCurrentProject}>
               {renderMenuItems(allProjects)}
             </Select>
           </>
@@ -95,9 +106,9 @@ export default function Breadcrumbs() {
         {currentMilestone.id && (
           <>
             <NavigateNextIcon color='action' className={classes.iconButton} />
-            <Button className={classes.overviewBtn} onClick={clearTask}>
+            <div className={classes.nameHover} onClick={clearTask}>
               {currentMilestone.name}
-            </Button>
+            </div>
 
             <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentMilestone}>
               {renderMenuItems(currentProject.milestones)}
