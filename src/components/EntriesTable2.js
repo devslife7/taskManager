@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Tooltip } from "@material-ui/core"
 import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
@@ -224,12 +224,17 @@ export default function useTable() {
                 <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
                 <TableCell>{item.notes}</TableCell>
                 <TableCell>
+                  <Tooltip title="Edit" arrow enterDelay={700}>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <EditIcon fontSize='small' className={classes.editIcon} />
                   </IconButton>
+
+                  </Tooltip>
+                  <Tooltip title="Delete" arrow enterDelay={700}>
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
                   </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
