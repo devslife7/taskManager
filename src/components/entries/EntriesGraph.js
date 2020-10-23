@@ -1,6 +1,6 @@
 import { Paper } from "@material-ui/core"
 import { format, fromUnixTime } from "date-fns"
-import React, { useState } from "react"
+import React from "react"
 import Chart from "react-apexcharts"
 import { useSelector } from "react-redux"
 

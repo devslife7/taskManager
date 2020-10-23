@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core"
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
-import MilestonesTable2 from "./MilestonesTable2"
+import MilestonesTable from "./MilestonesTable"
 import AddIcon from "@material-ui/icons/Add"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
@@ -141,9 +141,7 @@ function Milestones() {
         Add Milestone
       </Button>
 
-      {/* <MilestonesTable /> */}
-      <MilestonesTable2 />
-
+      <MilestonesTable />
       <MilestonesGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>

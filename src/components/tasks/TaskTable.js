@@ -1,23 +1,14 @@
 import React, { useState } from "react"
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-} from "@material-ui/core"
-import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton } from "@material-ui/core"
+import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
-import { fromUnixTime, format, getUnixTime } from "date-fns"
+import { fromUnixTime, format } from "date-fns"
 import { useDispatch, useSelector } from "react-redux"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch, fetchCurrentTask } from "../../actions/tasks"
+import { fetchCurrentTask } from "../../actions/tasks"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -246,9 +237,6 @@ export default function TaskTable() {
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
                   </IconButton>
-                  {/* <IconButton onClick={() => handleLink(item.id)}>
-                    <ArrowForwardIosIcon fontSize='small' color='primary' />
-                  </IconButton> */}
                 </TableCell>
               </TableRow>
             ))}

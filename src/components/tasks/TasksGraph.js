@@ -1,4 +1,4 @@
-import { format, fromUnixTime } from "date-fns"
+// import { format, fromUnixTime } from "date-fns"
 import React, { useState } from "react"
 import Chart from "react-apexcharts"
 import { useSelector } from "react-redux"
@@ -6,12 +6,10 @@ import { useSelector } from "react-redux"
 function TasksGraph() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
   const currentMilestoneTasksSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date).reverse()
-  const timelineSeries = currentMilestoneTasksSorted.map(t => ({
-    x: format(fromUnixTime(t.end_date), "PP"),
-    y: t.progress,
-  }))
-
-  // console.log(timelineSeries)
+  // const timelineSeries = currentMilestoneTasksSorted.map(t => ({
+  //   x: format(fromUnixTime(t.end_date), "PP"),
+  //   y: t.progress,
+  // }))
 
   const [options] = useState({
     chart: {

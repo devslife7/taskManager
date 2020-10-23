@@ -1,14 +1,22 @@
 import React, { useState } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Tooltip } from "@material-ui/core"
-import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+} from "@material-ui/core"
+import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
-import { fromUnixTime, format, getUnixTime } from "date-fns"
+import { fromUnixTime, format } from "date-fns"
 import { useDispatch, useSelector } from "react-redux"
 import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch } from "../../actions/tasks"
+import { fetchCurrentMilestone } from "../../actions/milestones"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -22,13 +30,13 @@ const useStyle = makeStyles(theme => ({
       fontWeight: "300",
     },
     "& tbody tr:hover": {
-      backgroundColor: "#fffbf2",
+      // backgroundColor: "#fffbf2",
       // cursor: "pointer",
     },
   },
   paper: {
     borderRadius: "2px",
-    width: "60rem",
+    width: "80rem",
     margin: "auto",
   },
   editIcon: {
@@ -53,17 +61,26 @@ const useStyle = makeStyles(theme => ({
       backgroundColor: theme.palette.error.dark,
     },
   },
+  nameHover: {
+    "&:hover": {
+      textDecoration: 'underline',
+      cursor: 'pointer'
+    }
+  }
 }))
 
 export default function useTable() {
   const dispatch = useDispatch()
   const classes = useStyle()
-  const records = useSelector(state => state.tasks.currentTask.entries)
+  const records = useSelector(state => state.projects.currentProject.milestones)
   const headCells = [
-    { id: "users", label: "Owner" },
+    { id: "name", label: "Name" },
     { id: "progress", label: "Progress(%)" },
-    { id: "date", label: "Date" },
-    { id: "notes", label: "Notes", disableSorting: true },
+    { id: "owner", label: "Owner" },
+    { id: "hours", label: "Hours" },
+    { id: "start_date", label: "Start" },
+    { id: "end_date", label: "End" },
+    { id: "start", label: "Status" },
     { id: "actions", label: "Actions", disableSorting: true },
   ]
 
@@ -74,45 +91,40 @@ export default function useTable() {
   const [orderBy, setOrderBy] = useState()
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [currentEntry, setCurrentEntry] = useState({})
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [sliderValue, setSliderValue] = useState(80)
-  const [date, setDate] = useState()
-  const [notes, setNotes] = useState("")
+  const [currentMilestone, setCurrentMilestone] = useState({ name: "" })
+  const [name, setName] = useState("")
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
 
-  const handleSliderChange = (e, newValue) => {
-    setSliderValue(newValue)
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
+  const handleCloseEditDialog = () => setOpenEditDialog(false)
+  const handleSetStartDate = date => setStartDate(date)
+  const handleSetEndDate = date => setEndDate(date)
+
+  const handleOpenDeleteDialog = milestone => {
+    setOpenDeleteDialog(true)
+    setCurrentMilestone(milestone)
   }
-
-  const handleEditSubmit = () => {
-    const requestBody = {
-      entry: {
-        date: getUnixTime(date),
-        progress: sliderValue,
-        notes: notes,
-      },
-    }
-    dispatch(editEntryFetch(requestBody, currentEntry.id)) // sends the request body for fetch
+  const handleOpenEditDialog = milestone => {
+    setName(milestone.name)
+    setStartDate(fromUnixTime(milestone.start_date))
+    setEndDate(fromUnixTime(milestone.end_date))
+    setOpenEditDialog(true)
+  }
+  const handleDeleteConfirm = () => {
+    console.log("Confirms delete milestone")
+    // dispatch(deleteEntryFetch(currentMilestone.id))
+    handleCloseDeleteDialog()
+  }
+  const handleEditDialogSubmit = () => {
+    console.log("submits edit dialog")
     handleCloseEditDialog()
   }
 
-  const handleOpenEditDialog = entry => {
-    setSliderValue(entry.progress)
-    setNotes(entry.notes)
-    setDate(fromUnixTime(entry.date))
-    setOpenEditDialog(true)
-    setCurrentEntry(entry)
-  }
-  const handleCloseEditDialog = () => setOpenEditDialog(false)
-  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
-
-  const handleOpenDeleteDialog = entry => {
-    setOpenDeleteDialog(true)
-    setCurrentEntry(entry)
-  }
-  const handleDeleteConfirm = () => {
-    dispatch(deleteEntryFetch(currentEntry.id))
-    handleCloseDeleteDialog()
+  const handleSetCurrentMilestone = milestoneId => {
+    localStorage.setItem("currentMilestoneId", `${milestoneId}`)
+    dispatch(fetchCurrentMilestone())
   }
 
   const tableHead = () => {
@@ -201,13 +213,6 @@ export default function useTable() {
         .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
-  const marks = [
-    { value: 5, label: "5%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" },
-  ]
 
   return (
     <>
@@ -217,24 +222,20 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell>
-                  {item.users && item.users.length > 0 ? item.users[0].first_name : "Owner"}
-                </TableCell>
+                <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>{item.name}</TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
-                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
-                <TableCell>{item.notes}</TableCell>
+                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{item.hours}</TableCell>
+                <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
+                <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
+                <TableCell>{"status"}</TableCell>
                 <TableCell>
-                  <Tooltip title="Edit" arrow enterDelay={700}>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <EditIcon fontSize='small' className={classes.editIcon} />
                   </IconButton>
-
-                  </Tooltip>
-                  <Tooltip title="Delete" arrow enterDelay={700}>
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
                   </IconButton>
-                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
@@ -245,12 +246,10 @@ export default function useTable() {
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle disableTypography>
-          <Typography variant='h5'>
-            Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), "PP")}
-          </Typography>
+          <Typography variant='h5'>Deleting Milestone: {`${currentMilestone.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Entry?\nThis action cannot be undone."}
+          {"Are you sure you want to delete this Milestone?\nThis action cannot be undone."}
         </DialogContent>
 
         <DialogActions>
@@ -264,57 +263,59 @@ export default function useTable() {
       </Dialog>
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>Edit Entry</Typography>
-        </DialogTitle>
+        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
+          {"Edit Milestone"}
+        </Typography>
 
-        <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date-picker-inline'
-              label='Date'
-              autoOk // autocloses picker
-              value={date}
-              onChange={setDate}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              className={classes.KeyboardDatePicker}
-            />
-          </MuiPickersUtilsProvider>
-
-          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
-            Progress: {`${sliderValue}%`}
-          </Typography>
-          <Slider
-            value={sliderValue}
-            step={5}
-            marks={marks}
-            min={5}
-            max={100}
-            onChange={handleSliderChange}
-            style={{ marginBottom: "30px" }}
-          />
-
+        <DialogContent className={classes.DialogContent}>
           <TextField
+            label='Name'
             variant='outlined'
             margin='normal'
             fullWidth
-            multiline
-            rows={2}
-            label='Notes'
-            value={notes}
+            value={name}
             onChange={e => {
-              setNotes(e.target.value)
+              setName(e.target.value)
             }}
+            style={{ marginBottom: "20px" }}
           />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify='space-around'>
+              <KeyboardDatePicker
+                label='Start Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={startDate}
+                onChange={handleSetStartDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+              <KeyboardDatePicker
+                label='End Date'
+                disableToolbar
+                autoOk
+                variant='inline'
+                format='MM/dd/yyyy'
+                margin='normal'
+                id='date-picker-inline'
+                value={endDate}
+                onChange={handleSetEndDate}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.KeyboardDatePicker}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
         </DialogContent>
 
-        <DialogActions>
+        <DialogActions style={{ marginTop: "10px" }}>
           <Button
             variant='outlined'
             className={classes.button}
@@ -323,7 +324,12 @@ export default function useTable() {
           >
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={handleEditDialogSubmit}
+            color='primary'
+          >
             Submit
           </Button>
         </DialogActions>

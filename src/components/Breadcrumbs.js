@@ -3,12 +3,10 @@ import Typography from "@material-ui/core/Typography"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
 import { Button, Grid, makeStyles, MenuItem, Select } from "@material-ui/core"
-// import { Breadcrumbs as Bread } from "@material-ui/core"
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 import HomeIcon from "@material-ui/icons/Home"
-import { BorderStyleOutlined } from "@material-ui/icons"
 
 const useStyles = makeStyles({
   mainDiv: {

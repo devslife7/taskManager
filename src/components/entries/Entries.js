@@ -6,7 +6,6 @@ import {
   DialogTitle,
   Grid,
   makeStyles,
-  Paper,
   Slider,
   TextField,
   Typography,
@@ -15,7 +14,7 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
 import { createEntryFetch } from "../../actions/tasks"
-import EntriesTable2 from "./EntriesTable2"
+import EntriesTable from "./EntriesTable"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
@@ -108,7 +107,7 @@ export default function Entries() {
         Add Entry
       </Button>
 
-      <EntriesTable2 />
+      <EntriesTable />
       <EntriesGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
