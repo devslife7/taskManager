@@ -17,8 +17,8 @@ import EditIcon from "@material-ui/icons/Edit"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch, fetchCurrentTask } from "../actions/tasks"
-import { fetchCurrentMilestone } from "../actions/milestones"
+import { deleteEntryFetch, editEntryFetch, fetchCurrentTask } from "../../actions/tasks"
+import { fetchCurrentMilestone } from "../../actions/milestones"
 
 const useStyle = makeStyles(theme => ({
   table: {
