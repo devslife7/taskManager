@@ -12,7 +12,9 @@ import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
 import TasksGraph from "./TasksGraph"
-import TaskTable2 from "./TaskTable2"
+
+
+import TaskTable from "./TaskTable"
 import { fromUnixTime, format } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
@@ -122,8 +124,7 @@ function Tasks() {
         Add Task
       </Button>
 
-      {/* <TasksTable /> */}
-      <TaskTable2 />
+      <TaskTable />
       <TasksGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
