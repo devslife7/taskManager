@@ -8,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import EditIcon from "@material-ui/icons/Edit"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch } from "../actions/tasks"
+import { deleteEntryFetch, editEntryFetch } from "../../actions/tasks"
 
 const useStyle = makeStyles(theme => ({
   table: {

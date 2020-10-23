@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
-import { createEntryFetch } from "../actions/tasks"
+import { createEntryFetch } from "../../actions/tasks"
 import EntriesTable2 from "./EntriesTable2"
 import { fromUnixTime, format, getUnixTime } from "date-fns"
 import DateFnsUtils from "@date-io/date-fns"

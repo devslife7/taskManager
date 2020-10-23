@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import Breadcrumbs from "../components/Breadcrumbs"
-import Entries from "../components/Entries"
+import Entries from "../components/entries/Entries"
 import Milestones from "../components/Milestones"
 import Projects from "../components/Projects"
 import Tasks from "../components/tasks/Tasks"
