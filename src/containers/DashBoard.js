@@ -3,10 +3,10 @@ import React from "react"
 import Breadcrumbs from "../components/Breadcrumbs"
 import Entries from "../components/entries/Entries"
 import Milestones from "../components/milestones/Milestones"
-import Projects from "../components/Projects"
+import Projects from "../components/projects/Projects"
 import Tasks from "../components/tasks/Tasks"
 import { useSelector } from "react-redux"
-import Overview from "../components/Overview"
+import Overview from "../components/projects/Overview"
 
 const useStyles = makeStyles({
   projects: {

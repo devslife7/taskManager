@@ -1,7 +1,7 @@
 import { Divider, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchProjects } from "../actions/projects"
+import { fetchProjects } from "../../actions/projects"
 import ProjectCard from "./ProjectCard"
 import SearchIcon from "@material-ui/icons/Search"
 

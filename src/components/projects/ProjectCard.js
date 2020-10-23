@@ -1,10 +1,10 @@
 import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import { useDispatch } from "react-redux"
-import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
+import { clearCurrentProject, fetchCurrentProject } from "../../actions/projects"
 import { fromUnixTime, format } from "date-fns"
-import { clearCurrentMilestone } from "../actions/milestones"
-import { clearCurrentTask } from "../actions/tasks"
+import { clearCurrentMilestone } from "../../actions/milestones"
+import { clearCurrentTask } from "../../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
