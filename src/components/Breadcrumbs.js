@@ -8,7 +8,7 @@ import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milesto
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 import HomeIcon from "@material-ui/icons/Home"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   mainDiv: {
     // height: "5rem",
     // backgroundColor: "green",
@@ -23,17 +23,21 @@ const useStyles = makeStyles({
   gridContainer: {
     height: "3rem",
   },
-  nameHover: {
+  link: {
+    color: theme.palette.primary.main,
     "&:hover": {
       textDecoration: 'underline',
       cursor: 'pointer'
     }
   },
+  linkNoHover: {
+    color: theme.palette.primary.main
+  },
   select: {
     // backgroundColor: 'red',
     // borderStyle: 'dotted'
   }
-})
+}))
 
 export default function Breadcrumbs() {
   const classes = useStyles()
@@ -85,14 +89,14 @@ export default function Breadcrumbs() {
     <div aria-label='breadcrumb' className={classes.mainDiv}>
       <Grid container alignItems='center' className={classes.gridContainer}>
         {/* <Bread> */}
-        <Button startIcon={<HomeIcon />} className={classes.overviewBtn} onClick={clearProject}>
-          Overview
-        </Button>
+        <div className={classes.link} onClick={clearProject}>
+              {"Overview"}
+            </div>
 
         {currentProject.id && (
           <>
             <NavigateNextIcon color='action' className={classes.iconButton} />
-            <div className={classes.nameHover} onClick={clearMilestone}>
+            <div className={classes.link} onClick={clearMilestone}>
               {currentProject.name}
             </div>
 
@@ -104,7 +108,7 @@ export default function Breadcrumbs() {
         {currentMilestone.id && (
           <>
             <NavigateNextIcon color='action' className={classes.iconButton} />
-            <div className={classes.nameHover} onClick={clearTask}>
+            <div className={classes.link} onClick={clearTask}>
               {currentMilestone.name}
             </div>
 
