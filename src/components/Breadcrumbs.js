@@ -36,11 +36,20 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main
   },
   select: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
+    color: 'gray',
     border: 'none',
     width: '1rem',
-    marginLeft: '0.3rem',
-    padding: '50px 20px 10px 0px'
+    // paddingBottom: '10px',
+    marginLeft: '0.4rem',
+    // padding: '30px 40px 0px 0px',
+    cursor: 'pointer',
+    // WebkitAppearance: 'none',
+    "&:hover": {
+      borderBottom: 'solid',
+      backgroundColor: '#f5f5f5',
+      color: 'black'
+    }
   }
 }))
 
@@ -90,13 +99,26 @@ export default function Breadcrumbs() {
     ))
   }
 
+  const renderSelectOptions = list => {
+    return list.map((item, idx) => (
+      <option key={idx} value={item.id}>
+        {item.name}
+      </option>
+    ))
+  }
+
   return (
     <div aria-label='breadcrumb' className={classes.mainDiv}>
       <Grid container alignItems='center' className={classes.gridContainer}>
         <Bread>
+
+        {currentProject.id && (
+
         <div className={classes.link} onClick={clearProject}>
               {"Projects"}
             </div>
+
+        )}
 
         {currentProject.id && (
           <>
@@ -109,11 +131,9 @@ export default function Breadcrumbs() {
               {renderMenuItems(allProjects)}
             </Select> */}
 
-            <select className={classes.select}>
+            <select className={classes.select} onChange={handleSetCurrentProject}>
               <option></option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+              {renderSelectOptions(allProjects)}
             </select>
           </>
         )}
@@ -124,21 +144,30 @@ export default function Breadcrumbs() {
               {currentMilestone.name}
             </div>
 
-            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentMilestone}>
+            {/* <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentMilestone}>
               {renderMenuItems(currentProject.milestones)}
-            </Select>
+            </Select> */}
+            <select className={classes.select} onChange={handleSetCurrentMilestone}>
+              <option></option>
+              {renderSelectOptions(currentProject.milestones)}
+            </select>
           </>
         )}
         {currentTask.id && (
           <>
             {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
-            {/* <Grid container> */}
+
             <Typography color='textPrimary' style={{display: 'inline-block'}}>{currentTask.name}</Typography>
 
-            <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentTask}>
+            {/* <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentTask}>
               {renderMenuItems(currentMilestone.tasks)}
-            </Select>
-            {/* </Grid> */}
+            </Select> */}
+
+            <select className={classes.select} onChange={handleSetCurrentTask}>
+              <option></option>
+              {renderSelectOptions(currentMilestone.tasks)}
+            </select>
+
           </>
         )}
         </Bread>
