@@ -3,6 +3,7 @@ import Typography from "@material-ui/core/Typography"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
 import { Button, Grid, makeStyles, MenuItem, Select } from "@material-ui/core"
+import { Breadcrumbs as Bread } from '@material-ui/core';
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     color: theme.palette.primary.main,
+    display: 'inline-block',
     "&:hover": {
       textDecoration: 'underline',
       cursor: 'pointer'
@@ -34,8 +36,11 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main
   },
   select: {
-    // backgroundColor: 'red',
-    // borderStyle: 'dotted'
+    backgroundColor: 'green',
+    border: 'none',
+    width: '1rem',
+    marginLeft: '0.3rem',
+    padding: '50px 20px 10px 0px'
   }
 }))
 
@@ -88,26 +93,33 @@ export default function Breadcrumbs() {
   return (
     <div aria-label='breadcrumb' className={classes.mainDiv}>
       <Grid container alignItems='center' className={classes.gridContainer}>
-        {/* <Bread> */}
+        <Bread>
         <div className={classes.link} onClick={clearProject}>
-              {"Overview"}
+              {"Projects"}
             </div>
 
         {currentProject.id && (
           <>
-            <NavigateNextIcon color='action' className={classes.iconButton} />
+            {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
             <div className={classes.link} onClick={clearMilestone}>
               {currentProject.name}
             </div>
 
-            <Select className={classes.select} value='' onChange={handleSetCurrentProject}>
+            {/* <Select className={classes.select} style={{border: 'none'}} value='' onChange={handleSetCurrentProject}>
               {renderMenuItems(allProjects)}
-            </Select>
+            </Select> */}
+
+            <select className={classes.select}>
+              <option></option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
           </>
         )}
         {currentMilestone.id && (
           <>
-            <NavigateNextIcon color='action' className={classes.iconButton} />
+            {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
             <div className={classes.link} onClick={clearTask}>
               {currentMilestone.name}
             </div>
@@ -119,9 +131,9 @@ export default function Breadcrumbs() {
         )}
         {currentTask.id && (
           <>
-            <NavigateNextIcon color='action' className={classes.iconButton} />
+            {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
             {/* <Grid container> */}
-            <Typography color='textPrimary'>{currentTask.name}</Typography>
+            <Typography color='textPrimary' style={{display: 'inline-block'}}>{currentTask.name}</Typography>
 
             <Select style={{ width: "1.6rem" }} value='' onChange={handleSetCurrentTask}>
               {renderMenuItems(currentMilestone.tasks)}
@@ -129,7 +141,7 @@ export default function Breadcrumbs() {
             {/* </Grid> */}
           </>
         )}
-        {/* </Bread> */}
+        </Bread>
       </Grid>
     </div>
   )
