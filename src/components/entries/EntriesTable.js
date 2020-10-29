@@ -230,7 +230,7 @@ export default function EntriesTable() {
                   </IconButton>
 
                   </Tooltip>
-                  <Tooltip title="Delete" arrow enterDelay={700}>
+                  <Tooltip title="Delete" arrow enterDelay={100}>
                   <IconButton onClick={() => handleOpenDeleteDialog(item)}>
                     <DeleteIcon fontSize='small' color='error' />
                   </IconButton>

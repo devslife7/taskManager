@@ -1,4 +1,6 @@
-const usersURL = "http://localhost:3000/users/"
+import { baseURL } from "../API/config"
+
+const usersURL = baseURL + "users/"
 
 export const setCurrentUser = user => {
   return {

@@ -10,10 +10,6 @@ import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
 import HomeIcon from "@material-ui/icons/Home"
 
 const useStyles = makeStyles(theme => ({
-  mainDiv: {
-    // height: "5rem",
-    // backgroundColor: "green",
-  },
   iconButton: {
     margin: "0vh 0.5vw",
   },
@@ -36,19 +32,15 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main
   },
   select: {
-    // backgroundColor: 'green',
     color: 'gray',
     border: 'none',
     width: '1rem',
-    // paddingBottom: '10px',
     marginLeft: '0.4rem',
-    // padding: '30px 40px 0px 0px',
     cursor: 'pointer',
     // WebkitAppearance: 'none',
     "&:hover": {
-      borderBottom: 'solid',
-      backgroundColor: '#f5f5f5',
-      color: 'black'
+      backgroundColor: '#f6f6f6',
+      borderRadius: '50px'
     }
   }
 }))
@@ -108,16 +100,14 @@ export default function Breadcrumbs() {
   }
 
   return (
-    <div aria-label='breadcrumb' className={classes.mainDiv}>
+    <>
       <Grid container alignItems='center' className={classes.gridContainer}>
         <Bread>
 
         {currentProject.id && (
-
-        <div className={classes.link} onClick={clearProject}>
-              {"Projects"}
-            </div>
-
+          <div className={classes.link} onClick={clearProject}>
+            {"Projects"}
+          </div>
         )}
 
         {currentProject.id && (
@@ -172,6 +162,6 @@ export default function Breadcrumbs() {
         )}
         </Bread>
       </Grid>
-    </div>
+    </>
   )
 }

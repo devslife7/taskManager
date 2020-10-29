@@ -1,5 +1,7 @@
-const tasksURL = "http://localhost:3000/tasks/"
-const entriesURL = "http://localhost:3000/entries/"
+import { baseURL } from "../API/config"
+
+const tasksURL = baseURL + "tasks/"
+const entriesURL = baseURL + "entries/"
 
 export const fetchCurrentTask = () => {
   return dispatch => {

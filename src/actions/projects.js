@@ -1,4 +1,6 @@
-const projectsURL = "http://localhost:3000/projects/"
+import { baseURL } from "../API/config"
+
+const projectsURL = baseURL + "projects/"
 
 export const fetchProjects = () => {
   return dispatch => {

@@ -1,4 +1,6 @@
-const milestonesURL = "http://localhost:3000/milestones/"
+import { baseURL } from "../API/config"
+
+const milestonesURL = baseURL + "milestones/"
 
 export const fetchCurrentMilestone = () => {
   return dispatch => {
