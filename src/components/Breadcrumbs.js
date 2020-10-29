@@ -2,12 +2,10 @@ import React from "react"
 import Typography from "@material-ui/core/Typography"
 import { useDispatch, useSelector } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../actions/projects"
-import { Button, Grid, makeStyles, MenuItem, Select } from "@material-ui/core"
+import { Grid, makeStyles, MenuItem } from "@material-ui/core"
 import { Breadcrumbs as Bread } from '@material-ui/core';
-import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { clearCurrentMilestone, fetchCurrentMilestone } from "../actions/milestones"
 import { clearCurrentTask, fetchCurrentTask } from "../actions/tasks"
-import HomeIcon from "@material-ui/icons/Home"
 
 const useStyles = makeStyles(theme => ({
   iconButton: {
@@ -81,15 +79,15 @@ export default function Breadcrumbs() {
     clearTask()
   }
 
-  const renderMenuItems = list => {
-    return list.map((item, idx) => (
-      <MenuItem key={idx} value={item.id}>
-        <Typography color='textPrimary' variant='subtitle1'>
-          {item.name}
-        </Typography>
-      </MenuItem>
-    ))
-  }
+  // const renderMenuItems = list => {
+  //   return list.map((item, idx) => (
+  //     <MenuItem key={idx} value={item.id}>
+  //       <Typography color='textPrimary' variant='subtitle1'>
+  //         {item.name}
+  //       </Typography>
+  //     </MenuItem>
+  //   ))
+  // }
 
   const renderSelectOptions = list => {
     return list.map((item, idx) => (

@@ -15,6 +15,11 @@ export default (state = initialState, action) => {
         loggedIn: true,
       }
 
+    // case "LOGIN_USER":
+    //   return {
+    //     ...state
+    //   }
+
     case "LOGOUT_CURRENT_USER":
       localStorage.clear()
       return {

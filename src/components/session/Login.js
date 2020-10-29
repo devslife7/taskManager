@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch } from "react-redux"
-import { setCurrentUser, logOutCurrentUser } from "../../actions/user"
+import { setCurrentUser, logOutCurrentUser, loginUser } from "../../actions/user"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -43,10 +43,9 @@ function Login({ history }) {
   }, [dispatch])
 
   const handleLogin = e => {
-    const logInURL = "http://localhost:3000/login"
     e.preventDefault()
-
-    let postRequest = {
+    
+    let requestBody = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,26 +57,28 @@ function Login({ history }) {
         },
       }),
     }
+    const logInURL = "http://localhost:3000/login"
 
-    if (username === "" || password === "") {
-      console.log("username or password cannot be blank")
-    } else {
-      fetch(logInURL, postRequest)
-        .then(resp => resp.json())
-        .then(data => {
-          // if (data.error) {
-          //   openSnackBar()
-          // } else {
-          localStorage.token = data.token
-          localStorage.userId = data.user.id
-          console.log("this is the data.user from fetch: ", data.user)
-          dispatch(setCurrentUser(data.user))
-          history.push("/dashboard")
-          // }
-        })
+    dispatch(loginUser(requestBody, history))
+
+      // fetch(logInURL, requestBody)
+      //   .then(resp => resp.json())
+      //   .then(data => {
+      //     // if (data.error) {
+      //     //   openSnackBar()
+      //     // } else {
+      //     localStorage.token = data.token
+      //     localStorage.userId = data.user.id
+      //     console.log("this is the data.user from fetch: ", data.user)
+      //     dispatch(setCurrentUser(data.user))
+      //     history.push("/dashboard")
+      //     // }
+      //   })
+
+
       setUsername("")
       setPassword("")
-    }
+
   }
 
   return (
