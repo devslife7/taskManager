@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { setCurrentUser, logOutCurrentUser, loginUser } from "../../actions/user"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { baseURL } from "../../API/config"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,6 +45,7 @@ function Login({ history }) {
 
   const handleLogin = e => {
     e.preventDefault()
+    const logInURL = baseURL + "login"
     
     let requestBody = {
       method: "POST",
@@ -57,23 +59,22 @@ function Login({ history }) {
         },
       }),
     }
-    const logInURL = "http://localhost:3000/login"
 
-    dispatch(loginUser(requestBody, history))
+    // dispatch(loginUser(requestBody, history))
 
-      // fetch(logInURL, requestBody)
-      //   .then(resp => resp.json())
-      //   .then(data => {
-      //     // if (data.error) {
-      //     //   openSnackBar()
-      //     // } else {
-      //     localStorage.token = data.token
-      //     localStorage.userId = data.user.id
-      //     console.log("this is the data.user from fetch: ", data.user)
-      //     dispatch(setCurrentUser(data.user))
-      //     history.push("/dashboard")
-      //     // }
-      //   })
+      fetch(logInURL, requestBody)
+        .then(resp => resp.json())
+        .then(data => {
+          // if (data.error) {
+          //   openSnackBar()
+          // } else {
+          localStorage.token = data.token
+          localStorage.userId = data.user.id
+          console.log("this is the data.user from fetch: ", data.user)
+          dispatch(setCurrentUser(data.user))
+          history.push("/dashboard")
+          // }
+        })
 
 
       setUsername("")
