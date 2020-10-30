@@ -1,6 +1,5 @@
-import { baseURL } from "../API/config"
-
-const usersURL = baseURL + "users/"
+const serverURL = process.env.REACT_APP_SERVER_URL
+const usersURL = serverURL + "users/"
 
 export const setCurrentUser = user => {
   return {

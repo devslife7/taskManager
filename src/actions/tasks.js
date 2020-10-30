@@ -1,7 +1,6 @@
-import { baseURL } from "../API/config"
-
-const tasksURL = baseURL + "tasks/"
-const entriesURL = baseURL + "entries/"
+const serverURL = process.env.REACT_APP_SERVER_URL
+const tasksURL = serverURL + "tasks/"
+const entriesURL = serverURL + "entries/"
 
 export const fetchCurrentTask = () => {
   return dispatch => {

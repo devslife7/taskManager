@@ -1,6 +1,5 @@
-import { baseURL } from "../API/config"
-
-const milestonesURL = baseURL + "milestones/"
+const serverURL = process.env.REACT_APP_SERVER_URL
+const milestonesURL = serverURL + "milestones/"
 
 export const fetchCurrentMilestone = () => {
   return dispatch => {

@@ -22,6 +22,8 @@ export default function OverviewGraph() {
       title: {
         text: "Progress(%)",
       },
+      min: 0,
+      max: 100
     },
     fill: {
       // colors: ["#345183"]
@@ -32,11 +34,11 @@ export default function OverviewGraph() {
     title: {
       text: "Projects Overview",
       align: "center",
-      margin: 40,
-      offsetY: 20,
-      style: {
-        fontSize: "1.6rem",
-      },
+      // margin: 10,
+      // offsetY: 20,
+      // style: {
+      //   fontSize: "1.6rem",
+      // },
     },
   })
   const [series] = useState([

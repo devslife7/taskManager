@@ -1,6 +1,5 @@
-import { baseURL } from "../API/config"
-
-const projectsURL = baseURL + "projects/"
+const serverURL = process.env.REACT_APP_SERVER_URL
+const projectsURL = serverURL + "projects/"
 
 export const fetchProjects = () => {
   return dispatch => {

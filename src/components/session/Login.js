@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { setCurrentUser, logOutCurrentUser } from "../../actions/user"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { baseURL } from "../../API/config"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -45,7 +44,7 @@ function Login({ history }) {
 
   const handleLogin = e => {
     e.preventDefault()
-    const logInURL = baseURL + "login"
+    const logInURL = process.env.REACT_APP_SERVER_URL + "login"
     
     let requestBody = {
       method: "POST",

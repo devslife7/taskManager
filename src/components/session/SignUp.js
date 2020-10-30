@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { setCurrentUser } from "../../actions/user"
 import { Link } from "react-router-dom"
-import { baseURL } from "../../API/config"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -49,7 +48,7 @@ function SignUp({ history }) {
 
   const handleSignup = e => {
     e.preventDefault()
-    const signUpURL = baseURL + "users"
+    const signUpURL = process.env.REACT_APP_SERVER_URL + "users"
 
     let postRequest = {
       method: "POST",
