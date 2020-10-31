@@ -1,5 +1,5 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const projectsURL = serverURL + "projects/"
+const projectsURL = serverURL + "/projects/"
 
 export const fetchProjects = () => {
   return dispatch => {

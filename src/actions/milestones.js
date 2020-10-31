@@ -1,5 +1,5 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const milestonesURL = serverURL + "milestones/"
+const milestonesURL = serverURL + "/milestones/"
 
 export const fetchCurrentMilestone = () => {
   return dispatch => {

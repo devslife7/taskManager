@@ -48,7 +48,7 @@ function SignUp({ history }) {
 
   const handleSignup = e => {
     e.preventDefault()
-    const signUpURL = process.env.REACT_APP_SERVER_URL + "users"
+    const signUpURL = process.env.REACT_APP_SERVER_URL + "/users"
 
     let postRequest = {
       method: "POST",

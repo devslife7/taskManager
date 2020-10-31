@@ -12,8 +12,8 @@ export default function OverviewGraph() {
 
   const [options] = useState({
     chart: {
-      background: "#dcdcdc",
-      foreColor: "#333",
+      // background: "#dcdcdc",
+      // foreColor: "#333",
     },
     xaxis: {
       categories: projectNames,

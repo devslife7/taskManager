@@ -109,7 +109,7 @@ export default function Breadcrumbs() {
         )}
 
         {currentProject.id && (
-          <>
+          <div>
             {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
             <div className={classes.link} onClick={clearMilestone}>
               {currentProject.name}
@@ -123,10 +123,10 @@ export default function Breadcrumbs() {
               <option></option>
               {renderSelectOptions(allProjects)}
             </select>
-          </>
+          </div>
         )}
         {currentMilestone.id && (
-          <>
+          <div>
             {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
             <div className={classes.link} onClick={clearTask}>
               {currentMilestone.name}
@@ -139,10 +139,10 @@ export default function Breadcrumbs() {
               <option></option>
               {renderSelectOptions(currentProject.milestones)}
             </select>
-          </>
+          </div>
         )}
         {currentTask.id && (
-          <>
+          <div>
             {/* <NavigateNextIcon color='action' className={classes.iconButton} /> */}
 
             <Typography color='textPrimary' style={{display: 'inline-block'}}>{currentTask.name}</Typography>
@@ -156,7 +156,7 @@ export default function Breadcrumbs() {
               {renderSelectOptions(currentMilestone.tasks)}
             </select>
 
-          </>
+          </div>
         )}
         </Bread>
       </Grid>

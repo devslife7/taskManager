@@ -44,7 +44,7 @@ function Login({ history }) {
 
   const handleLogin = e => {
     e.preventDefault()
-    const logInURL = process.env.REACT_APP_SERVER_URL + "login"
+    const logInURL = process.env.REACT_APP_SERVER_URL + "/login"
     
     let requestBody = {
       method: "POST",
