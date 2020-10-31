@@ -13,6 +13,7 @@ import { fetchCurrentProject } from "./actions/projects"
 import { fetchCurrentMilestone } from "./actions/milestones"
 import { fetchCurrentTask } from "./actions/tasks"
 import Home from "./containers/Home"
+import SideBar from "./components/SideBar"
 
 function App() {
   const dispatch = useDispatch()
@@ -26,7 +27,8 @@ function App() {
 
   return (
     <Router>
-      <NavBar />
+      {/* <NavBar /> */}
+      <SideBar />
       <Route exact path='/' component={Home} />
       {/* <Route exact path='/' component={Login} /> */}
       <Route exact path='/login' component={Login} />
