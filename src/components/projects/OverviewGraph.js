@@ -23,7 +23,7 @@ export default function OverviewGraph() {
         text: "Progress(%)",
       },
       min: 0,
-      max: 100
+      max: 100,
     },
     fill: {
       // colors: ["#345183"]
@@ -49,7 +49,7 @@ export default function OverviewGraph() {
   ])
 
   return (
-    <div style={{ width: "60rem", margin: "2rem auto" }}>
+    <div style={{ width: "45rem", margin: "2rem auto" }}>
       <Chart options={options} series={series} type='bar' />
     </div>
   )

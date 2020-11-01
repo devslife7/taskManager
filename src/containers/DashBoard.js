@@ -7,6 +7,7 @@ import Projects from "../components/projects/Projects"
 import Tasks from "../components/tasks/Tasks"
 import { useSelector } from "react-redux"
 import Overview from "../components/projects/Overview"
+import OverviewGraph from "../components/projects/OverviewGraph"
 
 const useStyles = makeStyles({
   projects: {
@@ -30,61 +31,9 @@ function DashBoard() {
   const loadingTask = useSelector(state => state.tasks.loadingTask)
 
   return (
-    <Grid container wrap='nowrap' style={{ backgroundColor: "yellow", width: "1000px" }}>
-      <Grid item className={classes.projects}>
-        <Projects />
-      </Grid>
-      <Grid item container direction='column' style={{ padding: "0 1vw", backgroundColor: "red" }}>
-        <Breadcrumbs />
-        {!!currentProject.id ? (
-          <>
-            {!!currentMilestone.id ? (
-              <>
-                {!!currentTask.id ? (
-                  <Entries />
-                ) : (
-                  <>
-                    {loadingTask ? (
-                      <Typography variant='h6' className={classes.loading}>
-                        Loading...
-                      </Typography>
-                    ) : (
-                      <Tasks />
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                {loadingMilestone ? (
-                  <Typography variant='h6' className={classes.loading}>
-                    Loading...
-                  </Typography>
-                ) : (
-                  <Milestones />
-                )}
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            {loadingProject ? (
-              <Typography variant='h6' className={classes.loading}>
-                Loading...
-              </Typography>
-            ) : (
-              <>
-                {!!localStorage.getItem("currentProjectId") ? (
-                  <Typography variant='h6' className={classes.loading}>
-                    Loading...
-                  </Typography>
-                ) : (
-                  <Overview />
-                )}
-              </>
-            )}
-          </>
-        )}
+    <Grid container wrap='nowrap' style={{ width: "1000px", backgroundColor: "fafafa" }}>
+      <Grid item container direction='column' style={{ padding: "0 1vw" }}>
+        <div>Dashboard coming soon</div>
       </Grid>
     </Grid>
   )

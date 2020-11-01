@@ -31,14 +31,14 @@ function TasksGraph() {
       },
     },
     xaxis: {
-      categories: currentMilestoneTasksSorted.map(t => t.name)
+      categories: currentMilestoneTasksSorted.map(t => t.name),
     },
     yaxis: {
       title: {
         text: "Progress(%)",
       },
       min: 0,
-      max: 100
+      max: 100,
     },
   })
   const [series] = useState([
@@ -53,12 +53,12 @@ function TasksGraph() {
       //   [1487116800000, 52],
       // ],
       // data: timelineSeries,
-      data: currentMilestoneTasksSorted.map(t => t.progress)
+      data: currentMilestoneTasksSorted.map(t => t.progress),
     },
   ])
 
   return (
-    <div style={{ width: "50rem", margin: "2vh auto" }}>
+    <div style={{ width: "45rem", margin: "2vh auto" }}>
       <Chart options={options} series={series} type='bar' />
     </div>
   )

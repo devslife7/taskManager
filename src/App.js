@@ -23,10 +23,10 @@ function App() {
   const loggedIn = useSelector(state => state.user.loggedIn)
 
   useEffect(() => {
-    !!localStorage.getItem("userId") && dispatch(fetchUser())
-    !!localStorage.getItem("currentProjectId") && dispatch(fetchCurrentProject())
-    !!localStorage.getItem("currentMilestoneId") && dispatch(fetchCurrentMilestone())
-    !!localStorage.getItem("currentTaskId") && dispatch(fetchCurrentTask())
+    localStorage.getItem("userId") && dispatch(fetchUser())
+    localStorage.getItem("currentProjectId") && dispatch(fetchCurrentProject())
+    localStorage.getItem("currentMilestoneId") && dispatch(fetchCurrentMilestone())
+    localStorage.getItem("currentTaskId") && dispatch(fetchCurrentTask())
   }, [dispatch])
 
   return (
@@ -39,7 +39,7 @@ function App() {
         <Route path='/signup' component={SignUp} />
       </Switch>
 
-      <Grid container>
+      <Grid container wrap='nowrap'>
         {loggedIn && <SideBar />}
         <Switch>
           <Route path='/dashboard' component={DashBoard} />

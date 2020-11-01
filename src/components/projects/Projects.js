@@ -1,26 +1,43 @@
-import { Divider, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core"
+import { Divider, Grid, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchProjects } from "../../actions/projects"
 import ProjectCard from "./ProjectCard"
 import SearchIcon from "@material-ui/icons/Search"
+import OverviewGraph from "./OverviewGraph.js"
+import Breadcrumbs from "../Breadcrumbs"
+import Tasks from "../tasks/Tasks"
+import Entries from "../entries/Entries"
+import Overview from "./Overview"
+import Milestones from "../milestones/Milestones"
 
 const useStyles = makeStyles(theme => ({
-  mainDiv: {
-    // backgroundColor: "#fafafa",
-    // backgroundColor: "#79b0f7",
-    // color: "white",
-    // color: "gray"
+  container: {
+    backgroundColor: "#fafafa",
+    // backgroundColor: "yellow",
+    padding: "0px 100px",
+    width: "100%",
+    height: "100vh",
+    overflow: "scroll",
   },
   searchBox: {
-    margin: "1rem 3rem",
+    margin: "0 0 1rem 0",
+    width: "12rem",
+  },
+  loading: {
+    margin: "8vh 0 0 18vw",
   },
 }))
 
-function Projects() {
+export default function Projects() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.projects.loading)
+  const currentProject = useSelector(state => state.projects.currentProject)
+  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
+  const currentTask = useSelector(state => state.tasks.currentTask)
+  const loadingProject = useSelector(state => state.projects.loadingProject)
+  const loadingMilestone = useSelector(state => state.milestones.loadingMilestone)
+  const loadingTask = useSelector(state => state.tasks.loadingTask)
   const allProjects = useSelector(state => state.projects.allProjects)
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -34,35 +51,95 @@ function Projects() {
     )
     filterProjects.sort((a, b) => b.end_date - a.end_date) // Sorts Projects by end_date
 
-    return filterProjects.map((proj, idx) => <ProjectCard key={idx} project={proj} />).reverse()
+    return filterProjects
+      .map((proj, idx) => (
+        <Grid item key={idx}>
+          <ProjectCard project={proj} />
+        </Grid>
+      ))
+      .reverse()
   }
 
   return (
-    <div className={classes.mainDiv}>
-      <TextField
-        value={searchTerm}
-        onChange={event => setSearchTerm(event.target.value)}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-        className={classes.searchBox}
-        label='Search Projects'
-      />
-      <Divider />
+    <div className={classes.container}>
+      <Grid container direction='column'>
+        {currentProject.id ? (
+          <>
+            <Breadcrumbs />
+            {currentMilestone.id ? (
+              <>
+                {currentTask.id ? (
+                  <Entries />
+                ) : (
+                  <>
+                    {loadingTask ? (
+                      <Typography variant='h6' className={classes.loading}>
+                        Loading...
+                      </Typography>
+                    ) : (
+                      <Tasks />
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {loadingMilestone ? (
+                  <Typography variant='h6' className={classes.loading}>
+                    Loading...
+                  </Typography>
+                ) : (
+                  <Milestones />
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {loadingProject ? (
+              <Typography variant='h6' className={classes.loading}>
+                Loading...
+              </Typography>
+            ) : (
+              <>
+                {localStorage.getItem("currentProjectId") ? (
+                  <Typography variant='h6' className={classes.loading}>
+                    Loading...
+                  </Typography>
+                ) : (
+                  <>
+                    <TextField
+                      value={searchTerm}
+                      onChange={event => setSearchTerm(event.target.value)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment>
+                            <SearchIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      className={classes.searchBox}
+                      label='Search Projects'
+                    />
+                    {/* <Divider /> */}
 
-      {loading ? (
-        <Typography variant='h1' style={{ fontSize: "1.3em", marginTop: "90px" }}>
-          Loading...
-        </Typography>
-      ) : (
-        renderProjects()
-      )}
+                    {loadingProject ? (
+                      <Typography variant='h1' style={{ fontSize: "1.3em", marginTop: "90px" }}>
+                        Loading...
+                      </Typography>
+                    ) : (
+                      <Grid container spacing={5}>
+                        {renderProjects()}
+                      </Grid>
+                    )}
+                    <Overview />
+                  </>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </Grid>
     </div>
   )
 }
-
-export default Projects

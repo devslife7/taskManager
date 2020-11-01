@@ -8,12 +8,12 @@ export default function EntriesGraph() {
   const entries = useSelector(state => state.tasks.currentTask.entries)
 
   // const sortAndFormatEntries = () => {
-    const currentEntriesSorted = entries.sort((a, b) => b.date - a.date).reverse()
+  const currentEntriesSorted = entries.sort((a, b) => b.date - a.date).reverse()
 
-    // return currentEntriesSorted.map(t => ({
-    //   x: format(fromUnixTime(t.date), "PP"),
-    //   y: t.progress,
-    // }))
+  // return currentEntriesSorted.map(t => ({
+  //   x: format(fromUnixTime(t.date), "PP"),
+  //   y: t.progress,
+  // }))
   // }
 
   const options = {
@@ -41,35 +41,35 @@ export default function EntriesGraph() {
     },
     xaxis: {
       // type: 'datetime',
-      categories: currentEntriesSorted.map(t => format(fromUnixTime(t.date), "LLL do"))
+      categories: currentEntriesSorted.map(t => format(fromUnixTime(t.date), "LLL do")),
       // categories: currentEntriesSorted.map(t => fromUnixTime(t.date))
-      },
+    },
     yaxis: {
       title: {
         text: "Progress(%)",
       },
       min: 0,
-      max: 100
+      max: 100,
     },
     tooltip: {
       x: {
-        format: "dd/MM/yy"
-      }
-    }
+        format: "dd/MM/yy",
+      },
+    },
   }
 
   const series = [
     {
       name: "Progress",
-      data: currentEntriesSorted.map(t => t.progress)
+      data: currentEntriesSorted.map(t => t.progress),
       // data: sortAndFormatEntries(),
     },
   ]
 
   return (
     <>
-      <Paper style={{ width: '60rem', margin: '2rem auto'}}>
-        <Chart options={options} series={series} type='line' height='350'/>
+      <Paper style={{ width: "45rem", margin: "2rem auto" }}>
+        <Chart options={options} series={series} type='line' height='350' />
       </Paper>
     </>
   )

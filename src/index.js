@@ -38,6 +38,13 @@ const theme = createMuiTheme({
       main: "#F2A122", // complementary orange
     },
   },
+  overrides: {
+    MuiButton: {
+      root: {
+        textTransform: "none",
+      },
+    },
+  },
 })
 
 ReactDOM.render(

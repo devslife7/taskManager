@@ -1,4 +1,13 @@
-import { Divider, Grid, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core"
+import {
+  Button,
+  Divider,
+  Grid,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core"
 import React from "react"
 import { useDispatch } from "react-redux"
 import { clearCurrentProject, fetchCurrentProject } from "../../actions/projects"
@@ -9,6 +18,8 @@ import { clearCurrentTask } from "../../actions/tasks"
 const useStyles = makeStyles(theme => ({
   ListItem: {
     padding: "0.7rem 2.2vw",
+    width: "13rem",
+    // backgroundColor: "red",
   },
 }))
 
@@ -29,7 +40,7 @@ function ProjectCard({ project }) {
 
   return (
     <>
-      <ListItem button className={classes.ListItem} onClick={handleSetCurrentProject}>
+      <Paper className={classes.ListItem}>
         <Grid container direction='column'>
           <Grid item>
             <ListItemText primary={project.name} />
@@ -42,10 +53,18 @@ function ProjectCard({ project }) {
               {`${project.progress}%`}
             </Typography>
           </Grid>
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={handleSetCurrentProject}
+            style={{ marginTop: "15px" }}
+          >
+            Details
+          </Button>
         </Grid>
-      </ListItem>
+      </Paper>
 
-      <Divider />
+      {/* <Divider /> */}
     </>
   )
 }

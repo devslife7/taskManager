@@ -69,7 +69,7 @@ function Login({ history }) {
           localStorage.userId = data.user.id
           console.log("this is the data.user from fetch: ", data.user)
           dispatch(setCurrentUser(data.user))
-          history.push("/dashboard")
+          history.push("/projects")
         })
         .catch(error => {
           console.error("Error is this :", error)

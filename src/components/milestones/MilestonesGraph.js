@@ -52,7 +52,7 @@ function MilestonesGraph() {
         text: "Progress(%)",
       },
       min: 0,
-      max: 100
+      max: 100,
     },
   })
   const [series] = useState([
@@ -71,7 +71,7 @@ function MilestonesGraph() {
   ])
 
   return (
-    <div style={{ width: "50rem", margin: "2vh auto" }}>
+    <div style={{ width: "45rem", margin: "2vh auto" }}>
       <Chart options={options} series={series} type='bar' />
     </div>
   )

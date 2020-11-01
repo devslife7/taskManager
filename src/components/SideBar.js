@@ -1,14 +1,9 @@
 import React, { useState } from "react"
 import { withStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
-import Menu from "@material-ui/core/Menu"
-import MenuItem from "@material-ui/core/MenuItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
-import DraftsIcon from "@material-ui/icons/Drafts"
 import DashboardIcon from "@material-ui/icons/Dashboard"
-import AssignmentIcon from "@material-ui/icons/Assignment"
 import DescriptionIcon from "@material-ui/icons/Description"
 import GroupIcon from "@material-ui/icons/Group"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
@@ -21,15 +16,18 @@ import ListItem from "@material-ui/core/ListItem"
 import Divider from "@material-ui/core/Divider"
 import { Grid, Typography } from "@material-ui/core"
 import ProTaskLogo from "../img/ProTaskLogo.png"
-import { Link, Redirect } from "react-router-dom"
+import { Link, Redirect, useLocation } from "react-router-dom"
 import { logOutCurrentUser } from "../actions/user"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useHistory } from "react-router-dom"
+import { clearCurrentProject } from "../actions/projects"
+import { clearCurrentMilestone } from "../actions/milestones"
+import { clearCurrentTask } from "../actions/tasks"
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: "gray",
+    backgroundColor: "#33435F",
     width: "100%",
     maxWidth: "14rem",
     height: "100vh",
@@ -37,15 +35,24 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "space-between",
   },
-  selected: {
+  menuItem: {
     height: "3.7rem",
     paddingLeft: "2rem",
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
+    color: "#B5C2C9",
+  },
+  menuItemSelected: {
+    height: "3.7rem",
+    paddingLeft: "2.6rem",
+    backgroundColor: theme.palette.primary.main,
+    "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+      color: theme.palette.common.white,
     },
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  iconStyle: {
+    color: "#B5C2C9",
   },
   linkStyle: {
     textDecoration: "none",
@@ -54,31 +61,47 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function CustomizedMenus() {
+  console.log("--------------------")
+  console.log("renders SideBar")
   const classes = useStyles()
   const history = useHistory()
+  const location = useLocation()
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.user.currentUser)
+
+  // const clearProject = () => {
+  //   dispatch(clearCurrentProject())
+  //   dispatch(clearCurrentMilestone())
+  //   dispatch(clearCurrentTask())
+  // }
 
   const handleLogOut = () => {
     if (window.confirm("Are you sure you want to Log Out?")) {
       console.log("loggin out")
       history.push("/login")
       dispatch(logOutCurrentUser())
+      dispatch(clearCurrentProject())
+      dispatch(clearCurrentMilestone())
+      dispatch(clearCurrentTask())
     } else {
       console.log("canceled")
     }
   }
 
+  const isSelectedStyle = name => {
+    return name === location.pathname ? classes.menuItemSelected : classes.menuItem
+  }
+
   return (
     <div className={classes.container}>
       <List component='nav'>
-        <Grid container alignItems='center' style={{ margin: "2rem" }}>
+        <Grid container alignItems='center' style={{ margin: "2rem", color: "#fff" }}>
           <img src={ProTaskLogo} alt='logo' style={{ width: "2.7rem", marginRight: "10px" }} />
           <Typography variant='h5'>ProTask</Typography>
         </Grid>
         <Link to='/dashboard' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem className={isSelectedStyle("/dashboard")}>
+            <ListItemIcon className={classes.iconStyle}>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary='Dashboard' />
@@ -86,8 +109,8 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/projects' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem button className={isSelectedStyle("/projects")}>
+            <ListItemIcon className={classes.iconStyle}>
               <AssignmentTurnedInIcon />
             </ListItemIcon>
             <ListItemText primary='Projects' />
@@ -95,8 +118,8 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/reports' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem button className={isSelectedStyle("/reports")}>
+            <ListItemIcon className={classes.iconStyle}>
               <DescriptionIcon />
             </ListItemIcon>
             <ListItemText primary='Reports' />
@@ -104,8 +127,8 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/team' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem button className={isSelectedStyle("/team")}>
+            <ListItemIcon className={classes.iconStyle}>
               <GroupIcon />
             </ListItemIcon>
             <ListItemText primary='Team' />
@@ -113,16 +136,16 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/inbox' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem button className={isSelectedStyle("/inbox")}>
+            <ListItemIcon className={classes.iconStyle}>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary='Inbox' />
           </ListItem>
         </Link>
 
-        <ListItem button className={classes.selected} onClick={handleLogOut}>
-          <ListItemIcon>
+        <ListItem button className={classes.menuItem} onClick={handleLogOut}>
+          <ListItemIcon className={classes.iconStyle}>
             <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary='Log Out' />
@@ -131,8 +154,8 @@ export default function CustomizedMenus() {
 
       <List component='nav'>
         <Link to='/profile' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
+          <ListItem button className={isSelectedStyle("/profile")}>
+            <ListItemIcon className={classes.iconStyle}>
               <AccountCircleIcon />
             </ListItemIcon>
             <ListItemText primary={`${currentUser.first_name}`} />
