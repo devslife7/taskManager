@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import Menu from "@material-ui/core/Menu"
@@ -21,16 +21,25 @@ import ListItem from "@material-ui/core/ListItem"
 import Divider from "@material-ui/core/Divider"
 import { Grid, Typography } from "@material-ui/core"
 import ProTaskLogo from "../img/ProTaskLogo.png"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
+import { logOutCurrentUser } from "../actions/user"
+import { useDispatch, useSelector } from "react-redux"
+
+import { useHistory } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: "15rem",
+  container: {
     backgroundColor: "gray",
+    width: "100%",
+    maxWidth: "14rem",
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   selected: {
     height: "3.7rem",
+    paddingLeft: "2rem",
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
@@ -46,24 +55,27 @@ const useStyles = makeStyles(theme => ({
 
 export default function CustomizedMenus() {
   const classes = useStyles()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const handleLogOut = () => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure you want to Log Out?")) {
       console.log("loggin out")
+      history.push("/login")
+      dispatch(logOutCurrentUser())
     } else {
       console.log("canceled")
     }
   }
 
   return (
-    <div className={classes.root}>
-      <List component='nav' style={{ height: "50vh" }}>
-        <Grid container alignItems='center' style={{ margin: "1rem" }}>
+    <div className={classes.container}>
+      <List component='nav'>
+        <Grid container alignItems='center' style={{ margin: "2rem" }}>
           <img src={ProTaskLogo} alt='logo' style={{ width: "2.7rem", marginRight: "10px" }} />
           <Typography variant='h5'>ProTask</Typography>
         </Grid>
-        <Divider />
-
         <Link to='/dashboard' className={classes.linkStyle}>
           <ListItem button className={classes.selected}>
             <ListItemIcon>
@@ -109,21 +121,23 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
-        <Link to='/profile' className={classes.linkStyle}>
-          <ListItem button className={classes.selected}>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary='Profile' />
-          </ListItem>
-        </Link>
-
         <ListItem button className={classes.selected} onClick={handleLogOut}>
           <ListItemIcon>
             <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary='Log Out' />
         </ListItem>
+      </List>
+
+      <List component='nav'>
+        <Link to='/profile' className={classes.linkStyle}>
+          <ListItem button className={classes.selected}>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary={`${currentUser.first_name}`} />
+          </ListItem>
+        </Link>
       </List>
     </div>
   )

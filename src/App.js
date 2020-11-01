@@ -16,6 +16,7 @@ import Projects from "./components/projects/Projects"
 import Reports from "./components/Reports"
 import Team from "./components/Team"
 import Inbox from "./components/Inbox"
+import { Grid } from "@material-ui/core"
 
 function App() {
   const dispatch = useDispatch()
@@ -30,22 +31,25 @@ function App() {
 
   return (
     <Router>
-      {loggedIn && <SideBar />}
-
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/home' component={Home} />
         <Route path='/interface' component={Interface} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
-
-        <Route path='/dashboard' component={DashBoard} />
-        <Route path='/projects' component={Projects} />
-        <Route path='/reports' component={Reports} />
-        <Route path='/team' component={Team} />
-        <Route path='/inbox' component={Inbox} />
-        <Route path='/profile' component={Profile} />
       </Switch>
+
+      <Grid container>
+        {loggedIn && <SideBar />}
+        <Switch>
+          <Route path='/dashboard' component={DashBoard} />
+          <Route path='/projects' component={Projects} />
+          <Route path='/reports' component={Reports} />
+          <Route path='/team' component={Team} />
+          <Route path='/inbox' component={Inbox} />
+          <Route path='/profile' component={Profile} />
+        </Switch>
+      </Grid>
     </Router>
   )
 }

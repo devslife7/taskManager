@@ -30,11 +30,11 @@ function DashBoard() {
   const loadingTask = useSelector(state => state.tasks.loadingTask)
 
   return (
-    <Grid container wrap='nowrap'>
+    <Grid container wrap='nowrap' style={{ backgroundColor: "yellow", width: "1000px" }}>
       <Grid item className={classes.projects}>
         <Projects />
       </Grid>
-      <Grid item container direction='column' style={{ padding: "0 1vw" }}>
+      <Grid item container direction='column' style={{ padding: "0 1vw", backgroundColor: "red" }}>
         <Breadcrumbs />
         {!!currentProject.id ? (
           <>
