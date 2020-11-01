@@ -1,22 +1,25 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchUser } from "./actions/user"
-import Login from "./components/session/Login"
-import SignUp from "./components/session/SignUp"
-import Tasks from "./components/tasks/Tasks"
+import Login from "./pages/Login"
+import SignUp from "./pages/SignUp"
 import DashBoard from "./containers/DashBoard"
-import NavBar from "./containers/NavBar"
 import Profile from "./containers/Profile"
-import Entries from "./components/entries/Entries"
 import { fetchCurrentProject } from "./actions/projects"
 import { fetchCurrentMilestone } from "./actions/milestones"
 import { fetchCurrentTask } from "./actions/tasks"
-import Home from "./containers/Home"
+import Home from "./pages/Home"
 import SideBar from "./components/SideBar"
+import Interface from "./pages/Interface"
+import Projects from "./components/projects/Projects"
+import Reports from "./components/Reports"
+import Team from "./components/Team"
+import Inbox from "./components/Inbox"
 
 function App() {
   const dispatch = useDispatch()
+  const loggedIn = useSelector(state => state.user.loggedIn)
 
   useEffect(() => {
     !!localStorage.getItem("userId") && dispatch(fetchUser())
@@ -27,16 +30,22 @@ function App() {
 
   return (
     <Router>
-      {/* <NavBar /> */}
-      <SideBar />
-      <Route exact path='/' component={Home} />
-      {/* <Route exact path='/' component={Login} /> */}
-      <Route exact path='/login' component={Login} />
-      <Route exact path='/signup' component={SignUp} />
-      <Route exact path='/dashboard' component={DashBoard} />
-      <Route exact path='/profile' component={Profile} />
-      <Route exact path='/milestone/details' component={Tasks} />
-      <Route exact path='/task/details' component={Entries} />
+      {loggedIn && <SideBar />}
+
+      <Switch>
+        <Route path='/' exact component={Home} />
+        <Route path='/home' component={Home} />
+        <Route path='/interface' component={Interface} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={SignUp} />
+
+        <Route path='/dashboard' component={DashBoard} />
+        <Route path='/projects' component={Projects} />
+        <Route path='/reports' component={Reports} />
+        <Route path='/team' component={Team} />
+        <Route path='/inbox' component={Inbox} />
+        <Route path='/profile' component={Profile} />
+      </Switch>
     </Router>
   )
 }

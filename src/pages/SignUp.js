@@ -1,8 +1,7 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core"
+import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import { setCurrentUser, logOutCurrentUser } from "../../actions/user"
-import React, { useEffect, useState } from "react"
+import { setCurrentUser } from "../actions/user"
 import { Link } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
@@ -26,78 +25,98 @@ function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {"Copyright © "}
-      {" Task Manager "} {new Date().getFullYear()}
+      {" ProTask "} {new Date().getFullYear()}
       {"."}
     </Typography>
   )
 }
 
-function Login({ history }) {
+function SignUp({ history }) {
   const dispatch = useDispatch()
-  const classes = useStyles()
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const classes = useStyles()
 
-  useEffect(() => {
-    dispatch(logOutCurrentUser())
-  }, [dispatch])
+  const clearForm = () => {
+    setFirstName("")
+    setLastName("")
+    setUsername("")
+    setPassword("")
+  }
 
-  const handleLogin = e => {
+  const handleSignup = e => {
     e.preventDefault()
-    const logInURL = process.env.REACT_APP_SERVER_URL + "/login"
-    
-    let requestBody = {
+    const signUpURL = process.env.REACT_APP_SERVER_URL + "/users"
+
+    let postRequest = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: {
+          first_name: firstName,
+          last_name: lastName,
           username: username,
           password: password,
         },
       }),
     }
 
-    if (username === "" || password === ""){
-      alert("Username or Password cannot be blank")
-    } else {
-      fetch(logInURL, requestBody)
-        .then(resp => resp.json())
-        .then(data => {
+    fetch(signUpURL, postRequest)
+      .then(resp => resp.json())
+      .then(
+        data => {
+          console.log(data)
+          // if (data.error) {
+          //   openSnackBar(data.error)
+          // } else {
           localStorage.token = data.token
           localStorage.userId = data.user.id
-          console.log("this is the data.user from fetch: ", data.user)
           dispatch(setCurrentUser(data.user))
           history.push("/dashboard")
-        })
-        .catch( error => {
-          console.error('Error is this :', error)
-        })
-    }
-
-    setUsername("")
-    setPassword("")
+          clearForm()
+        }
+        // }
+      )
   }
 
   return (
     <>
       <Paper className={classes.paper}>
         <Typography component='h1' variant='h5' color='primary'>
-          Login
+          Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleLogin}>
+        <form className={classes.form} noValidate onSubmit={handleSignup}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='First Name'
+            autoFocus
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Last Name'
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+          />
           <TextField
             variant='outlined'
             margin='normal'
             required
             fullWidth
             label='Username'
-            autoFocus
             value={username}
-            onChange={e => {
-              setUsername(e.target.value)
-            }}
+            onChange={e => setUsername(e.target.value)}
           />
           <TextField
             variant='outlined'
@@ -107,28 +126,25 @@ function Login({ history }) {
             label='Password'
             type='password'
             value={password}
-            onChange={e => {
-              setPassword(e.target.value)
-            }}
+            onChange={e => setPassword(e.target.value)}
           />
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-            Log In
+            Sign Up
           </Button>
-
           <Grid container justify='flex-end'>
             <Grid item>
-              <Link to='/signup' className={classes.links}>
-                Don't have an account? Sign Up
+              <Link to='/login' className={classes.links}>
+                Already have an account? Login
               </Link>
             </Grid>
           </Grid>
         </form>
       </Paper>
-      <Box mt={8}>
+      <Box mt={5}>
         <Copyright />
       </Box>
     </>
   )
 }
 
-export default Login
+export default SignUp
