@@ -101,7 +101,7 @@ function SignUp({ history }) {
           localStorage.token = data.token
           localStorage.userId = data.user.id
           dispatch(setCurrentUser(data.user))
-          history.push("/dashboard")
+          history.push("/projects")
           clearForm()
         }
         // }
