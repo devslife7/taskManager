@@ -1,5 +1,13 @@
 import React, { useState } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+} from "@material-ui/core"
 import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
 import { fromUnixTime, format } from "date-fns"
@@ -9,6 +17,7 @@ import EditIcon from "@material-ui/icons/Edit"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import { fetchCurrentTask } from "../../actions/tasks"
+import isPast from "date-fns/isPast"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -59,10 +68,10 @@ const useStyle = makeStyles(theme => ({
   },
   nameHover: {
     "&:hover": {
-      textDecoration: 'underline',
-      cursor: 'pointer'
-    }
-  }
+      textDecoration: "underline",
+      cursor: "pointer",
+    },
+  },
 }))
 
 export default function TaskTable() {
@@ -76,6 +85,7 @@ export default function TaskTable() {
     { id: "hours", label: "Hours" },
     { id: "start_date", label: "Start" },
     { id: "end_date", label: "End" },
+    { id: "status", label: "Status" },
     { id: "notes", label: "Notes", disableSorting: true },
     { id: "actions", label: "Actions", disableSorting: true },
   ]
@@ -215,6 +225,22 @@ export default function TaskTable() {
     }
   }
 
+  const handleStatus = date => {
+    if (isPast(date)) {
+      return (
+        <div style={{ backgroundColor: "red", textAlign: "center", borderRadius: "5px", color: "white" }}>
+          Past Due
+        </div>
+      )
+    } else {
+      return (
+        <div style={{ backgroundColor: "green", textAlign: "center", borderRadius: "5px", color: "white" }}>
+          On Track
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <Paper className={classes.paper}>
@@ -223,12 +249,15 @@ export default function TaskTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx}>
-                <TableCell className={classes.nameHover} onClick={() => handleLink(item.id)}>{item.name}</TableCell>
+                <TableCell className={classes.nameHover} onClick={() => handleLink(item.id)}>
+                  {item.name}
+                </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{"Owner"}</TableCell>
                 <TableCell>{item.hours}</TableCell>
                 <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
                 <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
+                <TableCell>{handleStatus(fromUnixTime(item.end_date), "PP")}</TableCell>
                 <TableCell>{item.notes}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>

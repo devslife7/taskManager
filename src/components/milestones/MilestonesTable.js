@@ -17,6 +17,7 @@ import EditIcon from "@material-ui/icons/Edit"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import { fetchCurrentMilestone } from "../../actions/milestones"
+import isPast from "date-fns/isPast"
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -63,10 +64,10 @@ const useStyle = makeStyles(theme => ({
   },
   nameHover: {
     "&:hover": {
-      textDecoration: 'underline',
-      cursor: 'pointer'
-    }
-  }
+      textDecoration: "underline",
+      cursor: "pointer",
+    },
+  },
 }))
 
 export default function useTable() {
@@ -214,6 +215,22 @@ export default function useTable() {
     }
   }
 
+  const handleStatus = date => {
+    if (isPast(date)) {
+      return (
+        <div style={{ backgroundColor: "red", textAlign: "center", borderRadius: "5px", color: "white" }}>
+          Past Due
+        </div>
+      )
+    } else {
+      return (
+        <div style={{ backgroundColor: "green", textAlign: "center", borderRadius: "5px", color: "white" }}>
+          On Track
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <Paper className={classes.paper}>
@@ -222,13 +239,15 @@ export default function useTable() {
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx} onClick={() => console.log("clicks table row")}>
-                <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>{item.name}</TableCell>
+                <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>
+                  {item.name}
+                </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{"Owner"}</TableCell>
                 <TableCell>{item.hours}</TableCell>
                 <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
                 <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
-                <TableCell>{"status"}</TableCell>
+                <TableCell>{handleStatus(fromUnixTime(item.end_date), "PP")}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <EditIcon fontSize='small' className={classes.editIcon} />
