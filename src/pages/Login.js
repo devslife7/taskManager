@@ -4,13 +4,27 @@ import { useDispatch } from "react-redux"
 import { setCurrentUser, logOutCurrentUser } from "../actions/user"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import BackgroundImg from "../images/BackgroundImg.jpg"
+import ProTaskLogo from "../images/ProTaskLogo.png"
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: "10vh",
+  container: {
+    width: "100%",
+    height: "100vh",
+    padding: 0,
+    backgroundImage: `url(${BackgroundImg})`,
+    backgroundSize: "cover",
+  },
+  backgroundFilter: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(53, 53, 53, 0.75)",
+    position: "fixed",
+  },
+  root: {
     padding: "4vh",
     maxWidth: "40vh",
-    margin: "auto",
+    margin: "0px auto",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -20,11 +34,22 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     fontFamily: "Arial",
   },
+  titleContainer: {
+    margin: "4rem 0",
+    color: "#fff",
+    fontSize: "2.5rem",
+    display: "flex",
+    justifyContent: "center",
+  },
+  logoStyle: {
+    width: "2.7rem",
+    marginRight: "10px",
+  },
 }))
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant='body2' align='center' style={{ color: "#fff" }}>
       {"Copyright © "}
       {" ProTask "} {new Date().getFullYear()}
       {"."}
@@ -81,53 +106,59 @@ function Login({ history }) {
   }
 
   return (
-    <>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5' color='primary'>
-          Login
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleLogin}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Username'
-            autoFocus
-            value={username}
-            onChange={e => {
-              setUsername(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Password'
-            type='password'
-            value={password}
-            onChange={e => {
-              setPassword(e.target.value)
-            }}
-          />
-          <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-            Log In
-          </Button>
+    <div className={classes.container}>
+      <div className={classes.backgroundFilter}>
+        <div className={classes.titleContainer}>
+          <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
+          ProTasker
+        </div>
+        <Paper className={classes.root}>
+          <Typography component='h1' variant='h5' color='primary'>
+            Login
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Username'
+              autoFocus
+              value={username}
+              onChange={e => {
+                setUsername(e.target.value)
+              }}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Password'
+              type='password'
+              value={password}
+              onChange={e => {
+                setPassword(e.target.value)
+              }}
+            />
+            <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+              Log In
+            </Button>
 
-          <Grid container justify='flex-end'>
-            <Grid item>
-              <Link to='/signup' className={classes.links}>
-                Don't have an account? Sign Up
-              </Link>
+            <Grid container justify='flex-end'>
+              <Grid item>
+                <Link to='/signup' className={classes.links}>
+                  Don't have an account? Sign Up
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Paper>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </>
+          </form>
+        </Paper>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </div>
+    </div>
   )
 }
 

@@ -3,13 +3,27 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { setCurrentUser } from "../actions/user"
 import { Link } from "react-router-dom"
+import BackgroundImg from "../images/BackgroundImg.jpg"
+import ProTaskLogo from "../images/ProTaskLogo.png"
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    width: "100%",
+    height: "100vh",
+    padding: 0,
+    backgroundImage: `url(${BackgroundImg})`,
+    backgroundSize: "cover",
+  },
+  backgroundFilter: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(53, 53, 53, 0.75)",
+    position: "fixed",
+  },
   paper: {
-    marginTop: "10vh",
     padding: "4vh",
     maxWidth: "40vh",
-    margin: "auto",
+    margin: "0 auto",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -19,11 +33,22 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     fontFamily: "Arial",
   },
+  titleContainer: {
+    margin: "4rem 0",
+    color: "#fff",
+    fontSize: "2.5rem",
+    display: "flex",
+    justifyContent: "center",
+  },
+  logoStyle: {
+    width: "2.7rem",
+    marginRight: "10px",
+  },
 }))
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant='body2' color='textSecondary' align='center' style={{ color: "#fff" }}>
       {"Copyright © "}
       {" ProTask "} {new Date().getFullYear()}
       {"."}
@@ -84,66 +109,72 @@ function SignUp({ history }) {
   }
 
   return (
-    <>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5' color='primary'>
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSignup}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='First Name'
-            autoFocus
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Last Name'
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Username'
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            label='Password'
-            type='password'
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-            Sign Up
-          </Button>
-          <Grid container justify='flex-end'>
-            <Grid item>
-              <Link to='/login' className={classes.links}>
-                Already have an account? Login
-              </Link>
+    <div className={classes.container}>
+      <div className={classes.backgroundFilter}>
+        <div className={classes.titleContainer}>
+          <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
+          ProTasker
+        </div>
+        <Paper className={classes.paper}>
+          <Typography component='h1' variant='h5' color='primary'>
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSignup}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='First Name'
+              autoFocus
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Last Name'
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Username'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              label='Password'
+              type='password'
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+            <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+              Sign Up
+            </Button>
+            <Grid container justify='flex-end'>
+              <Grid item>
+                <Link to='/login' className={classes.links}>
+                  Already have an account? Login
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Paper>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </>
+          </form>
+        </Paper>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </div>
+    </div>
   )
 }
 

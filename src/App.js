@@ -32,7 +32,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact component={Home} />
+        <Route path='/' exact component={Login} />
         <Route path='/home' component={Home} />
         <Route path='/interface' component={Interface} />
         <Route path='/login' component={Login} />
