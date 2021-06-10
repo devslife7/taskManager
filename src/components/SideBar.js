@@ -37,12 +37,12 @@ const useStyles = makeStyles(theme => ({
   },
   menuItem: {
     height: '3.7rem',
-    paddingLeft: '2rem',
+    // paddingLeft: '2rem',
     color: '#B5C2C9',
   },
   menuItemSelected: {
     height: '3.7rem',
-    paddingLeft: '2.6rem',
+    // paddingLeft: '2.6rem',
     backgroundColor: theme.palette.primary.main,
     '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
       color: theme.palette.common.white,
@@ -144,23 +144,21 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
+        <Link to='/profile' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/profile')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary='Profile' />
+          </ListItem>
+        </Link>
+
         <ListItem button className={classes.menuItem} onClick={handleLogOut}>
           <ListItemIcon className={classes.iconStyle}>
             <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary='Log Out' />
         </ListItem>
-      </List>
-
-      <List component='nav'>
-        <Link to='/profile' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle('/profile')}>
-            <ListItemIcon className={classes.iconStyle}>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary={`${currentUser.first_name}`} />
-          </ListItem>
-        </Link>
       </List>
     </div>
   )
