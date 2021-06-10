@@ -15,7 +15,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Divider from '@material-ui/core/Divider'
 import { Grid, Typography } from '@material-ui/core'
-// import ProTaskLogo from "../images/ProTaskLogo.png"
+import ProTaskLogo from '../img/ProTaskLogo.png'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { logOutCurrentUser } from '../actions/user'
 import { useDispatch, useSelector } from 'react-redux'
@@ -37,12 +37,12 @@ const useStyles = makeStyles(theme => ({
   },
   menuItem: {
     height: '3.7rem',
-    // paddingLeft: '2rem',
+    paddingLeft: '2rem',
     color: '#B5C2C9',
   },
   menuItemSelected: {
     height: '3.7rem',
-    // paddingLeft: '2.6rem',
+    paddingLeft: '2rem',
     backgroundColor: theme.palette.primary.main,
     '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
       color: theme.palette.common.white,
@@ -96,7 +96,7 @@ export default function CustomizedMenus() {
     <div className={classes.container}>
       <List component='nav'>
         <Grid container alignItems='center' style={{ margin: '2rem', color: '#fff' }}>
-          {/* <img src={ProTaskLogo} alt='logo' style={{ width: '2.7rem', marginRight: '10px' }} /> */}
+          <img src={ProTaskLogo} alt='logo' style={{ width: '2.7rem', marginRight: '10px' }} />
           <Typography variant='h5'>ProTask</Typography>
         </Grid>
         <Link to='/dashboard' className={classes.linkStyle}>

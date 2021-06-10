@@ -4,15 +4,15 @@ import { useDispatch } from 'react-redux'
 import { setCurrentUser, logOutCurrentUser } from '../actions/user'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-// import BackgroundImg from "../images/BackgroundImg.jpg"
-// import ProTaskLogo from '../images/ProTaskLogo.png'
+import BackgroundImg from '../img/BackgroundImg.jpg'
+import ProTaskLogo from '../img/ProTaskLogo.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
     width: '100%',
     height: '100vh',
     padding: 0,
-    // backgroundImage: `url(${BackgroundImg})`,
+    backgroundImage: `url(${BackgroundImg})`,
     backgroundSize: 'cover',
   },
   backgroundFilter: {
@@ -57,7 +57,7 @@ function Copyright() {
   )
 }
 
-function Login({ history }) {
+export default function Login({ history }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const [username, setUsername] = useState('')
@@ -109,7 +109,7 @@ function Login({ history }) {
     <div className={classes.container}>
       <div className={classes.backgroundFilter}>
         <div className={classes.titleContainer}>
-          {/* <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} /> */}
+          <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
           ProTasker
         </div>
         <Paper className={classes.root}>
@@ -161,5 +161,3 @@ function Login({ history }) {
     </div>
   )
 }
-
-export default Login
