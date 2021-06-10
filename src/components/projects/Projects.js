@@ -1,31 +1,31 @@
-import { Divider, Grid, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core"
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchProjects } from "../../actions/projects"
-import ProjectCard from "./ProjectCard"
-import SearchIcon from "@material-ui/icons/Search"
-import OverviewGraph from "./OverviewGraph.js"
-import Breadcrumbs from "../Breadcrumbs"
-import Tasks from "../tasks/Tasks"
-import Entries from "../entries/Entries"
-import Overview from "./Overview"
-import Milestones from "../milestones/Milestones"
+import { Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProjects } from '../../actions/projects'
+import ProjectCard from './ProjectCard'
+import SearchIcon from '@material-ui/icons/Search'
+// import OverviewGraph from "./OverviewGraph.js"
+import Breadcrumbs from '../Breadcrumbs'
+import Tasks from '../tasks/Tasks'
+import Entries from '../entries/Entries'
+import Overview from './Overview'
+import Milestones from '../milestones/Milestones'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: "#fafafa",
+    backgroundColor: '#fafafa',
     // backgroundColor: "yellow",
-    padding: "0px 100px",
-    width: "100%",
-    height: "100vh",
-    overflow: "scroll",
+    padding: '0px 100px',
+    width: '100%',
+    height: '100vh',
+    overflow: 'scroll',
   },
   searchBox: {
-    margin: "0 0 1rem 0",
-    width: "12rem",
+    margin: '0 0 1rem 0',
+    width: '12rem',
   },
   loading: {
-    margin: "8vh 0 0 18vw",
+    margin: '8vh 0 0 18vw',
   },
 }))
 
@@ -39,7 +39,7 @@ export default function Projects() {
   const loadingMilestone = useSelector(state => state.milestones.loadingMilestone)
   const loadingTask = useSelector(state => state.tasks.loadingTask)
   const allProjects = useSelector(state => state.projects.allProjects)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     dispatch(fetchProjects())
@@ -102,7 +102,7 @@ export default function Projects() {
               </Typography>
             ) : (
               <>
-                {localStorage.getItem("currentProjectId") ? (
+                {localStorage.getItem('currentProjectId') ? (
                   <Typography variant='h6' className={classes.loading}>
                     Loading...
                   </Typography>
@@ -124,7 +124,7 @@ export default function Projects() {
                     {/* <Divider /> */}
 
                     {loadingProject ? (
-                      <Typography variant='h1' style={{ fontSize: "1.3em", marginTop: "90px" }}>
+                      <Typography variant='h1' style={{ fontSize: '1.3em', marginTop: '90px' }}>
                         Loading...
                       </Typography>
                     ) : (
