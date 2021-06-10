@@ -1,84 +1,84 @@
-import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core"
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
-import { setCurrentUser } from "../actions/user"
-import { Link } from "react-router-dom"
-import BackgroundImg from "../images/BackgroundImg.jpg"
-import ProTaskLogo from "../images/ProTaskLogo.png"
+import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../actions/user'
+import { Link } from 'react-router-dom'
+// import BackgroundImg from "../images/BackgroundImg.jpg"
+// import ProTaskLogo from '../images/ProTaskLogo.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    width: "100%",
-    height: "100vh",
+    width: '100%',
+    height: '100vh',
     padding: 0,
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
+    // backgroundImage: `url(${BackgroundImg})`,
+    backgroundSize: 'cover',
   },
   backgroundFilter: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(53, 53, 53, 0.75)",
-    position: "fixed",
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(53, 53, 53, 0.75)',
+    position: 'fixed',
   },
   paper: {
-    padding: "4vh",
-    maxWidth: "40vh",
-    margin: "0 auto",
+    padding: '4vh',
+    maxWidth: '40vh',
+    margin: '0 auto',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   links: {
     color: theme.palette.primary.main,
-    textDecoration: "none",
-    fontFamily: "Arial",
+    textDecoration: 'none',
+    fontFamily: 'Arial',
   },
   titleContainer: {
-    margin: "4rem 0",
-    color: "#fff",
-    fontSize: "2.5rem",
-    display: "flex",
-    justifyContent: "center",
+    margin: '4rem 0',
+    color: '#fff',
+    fontSize: '2.5rem',
+    display: 'flex',
+    justifyContent: 'center',
   },
   logoStyle: {
-    width: "2.7rem",
-    marginRight: "10px",
+    width: '2.7rem',
+    marginRight: '10px',
   },
 }))
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center' style={{ color: "#fff" }}>
-      {"Copyright © "}
-      {" ProTask "} {new Date().getFullYear()}
-      {"."}
+    <Typography variant='body2' color='textSecondary' align='center' style={{ color: '#fff' }}>
+      {'Copyright © '}
+      {' ProTask '} {new Date().getFullYear()}
+      {'.'}
     </Typography>
   )
 }
 
 function SignUp({ history }) {
   const dispatch = useDispatch()
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const classes = useStyles()
 
   const clearForm = () => {
-    setFirstName("")
-    setLastName("")
-    setUsername("")
-    setPassword("")
+    setFirstName('')
+    setLastName('')
+    setUsername('')
+    setPassword('')
   }
 
   const handleSignup = e => {
     e.preventDefault()
-    const signUpURL = process.env.REACT_APP_SERVER_URL + "/users"
+    const signUpURL = process.env.REACT_APP_SERVER_URL + '/users'
 
     let postRequest = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         user: {
@@ -101,7 +101,7 @@ function SignUp({ history }) {
           localStorage.token = data.token
           localStorage.userId = data.user.id
           dispatch(setCurrentUser(data.user))
-          history.push("/projects")
+          history.push('/projects')
           clearForm()
         }
         // }
@@ -112,7 +112,7 @@ function SignUp({ history }) {
     <div className={classes.container}>
       <div className={classes.backgroundFilter}>
         <div className={classes.titleContainer}>
-          <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
+          {/* <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} /> */}
           ProTasker
         </div>
         <Paper className={classes.paper}>

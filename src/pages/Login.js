@@ -1,58 +1,58 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { useDispatch } from "react-redux"
-import { setCurrentUser, logOutCurrentUser } from "../actions/user"
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import BackgroundImg from "../images/BackgroundImg.jpg"
-import ProTaskLogo from "../images/ProTaskLogo.png"
+import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { useDispatch } from 'react-redux'
+import { setCurrentUser, logOutCurrentUser } from '../actions/user'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+// import BackgroundImg from "../images/BackgroundImg.jpg"
+// import ProTaskLogo from '../images/ProTaskLogo.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    width: "100%",
-    height: "100vh",
+    width: '100%',
+    height: '100vh',
     padding: 0,
-    backgroundImage: `url(${BackgroundImg})`,
-    backgroundSize: "cover",
+    // backgroundImage: `url(${BackgroundImg})`,
+    backgroundSize: 'cover',
   },
   backgroundFilter: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(53, 53, 53, 0.75)",
-    position: "fixed",
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(53, 53, 53, 0.75)',
+    position: 'fixed',
   },
   root: {
-    padding: "4vh",
-    maxWidth: "40vh",
-    margin: "0px auto",
+    padding: '4vh',
+    maxWidth: '40vh',
+    margin: '0px auto',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   links: {
     color: theme.palette.primary.main,
-    textDecoration: "none",
-    fontFamily: "Arial",
+    textDecoration: 'none',
+    fontFamily: 'Arial',
   },
   titleContainer: {
-    margin: "4rem 0",
-    color: "#fff",
-    fontSize: "2.5rem",
-    display: "flex",
-    justifyContent: "center",
+    margin: '4rem 0',
+    color: '#fff',
+    fontSize: '2.5rem',
+    display: 'flex',
+    justifyContent: 'center',
   },
   logoStyle: {
-    width: "2.7rem",
-    marginRight: "10px",
+    width: '2.7rem',
+    marginRight: '10px',
   },
 }))
 
 function Copyright() {
   return (
-    <Typography variant='body2' align='center' style={{ color: "#fff" }}>
-      {"Copyright © "}
-      {" ProTask "} {new Date().getFullYear()}
-      {"."}
+    <Typography variant='body2' align='center' style={{ color: '#fff' }}>
+      {'Copyright © '}
+      {' ProTask '} {new Date().getFullYear()}
+      {'.'}
     </Typography>
   )
 }
@@ -60,8 +60,8 @@ function Copyright() {
 function Login({ history }) {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     dispatch(logOutCurrentUser())
@@ -69,12 +69,12 @@ function Login({ history }) {
 
   const handleLogin = e => {
     e.preventDefault()
-    const logInURL = process.env.REACT_APP_SERVER_URL + "/login"
+    const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
 
     let requestBody = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         user: {
@@ -84,32 +84,32 @@ function Login({ history }) {
       }),
     }
 
-    if (username === "" || password === "") {
-      alert("Username or Password cannot be blank")
+    if (username === '' || password === '') {
+      alert('Username or Password cannot be blank')
     } else {
       fetch(logInURL, requestBody)
         .then(resp => resp.json())
         .then(data => {
           localStorage.token = data.token
           localStorage.userId = data.user.id
-          console.log("this is the data.user from fetch: ", data.user)
+          console.log('this is the data.user from fetch: ', data.user)
           dispatch(setCurrentUser(data.user))
-          history.push("/projects")
+          history.push('/projects')
         })
         .catch(error => {
-          console.error("Error is this :", error)
+          console.error('Error is this :', error)
         })
     }
 
-    setUsername("")
-    setPassword("")
+    setUsername('')
+    setPassword('')
   }
 
   return (
     <div className={classes.container}>
       <div className={classes.backgroundFilter}>
         <div className={classes.titleContainer}>
-          <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
+          {/* <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} /> */}
           ProTasker
         </div>
         <Paper className={classes.root}>
