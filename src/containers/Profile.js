@@ -27,13 +27,13 @@ export default function Profile() {
       <TextField
         id='outlined-first-name'
         label='First Name'
-        variant='outlined'
         className={classes.textField}
         value={`${currentUser.first_name}`}
         fullWidth
         InputProps={{
           readOnly: true,
         }}
+        // variant='outlined'
       />
       <TextField
         id='outlined-last-name'
@@ -44,7 +44,7 @@ export default function Profile() {
         InputProps={{
           readOnly: true,
         }}
-        variant='outlined'
+        // variant='outlined'
       />
       <TextField
         id='outlined-username'
@@ -55,7 +55,7 @@ export default function Profile() {
         InputProps={{
           readOnly: true,
         }}
-        variant='outlined'
+        // variant='outlined'
       />
       <TextField
         id='outlined-role'
@@ -66,7 +66,19 @@ export default function Profile() {
         InputProps={{
           readOnly: true,
         }}
-        variant='outlined'
+        // variant='outlined'
+      />
+
+      <TextField
+        id='outlined-email'
+        label='Email'
+        className={classes.textField}
+        value={`Email`}
+        fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
+        // variant='outlined'
       />
     </div>
   )
