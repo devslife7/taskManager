@@ -9,6 +9,7 @@ import GroupIcon from '@material-ui/icons/Group'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import EventAvailableIcon from '@material-ui/icons/EventAvailable'
 
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -140,6 +141,15 @@ export default function CustomizedMenus() {
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary='Inbox' />
+          </ListItem>
+        </Link>
+
+        <Link to='/calendar' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/calendar')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <EventAvailableIcon />
+            </ListItemIcon>
+            <ListItemText primary='Calendar' />
           </ListItem>
         </Link>
 
