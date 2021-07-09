@@ -1,15 +1,15 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
-import AppBar from "@material-ui/core/AppBar"
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
 // import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import Grid from "@material-ui/core/Grid"
-import { logOutCurrentUser } from "../actions/user"
-import { clearCurrentProject } from "../actions/projects"
-import { clearCurrentMilestone } from "../actions/milestones"
-import { clearCurrentTask } from "../actions/tasks"
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import { logOutCurrentUser } from '../actions/user'
+import { clearCurrentProject } from '../actions/projects'
+import { clearCurrentMilestone } from '../actions/milestones'
+import { clearCurrentTask } from '../actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,28 +17,28 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     // padding: "12px 0px",
-    height: "100%",
-    fontSize: "1.55rem",
-    fontWeight: "400",
-    color: "white",
+    height: '100%',
+    fontSize: '1.55rem',
+    fontWeight: '400',
+    color: 'white',
   },
   links: {
-    color: "white",
-    textDecoration: "none",
-    fontSize: "1.14rem",
-    padding: "0px 20px",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
+    color: 'white',
+    // textDecoration: "none",
+    fontSize: '1.14rem',
+    padding: '0px 20px',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
   gridHeight: {
-    height: "100%",
+    height: '100%',
   },
   onHover: {
-    "&:hover": {
+    '&:hover': {
       // color: "rgb(255, 255, 255, 0.6)" // white with opacity of 0.6
       color: theme.palette.primary.dark,
-      backgroundColor: "white",
+      backgroundColor: 'white',
     },
   },
   appBar: {
@@ -48,8 +48,8 @@ const useStyles = makeStyles(theme => ({
 
 function NavBar() {
   const dispatch = useDispatch()
-  console.log("--------------------")
-  console.log("renders NavBar")
+  console.log('--------------------')
+  console.log('renders NavBar')
   const classes = useStyles()
   const currentUser = useSelector(state => state.user.currentUser)
   const loggedIn = useSelector(state => state.user.loggedIn)
@@ -64,7 +64,7 @@ function NavBar() {
   return (
     <>
       <AppBar position='static' className={classes.appBar}>
-        <Grid container style={{ height: "5vh" }} alignItems='center'>
+        <Grid container style={{ height: '5vh' }} alignItems='center'>
           <Grid item xs={4} container alignContent='center' className={classes.gridHeight}>
             {loggedIn && (
               <>
