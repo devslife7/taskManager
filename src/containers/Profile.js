@@ -1,17 +1,73 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import { makeStyles, TextField } from '@material-ui/core'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
-function Profile() {
+const useStyles = makeStyles(theme => ({
+  container: {
+    margin: '100px auto',
+    // backgroundColor: 'red',
+    textAlign: 'center',
+    width: '400px',
+  },
+  title: {
+    fontSize: '3.5rem',
+  },
+  textField: {
+    marginTop: '50px',
+  },
+}))
+
+export default function Profile() {
+  const classes = useStyles()
   const currentUser = useSelector(state => state.user.currentUser)
   return (
-    <div style={{ margin: "100px auto", backgroundColor: "white", textAlign: "center" }}>
-      <h2>Profile page</h2>
-      <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>First Name: {currentUser.first_name}</div>
-      <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>Last Name: {currentUser.last_name}</div>
-      <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>Username: {currentUser.username}</div>
-      <div style={{ fontSize: "1.5rem", marginTop: "20px" }}>Role: {currentUser.role}</div>
+    <div className={classes.container}>
+      <div className={classes.title}>Personal Info</div>
+
+      <TextField
+        id='outlined-first-name'
+        label='First Name'
+        variant='outlined'
+        className={classes.textField}
+        value={`${currentUser.first_name}`}
+        fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        id='outlined-last-name'
+        label='Last Name'
+        fullWidth
+        className={classes.textField}
+        value={`${currentUser.last_name}`}
+        InputProps={{
+          readOnly: true,
+        }}
+        variant='outlined'
+      />
+      <TextField
+        id='outlined-username'
+        label='Username'
+        fullWidth
+        className={classes.textField}
+        value={`${currentUser.username}`}
+        InputProps={{
+          readOnly: true,
+        }}
+        variant='outlined'
+      />
+      <TextField
+        id='outlined-role'
+        label='Role'
+        fullWidth
+        className={classes.textField}
+        value={`${currentUser.role}`}
+        InputProps={{
+          readOnly: true,
+        }}
+        variant='outlined'
+      />
     </div>
   )
 }
-
-export default Profile
