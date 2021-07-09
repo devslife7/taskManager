@@ -17,7 +17,7 @@ function DashBoard() {
   // const classes = useStyles()
   // const dispatch = useDispatch()
 
-  return <div style={{ margin: '100px auto', fontSize: '1.2rem' }}>Dashboard coming soon</div>
+  return <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon</div>
 }
 
 export default DashBoard
