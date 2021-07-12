@@ -21,24 +21,23 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
   console.log('renders Profile page')
   const classes = useStyles()
-  const currentUser = useSelector(state => state.user.currentUser)
-  const [firstName, setFirstName] = useState(currentUser.first_name)
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('Set Email')
-
-  if (lastName == false) {
-    setLastName(currentUser.last_name)
-  }
+  // const currentUser = useSelector(state => state.user.currentUser)
+  // const [firstName, setFirstName] = useState(currentUser.first_name)
+  // const [lastName, setLastName] = useState(currentUser.last_name)
+  // const [email, setEmail] = useState('Set Email')
 
   return (
     <div className={classes.container}>
+      {/* {console.log('value of firstName: ', firstName)} */}
+      {/* {console.log('value of lastName: ', currentUser.last_name)} */}
       <div className={classes.title}>Personal Info</div>
 
       <TextField
         id='outlined-first-name'
         label='First Name'
         className={classes.textField}
-        value={`${currentUser.first_name}`}
+        // value={`${currentUser.first_name}`}
+        // value={firstName}
         fullWidth
         // InputProps={{
         //   readOnly: true,
@@ -51,7 +50,6 @@ export default function Profile() {
         fullWidth
         className={classes.textField}
         // value={`${currentUser.last_name}`}
-        value={`${lastName}`}
         // InputProps={{
         //   readOnly: true,
         // }}
@@ -62,7 +60,7 @@ export default function Profile() {
         label='Username'
         fullWidth
         className={classes.textField}
-        value={`${currentUser.username}`}
+        // value={`${currentUser.username}`}
         InputProps={{
           readOnly: true,
         }}
@@ -73,7 +71,7 @@ export default function Profile() {
         label='Role'
         fullWidth
         className={classes.textField}
-        value={`${currentUser.role}`}
+        // value={`${currentUser.role}`}
         InputProps={{
           readOnly: true,
         }}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import { withStyles } from '@material-ui/core/styles'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -16,9 +16,9 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { Grid, Typography } from '@material-ui/core'
 import ProTaskLogo from '../img/ProTaskLogo.png'
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { logOutCurrentUser } from '../actions/user'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { useHistory } from 'react-router-dom'
 import { clearCurrentProject } from '../actions/projects'
@@ -67,7 +67,6 @@ export default function CustomizedMenus() {
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.user.currentUser)
 
   // const clearProject = () => {
   //   dispatch(clearCurrentProject())

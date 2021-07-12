@@ -1,24 +1,15 @@
-import {
-  Button,
-  Divider,
-  Grid,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  Paper,
-  Typography,
-} from "@material-ui/core"
-import React from "react"
-import { useDispatch } from "react-redux"
-import { clearCurrentProject, fetchCurrentProject } from "../../actions/projects"
-import { fromUnixTime, format } from "date-fns"
-import { clearCurrentMilestone } from "../../actions/milestones"
-import { clearCurrentTask } from "../../actions/tasks"
+import { Button, Grid, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { clearCurrentProject, fetchCurrentProject } from '../../actions/projects'
+import { fromUnixTime, format } from 'date-fns'
+import { clearCurrentMilestone } from '../../actions/milestones'
+import { clearCurrentTask } from '../../actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
-    padding: "0.7rem 2.2vw",
-    width: "13rem",
+    padding: '0.7rem 2.2vw',
+    width: '13rem',
     // backgroundColor: "red",
   },
 }))
@@ -28,12 +19,12 @@ function ProjectCard({ project }) {
   const dispatch = useDispatch()
 
   const handleSetCurrentProject = () => {
-    if (project.id.toString() !== localStorage.getItem("currentProjectId")) {
-      localStorage.setItem("currentProjectId", `${project.id}`)
+    if (project.id.toString() !== localStorage.getItem('currentProjectId')) {
+      localStorage.setItem('currentProjectId', `${project.id}`)
       dispatch(fetchCurrentProject())
       dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
     }
-    localStorage.setItem("currentProjectId", `${project.id}`)
+    localStorage.setItem('currentProjectId', `${project.id}`)
     dispatch(clearCurrentMilestone())
     dispatch(clearCurrentTask())
   }
@@ -47,7 +38,7 @@ function ProjectCard({ project }) {
           </Grid>
           <Grid item container justify='space-between'>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
-              {format(fromUnixTime(project.end_date), "PP")}
+              {format(fromUnixTime(project.end_date), 'PP')}
             </Typography>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
               {`${project.progress}%`}
@@ -57,7 +48,7 @@ function ProjectCard({ project }) {
             variant='outlined'
             color='primary'
             onClick={handleSetCurrentProject}
-            style={{ marginTop: "15px" }}
+            style={{ marginTop: '15px' }}
           >
             Details
           </Button>
