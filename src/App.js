@@ -11,7 +11,6 @@ import { fetchCurrentMilestone } from './actions/milestones'
 import { fetchCurrentTask } from './actions/tasks'
 import Home from './pages/Home'
 import SideBar from './components/SideBar'
-import Interface from './pages/Interface'
 import Projects from './components/projects/Projects'
 import Reports from './components/Reports'
 import Team from './components/Team'
@@ -35,7 +34,6 @@ function App() {
       <Switch>
         <Route path='/' exact component={Login} />
         <Route path='/home' component={Home} />
-        <Route path='/interface' component={Interface} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
       </Switch>
