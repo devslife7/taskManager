@@ -1,5 +1,5 @@
 import { makeStyles, TextField } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
@@ -21,10 +21,15 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
   console.log('renders Profile page')
   const classes = useStyles()
-  // const currentUser = useSelector(state => state.user.currentUser)
-  // const [firstName, setFirstName] = useState(currentUser.first_name)
-  // const [lastName, setLastName] = useState(currentUser.last_name)
-  // const [email, setEmail] = useState('Set Email')
+  const currentUser = useSelector(state => state.user.currentUser)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('set email...')
+
+  if (firstName == '' && currentUser.first_name !== undefined) {
+    setFirstName(currentUser.first_name)
+    setLastName(currentUser.last_name)
+  }
 
   return (
     <div className={classes.container}>
@@ -36,12 +41,8 @@ export default function Profile() {
         id='outlined-first-name'
         label='First Name'
         className={classes.textField}
-        // value={`${currentUser.first_name}`}
-        // value={firstName}
+        value={firstName}
         fullWidth
-        // InputProps={{
-        //   readOnly: true,
-        // }}
         variant='outlined'
       />
       <TextField
@@ -49,10 +50,7 @@ export default function Profile() {
         label='Last Name'
         fullWidth
         className={classes.textField}
-        // value={`${currentUser.last_name}`}
-        // InputProps={{
-        //   readOnly: true,
-        // }}
+        value={lastName}
         variant='outlined'
       />
       <TextField
@@ -60,7 +58,7 @@ export default function Profile() {
         label='Username'
         fullWidth
         className={classes.textField}
-        // value={`${currentUser.username}`}
+        value={`${currentUser.username}`}
         InputProps={{
           readOnly: true,
         }}
@@ -71,7 +69,7 @@ export default function Profile() {
         label='Role'
         fullWidth
         className={classes.textField}
-        // value={`${currentUser.role}`}
+        value={`${currentUser.role}`}
         InputProps={{
           readOnly: true,
         }}
@@ -82,12 +80,10 @@ export default function Profile() {
         id='outlined-email'
         label='Email'
         className={classes.textField}
-        value={`Email`}
+        value={email}
         fullWidth
-        // InputProps={{
-        //   readOnly: true,
-        // }}
         variant='outlined'
+        // onChange = {() => }
       />
     </div>
   )

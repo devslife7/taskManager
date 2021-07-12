@@ -15,7 +15,6 @@ import React from 'react'
 function DashBoard() {
   // const classes = useStyles()
   // const dispatch = useDispatch()
-  console.log('renders Dashboard')
 
   return <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon</div>
 }
