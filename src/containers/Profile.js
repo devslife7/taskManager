@@ -1,4 +1,4 @@
-import { makeStyles, TextField } from '@material-ui/core'
+import { Button, makeStyles, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
     margin: '100px auto',
     textAlign: 'center',
     width: '400px',
+    // backgroundColor: 'red',
   },
   title: {
     fontSize: '3.5rem',
@@ -15,6 +16,10 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     marginTop: '50px',
+  },
+  submitBtn: {
+    fontSize: '1.2rem',
+    marginTop: '4rem',
   },
 }))
 
@@ -31,30 +36,53 @@ export default function Profile() {
     setLastName(currentUser.last_name)
   }
 
+  const onValueChange = e => {
+    const target = e.target
+
+    switch (target.id) {
+      case 'first-name':
+        setFirstName(target.value)
+        break
+      case 'last-name':
+        setLastName(target.value)
+        break
+      default:
+        setEmail(target.value)
+    }
+  }
+
+  const isInfoEdited = () => {
+    return firstName !== currentUser.first_name || lastName !== currentUser.last_name
+  }
+
+  const onSubmit = () => {
+    console.log(isInfoEdited())
+  }
+
   return (
     <div className={classes.container}>
-      {/* {console.log('value of firstName: ', firstName)} */}
-      {/* {console.log('value of lastName: ', currentUser.last_name)} */}
       <div className={classes.title}>Personal Info</div>
 
       <TextField
-        id='outlined-first-name'
+        id='first-name'
         label='First Name'
         className={classes.textField}
         value={firstName}
         fullWidth
         variant='outlined'
+        onChange={onValueChange}
       />
       <TextField
-        id='outlined-last-name'
+        id='last-name'
         label='Last Name'
         fullWidth
         className={classes.textField}
         value={lastName}
         variant='outlined'
+        onChange={onValueChange}
       />
       <TextField
-        id='outlined-username'
+        id='username'
         label='Username'
         fullWidth
         className={classes.textField}
@@ -65,7 +93,7 @@ export default function Profile() {
         variant='outlined'
       />
       <TextField
-        id='outlined-role'
+        id='role'
         label='Role'
         fullWidth
         className={classes.textField}
@@ -77,14 +105,24 @@ export default function Profile() {
       />
 
       <TextField
-        id='outlined-email'
+        id='email'
         label='Email'
         className={classes.textField}
         value={email}
         fullWidth
         variant='outlined'
-        // onChange = {() => }
+        onChange={onValueChange}
       />
+
+      {isInfoEdited() ? (
+        <Button className={classes.submitBtn} variant='contained' color='primary' onClick={onSubmit}>
+          Save Changes
+        </Button>
+      ) : (
+        <Button className={classes.submitBtn} variant='contained' color='primary' disabled>
+          Save Changes
+        </Button>
+      )}
     </div>
   )
 }
