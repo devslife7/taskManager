@@ -55,8 +55,32 @@ export default function Profile() {
     return firstName !== currentUser.first_name || lastName !== currentUser.last_name
   }
 
-  const onSubmit = () => {
-    console.log(isInfoEdited())
+  const handleProfileEdit = () => {
+    // console.log(isInfoEdited())
+
+    const userUrl = 'http://localhost:3000/users/'
+
+    const patchRequest = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+      }),
+    }
+
+    const requestBody = {
+      first_name: firstName,
+      last_name: lastName,
+    }
+
+    fetch(userUrl + currentUser.id, patchRequest)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+
+    // dispatchEvent(saveProfileChanges(requestBody))
   }
 
   return (
@@ -115,7 +139,7 @@ export default function Profile() {
       />
 
       {isInfoEdited() ? (
-        <Button className={classes.submitBtn} variant='contained' color='primary' onClick={onSubmit}>
+        <Button className={classes.submitBtn} variant='contained' color='primary' onClick={handleProfileEdit}>
           Save Changes
         </Button>
       ) : (
