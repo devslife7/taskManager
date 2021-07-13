@@ -1,13 +1,13 @@
 import { Button, makeStyles, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentUser, updateCurrentUser } from '../actions/user'
 
 const useStyles = makeStyles(theme => ({
   container: {
     margin: '100px auto',
     textAlign: 'center',
     width: '400px',
-    // backgroundColor: 'red',
   },
   title: {
     fontSize: '3.5rem',
@@ -25,15 +25,17 @@ const useStyles = makeStyles(theme => ({
 
 export default function Profile() {
   console.log('renders Profile page')
+  const dispatch = useDispatch()
   const classes = useStyles()
   const currentUser = useSelector(state => state.user.currentUser)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('set email...')
+  const [email, setEmail] = useState('')
 
   if (firstName == '' && currentUser.first_name !== undefined) {
     setFirstName(currentUser.first_name)
     setLastName(currentUser.last_name)
+    setEmail(currentUser.email)
   }
 
   const onValueChange = e => {
@@ -52,35 +54,43 @@ export default function Profile() {
   }
 
   const isInfoEdited = () => {
-    return firstName !== currentUser.first_name || lastName !== currentUser.last_name
+    return (
+      firstName !== currentUser.first_name ||
+      lastName !== currentUser.last_name ||
+      email !== currentUser.email
+    )
   }
 
   const handleProfileEdit = () => {
-    // console.log(isInfoEdited())
+    // const userUrl = 'http://localhost:3000/users/'
 
-    const userUrl = 'http://localhost:3000/users/'
-
-    const patchRequest = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-      }),
-    }
+    // const patchRequest = {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     first_name: firstName,
+    //     last_name: lastName,
+    //     email: email,
+    //   }),
+    // }
 
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
+      email: email,
     }
 
-    fetch(userUrl + currentUser.id, patchRequest)
-      .then(resp => resp.json())
-      .then(data => console.log(data))
+    dispatch(updateCurrentUser(requestBody))
 
-    // dispatchEvent(saveProfileChanges(requestBody))
+    // fetch(userUrl + currentUser.id, patchRequest)
+    //   .then(resp => resp.json())
+    //   .then(data => {
+    //     dispatch(setCurrentUser(data))
+    //   })
+
+    // dispatch(saveProfileChanges(requestBody))
   }
 
   return (
