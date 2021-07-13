@@ -1,10 +1,56 @@
-import { Dialog, Typography } from '@material-ui/core'
-import React from 'react'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControlLabel,
+  Grid,
+  InputLabel,
+  makeStyles,
+  TextField,
+  Typography,
+} from '@material-ui/core'
+import DateFnsUtils from '@date-io/date-fns'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import React, { useState } from 'react'
+import { Switch } from 'react-router-dom'
 
-export default function AddProjectDialog() {
+const useStyles = makeStyles(theme => ({
+  button: {
+    textTransform: 'none',
+    margin: '5vh 0 0 10vw',
+    fontSize: '1rem',
+  },
+  AddProjectButton: {
+    textTransform: 'none',
+    margin: '5vh 0 0 17.5vw',
+    fontSize: '1rem',
+  },
+  KeyboardDatePicker: {
+    width: '140px',
+  },
+  DialogContent: {
+    height: '250px',
+    width: '350px',
+  },
+}))
+
+export default function AddProjectDialog(props) {
+  const { open, onClose } = props
+  const classes = useStyles()
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [displayImport, setDisplayImport] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+
+  const handleSetStartDate = date => setStartDate(date)
+  const handleSetEndDate = date => setEndDate(date)
+
   return (
     <>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog open={open} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
           {'New Project'}
         </Typography>
@@ -94,10 +140,10 @@ export default function AddProjectDialog() {
         )}
 
         <DialogActions>
-          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
+          <Button variant='contained' className={classes.button} onClick={onClose} color='primary'>
             Submit
           </Button>
         </DialogActions>

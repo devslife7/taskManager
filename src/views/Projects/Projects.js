@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchProjects } from '../../actions/projects'
 import ProjectCard from './ProjectCard'
 import SearchIcon from '@material-ui/icons/Search'
+import AddIcon from '@material-ui/icons/Add'
 import Breadcrumbs from './Breadcrumbs'
 import Tasks from './tasks/Tasks'
 import Entries from './entries/Entries'
 import Milestones from './milestones/Milestones'
+import AddProjectDialog from './AddProjectDialog'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -55,6 +57,14 @@ export default function Projects() {
   const loadingTask = useSelector(state => state.tasks.loadingTask)
   const allProjects = useSelector(state => state.projects.allProjects)
   const [searchTerm, setSearchTerm] = useState('')
+
+  const [openDialog, setOpenDialog] = useState(false)
+  const handleOpenDialog = () => setOpenDialog(true)
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+    // setImportFile("")
+    // setDisplayImport(false)
+  }
 
   useEffect(() => {
     dispatch(fetchProjects())
@@ -123,20 +133,40 @@ export default function Projects() {
                   </Typography>
                 ) : (
                   <>
-                    <TextField
-                      value={searchTerm}
-                      onChange={event => setSearchTerm(event.target.value)}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment>
-                            <SearchIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                      className={classes.searchBox}
-                      label='Search Projects'
-                    />
-                    {/* <Button>Add Project</Button> */}
+                    <Grid container style={{ justifyContent: 'space-between' }}>
+                      <Grid item>
+                        <TextField
+                          value={searchTerm}
+                          onChange={event => setSearchTerm(event.target.value)}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment>
+                                <SearchIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                          className={classes.searchBox}
+                          label='Search Projects'
+                        />
+                      </Grid>
+
+                      <Grid item style={{ margin: '8rem 12rem 0 0' }}>
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          startIcon={<AddIcon style={{ fontSize: '1.5rem' }} />}
+                          className={classes.AddProjectButton}
+                          style={{ fontSize: '1.2rem' }}
+                          onClick={handleOpenDialog}
+                        >
+                          Add Project
+                        </Button>
+                      </Grid>
+                    </Grid>
+
+                    {/* Dialog for creating new project */}
+                    <AddProjectDialog open={openDialog} onClose={handleCloseDialog} />
+
                     {loadingProject ? (
                       <Typography variant='h1' style={{ fontSize: '1.3em', marginTop: '90px' }}>
                         Loading...
