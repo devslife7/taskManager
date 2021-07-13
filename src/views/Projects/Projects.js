@@ -132,7 +132,6 @@ export default function Projects() {
                         {renderProjects()}
                       </Grid>
                     )}
-                    <Overview />
                   </>
                 )}
               </>

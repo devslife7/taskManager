@@ -9,7 +9,7 @@ import SideBar from './components/SideBar'
 import { SignUp, Login, Projects, Dashboard, Profile, Calendar, Reports, Inbox, Team } from './views'
 import { Grid } from '@material-ui/core'
 
-function App() {
+export default function App() {
   const dispatch = useDispatch()
   const loggedIn = useSelector(state => state.user.loggedIn)
 
@@ -33,7 +33,6 @@ function App() {
         <Switch>
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/projects' component={Projects} />
-          {/* <Route path='/projects' component={ProjectOverview} /> */}
           <Route path='/reports' component={Reports} />
           <Route path='/calendar' component={Calendar} />
           <Route path='/team' component={Team} />
@@ -44,5 +43,3 @@ function App() {
     </Router>
   )
 }
-
-export default App

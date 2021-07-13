@@ -1,5 +1,6 @@
 // import { makeStyles } from '@material-ui/core'
 import React from 'react'
+import Overview from '../Projects/Overview'
 
 // const useStyles = makeStyles({
 //   projects: {
@@ -16,5 +17,9 @@ export default function Dashboard() {
   // const classes = useStyles()
   // const dispatch = useDispatch()
 
-  return <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon</div>
+  return (
+    <div style={{ margin: '100px auto', fontSize: '2rem' }}>
+      Dashboard coming soon <Overview />
+    </div>
+  )
 }
