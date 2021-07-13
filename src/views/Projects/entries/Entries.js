@@ -9,25 +9,25 @@ import {
   Slider,
   TextField,
   Typography,
-} from "@material-ui/core"
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import AddIcon from "@material-ui/icons/Add"
-import { createEntryFetch } from "../../actions/tasks"
-import EntriesTable from "./EntriesTable"
-import { fromUnixTime, format, getUnixTime } from "date-fns"
-import DateFnsUtils from "@date-io/date-fns"
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
-import EntriesGraph from "./EntriesGraph"
+} from '@material-ui/core'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import AddIcon from '@material-ui/icons/Add'
+import { createEntryFetch } from '../../../actions/tasks'
+import EntriesTable from './EntriesTable'
+import { fromUnixTime, format, getUnixTime } from 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import EntriesGraph from './EntriesGraph'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "15vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '15vw',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
     marginTop: 0,
   },
 }))
@@ -39,15 +39,15 @@ export default function Entries() {
   const currentUser = useSelector(state => state.user.currentUser)
   const [openDialog, setOpenDialog] = useState(false)
   const [date, setDate] = useState(new Date())
-  const [sliderValue, setSliderValue] = useState("50")
-  const [notes, setNotes] = useState("")
+  const [sliderValue, setSliderValue] = useState('50')
+  const [notes, setNotes] = useState('')
 
   const handleOpenDialog = () => setOpenDialog(true)
   const handleCloseDialog = () => {
     setOpenDialog(false)
     setDate(new Date())
-    setSliderValue("50")
-    setNotes("")
+    setSliderValue('50')
+    setNotes('')
   }
 
   const handleSliderChange = (e, newValue) => {
@@ -69,25 +69,25 @@ export default function Entries() {
   }
 
   const marks = [
-    { value: 5, label: "5%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" },
+    { value: 5, label: '5%' },
+    { value: 25, label: '25%' },
+    { value: 50, label: '50%' },
+    { value: 75, label: '75%' },
+    { value: 100, label: '100%' },
   ]
 
   return (
-    <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
+    <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
       {/* <Paper style={{ width: "50vw", margin: "0 auto" }}> */}
-      <Grid container justify='space-around' style={{ margin: "1rem auto", width: "50vw" }}>
+      <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
         <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
         <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
         <Typography variant='subtitle1' align='center'>
           {!!currentTask.start_date && (
             <>
-              {format(fromUnixTime(currentTask.start_date), "PP")} -{" "}
-              {format(fromUnixTime(currentTask.end_date), "PP")}
+              {format(fromUnixTime(currentTask.start_date), 'PP')} -{' '}
+              {format(fromUnixTime(currentTask.end_date), 'PP')}
             </>
           )}
         </Typography>
@@ -128,13 +128,13 @@ export default function Entries() {
               value={date}
               onChange={setDate}
               KeyboardButtonProps={{
-                "aria-label": "change date",
+                'aria-label': 'change date',
               }}
               className={classes.KeyboardDatePicker}
             />
           </MuiPickersUtilsProvider>
 
-          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
+          <Typography gutterBottom style={{ margin: '20px 0px 5px 0px' }}>
             Progress: {`${sliderValue}%`}
           </Typography>
           <Slider
@@ -144,7 +144,7 @@ export default function Entries() {
             min={5}
             max={100}
             onChange={handleSliderChange}
-            style={{ marginBottom: "30px" }}
+            style={{ marginBottom: '30px' }}
           />
 
           <TextField

@@ -5,9 +5,9 @@ import { fetchProjects } from '../../actions/projects'
 import ProjectCard from './ProjectCard'
 import SearchIcon from '@material-ui/icons/Search'
 import Breadcrumbs from './Breadcrumbs'
-import Tasks from '../../components/tasks/Tasks'
-import Entries from '../../components/entries/Entries'
-import Milestones from '../../components/milestones/Milestones'
+import Tasks from './tasks/Tasks'
+import Entries from './entries/Entries'
+import Milestones from './milestones/Milestones'
 
 const useStyles = makeStyles(theme => ({
   container: {

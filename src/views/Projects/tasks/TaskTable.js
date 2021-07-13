@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -7,69 +7,69 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-} from "@material-ui/core"
-import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
-import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
-import { fromUnixTime, format } from "date-fns"
-import { useDispatch, useSelector } from "react-redux"
-import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns"
-import { fetchCurrentTask } from "../../actions/tasks"
-import isPast from "date-fns/isPast"
+} from '@material-ui/core'
+import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
+import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from '@material-ui/core'
+import { fromUnixTime, format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import { fetchCurrentTask } from '../../../actions/tasks'
+import isPast from 'date-fns/isPast'
 
 const useStyle = makeStyles(theme => ({
   table: {
     marginTop: theme.spacing(2),
-    "& thead th": {
-      fontWeight: "600",
+    '& thead th': {
+      fontWeight: '600',
       color: theme.palette.primary.main,
-      backgroundColor: "#f4f4f4",
+      backgroundColor: '#f4f4f4',
     },
-    "& tbody td": {
-      fontWeight: "300",
+    '& tbody td': {
+      fontWeight: '300',
     },
-    "& tbody tr:hover": {
+    '& tbody tr:hover': {
       // backgroundColor: "#fffbf2",
       // cursor: "pointer",
     },
   },
   paper: {
-    borderRadius: "2px",
-    width: "80rem",
-    margin: "auto",
+    borderRadius: '2px',
+    width: '80rem',
+    margin: 'auto',
   },
   editIcon: {
     color: theme.palette.success.main,
   },
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "10vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '10vw',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
     marginTop: 0,
   },
   DialogContent: {
-    height: "350px",
-    width: "350px",
+    height: '350px',
+    width: '350px',
   },
   removeButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    color: "white",
+    textTransform: 'none',
+    fontSize: '1rem',
+    color: 'white',
     backgroundColor: theme.palette.error.main,
 
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.error.dark,
     },
   },
   nameHover: {
-    "&:hover": {
-      textDecoration: "underline",
-      cursor: "pointer",
+    '&:hover': {
+      textDecoration: 'underline',
+      cursor: 'pointer',
     },
   },
 }))
@@ -79,15 +79,15 @@ export default function TaskTable() {
   const classes = useStyle()
   const records = useSelector(state => state.milestones.currentMilestone.tasks)
   const headCells = [
-    { id: "name", label: "Name" },
-    { id: "progress", label: "Progress(%)" },
-    { id: "owner", label: "Owner" },
-    { id: "hours", label: "Hours" },
-    { id: "start_date", label: "Start" },
-    { id: "end_date", label: "End" },
-    { id: "status", label: "Status" },
-    { id: "notes", label: "Notes", disableSorting: true },
-    { id: "actions", label: "Actions", disableSorting: true },
+    { id: 'name', label: 'Name' },
+    { id: 'progress', label: 'Progress(%)' },
+    { id: 'owner', label: 'Owner' },
+    { id: 'hours', label: 'Hours' },
+    { id: 'start_date', label: 'Start' },
+    { id: 'end_date', label: 'End' },
+    { id: 'status', label: 'Status' },
+    { id: 'notes', label: 'Notes', disableSorting: true },
+    { id: 'actions', label: 'Actions', disableSorting: true },
   ]
 
   const pages = [5, 10, 25]
@@ -98,12 +98,12 @@ export default function TaskTable() {
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [name, setName] = useState("")
+  const [name, setName] = useState('')
   const [hours, setHours] = useState()
-  const [notes, setNotes] = useState("")
+  const [notes, setNotes] = useState('')
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
-  const [currentTask, setCurrentTask] = useState({ name: "" })
+  const [currentTask, setCurrentTask] = useState({ name: '' })
 
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
   const handleCloseEditDialog = () => setOpenEditDialog(false)
@@ -124,24 +124,24 @@ export default function TaskTable() {
   }
 
   const handleDeleteConfirm = () => {
-    console.log("Confirms delete task")
+    console.log('Confirms delete task')
     // dispatch(deleteEntryFetch(currentTask.id))
     handleCloseDeleteDialog()
   }
   const handleEditDialogSubmit = () => {
-    console.log("submits edit dialog")
+    console.log('submits edit dialog')
     handleCloseEditDialog()
   }
 
   const handleLink = taskId => {
-    localStorage.setItem("currentTaskId", `${taskId}`)
+    localStorage.setItem('currentTaskId', `${taskId}`)
     dispatch(fetchCurrentTask())
   }
 
   const tableHead = () => {
     const handleSortRequest = cellId => {
-      const isAsc = orderBy === cellId && order === "asc"
-      setOrder(isAsc ? "desc" : "asc")
+      const isAsc = orderBy === cellId && order === 'asc'
+      setOrder(isAsc ? 'desc' : 'asc')
       setOrderBy(cellId)
     }
     return (
@@ -155,7 +155,7 @@ export default function TaskTable() {
                 <TableSortLabel
                   active={orderBy === headCell.id}
                   onClick={() => handleSortRequest(headCell.id)}
-                  direction={orderBy === headCell.id ? order : "asc"}
+                  direction={orderBy === headCell.id ? order : 'asc'}
                 >
                   {headCell.label}
                 </TableSortLabel>
@@ -198,7 +198,7 @@ export default function TaskTable() {
     return stabilizedThis.map(el => el[0])
   }
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy)
   }
@@ -228,13 +228,13 @@ export default function TaskTable() {
   const handleStatus = date => {
     if (isPast(date)) {
       return (
-        <div style={{ backgroundColor: "red", textAlign: "center", borderRadius: "5px", color: "white" }}>
+        <div style={{ backgroundColor: 'red', textAlign: 'center', borderRadius: '5px', color: 'white' }}>
           Past Due
         </div>
       )
     } else {
       return (
-        <div style={{ backgroundColor: "green", textAlign: "center", borderRadius: "5px", color: "white" }}>
+        <div style={{ backgroundColor: 'green', textAlign: 'center', borderRadius: '5px', color: 'white' }}>
           On Track
         </div>
       )
@@ -253,11 +253,11 @@ export default function TaskTable() {
                   {item.name}
                 </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
-                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{'Owner'}</TableCell>
                 <TableCell>{item.hours}</TableCell>
-                <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
-                <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
-                <TableCell>{handleStatus(fromUnixTime(item.end_date), "PP")}</TableCell>
+                <TableCell>{format(fromUnixTime(item.start_date), 'PP')}</TableCell>
+                <TableCell>{format(fromUnixTime(item.end_date), 'PP')}</TableCell>
+                <TableCell>{handleStatus(fromUnixTime(item.end_date), 'PP')}</TableCell>
                 <TableCell>{item.notes}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
@@ -279,7 +279,7 @@ export default function TaskTable() {
           <Typography variant='h5'>Deleting Task: {`${currentTask.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Task?\nThis action cannot be undone."}
+          {'Are you sure you want to delete this Task?\nThis action cannot be undone.'}
         </DialogContent>
 
         <DialogActions>
@@ -293,8 +293,8 @@ export default function TaskTable() {
       </Dialog>
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "20px" }}>
-          {"Edit Task"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
+          {'Edit Task'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>

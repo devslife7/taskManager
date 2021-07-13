@@ -1,55 +1,63 @@
-import React, { useState } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Tooltip } from "@material-ui/core"
-import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
-import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
-import { fromUnixTime, format, getUnixTime } from "date-fns"
-import { useDispatch, useSelector } from "react-redux"
-import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns"
-import { deleteEntryFetch, editEntryFetch } from "../../actions/tasks"
+import React, { useState } from 'react'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from '@material-ui/core'
+import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
+import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from '@material-ui/core'
+import { fromUnixTime, format, getUnixTime } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import { deleteEntryFetch, editEntryFetch } from '../../../actions/tasks'
 
 const useStyle = makeStyles(theme => ({
   table: {
     marginTop: theme.spacing(2),
-    "& thead th": {
-      fontWeight: "600",
+    '& thead th': {
+      fontWeight: '600',
       color: theme.palette.primary.main,
-      backgroundColor: "#f4f4f4",
+      backgroundColor: '#f4f4f4',
     },
-    "& tbody td": {
-      fontWeight: "300",
+    '& tbody td': {
+      fontWeight: '300',
     },
-    "& tbody tr:hover": {
-      backgroundColor: "#fffbf2",
+    '& tbody tr:hover': {
+      backgroundColor: '#fffbf2',
       // cursor: "pointer",
     },
   },
   paper: {
-    borderRadius: "2px",
-    width: "60rem",
-    margin: "auto",
+    borderRadius: '2px',
+    width: '60rem',
+    margin: 'auto',
   },
   editIcon: {
     color: theme.palette.success.main,
   },
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "10vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '10vw',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
     marginTop: 0,
   },
   removeButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    color: "white",
+    textTransform: 'none',
+    fontSize: '1rem',
+    color: 'white',
     backgroundColor: theme.palette.error.main,
 
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.error.dark,
     },
   },
@@ -60,11 +68,11 @@ export default function EntriesTable() {
   const classes = useStyle()
   const records = useSelector(state => state.tasks.currentTask.entries)
   const headCells = [
-    { id: "users", label: "Owner" },
-    { id: "progress", label: "Progress(%)" },
-    { id: "date", label: "Date" },
-    { id: "notes", label: "Notes", disableSorting: true },
-    { id: "actions", label: "Actions", disableSorting: true },
+    { id: 'users', label: 'Owner' },
+    { id: 'progress', label: 'Progress(%)' },
+    { id: 'date', label: 'Date' },
+    { id: 'notes', label: 'Notes', disableSorting: true },
+    { id: 'actions', label: 'Actions', disableSorting: true },
   ]
 
   const pages = [5, 10, 25]
@@ -78,7 +86,7 @@ export default function EntriesTable() {
   const [openEditDialog, setOpenEditDialog] = useState(false)
   const [sliderValue, setSliderValue] = useState(80)
   const [date, setDate] = useState()
-  const [notes, setNotes] = useState("")
+  const [notes, setNotes] = useState('')
 
   const handleSliderChange = (e, newValue) => {
     setSliderValue(newValue)
@@ -117,8 +125,8 @@ export default function EntriesTable() {
 
   const tableHead = () => {
     const handleSortRequest = cellId => {
-      const isAsc = orderBy === cellId && order === "asc"
-      setOrder(isAsc ? "desc" : "asc")
+      const isAsc = orderBy === cellId && order === 'asc'
+      setOrder(isAsc ? 'desc' : 'asc')
       setOrderBy(cellId)
     }
     return (
@@ -132,7 +140,7 @@ export default function EntriesTable() {
                 <TableSortLabel
                   active={orderBy === headCell.id}
                   onClick={() => handleSortRequest(headCell.id)}
-                  direction={orderBy === headCell.id ? order : "asc"}
+                  direction={orderBy === headCell.id ? order : 'asc'}
                 >
                   {headCell.label}
                 </TableSortLabel>
@@ -175,7 +183,7 @@ export default function EntriesTable() {
     return stabilizedThis.map(el => el[0])
   }
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy)
   }
@@ -202,11 +210,11 @@ export default function EntriesTable() {
     }
   }
   const marks = [
-    { value: 5, label: "5%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" },
+    { value: 5, label: '5%' },
+    { value: 25, label: '25%' },
+    { value: 50, label: '50%' },
+    { value: 75, label: '75%' },
+    { value: 100, label: '100%' },
   ]
 
   return (
@@ -216,24 +224,23 @@ export default function EntriesTable() {
           {tableHead()}
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx} onClick={() => console.log("clicks table row")}>
+              <TableRow key={idx} onClick={() => console.log('clicks table row')}>
                 <TableCell>
-                  {item.users && item.users.length > 0 ? item.users[0].first_name : "Owner"}
+                  {item.users && item.users.length > 0 ? item.users[0].first_name : 'Owner'}
                 </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
-                <TableCell>{format(fromUnixTime(item.date), "PP")}</TableCell>
+                <TableCell>{format(fromUnixTime(item.date), 'PP')}</TableCell>
                 <TableCell>{item.notes}</TableCell>
                 <TableCell>
-                  <Tooltip title="Edit" arrow enterDelay={700}>
-                  <IconButton onClick={() => handleOpenEditDialog(item)}>
-                    <EditIcon fontSize='small' className={classes.editIcon} />
-                  </IconButton>
-
+                  <Tooltip title='Edit' arrow enterDelay={700}>
+                    <IconButton onClick={() => handleOpenEditDialog(item)}>
+                      <EditIcon fontSize='small' className={classes.editIcon} />
+                    </IconButton>
                   </Tooltip>
-                  <Tooltip title="Delete" arrow enterDelay={100}>
-                  <IconButton onClick={() => handleOpenDeleteDialog(item)}>
-                    <DeleteIcon fontSize='small' color='error' />
-                  </IconButton>
+                  <Tooltip title='Delete' arrow enterDelay={100}>
+                    <IconButton onClick={() => handleOpenDeleteDialog(item)}>
+                      <DeleteIcon fontSize='small' color='error' />
+                    </IconButton>
                   </Tooltip>
                 </TableCell>
               </TableRow>
@@ -246,11 +253,11 @@ export default function EntriesTable() {
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle disableTypography>
           <Typography variant='h5'>
-            Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), "PP")}
+            Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), 'PP')}
           </Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Entry?\nThis action cannot be undone."}
+          {'Are you sure you want to delete this Entry?\nThis action cannot be undone.'}
         </DialogContent>
 
         <DialogActions>
@@ -281,13 +288,13 @@ export default function EntriesTable() {
               value={date}
               onChange={setDate}
               KeyboardButtonProps={{
-                "aria-label": "change date",
+                'aria-label': 'change date',
               }}
               className={classes.KeyboardDatePicker}
             />
           </MuiPickersUtilsProvider>
 
-          <Typography gutterBottom style={{ margin: "20px 0px 5px 0px" }}>
+          <Typography gutterBottom style={{ margin: '20px 0px 5px 0px' }}>
             Progress: {`${sliderValue}%`}
           </Typography>
           <Slider
@@ -297,7 +304,7 @@ export default function EntriesTable() {
             min={5}
             max={100}
             onChange={handleSliderChange}
-            style={{ marginBottom: "30px" }}
+            style={{ marginBottom: '30px' }}
           />
 
           <TextField

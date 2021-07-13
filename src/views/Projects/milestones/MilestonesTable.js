@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -7,65 +7,65 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-} from "@material-ui/core"
-import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from "@material-ui/core"
-import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from "@material-ui/core"
-import { fromUnixTime, format } from "date-fns"
-import { useDispatch, useSelector } from "react-redux"
-import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns"
-import { fetchCurrentMilestone } from "../../actions/milestones"
-import isPast from "date-fns/isPast"
+} from '@material-ui/core'
+import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
+import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from '@material-ui/core'
+import { fromUnixTime, format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import { fetchCurrentMilestone } from '../../../actions/milestones'
+import isPast from 'date-fns/isPast'
 
 const useStyle = makeStyles(theme => ({
   table: {
     marginTop: theme.spacing(2),
-    "& thead th": {
-      fontWeight: "600",
+    '& thead th': {
+      fontWeight: '600',
       color: theme.palette.primary.main,
-      backgroundColor: "#f4f4f4",
+      backgroundColor: '#f4f4f4',
     },
-    "& tbody td": {
-      fontWeight: "300",
+    '& tbody td': {
+      fontWeight: '300',
     },
-    "& tbody tr:hover": {
+    '& tbody tr:hover': {
       // backgroundColor: "#fffbf2",
       // cursor: "pointer",
     },
   },
   paper: {
-    borderRadius: "2px",
-    width: "80rem",
-    margin: "auto",
+    borderRadius: '2px',
+    width: '80rem',
+    margin: 'auto',
   },
   editIcon: {
     color: theme.palette.success.main,
   },
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "10vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '10vw',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
     marginTop: 0,
   },
   removeButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    color: "white",
+    textTransform: 'none',
+    fontSize: '1rem',
+    color: 'white',
     backgroundColor: theme.palette.error.main,
 
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.error.dark,
     },
   },
   nameHover: {
-    "&:hover": {
-      textDecoration: "underline",
-      cursor: "pointer",
+    '&:hover': {
+      textDecoration: 'underline',
+      cursor: 'pointer',
     },
   },
 }))
@@ -75,14 +75,14 @@ export default function useTable() {
   const classes = useStyle()
   const records = useSelector(state => state.projects.currentProject.milestones)
   const headCells = [
-    { id: "name", label: "Name" },
-    { id: "progress", label: "Progress(%)" },
-    { id: "owner", label: "Owner" },
-    { id: "hours", label: "Hours" },
-    { id: "start_date", label: "Start" },
-    { id: "end_date", label: "End" },
-    { id: "start", label: "Status" },
-    { id: "actions", label: "Actions", disableSorting: true },
+    { id: 'name', label: 'Name' },
+    { id: 'progress', label: 'Progress(%)' },
+    { id: 'owner', label: 'Owner' },
+    { id: 'hours', label: 'Hours' },
+    { id: 'start_date', label: 'Start' },
+    { id: 'end_date', label: 'End' },
+    { id: 'start', label: 'Status' },
+    { id: 'actions', label: 'Actions', disableSorting: true },
   ]
 
   const pages = [5, 10, 25]
@@ -93,8 +93,8 @@ export default function useTable() {
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [currentMilestone, setCurrentMilestone] = useState({ name: "" })
-  const [name, setName] = useState("")
+  const [currentMilestone, setCurrentMilestone] = useState({ name: '' })
+  const [name, setName] = useState('')
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
 
@@ -114,24 +114,24 @@ export default function useTable() {
     setOpenEditDialog(true)
   }
   const handleDeleteConfirm = () => {
-    console.log("Confirms delete milestone")
+    console.log('Confirms delete milestone')
     // dispatch(deleteEntryFetch(currentMilestone.id))
     handleCloseDeleteDialog()
   }
   const handleEditDialogSubmit = () => {
-    console.log("submits edit dialog")
+    console.log('submits edit dialog')
     handleCloseEditDialog()
   }
 
   const handleSetCurrentMilestone = milestoneId => {
-    localStorage.setItem("currentMilestoneId", `${milestoneId}`)
+    localStorage.setItem('currentMilestoneId', `${milestoneId}`)
     dispatch(fetchCurrentMilestone())
   }
 
   const tableHead = () => {
     const handleSortRequest = cellId => {
-      const isAsc = orderBy === cellId && order === "asc"
-      setOrder(isAsc ? "desc" : "asc")
+      const isAsc = orderBy === cellId && order === 'asc'
+      setOrder(isAsc ? 'desc' : 'asc')
       setOrderBy(cellId)
     }
     return (
@@ -145,7 +145,7 @@ export default function useTable() {
                 <TableSortLabel
                   active={orderBy === headCell.id}
                   onClick={() => handleSortRequest(headCell.id)}
-                  direction={orderBy === headCell.id ? order : "asc"}
+                  direction={orderBy === headCell.id ? order : 'asc'}
                 >
                   {headCell.label}
                 </TableSortLabel>
@@ -188,7 +188,7 @@ export default function useTable() {
     return stabilizedThis.map(el => el[0])
   }
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy)
   }
@@ -218,13 +218,13 @@ export default function useTable() {
   const handleStatus = date => {
     if (isPast(date)) {
       return (
-        <div style={{ backgroundColor: "red", textAlign: "center", borderRadius: "5px", color: "white" }}>
+        <div style={{ backgroundColor: 'red', textAlign: 'center', borderRadius: '5px', color: 'white' }}>
           Past Due
         </div>
       )
     } else {
       return (
-        <div style={{ backgroundColor: "green", textAlign: "center", borderRadius: "5px", color: "white" }}>
+        <div style={{ backgroundColor: 'green', textAlign: 'center', borderRadius: '5px', color: 'white' }}>
           On Track
         </div>
       )
@@ -238,16 +238,16 @@ export default function useTable() {
           {tableHead()}
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx} onClick={() => console.log("clicks table row")}>
+              <TableRow key={idx} onClick={() => console.log('clicks table row')}>
                 <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>
                   {item.name}
                 </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
-                <TableCell>{"Owner"}</TableCell>
+                <TableCell>{'Owner'}</TableCell>
                 <TableCell>{item.hours}</TableCell>
-                <TableCell>{format(fromUnixTime(item.start_date), "PP")}</TableCell>
-                <TableCell>{format(fromUnixTime(item.end_date), "PP")}</TableCell>
-                <TableCell>{handleStatus(fromUnixTime(item.end_date), "PP")}</TableCell>
+                <TableCell>{format(fromUnixTime(item.start_date), 'PP')}</TableCell>
+                <TableCell>{format(fromUnixTime(item.end_date), 'PP')}</TableCell>
+                <TableCell>{handleStatus(fromUnixTime(item.end_date), 'PP')}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <EditIcon fontSize='small' className={classes.editIcon} />
@@ -268,7 +268,7 @@ export default function useTable() {
           <Typography variant='h5'>Deleting Milestone: {`${currentMilestone.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Milestone?\nThis action cannot be undone."}
+          {'Are you sure you want to delete this Milestone?\nThis action cannot be undone.'}
         </DialogContent>
 
         <DialogActions>
@@ -282,8 +282,8 @@ export default function useTable() {
       </Dialog>
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"Edit Milestone"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
+          {'Edit Milestone'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>
@@ -296,7 +296,7 @@ export default function useTable() {
             onChange={e => {
               setName(e.target.value)
             }}
-            style={{ marginBottom: "20px" }}
+            style={{ marginBottom: '20px' }}
           />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify='space-around'>
@@ -311,7 +311,7 @@ export default function useTable() {
                 value={startDate}
                 onChange={handleSetStartDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />
@@ -326,7 +326,7 @@ export default function useTable() {
                 value={endDate}
                 onChange={handleSetEndDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />
@@ -334,7 +334,7 @@ export default function useTable() {
           </MuiPickersUtilsProvider>
         </DialogContent>
 
-        <DialogActions style={{ marginTop: "10px" }}>
+        <DialogActions style={{ marginTop: '10px' }}>
           <Button
             variant='outlined'
             className={classes.button}
