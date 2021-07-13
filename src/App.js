@@ -2,17 +2,13 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from './actions/user'
-// import Login from './views/Login'
-// import SignUp from './views/SignUp'
-import DashBoard from './containers/DashBoard'
-import Profile from './containers/Profile'
+// import DashBoard from './views/Dashboard/DashBoard'
+// import Profile from './views/Profile/Profile'
 import { fetchCurrentProject } from './actions/projects'
 import { fetchCurrentMilestone } from './actions/milestones'
 import { fetchCurrentTask } from './actions/tasks'
-import Home from './views/Home'
 import SideBar from './components/SideBar'
-// import Projects from './views/Projects/Projects'
-import { SignUp, Login, Projects } from './views'
+import { SignUp, Login, Projects, Dashboard, Profile } from './views'
 import Reports from './components/Reports'
 import Team from './components/Team'
 import Inbox from './components/Inbox'
@@ -34,7 +30,6 @@ function App() {
     <Router>
       <Switch>
         <Route path='/' exact component={Login} />
-        <Route path='/home' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
       </Switch>
@@ -42,7 +37,7 @@ function App() {
       <Grid container wrap='nowrap'>
         {loggedIn && <SideBar />}
         <Switch>
-          <Route path='/dashboard' component={DashBoard} />
+          <Route path='/dashboard' component={Dashboard} />
           <Route path='/projects' component={Projects} />
           {/* <Route path='/projects' component={ProjectOverview} /> */}
           <Route path='/reports' component={Reports} />

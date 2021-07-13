@@ -12,11 +12,9 @@ import React from 'react'
 //   },
 // })
 
-function DashBoard() {
+export default function Dashboard() {
   // const classes = useStyles()
   // const dispatch = useDispatch()
 
   return <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon</div>
 }
-
-export default DashBoard
