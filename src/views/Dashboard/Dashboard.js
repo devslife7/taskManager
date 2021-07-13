@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon...</div>
+      {/* <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon...</div> */}
 
       <Overview />
     </>

@@ -1,22 +1,8 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  makeStyles,
-  Switch,
-  TextField,
-  Typography,
-} from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import OverviewGraph from './OverviewGraph'
 import AddIcon from '@material-ui/icons/Add'
-
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import AddProjectDialog from '../Projects/AddProjectDialog'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -41,21 +27,14 @@ const useStyles = makeStyles(theme => ({
 export default function Overview() {
   const classes = useStyles()
   // const dispatch = useDispatch()
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
   const [openDialog, setOpenDialog] = useState(false)
-  const [displayImport, setDisplayImport] = useState(false)
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
   // const [importFile, setImportFile] = useState("")
 
   const handleOpenDialog = () => setOpenDialog(true)
-  const handleSetStartDate = date => setStartDate(date)
-  const handleSetEndDate = date => setEndDate(date)
   const handleCloseDialog = () => {
     setOpenDialog(false)
     // setImportFile("")
-    setDisplayImport(false)
+    // setDisplayImport(false)
   }
 
   // const handleSubmit = e => {
@@ -90,109 +69,6 @@ export default function Overview() {
   //   setEndDate("")
   // }
 
-  const TestDialog = () => {
-    return (
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'New Project'}
-        </Typography>
-
-        <FormControlLabel
-          control={
-            <Switch
-              checked={displayImport}
-              onChange={() => setDisplayImport(!displayImport)}
-              name='checkedB'
-              color='primary'
-            />
-          }
-          label='Import From Excel File'
-          style={{ marginTop: '20px', marginLeft: '15px', marginBottom: '10px' }}
-        />
-
-        {displayImport ? (
-          <DialogContent className={classes.DialogContent}>
-            <InputLabel htmlFor='my-input' style={{ margin: '20px 0px' }}>
-              Select Import File
-            </InputLabel>
-            <input
-              id='customFile'
-              type='file'
-              // onChange={e => setImportFile(e.target.files[0])}
-              // style={{ color: "red", backgroundColor: "yellow" }}
-            />
-          </DialogContent>
-        ) : (
-          <DialogContent className={classes.DialogContent}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              label='Name'
-              value={name}
-              onChange={e => {
-                setName(e.target.value)
-              }}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              label='Description'
-              value={description}
-              onChange={e => {
-                setDescription(e.target.value)
-              }}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify='space-around'>
-                <KeyboardDatePicker
-                  disableToolbar
-                  autoOk
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-inline'
-                  label='Start Date'
-                  value={startDate}
-                  onChange={handleSetStartDate}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                  className={classes.KeyboardDatePicker}
-                />
-                <KeyboardDatePicker
-                  disableToolbar
-                  autoOk
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-inline'
-                  label='End Date'
-                  value={endDate}
-                  onChange={handleSetEndDate}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                  className={classes.KeyboardDatePicker}
-                />
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </DialogContent>
-        )}
-
-        <DialogActions>
-          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
-
   return (
     <div>
       <Button
@@ -206,7 +82,7 @@ export default function Overview() {
       </Button>
       <OverviewGraph />
 
-      <TestDialog open={openDialog} onClose={handleCloseDialog} />
+      <AddProjectDialog open={openDialog} onClose={handleCloseDialog} />
     </div>
   )
 }

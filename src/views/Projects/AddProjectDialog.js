@@ -45,7 +45,7 @@ export default function AddProjectDialog(props) {
 
   return (
     <>
-      <Dialog open={true} onClose={onClose}>
+      <Dialog open={open} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
           {'New Project'}
         </Typography>
