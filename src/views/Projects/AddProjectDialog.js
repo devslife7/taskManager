@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -7,13 +8,12 @@ import {
   Grid,
   InputLabel,
   makeStyles,
+  Switch,
   TextField,
   Typography,
 } from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import React, { useState } from 'react'
-import { Switch } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   button: {

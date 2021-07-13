@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  // DialogTitle,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -15,7 +14,6 @@ import {
 import React, { useState } from 'react'
 import OverviewGraph from './OverviewGraph'
 import AddIcon from '@material-ui/icons/Add'
-// import { useDispatch } from "react-redux"
 
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
