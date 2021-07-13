@@ -103,7 +103,7 @@ export default function Overview() {
           control={
             <Switch
               checked={displayImport}
-              // onChange={() => setDisplayImport(!displayImport)}
+              onChange={() => setDisplayImport(!displayImport)}
               name='checkedB'
               color='primary'
             />

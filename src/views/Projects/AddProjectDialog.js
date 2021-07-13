@@ -21,11 +21,6 @@ const useStyles = makeStyles(theme => ({
     margin: '5vh 0 0 10vw',
     fontSize: '1rem',
   },
-  AddProjectButton: {
-    textTransform: 'none',
-    margin: '5vh 0 0 17.5vw',
-    fontSize: '1rem',
-  },
   KeyboardDatePicker: {
     width: '140px',
   },
@@ -50,7 +45,7 @@ export default function AddProjectDialog(props) {
 
   return (
     <>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={true} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
           {'New Project'}
         </Typography>
@@ -105,12 +100,12 @@ export default function AddProjectDialog(props) {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container justify='space-around'>
                 <KeyboardDatePicker
+                  id='new-project-start-date-picker'
                   disableToolbar
                   autoOk
                   variant='inline'
                   format='MM/dd/yyyy'
                   margin='normal'
-                  id='date-picker-inline'
                   label='Start Date'
                   value={startDate}
                   onChange={handleSetStartDate}
@@ -120,12 +115,12 @@ export default function AddProjectDialog(props) {
                   className={classes.KeyboardDatePicker}
                 />
                 <KeyboardDatePicker
+                  id='new-project-end-date-picker'
                   disableToolbar
                   autoOk
                   variant='inline'
                   format='MM/dd/yyyy'
                   margin='normal'
-                  id='date-picker-inline'
                   label='End Date'
                   value={endDate}
                   onChange={handleSetEndDate}

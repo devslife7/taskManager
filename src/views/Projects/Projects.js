@@ -1,4 +1,4 @@
-import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProjects } from '../../actions/projects'
@@ -155,7 +155,6 @@ export default function Projects() {
                           variant='contained'
                           color='primary'
                           startIcon={<AddIcon style={{ fontSize: '1.5rem' }} />}
-                          className={classes.AddProjectButton}
                           style={{ fontSize: '1.2rem' }}
                           onClick={handleOpenDialog}
                         >
