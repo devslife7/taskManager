@@ -1,99 +1,9 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  // DialogTitle,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  makeStyles,
-  Switch,
-  TextField,
-  Typography,
-} from '@material-ui/core'
-import React, { useState } from 'react'
-import OverviewGraph from './OverviewGraph'
-import AddIcon from '@material-ui/icons/Add'
-// import { useDispatch } from "react-redux"
+import { Dialog, Typography } from '@material-ui/core'
+import React from 'react'
 
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
-
-const useStyles = makeStyles(theme => ({
-  button: {
-    textTransform: 'none',
-    margin: '5vh 0 0 10vw',
-    fontSize: '1rem',
-  },
-  AddProjectButton: {
-    textTransform: 'none',
-    margin: '5vh 0 0 17.5vw',
-    fontSize: '1rem',
-  },
-  KeyboardDatePicker: {
-    width: '140px',
-  },
-  DialogContent: {
-    height: '250px',
-    width: '350px',
-  },
-}))
-
-export default function Overview() {
-  const classes = useStyles()
-  // const dispatch = useDispatch()
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [openDialog, setOpenDialog] = useState(false)
-  const [displayImport, setDisplayImport] = useState(false)
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-  // const [importFile, setImportFile] = useState("")
-
-  const handleOpenDialog = () => setOpenDialog(true)
-  const handleSetStartDate = date => setStartDate(date)
-  const handleSetEndDate = date => setEndDate(date)
-  const handleCloseDialog = () => {
-    setOpenDialog(false)
-    // setImportFile("")
-    setDisplayImport(false)
-  }
-
-  // const handleSubmit = e => {
-  //   e.preventDefault()
-
-  //   const projURL = "http://localhost:3000/projects"
-
-  //   const configObj = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "Application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       project: {
-  //         name: name,
-  //         description: description,
-  //         start_date: startDate,
-  //         deadline: endDate,
-  //         completion_percentage: "0%"
-  //       }
-  //     })
-  //   }
-
-  //   fetch(projURL, configObj)
-  //     .then(resp => resp.json())
-  //     .then(data => dispatch(addProject(data)))
-
-  //   setShowForm(false)
-  //   setName("")
-  //   setDescription("")
-  //   setStartDate("")
-  //   setEndDate("")
-  // }
-
-  const TestDialog = () => {
-    return (
+export default function AddProjectDialog() {
+  return (
+    <>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
           {'New Project'}
@@ -192,23 +102,6 @@ export default function Overview() {
           </Button>
         </DialogActions>
       </Dialog>
-    )
-  }
-
-  return (
-    <div>
-      <Button
-        variant='contained'
-        color='primary'
-        startIcon={<AddIcon />}
-        className={classes.AddProjectButton}
-        onClick={handleOpenDialog}
-      >
-        Add Project
-      </Button>
-      <OverviewGraph />
-
-      <TestDialog open={openDialog} onClose={handleCloseDialog} />
-    </div>
+    </>
   )
 }
