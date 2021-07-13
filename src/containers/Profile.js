@@ -1,7 +1,7 @@
 import { Button, makeStyles, TextField } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentUser, updateCurrentUser } from '../actions/user'
+import { updateCurrentUser } from '../actions/user'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -62,35 +62,12 @@ export default function Profile() {
   }
 
   const handleProfileEdit = () => {
-    // const userUrl = 'http://localhost:3000/users/'
-
-    // const patchRequest = {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     first_name: firstName,
-    //     last_name: lastName,
-    //     email: email,
-    //   }),
-    // }
-
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
       email: email,
     }
-
     dispatch(updateCurrentUser(requestBody))
-
-    // fetch(userUrl + currentUser.id, patchRequest)
-    //   .then(resp => resp.json())
-    //   .then(data => {
-    //     dispatch(setCurrentUser(data))
-    //   })
-
-    // dispatch(saveProfileChanges(requestBody))
   }
 
   return (
