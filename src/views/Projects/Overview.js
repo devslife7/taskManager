@@ -11,40 +11,40 @@ import {
   Switch,
   TextField,
   Typography,
-} from "@material-ui/core"
-import React, { useState } from "react"
-import OverviewGraph from "./OverviewGraph"
-import AddIcon from "@material-ui/icons/Add"
+} from '@material-ui/core'
+import React, { useState } from 'react'
+import OverviewGraph from './OverviewGraph'
+import AddIcon from '@material-ui/icons/Add'
 // import { useDispatch } from "react-redux"
 
-import DateFnsUtils from "@date-io/date-fns"
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers"
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: "none",
-    margin: "5vh 0 0 10vw",
-    fontSize: "1rem",
+    textTransform: 'none',
+    margin: '5vh 0 0 10vw',
+    fontSize: '1rem',
   },
   AddProjectButton: {
-    textTransform: "none",
-    margin: "5vh 0 0 17.5vw",
-    fontSize: "1rem",
+    textTransform: 'none',
+    margin: '5vh 0 0 17.5vw',
+    fontSize: '1rem',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
   },
   DialogContent: {
-    height: "250px",
-    width: "350px",
+    height: '250px',
+    width: '350px',
   },
 }))
 
 export default function Overview() {
   const classes = useStyles()
   // const dispatch = useDispatch()
-  const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [openDialog, setOpenDialog] = useState(false)
   const [displayImport, setDisplayImport] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
@@ -106,8 +106,8 @@ export default function Overview() {
       <OverviewGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"New Project"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
+          {'New Project'}
         </Typography>
 
         <FormControlLabel
@@ -120,12 +120,12 @@ export default function Overview() {
             />
           }
           label='Import From Excel File'
-          style={{ marginTop: "20px", marginLeft: "15px", marginBottom: "10px" }}
+          style={{ marginTop: '20px', marginLeft: '15px', marginBottom: '10px' }}
         />
 
         {displayImport ? (
           <DialogContent className={classes.DialogContent}>
-            <InputLabel htmlFor='my-input' style={{ margin: "20px 0px" }}>
+            <InputLabel htmlFor='my-input' style={{ margin: '20px 0px' }}>
               Select Import File
             </InputLabel>
             <input
@@ -170,7 +170,7 @@ export default function Overview() {
                   value={startDate}
                   onChange={handleSetStartDate}
                   KeyboardButtonProps={{
-                    "aria-label": "change date",
+                    'aria-label': 'change date',
                   }}
                   className={classes.KeyboardDatePicker}
                 />
@@ -185,7 +185,7 @@ export default function Overview() {
                   value={endDate}
                   onChange={handleSetEndDate}
                   KeyboardButtonProps={{
-                    "aria-label": "change date",
+                    'aria-label': 'change date',
                   }}
                   className={classes.KeyboardDatePicker}
                 />

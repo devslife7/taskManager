@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from './actions/user'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
+import Login from './views/Login'
+import SignUp from './views/SignUp'
 import DashBoard from './containers/DashBoard'
 import Profile from './containers/Profile'
 import { fetchCurrentProject } from './actions/projects'
 import { fetchCurrentMilestone } from './actions/milestones'
 import { fetchCurrentTask } from './actions/tasks'
-import Home from './pages/Home'
+import Home from './views/Home'
 import SideBar from './components/SideBar'
-import Projects from './components/projects/Projects'
+// import Projects from './views/Projects/Projects'
+import { Projects } from './views'
 import Reports from './components/Reports'
 import Team from './components/Team'
 import Inbox from './components/Inbox'
@@ -43,6 +44,7 @@ function App() {
         <Switch>
           <Route path='/dashboard' component={DashBoard} />
           <Route path='/projects' component={Projects} />
+          {/* <Route path='/projects' component={ProjectOverview} /> */}
           <Route path='/reports' component={Reports} />
           <Route path='/calendar' component={Calendar} />
           <Route path='/team' component={Team} />
