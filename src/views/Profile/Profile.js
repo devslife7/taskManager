@@ -95,23 +95,25 @@ export default function Profile() {
       <TextField
         id='username'
         label='Username'
+        disabled
         fullWidth
         className={classes.textField}
         value={`${currentUser.username}`}
-        InputProps={{
-          readOnly: true,
-        }}
+        // InputProps={{
+        //   readOnly: true,
+        // }}
         variant='outlined'
       />
       <TextField
         id='role'
         label='Role'
+        disabled
         fullWidth
         className={classes.textField}
         value={`${currentUser.role}`}
-        InputProps={{
-          readOnly: true,
-        }}
+        // InputProps={{
+        //   readOnly: true,
+        // }}
         variant='outlined'
       />
 
