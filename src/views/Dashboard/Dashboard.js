@@ -1,6 +1,6 @@
 // import { makeStyles } from '@material-ui/core'
 import React from 'react'
-import Overview from '../Projects/Overview'
+import Overview from './Overview'
 
 // const useStyles = makeStyles({
 //   projects: {

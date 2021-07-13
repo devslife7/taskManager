@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchProjects } from '../../actions/projects'
 import ProjectCard from './ProjectCard'
 import SearchIcon from '@material-ui/icons/Search'
-// import OverviewGraph from "./OverviewGraph.js"
-import Breadcrumbs from '../../components/Breadcrumbs'
+import Breadcrumbs from './Breadcrumbs'
 import Tasks from '../../components/tasks/Tasks'
 import Entries from '../../components/entries/Entries'
-import Overview from './Overview'
 import Milestones from '../../components/milestones/Milestones'
 
 const useStyles = makeStyles(theme => ({
@@ -121,8 +119,6 @@ export default function Projects() {
                       className={classes.searchBox}
                       label='Search Projects'
                     />
-                    {/* <Divider /> */}
-
                     {loadingProject ? (
                       <Typography variant='h1' style={{ fontSize: '1.3em', marginTop: '90px' }}>
                         Loading...
