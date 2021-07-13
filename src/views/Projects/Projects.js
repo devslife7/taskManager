@@ -12,15 +12,14 @@ import Milestones from '../../components/milestones/Milestones'
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: '#fafafa',
-    // backgroundColor: "yellow",
-    padding: '0px 100px',
+    padding: '80px 10vw',
     width: '100%',
     height: '100vh',
     overflow: 'scroll',
   },
   searchBox: {
-    margin: '0 0 1rem 0',
-    width: '12rem',
+    margin: '0 0 5rem 0',
+    width: '16rem',
   },
   loading: {
     margin: '8vh 0 0 18vw',

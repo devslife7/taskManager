@@ -8,9 +8,9 @@ import { clearCurrentTask } from '../../actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
-    padding: '0.7rem 2.2vw',
+    padding: '1.2rem 2.2vw',
     width: '13rem',
-    // backgroundColor: "red",
+    backgroundColor: '#fff',
   },
 }))
 
@@ -31,7 +31,7 @@ function ProjectCard({ project }) {
 
   return (
     <>
-      <Paper className={classes.ListItem}>
+      <Paper className={classes.ListItem} elevation={4}>
         <Grid container direction='column'>
           <Grid item>
             <ListItemText primary={project.name} />
@@ -45,7 +45,7 @@ function ProjectCard({ project }) {
             </Typography>
           </Grid>
           <Button
-            variant='outlined'
+            variant='contained'
             color='primary'
             onClick={handleSetCurrentProject}
             style={{ marginTop: '15px' }}
