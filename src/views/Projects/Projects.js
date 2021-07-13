@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProjects } from '../../actions/projects'
@@ -23,6 +23,21 @@ const useStyles = makeStyles(theme => ({
   },
   loading: {
     margin: '8vh 0 0 18vw',
+  },
+  addProject: {
+    padding: '1.2rem 2.2vw',
+    width: '13rem',
+    textAlign: 'center',
+    fontSize: '5rem',
+    fontWeight: '200',
+    color: '#2196f3',
+    height: '6.8rem',
+    transition: '0.4s all ease',
+
+    '&:hover': {
+      backgroundColor: '#f4f4f4',
+      cursor: 'pointer',
+    },
   },
 }))
 
@@ -125,6 +140,11 @@ export default function Projects() {
                     ) : (
                       <Grid container spacing={5}>
                         {renderProjects()}
+                        <Grid item>
+                          <Paper className={classes.addProject} elevation={4}>
+                            +
+                          </Paper>
+                        </Grid>
                       </Grid>
                     )}
                   </>
