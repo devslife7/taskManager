@@ -18,8 +18,10 @@ export default function Dashboard() {
   // const dispatch = useDispatch()
 
   return (
-    <div style={{ margin: '100px auto', fontSize: '2rem' }}>
-      Dashboard coming soon <Overview />
-    </div>
+    <>
+      <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon...</div>
+
+      <Overview />
+    </>
   )
 }

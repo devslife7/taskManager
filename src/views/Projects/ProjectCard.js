@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function ProjectCard({ project }) {
+export default function ProjectCard({ project }) {
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -54,10 +54,6 @@ function ProjectCard({ project }) {
           </Button>
         </Grid>
       </Paper>
-
-      {/* <Divider /> */}
     </>
   )
 }
-
-export default ProjectCard

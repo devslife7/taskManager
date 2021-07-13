@@ -1,15 +1,14 @@
 import React from 'react'
-// import { withStyles } from '@material-ui/core/styles'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import DescriptionIcon from '@material-ui/icons/Description'
-import GroupIcon from '@material-ui/icons/Group'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import EventAvailableIcon from '@material-ui/icons/EventAvailable'
+// import InboxIcon from '@material-ui/icons/MoveToInbox'
+// import GroupIcon from '@material-ui/icons/Group'
+// import EventAvailableIcon from '@material-ui/icons/EventAvailable'
 
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -125,6 +124,15 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
+        {/* <Link to='/calendar' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/calendar')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <EventAvailableIcon />
+            </ListItemIcon>
+            <ListItemText primary='Calendar' />
+          </ListItem>
+        </Link>
+
         <Link to='/team' className={classes.linkStyle}>
           <ListItem button className={isSelectedStyle('/team')}>
             <ListItemIcon className={classes.iconStyle}>
@@ -141,16 +149,7 @@ export default function CustomizedMenus() {
             </ListItemIcon>
             <ListItemText primary='Inbox' />
           </ListItem>
-        </Link>
-
-        <Link to='/calendar' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle('/calendar')}>
-            <ListItemIcon className={classes.iconStyle}>
-              <EventAvailableIcon />
-            </ListItemIcon>
-            <ListItemText primary='Calendar' />
-          </ListItem>
-        </Link>
+        </Link> */}
 
         <Link to='/profile' className={classes.linkStyle}>
           <ListItem button className={isSelectedStyle('/profile')}>

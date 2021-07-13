@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProjects } from '../../actions/projects'
@@ -12,32 +12,35 @@ import Milestones from './milestones/Milestones'
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: '#fafafa',
-    padding: '80px 10vw',
+    padding: '0px 2vw',
     width: '100%',
     height: '100vh',
     overflow: 'scroll',
   },
   searchBox: {
-    margin: '0 0 5rem 0',
+    margin: '8em 0 2rem 7rem',
     width: '16rem',
   },
+  projectCards: {
+    margin: '0 0 0 6rem',
+  },
+  // addProject: {
+  //   padding: '1.2rem 2.2vw',
+  //   width: '13rem',
+  //   textAlign: 'center',
+  //   fontSize: '5rem',
+  //   fontWeight: '200',
+  //   color: '#2196f3',
+  //   height: '6.8rem',
+  //   transition: '0.4s all ease',
+
+  //   '&:hover': {
+  //     backgroundColor: '#f4f4f4',
+  //     cursor: 'pointer',
+  //   },
+  // },
   loading: {
     margin: '8vh 0 0 18vw',
-  },
-  addProject: {
-    padding: '1.2rem 2.2vw',
-    width: '13rem',
-    textAlign: 'center',
-    fontSize: '5rem',
-    fontWeight: '200',
-    color: '#2196f3',
-    height: '6.8rem',
-    transition: '0.4s all ease',
-
-    '&:hover': {
-      backgroundColor: '#f4f4f4',
-      cursor: 'pointer',
-    },
   },
 }))
 
@@ -133,18 +136,19 @@ export default function Projects() {
                       className={classes.searchBox}
                       label='Search Projects'
                     />
+                    {/* <Button>Add Project</Button> */}
                     {loadingProject ? (
                       <Typography variant='h1' style={{ fontSize: '1.3em', marginTop: '90px' }}>
                         Loading...
                       </Typography>
                     ) : (
-                      <Grid container spacing={5}>
+                      <Grid container spacing={5} className={classes.projectCards}>
                         {renderProjects()}
-                        <Grid item>
+                        {/* <Grid item>
                           <Paper className={classes.addProject} elevation={4}>
                             +
                           </Paper>
-                        </Grid>
+                        </Grid>  // add Button that looks like a Project Card*/}
                       </Grid>
                     )}
                   </>
