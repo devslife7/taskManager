@@ -8,12 +8,12 @@ import { fetchCurrentProject } from './actions/projects'
 import { fetchCurrentMilestone } from './actions/milestones'
 import { fetchCurrentTask } from './actions/tasks'
 import SideBar from './components/SideBar'
-import { SignUp, Login, Projects, Dashboard, Profile } from './views'
-import Reports from './components/Reports'
+import { SignUp, Login, Projects, Dashboard, Profile, Calendar, Reports } from './views'
+// import Reports from './views/Reports/Reports'
 import Team from './components/Team'
 import Inbox from './components/Inbox'
 import { Grid } from '@material-ui/core'
-import Calendar from './components/Calendar'
+// import Calendar from './views/Calendar/Calendar'
 
 function App() {
   const dispatch = useDispatch()
