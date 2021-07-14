@@ -1,6 +1,7 @@
 import { Button, makeStyles } from '@material-ui/core'
 import React from 'react'
 import AddIcon from '@material-ui/icons/Add'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles(() => ({
   createBtn: {
@@ -14,6 +15,8 @@ const useStyles = makeStyles(() => ({
 
 export default function Reports() {
   const classes = useStyles()
+  const userReports = useSelector(state => state.user.currentUser.reports)
+
   return (
     <div>
       <div className={classes.createBtn}>
@@ -28,7 +31,13 @@ export default function Reports() {
         </Button>
       </div>
 
-      <div className={classes.reportsContainer}>Reports here</div>
+      <div className={classes.reportsContainer}>
+        {userReports.length === 0 ? (
+          <div>You do not have any projects</div>
+        ) : (
+          <div>You have some projects</div>
+        )}
+      </div>
     </div>
   )
 }

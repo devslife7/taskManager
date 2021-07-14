@@ -1,14 +1,16 @@
 const initialState = {
-  currentUser: {},
+  currentUser: {
+    reports: [],
+  },
   loggedIn: false,
 }
 
 export default (state = initialState, action) => {
   let idx
-  console.log("ACTION:", action)
+  console.log('ACTION:', action)
 
   switch (action.type) {
-    case "SET_CURRENT_USER":
+    case 'SET_CURRENT_USER':
       return {
         ...state,
         currentUser: action.payload,
@@ -20,7 +22,7 @@ export default (state = initialState, action) => {
     //     ...state
     //   }
 
-    case "LOGOUT_CURRENT_USER":
+    case 'LOGOUT_CURRENT_USER':
       localStorage.clear()
       return {
         ...state,
@@ -28,7 +30,7 @@ export default (state = initialState, action) => {
         loggedIn: false,
       }
 
-    case "ADD_FRIEND":
+    case 'ADD_FRIEND':
       return {
         ...state,
         currentUser: {
@@ -36,7 +38,7 @@ export default (state = initialState, action) => {
           friends: [...state.currentUser.friends, action.payload],
         },
       }
-    case "REMOVE_FRIEND":
+    case 'REMOVE_FRIEND':
       idx = state.currentUser.friends.findIndex(friend => friend.id === action.payload)
       return {
         ...state,
