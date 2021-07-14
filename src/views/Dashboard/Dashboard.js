@@ -37,7 +37,10 @@ export default function Dashboard() {
 
   const todaysDate = getUnixTime(new Date()) // Today's date
 
-  const activeProjectsCount = allProjects.filter(proj => proj.end_date > todaysDate).length
+  const activeProjects = allProjects.filter(proj => proj.end_date > todaysDate)
+
+  const nextDeadline = activeProjects.sort((prev, curr) => prev.end_date - curr.end_date)[0]
+  const activeProjectsCount = activeProjects.length
   const inactiveProjectsCount = allProjects.filter(proj => proj.end_date < todaysDate).length
 
   useEffect(() => {
@@ -65,8 +68,15 @@ export default function Dashboard() {
           </div>
           <div className={classes.nextDeadline}>
             <div style={{ margin: '15px 0', fontSize: '1.6rem' }}>Next Deadline</div>
-            <div>July 4th, 2021</div>
-            <div>Challenge Project</div>
+
+            {nextDeadline ? (
+              <>
+                <div>{nextDeadline && format(fromUnixTime(nextDeadline.end_date), 'PP')}</div>
+                <div>{nextDeadline && nextDeadline.name}</div>
+              </>
+            ) : (
+              <div> (No active projects) </div>
+            )}
           </div>
         </Grid>
 
