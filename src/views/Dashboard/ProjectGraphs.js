@@ -55,8 +55,6 @@ export default function ProjectGraphs() {
   ])
 
   if (series[0].data.length == 0 && projectProgress.length != 0) {
-    console.log('EMPTY SERIES')
-
     setSeries([
       {
         name: 'Progress',
@@ -68,9 +66,6 @@ export default function ProjectGraphs() {
   return (
     <div>
       {console.log('renders graph')}
-      {console.log('projects data: ', filteredProjects)}
-      {console.log('projects data: ', projectProgress)}
-      {console.log('Series: ', series[0].data.length)}
       <Chart options={options} series={series} type='bar' width='1600' height='500' />
     </div>
   )

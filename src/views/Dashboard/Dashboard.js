@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     margin: '0 auto',
   },
   boxesContainer: {
-    margin: '5rem 0',
+    margin: '7rem 0',
   },
   projectBox: {
     backgroundColor: '#f4f4f4',
@@ -39,6 +39,7 @@ export default function Dashboard() {
   return (
     <>
       <Grid container direction='column'>
+        {console.log('renders Dashboard')}
         <Grid item container justify='space-around' className={classes.boxesContainer}>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Total Projects</div>

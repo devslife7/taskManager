@@ -87,6 +87,7 @@ export default function Projects() {
 
   return (
     <div className={classes.container}>
+      {console.log('render projects')}
       <Grid container direction='column'>
         {currentProject.id ? (
           <>
