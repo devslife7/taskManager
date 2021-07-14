@@ -21,7 +21,11 @@ export default function OverviewGraph() {
     },
     yaxis: {
       title: {
-        text: 'Progress(%)',
+        text: 'Progress %',
+        style: {
+          fontSize: '1.1rem',
+          fontWeight: 400,
+        },
       },
       min: 0,
       max: 100,

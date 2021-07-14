@@ -15,6 +15,9 @@ const useStyles = makeStyles({
   inactiveProjectsBox: {
     backgroundColor: 'yellow',
   },
+  nextDeadline: {
+    backgroundColor: 'pink',
+  },
 })
 
 export default function Dashboard() {
@@ -23,10 +26,11 @@ export default function Dashboard() {
   return (
     <>
       <Grid container direction='column'>
-        <Grid item container>
+        <Grid item container justify='space-around'>
           <div className={classes.totalProjectsBox}>Total Projects</div>
           <div className={classes.activeProjectsBox}>Active Projects</div>
           <div className={classes.inactiveProjectsBox}>Incative Projects</div>
+          <div className={classes.nextDeadline}>Next Deadline</div>
         </Grid>
 
         <div className={classes.graph}>

@@ -133,7 +133,7 @@ export default function Projects() {
                   </Typography>
                 ) : (
                   <>
-                    <Grid container style={{ justifyContent: 'space-between' }}>
+                    <Grid container justify='space-between'>
                       <Grid item>
                         <TextField
                           value={searchTerm}
