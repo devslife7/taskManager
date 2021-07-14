@@ -30,8 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function AddProjectDialog(props) {
-  const { open, onClose } = props
+export default function AddProjectDialog({ open, onClose }) {
   const classes = useStyles()
 
   const [name, setName] = useState('')

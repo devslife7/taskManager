@@ -1,7 +1,9 @@
 import { Button, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AddIcon from '@material-ui/icons/Add'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import CreateReportDialog from './CreateReportDialog'
+import { fetchProjects } from '../../actions/projects'
 
 const useStyles = makeStyles(() => ({
   createBtn: {
@@ -15,7 +17,16 @@ const useStyles = makeStyles(() => ({
 
 export default function Reports() {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const userReports = useSelector(state => state.user.currentUser.reports)
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleOpenDialog = () => setOpenDialog(true)
+  const handleCloseDialog = () => setOpenDialog(false)
+
+  useEffect(() => {
+    dispatch(fetchProjects())
+  }, [dispatch])
 
   return (
     <div>
@@ -25,17 +36,20 @@ export default function Reports() {
           color='primary'
           startIcon={<AddIcon style={{ fontSize: '1.4rem' }} />}
           style={{ fontSize: '1.2rem' }}
-          // onClick={handleOpenDialog}
+          onClick={handleOpenDialog}
         >
           Create Report
         </Button>
       </div>
 
+      {/* Dialog prompting to create a new Report */}
+      <CreateReportDialog open={openDialog} onClose={handleCloseDialog} />
+
       <div className={classes.reportsContainer}>
         {userReports.length === 0 ? (
-          <div>You do not have any projects</div>
+          <div>You have not created any Reports</div>
         ) : (
-          <div>You have some projects</div>
+          <div>You have some Reports</div>
         )}
       </div>
     </div>
