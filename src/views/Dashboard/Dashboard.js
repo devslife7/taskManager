@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProjectGraphs from './ProjectGraphs'
 import { Grid, makeStyles } from '@material-ui/core'
 import { fetchProjects } from '../../actions/projects'
+import { fromUnixTime, format, getUnixTime } from 'date-fns'
 
 const useStyles = makeStyles({
   graph: {
@@ -31,10 +32,19 @@ const useStyles = makeStyles({
 export default function Dashboard() {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const allProjects = useSelector(state => state.projects.allProjects)
+  const projectsCount = allProjects.length
+
+  const todaysDate = getUnixTime(new Date()) // Today's date
+
+  const activeProjectsCount = allProjects.filter(proj => proj.end_date > todaysDate).length
+  const inactiveProjectsCount = allProjects.filter(proj => proj.end_date < todaysDate).length
 
   useEffect(() => {
     dispatch(fetchProjects())
   }, [dispatch])
+
+  console.log('all projects array: ', allProjects)
 
   return (
     <>
@@ -43,15 +53,15 @@ export default function Dashboard() {
         <Grid item container justify='space-around' className={classes.boxesContainer}>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Total Projects</div>
-            <div>30</div>
+            <div>{projectsCount}</div>
           </div>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Active Projects</div>
-            <div>20</div>
+            <div>{activeProjectsCount}</div>
           </div>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Incative Projects</div>
-            <div>10</div>
+            <div>{inactiveProjectsCount}</div>
           </div>
           <div className={classes.nextDeadline}>
             <div style={{ margin: '15px 0', fontSize: '1.6rem' }}>Next Deadline</div>

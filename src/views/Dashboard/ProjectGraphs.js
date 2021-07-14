@@ -6,7 +6,6 @@ export default function ProjectGraphs() {
   const allProjects = useSelector(state => state.projects.allProjects)
 
   const filteredProjects = allProjects.sort((a, b) => b.end_date - a.end_date).reverse()
-
   const projectNames = filteredProjects.map(proj => proj.name)
   const projectProgress = filteredProjects.map(proj => proj.progress)
 
@@ -47,12 +46,9 @@ export default function ProjectGraphs() {
       },
     },
   })
-  const [series, setSeries] = useState([
-    {
-      name: 'Progress',
-      data: projectProgress,
-    },
-  ])
+
+  const seriesObj = [{ name: 'Progress', data: [...projectProgress] }]
+  const [series, setSeries] = useState([...seriesObj])
 
   if (series[0].data.length == 0 && projectProgress.length != 0) {
     setSeries([
