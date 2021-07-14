@@ -1,6 +1,8 @@
-import { Grid, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ProjectGraphs from './ProjectGraphs'
+import { Grid, makeStyles } from '@material-ui/core'
+import { fetchProjects } from '../../actions/projects'
 
 const useStyles = makeStyles({
   graph: {
@@ -28,6 +30,11 @@ const useStyles = makeStyles({
 
 export default function Dashboard() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchProjects())
+  }, [dispatch])
 
   return (
     <>

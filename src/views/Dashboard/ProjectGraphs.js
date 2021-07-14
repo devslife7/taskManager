@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
-export default function OverviewGraph() {
+export default function ProjectGraphs() {
   const allProjects = useSelector(state => state.projects.allProjects)
 
   const filteredProjects = allProjects.sort((a, b) => b.end_date - a.end_date).reverse()
@@ -47,15 +47,30 @@ export default function OverviewGraph() {
       },
     },
   })
-  const [series] = useState([
+  const [series, setSeries] = useState([
     {
       name: 'Progress',
       data: projectProgress,
     },
   ])
 
+  if (series[0].data.length == 0 && projectProgress.length != 0) {
+    console.log('EMPTY SERIES')
+
+    setSeries([
+      {
+        name: 'Progress',
+        data: projectProgress,
+      },
+    ])
+  }
+
   return (
     <div>
+      {console.log('renders graph')}
+      {console.log('projects data: ', filteredProjects)}
+      {console.log('projects data: ', projectProgress)}
+      {console.log('Series: ', series[0].data.length)}
       <Chart options={options} series={series} type='bar' width='1600' height='500' />
     </div>
   )
