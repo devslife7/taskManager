@@ -13,7 +13,7 @@ export default function OverviewGraph() {
   const [options] = useState({
     chart: {
       // background: '#dcdcdc',
-      // background: '#f4f4f4',
+      background: '#f4f4f4',
       // foreColor: "#333",
     },
     xaxis: {
