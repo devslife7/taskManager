@@ -1,27 +1,38 @@
-// import { makeStyles } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
-import Overview from './Overview'
+import ProjectGraphs from './ProjectGraphs'
 
-// const useStyles = makeStyles({
-//   projects: {
-//     backgroundColor: '#fafafa',
-//     width: '15vw',
-//     height: '95vh',
-//   },
-//   loading: {
-//     margin: '8vh 0 0 18vw',
-//   },
-// })
+const useStyles = makeStyles({
+  graph: {
+    backgroundColor: '#f4f4f4',
+  },
+  totalProjectsBox: {
+    backgroundColor: 'red',
+  },
+  activeProjectsBox: {
+    backgroundColor: 'green',
+  },
+  inactiveProjectsBox: {
+    backgroundColor: 'yellow',
+  },
+})
 
 export default function Dashboard() {
-  // const classes = useStyles()
-  // const dispatch = useDispatch()
+  const classes = useStyles()
 
   return (
     <>
-      {/* <div style={{ margin: '100px auto', fontSize: '2rem' }}>Dashboard coming soon...</div> */}
+      <Grid container direction='column'>
+        <Grid item container>
+          <div className={classes.totalProjectsBox}>Total Projects</div>
+          <div className={classes.activeProjectsBox}>Active Projects</div>
+          <div className={classes.inactiveProjectsBox}>Incative Projects</div>
+        </Grid>
 
-      <Overview />
+        <div className={classes.graph}>
+          <ProjectGraphs />
+        </div>
+      </Grid>
     </>
   )
 }

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import Chart from "react-apexcharts"
-import { useSelector } from "react-redux"
+import React, { useState } from 'react'
+import Chart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
 
 export default function OverviewGraph() {
   const allProjects = useSelector(state => state.projects.allProjects)
@@ -12,7 +12,8 @@ export default function OverviewGraph() {
 
   const [options] = useState({
     chart: {
-      // background: "#dcdcdc",
+      // background: '#dcdcdc',
+      // background: '#f4f4f4',
       // foreColor: "#333",
     },
     xaxis: {
@@ -20,7 +21,7 @@ export default function OverviewGraph() {
     },
     yaxis: {
       title: {
-        text: "Progress(%)",
+        text: 'Progress(%)',
       },
       min: 0,
       max: 100,
@@ -32,25 +33,26 @@ export default function OverviewGraph() {
       enabled: false,
     },
     title: {
-      text: "Projects Overview",
-      align: "center",
+      text: 'Projects Overview',
+      align: 'center',
       // margin: 10,
-      // offsetY: 20,
-      // style: {
-      //   fontSize: "1.6rem",
-      // },
+      offsetY: 30,
+      style: {
+        fontSize: '1.6rem',
+        fontWeight: 400,
+      },
     },
   })
   const [series] = useState([
     {
-      name: "Progress",
+      name: 'Progress',
       data: projectProgress,
     },
   ])
 
   return (
-    <div style={{ width: "45rem", margin: "2rem auto" }}>
-      <Chart options={options} series={series} type='bar' />
+    <div>
+      <Chart options={options} series={series} type='bar' width='1600' height='500' />
     </div>
   )
 }
