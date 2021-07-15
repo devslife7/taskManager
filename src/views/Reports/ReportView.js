@@ -4,6 +4,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteReportFetch, fetchCurrentReport } from '../../actions/user'
 import { getUnixTime, fromUnixTime, parseISO, format } from 'date-fns'
+import ReportTable from './ReportTable'
 
 const useStyles = makeStyles(() => ({
   backBtn: {
@@ -48,11 +49,9 @@ export default function ReportView({ handleExitReportView }) {
   }
 
   const handleDeleteReport = () => {
-    const message = 'Are you sure you want to delete the current report?'
+    const message = 'Are you sure you want to delete the current report?\nThis action can not be undone.'
 
     if (window.confirm(message)) {
-      console.log('delete project')
-
       // make a delete request and update redux
       dispatch(deleteReportFetch(currentReport.id))
       handleExitReportView()
@@ -108,6 +107,8 @@ export default function ReportView({ handleExitReportView }) {
           </div>
 
           <Divider />
+
+          <ReportTable milestones={reportProj.milestones} />
         </Paper>
         <Grid item>
           <Button variant='outlined' className={classes.deleteBtn} onClick={handleDeleteReport}>
