@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import format from 'date-fns/format'
 import { fromUnixTime, getUnixTime } from 'date-fns'
+import { Divider } from '@material-ui/core'
 
 export default function ReportTable({ milestones }) {
   const getStatus = end_date => {
@@ -15,7 +16,9 @@ export default function ReportTable({ milestones }) {
   }
 
   return (
-    <TableContainer style={{ marginTop: '4rem' }}>
+    <TableContainer style={{ marginTop: '3rem' }}>
+      <div style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '1rem' }}>Milestones Table</div>
+      <Divider />
       <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
         <TableHead>
           <TableRow>
