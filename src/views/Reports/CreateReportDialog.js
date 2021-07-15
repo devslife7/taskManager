@@ -14,7 +14,8 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { createReportFetch } from '../../actions/user'
 // import DateFnsUtils from '@date-io/date-fns'
 // import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 
@@ -46,6 +47,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function CreateReportDialog({ open, onClose }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const allProjects = useSelector(state => state.projects.allProjects)
   const currentUserId = useSelector(state => state.user.currentUser.id)
 
@@ -85,26 +87,37 @@ export default function CreateReportDialog({ open, onClose }) {
     } else {
       clearStateOnClose()
 
-      const reportsURL = 'http://localhost:3000/reports'
-
       const requestBody = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        report: {
+          user_id: currentUserId,
+          project_id: selectedProjectId,
+          title: title,
+          notes: notes,
         },
-        body: JSON.stringify({
-          report: {
-            user_id: currentUserId,
-            project_id: selectedProjectId,
-            title: title,
-            notes: notes,
-          },
-        }),
       }
 
-      fetch(reportsURL, requestBody)
-        .then(resp => resp.json())
-        .then(data => console.log(data))
+      dispatch(createReportFetch(requestBody))
+
+      // const reportsURL = 'http://localhost:3000/reports'
+
+      // const requestBody = {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     report: {
+      //       user_id: currentUserId,
+      //       project_id: selectedProjectId,
+      //       title: title,
+      //       notes: notes,
+      //     },
+      //   }),
+      // }
+
+      // fetch(reportsURL, requestBody)
+      //   .then(resp => resp.json())
+      //   .then(data => console.log(data))
     }
   }
 

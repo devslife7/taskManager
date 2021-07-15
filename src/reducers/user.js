@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
           friends: [...state.currentUser.friends, action.payload],
         },
       }
+
     case 'REMOVE_FRIEND':
       idx = state.currentUser.friends.findIndex(friend => friend.id === action.payload)
       return {
@@ -45,6 +46,15 @@ export default (state = initialState, action) => {
         currentUser: {
           ...state.currentUser,
           friends: [...state.currentUser.friends.slice(0, idx), ...state.currentUser.friends.slice(idx + 1)],
+        },
+      }
+
+    case 'ADD_REPORT':
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          reports: [...state.currentUser.reports, action.payload.report],
         },
       }
 

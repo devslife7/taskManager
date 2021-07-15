@@ -1,5 +1,6 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
 const usersURL = serverURL + '/users/'
+const reportsURL = serverURL + '/reports/'
 
 export const setCurrentUser = user => {
   return {
@@ -37,5 +38,23 @@ export const updateCurrentUser = requestBody => {
 export const logOutCurrentUser = () => {
   return {
     type: 'LOGOUT_CURRENT_USER',
+  }
+}
+
+export const createReportFetch = requestBody => {
+  return dispatch => {
+    const patchRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    }
+
+    fetch(reportsURL, patchRequest)
+      .then(resp => resp.json())
+      .then(data => {
+        dispatch({ type: 'ADD_REPORT', payload: data })
+      })
   }
 }
