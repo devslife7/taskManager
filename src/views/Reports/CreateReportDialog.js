@@ -95,29 +95,7 @@ export default function CreateReportDialog({ open, onClose }) {
           notes: notes,
         },
       }
-
       dispatch(createReportFetch(requestBody))
-
-      // const reportsURL = 'http://localhost:3000/reports'
-
-      // const requestBody = {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     report: {
-      //       user_id: currentUserId,
-      //       project_id: selectedProjectId,
-      //       title: title,
-      //       notes: notes,
-      //     },
-      //   }),
-      // }
-
-      // fetch(reportsURL, requestBody)
-      //   .then(resp => resp.json())
-      //   .then(data => console.log(data))
     }
   }
 
