@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Button, Divider, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentReport } from '../../actions/user'
+import { deleteReportFetch, fetchCurrentReport } from '../../actions/user'
 import { getUnixTime, fromUnixTime, parseISO, format } from 'date-fns'
 
 const useStyles = makeStyles(() => ({
@@ -28,7 +28,6 @@ const useStyles = makeStyles(() => ({
   detailsContainer: {
     padding: '1rem 3rem',
     fontSize: '1.2rem',
-    // textAlign: 'center',
   },
 }))
 
@@ -51,7 +50,12 @@ export default function ReportView({ handleExitReportView }) {
   const handleDeleteReport = () => {
     const message = 'Are you sure you want to delete the current report?'
 
-    window.confirm(message) && console.log('delete project')
+    if (window.confirm(message)) {
+      console.log('delete project')
+
+      // make a delete request and update redux
+      dispatch(deleteReportFetch(currentReport.id))
+    }
   }
 
   return (
@@ -105,12 +109,7 @@ export default function ReportView({ handleExitReportView }) {
           <Divider />
         </Paper>
         <Grid item>
-          <Button
-            variant='outlined'
-            // startIcon={<ArrowBackIcon style={{ fontSize: '1.4rem' }} />}
-            className={classes.deleteBtn}
-            onClick={handleDeleteReport}
-          >
+          <Button variant='outlined' className={classes.deleteBtn} onClick={handleDeleteReport}>
             Delete Report
           </Button>
         </Grid>

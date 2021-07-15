@@ -66,3 +66,11 @@ export const fetchCurrentReport = reportId => {
       .then(data => dispatch({ type: 'SET_CURRENT_REPORT', payload: data }))
   }
 }
+
+export const deleteReportFetch = reportId => {
+  return dispatch => {
+    fetch(reportsURL + reportId, { method: 'DELETE' })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
+}
