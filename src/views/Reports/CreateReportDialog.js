@@ -47,8 +47,10 @@ const useStyles = makeStyles(theme => ({
 export default function CreateReportDialog({ open, onClose }) {
   const classes = useStyles()
   const allProjects = useSelector(state => state.projects.allProjects)
+  const currentUserId = useSelector(state => state.user.currentUser.id)
 
   const [selectedProjectId, setSelectedProjectId] = useState(0)
+  const [title, setTitle] = useState('Report Title...')
   const [notes, setNotes] = useState('')
 
   const clearStateOnClose = () => {
@@ -67,7 +69,10 @@ export default function CreateReportDialog({ open, onClose }) {
       <MenuItem
         key={idx}
         className={`${selectedProjectId === proj.id && classes.selected} ${classes.menuItem}`}
-        onClick={() => setSelectedProjectId(proj.id)}
+        onClick={() => {
+          setSelectedProjectId(proj.id)
+          setTitle(`${proj.name} Report`)
+        }}
       >
         {proj.name} <span>{proj.progress}%</span>
       </MenuItem>
@@ -75,9 +80,32 @@ export default function CreateReportDialog({ open, onClose }) {
   }
 
   const onReportCreate = () => {
-    console.log('create button clicked')
-    console.log(selectedProjectId)
-    console.log(notes)
+    if (selectedProjectId === 0) {
+      alert('Please select a project...')
+    } else {
+      clearStateOnClose()
+
+      const reportsURL = 'http://localhost:3000/reports'
+
+      const requestBody = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          report: {
+            user_id: currentUserId,
+            project_id: selectedProjectId,
+            title: title,
+            notes: notes,
+          },
+        }),
+      }
+
+      fetch(reportsURL, requestBody)
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+    }
   }
 
   return (
@@ -88,6 +116,20 @@ export default function CreateReportDialog({ open, onClose }) {
         </Typography>
 
         <DialogContent>
+          {/* <Typography variant='h6' className={classes.title}>
+            {'Choose Project:'}
+          </Typography> */}
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            label='Title'
+            value={title}
+            onChange={e => {
+              setTitle(e.target.value)
+            }}
+          />
+
           <Typography variant='h6' className={classes.title}>
             {'Choose Project:'}
           </Typography>
