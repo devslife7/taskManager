@@ -2,7 +2,9 @@ const initialState = {
   currentUser: {
     reports: [],
   },
-  currentReport: {},
+  currentReport: {
+    project: {},
+  },
   loggedIn: false,
 }
 

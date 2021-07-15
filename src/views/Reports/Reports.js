@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CreateReportDialog from './CreateReportDialog'
 import { fetchProjects } from '../../actions/projects'
 import ReportCard from './ReportCard'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ReportView from './ReportView'
 
 const useStyles = makeStyles(() => ({
   createBtn: {
@@ -22,7 +22,7 @@ export default function Reports() {
   const dispatch = useDispatch()
   const userReports = useSelector(state => state.user.currentUser.reports)
   const [openDialog, setOpenDialog] = useState(false)
-  const [reportView, setReportView] = useState(false)
+  const [reportView, setReportView] = useState(true) // sets the report view
 
   const handleEnterReportView = () => setReportView(true)
   const handleExitReportView = () => setReportView(false)
@@ -73,15 +73,7 @@ export default function Reports() {
         </>
       ) : (
         <>
-          <Button
-            variant='contained'
-            color='primary'
-            startIcon={<ArrowBackIcon style={{ fontSize: '1.4rem' }} />}
-            style={{ fontSize: '1.2rem' }}
-            onClick={handleExitReportView}
-          >
-            Back
-          </Button>
+          <ReportView handleExitReportView={handleExitReportView} />
         </>
       )}
     </div>
