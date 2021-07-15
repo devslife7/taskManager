@@ -1,7 +1,7 @@
-import { format, fromUnixTime } from "date-fns"
-import React, { useState } from "react"
-import Chart from "react-apexcharts"
-import { useSelector } from "react-redux"
+import { format, fromUnixTime } from 'date-fns'
+import React, { useState } from 'react'
+import Chart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
 
 function MilestonesGraph() {
   const currentProject = useSelector(state => state.projects.currentProject)
@@ -10,14 +10,14 @@ function MilestonesGraph() {
     .reverse()
 
   const timelineSeries = currentProjectMilestonesSorted.map(t => ({
-    x: format(fromUnixTime(t.end_date), "PP"),
+    x: format(fromUnixTime(t.end_date), 'PP'),
     y: t.progress,
   }))
-  console.log("Milestone timelineSeries: ", timelineSeries)
+  console.log('Milestone timelineSeries: ', timelineSeries)
 
   const [options] = useState({
     chart: {
-      type: "line",
+      type: 'line',
       zoom: {
         enabled: true,
       },
@@ -29,15 +29,15 @@ function MilestonesGraph() {
       enabled: true,
     },
     stroke: {
-      curve: "smooth",
+      curve: 'smooth',
     },
     title: {
-      text: "Milestone Progress",
-      align: "left",
+      text: 'Milestone Progress',
+      align: 'left',
     },
     grid: {
       row: {
-        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
         opacity: 0.5,
       },
     },
@@ -49,7 +49,7 @@ function MilestonesGraph() {
     },
     yaxis: {
       title: {
-        text: "Progress(%)",
+        text: 'Progress %',
       },
       min: 0,
       max: 100,
@@ -57,7 +57,7 @@ function MilestonesGraph() {
   })
   const [series] = useState([
     {
-      name: "Progress",
+      name: 'Progress',
       // data: [
       //   [1486684800000, 34],
       //   [1486771200000, 43],
@@ -71,7 +71,7 @@ function MilestonesGraph() {
   ])
 
   return (
-    <div style={{ width: "45rem", margin: "2vh auto" }}>
+    <div style={{ width: '45rem', margin: '2vh auto' }}>
       <Chart options={options} series={series} type='bar' />
     </div>
   )

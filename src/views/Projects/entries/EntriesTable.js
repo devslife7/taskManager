@@ -69,7 +69,7 @@ export default function EntriesTable() {
   const records = useSelector(state => state.tasks.currentTask.entries)
   const headCells = [
     { id: 'users', label: 'Owner' },
-    { id: 'progress', label: 'Progress(%)' },
+    { id: 'progress', label: 'Progress' },
     { id: 'date', label: 'Date' },
     { id: 'notes', label: 'Notes', disableSorting: true },
     { id: 'actions', label: 'Actions', disableSorting: true },

@@ -7,35 +7,34 @@ import {
   makeStyles,
   TextField,
   Typography,
-} from "@material-ui/core"
-import React, { useState } from "react"
-import { useSelector } from "react-redux"
-import AddIcon from "@material-ui/icons/Add"
-import TasksGraph from "./TasksGraph"
+} from '@material-ui/core'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import AddIcon from '@material-ui/icons/Add'
+import TasksGraph from './TasksGraph'
 
-
-import TaskTable from "./TaskTable"
-import { fromUnixTime, format } from "date-fns"
-import DateFnsUtils from "@date-io/date-fns"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+import TaskTable from './TaskTable'
+import { fromUnixTime, format } from 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "10vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '10vw',
   },
   addTaskButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "6.5vw",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '6.5vw',
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
   },
   DialogContent: {
-    height: "350px",
-    width: "350px",
+    height: '350px',
+    width: '350px',
   },
 }))
 
@@ -45,9 +44,9 @@ function Tasks() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
   const [openDialog, setOpenDialog] = useState(false)
-  const [name, setName] = useState("")
-  const [hours, setHours] = useState("")
-  const [notes, setNotes] = useState("")
+  const [name, setName] = useState('')
+  const [hours, setHours] = useState('')
+  const [notes, setNotes] = useState('')
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
@@ -56,7 +55,7 @@ function Tasks() {
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
-  const handleDialogSubmit = () => console.log("submited dialog")
+  const handleDialogSubmit = () => console.log('submited dialog')
 
   // const handleDeleteTask = () => {
   //   console.log("delete task")
@@ -101,17 +100,18 @@ function Tasks() {
   // }
 
   return (
-    <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
-      <Grid container justify='space-around' style={{ margin: "1rem auto", width: "50vw" }}>
+    <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
+      <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>
-          {format(fromUnixTime(currentMilestone.start_date), "PP")} -{" "}
-          {format(fromUnixTime(currentMilestone.end_date), "PP")}
+          {format(fromUnixTime(currentMilestone.start_date), 'PP')} {' - '}
+          {format(fromUnixTime(currentMilestone.end_date), 'PP')}
         </Typography>
-        <Typography
-          variant='subtitle1'
-          align='center'
-        >{`Progress: ${currentMilestone.progress}%`}</Typography>
-        <Typography variant='subtitle1' align='center'>{`Hours: ${currentMilestone.hours}`}</Typography>
+        <Typography variant='subtitle1' align='center'>
+          Progress: {currentMilestone.progress}%
+        </Typography>
+        <Typography variant='subtitle1' align='center'>
+          Hours: {currentMilestone.hours}
+        </Typography>
       </Grid>
 
       <Button
@@ -128,8 +128,8 @@ function Tasks() {
       <TasksGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "20px" }}>
-          {"New Task"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
+          {'New Task'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>
@@ -178,7 +178,7 @@ function Tasks() {
                 value={startDate}
                 onChange={handleSetStartDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />
@@ -193,7 +193,7 @@ function Tasks() {
                 value={endDate}
                 onChange={handleSetEndDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />

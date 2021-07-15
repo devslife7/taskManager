@@ -1,7 +1,7 @@
 // import { format, fromUnixTime } from "date-fns"
-import React, { useState } from "react"
-import Chart from "react-apexcharts"
-import { useSelector } from "react-redux"
+import React, { useState } from 'react'
+import Chart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
 
 function TasksGraph() {
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
@@ -21,12 +21,12 @@ function TasksGraph() {
       enabled: true,
     },
     title: {
-      text: "Task Progress",
-      align: "center",
+      text: 'Task Progress',
+      align: 'center',
     },
     grid: {
       row: {
-        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
         opacity: 0.5,
       },
     },
@@ -35,7 +35,7 @@ function TasksGraph() {
     },
     yaxis: {
       title: {
-        text: "Progress(%)",
+        text: 'Progress %',
       },
       min: 0,
       max: 100,
@@ -43,7 +43,7 @@ function TasksGraph() {
   })
   const [series] = useState([
     {
-      name: "Progress",
+      name: 'Progress',
       // data: [
       //   [1486684800000, 34],
       //   [1486771200000, 43],
@@ -58,7 +58,7 @@ function TasksGraph() {
   ])
 
   return (
-    <div style={{ width: "45rem", margin: "2vh auto" }}>
+    <div style={{ width: '45rem', margin: '2vh auto' }}>
       <Chart options={options} series={series} type='bar' />
     </div>
   )

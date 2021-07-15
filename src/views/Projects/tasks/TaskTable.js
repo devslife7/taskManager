@@ -80,7 +80,7 @@ export default function TaskTable() {
   const records = useSelector(state => state.milestones.currentMilestone.tasks)
   const headCells = [
     { id: 'name', label: 'Name' },
-    { id: 'progress', label: 'Progress(%)' },
+    { id: 'progress', label: 'Progress' },
     { id: 'owner', label: 'Owner' },
     { id: 'hours', label: 'Hours' },
     { id: 'start_date', label: 'Start' },

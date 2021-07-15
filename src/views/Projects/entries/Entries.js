@@ -80,10 +80,16 @@ export default function Entries() {
     <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
       {/* <Paper style={{ width: "50vw", margin: "0 auto" }}> */}
       <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
-        <Typography variant='subtitle1' align='center'>{`Owner(s): Owner`}</Typography>
-        <Typography variant='subtitle1' align='center'>{`Hours: ${currentTask.hours}`}</Typography>
-        <Typography variant='subtitle1' align='center'>{`Progress: ${currentTask.progress}%`}</Typography>
-        <Typography variant='subtitle1' align='center'>
+        <Typography variant='h7' align='center'>
+          Owner(s): Owner
+        </Typography>
+        <Typography variant='h7' align='center'>
+          Hours: {currentTask.hours}
+        </Typography>
+        <Typography variant='h7' align='center'>
+          Progress: {currentTask.progress}%
+        </Typography>
+        <Typography variant='h7' align='center'>
           {!!currentTask.start_date && (
             <>
               {format(fromUnixTime(currentTask.start_date), 'PP')} -{' '}
@@ -91,11 +97,13 @@ export default function Entries() {
             </>
           )}
         </Typography>
-        <Typography variant='h6' align='center'>
+        <Typography variant='h7' align='center'>
           {currentTask.notes}
         </Typography>
+        <Typography variant='h7' align='center'>
+          *Latest entry progress determines parent task progress*
+        </Typography>
       </Grid>
-      {/* </Paper> */}
 
       <Button
         variant='contained'
