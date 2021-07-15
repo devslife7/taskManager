@@ -1,7 +1,9 @@
 import { Button, Grid, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 // import { useStyles } from '@material-ui/pickers/views/Calendar/Day'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchCurrentReport } from '../../actions/user'
 
 const useStyles = makeStyles(theme => ({
   ListItem: {
@@ -11,8 +13,17 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function ReportCard({ report }) {
+export default function ReportCard({ report, handleEnterReportView }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const handleSetCurrentReport = () => {
+    handleEnterReportView()
+    // fetch current report and current report to redux
+
+    dispatch(fetchCurrentReport(report.id))
+  }
+
   return (
     <>
       <Paper className={classes.ListItem} elevation={4}>
@@ -22,13 +33,13 @@ export default function ReportCard({ report }) {
           </Grid>
           <Grid item container justify='space-between'>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
-              Created: {format(new Date(report.created_at), 'p PP')}
+              Created: {format(parseISO(report.created_at), 'p PP')}
             </Typography>
           </Grid>
           <Button
             variant='contained'
             color='primary'
-            // onClick={handleSetCurrentProject}
+            onClick={handleSetCurrentReport}
             style={{ marginTop: '15px' }}
           >
             Details

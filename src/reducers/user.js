@@ -2,6 +2,7 @@ const initialState = {
   currentUser: {
     reports: [],
   },
+  currentReport: {},
   loggedIn: false,
 }
 
@@ -56,6 +57,12 @@ export default (state = initialState, action) => {
           ...state.currentUser,
           reports: [...state.currentUser.reports, action.payload.report],
         },
+      }
+
+    case 'SET_CURRENT_REPORT':
+      return {
+        ...state,
+        currentReport: action.payload,
       }
 
     default:

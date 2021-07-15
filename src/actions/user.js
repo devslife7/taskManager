@@ -58,3 +58,11 @@ export const createReportFetch = requestBody => {
       })
   }
 }
+
+export const fetchCurrentReport = reportId => {
+  return dispatch => {
+    fetch(reportsURL + reportId, { method: 'GET' })
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: 'SET_CURRENT_REPORT', payload: data }))
+  }
+}
