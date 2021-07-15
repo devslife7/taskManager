@@ -10,6 +10,11 @@ const useStyles = makeStyles(() => ({
     fontSize: '1.2rem',
     margin: '1rem 0 0 10rem',
   },
+  deleteBtn: {
+    fontSize: '1.1rem',
+    margin: '1rem 0 0 0rem',
+    color: 'red',
+  },
   reportPaper: {
     margin: '1rem 10rem',
     height: '62rem',
@@ -43,9 +48,10 @@ export default function ReportView({ handleExitReportView }) {
     return proj.end_date < todaysDate ? 'Inactive' : 'Active'
   }
 
-  // console.log(format(fromUnixTime(reportProj.start_date), 'PP'))
-  // console.log(fromUnixTime(reportProj.start_date))
-  console.log(reportProj.start_date)
+  const handleDeleteReport = () => {
+    // confirm('Are you sure you want to delete the current report?')
+    // confirm()
+  }
 
   return (
     <>
@@ -97,6 +103,16 @@ export default function ReportView({ handleExitReportView }) {
 
           <Divider />
         </Paper>
+        <Grid item>
+          <Button
+            variant='outlined'
+            // startIcon={<ArrowBackIcon style={{ fontSize: '1.4rem' }} />}
+            className={classes.deleteBtn}
+            onClick={handleDeleteReport}
+          >
+            Delete Report
+          </Button>
+        </Grid>
       </Grid>
     </>
   )
