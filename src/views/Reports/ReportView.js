@@ -38,9 +38,9 @@ export default function ReportView({ handleExitReportView }) {
   const currentReport = useSelector(state => state.user.currentReport)
   const reportProj = currentReport.project
 
-  useEffect(() => {
-    dispatch(fetchCurrentReport(6))
-  }, [dispatch]) // temp auto fetch of report id: 6
+  // useEffect(() => {
+  //   dispatch(fetchCurrentReport(6))
+  // }, [dispatch]) // temp auto fetch of report id: 6
 
   const projectStatus = proj => {
     const todaysDate = getUnixTime(new Date()) // Today's date
@@ -55,6 +55,7 @@ export default function ReportView({ handleExitReportView }) {
 
       // make a delete request and update redux
       dispatch(deleteReportFetch(currentReport.id))
+      handleExitReportView()
     }
   }
 

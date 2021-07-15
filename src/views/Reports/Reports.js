@@ -22,7 +22,7 @@ export default function Reports() {
   const dispatch = useDispatch()
   const userReports = useSelector(state => state.user.currentUser.reports)
   const [openDialog, setOpenDialog] = useState(false)
-  const [reportView, setReportView] = useState(true) // sets the report view
+  const [reportView, setReportView] = useState(false) // sets the report view
 
   const handleEnterReportView = () => setReportView(true)
   const handleExitReportView = () => setReportView(false)

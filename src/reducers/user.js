@@ -73,6 +73,17 @@ export default (state = initialState, action) => {
         currentReport: action.payload,
       }
 
+    case 'DELETE_REPORT':
+      idx = state.currentUser.reports.findIndex(report => report.id === action.payload)
+      console.log('payload: ', action.payload)
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          reports: [...state.currentUser.reports.slice(0, idx), ...state.currentUser.reports.slice(idx + 1)],
+        },
+      }
+
     default:
       return state
   }
