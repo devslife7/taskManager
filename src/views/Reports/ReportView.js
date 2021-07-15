@@ -49,8 +49,9 @@ export default function ReportView({ handleExitReportView }) {
   }
 
   const handleDeleteReport = () => {
-    // confirm('Are you sure you want to delete the current report?')
-    // confirm()
+    const message = 'Are you sure you want to delete the current report?'
+
+    window.confirm(message) && console.log('delete project')
   }
 
   return (
