@@ -18,7 +18,7 @@ import { fromUnixTime, format } from 'date-fns'
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   button: {
     textTransform: 'none',
     fontSize: '1rem',

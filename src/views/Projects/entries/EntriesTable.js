@@ -8,13 +8,13 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core'
-import { Paper, Slider, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
-import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from '@material-ui/core'
-import { fromUnixTime, format, getUnixTime } from 'date-fns'
+import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
+import { TablePagination, TableRow, TableSortLabel, Typography } from '@material-ui/core'
+import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { deleteEntryFetch, editEntryFetch } from '../../../actions/tasks'
+import { deleteEntryFetch } from '../../../actions/tasks'
 import EntriesDialog from './EntriesDialog'
 
 const useStyle = makeStyles(theme => ({
@@ -71,36 +71,13 @@ export default function EntriesTable() {
   const [order, setOrder] = useState()
   const [orderBy, setOrderBy] = useState()
 
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [currentEntry, setCurrentEntry] = useState({})
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [sliderValue, setSliderValue] = useState(80)
-  const [date, setDate] = useState()
-  const [notes, setNotes] = useState('')
-
-  // const handleSliderChange = (e, newValue) => {
-  //   setSliderValue(newValue)
-  // }
-
-  const handleEditSubmit = () => {
-    const requestBody = {
-      entry: {
-        date: getUnixTime(date),
-        progress: sliderValue,
-        notes: notes,
-      },
-    }
-    dispatch(editEntryFetch(requestBody, currentEntry.id)) // sends the request body for fetch
-    handleCloseEditDialog()
-  }
 
   const handleOpenEditDialog = entry => {
     setCurrentEntry(entry)
     setOpenEditDialog(true)
-    // setSliderValue(entry.progress)
-    // setNotes(entry.notes)
-    // setDate(fromUnixTime(entry.date))
-    // setCurrentEntry(entry)
   }
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
@@ -200,13 +177,6 @@ export default function EntriesTable() {
         .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
-  // const marks = [
-  //   { value: 5, label: '5%' },
-  //   { value: 25, label: '25%' },
-  //   { value: 50, label: '50%' },
-  //   { value: 75, label: '75%' },
-  //   { value: 100, label: '100%' },
-  // ]
 
   return (
     <>
@@ -261,73 +231,7 @@ export default function EntriesTable() {
         </DialogActions>
       </Dialog>
 
-      <EntriesDialog open={openEditDialog} onClose={handleCloseEditDialog} />
-
-      {/* <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>Edit Entry</Typography>
-        </DialogTitle>
-
-        <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date-picker-inline'
-              label='Date'
-              autoOk // autocloses picker
-              value={date}
-              onChange={setDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-              className={classes.KeyboardDatePicker}
-            />
-          </MuiPickersUtilsProvider>
-
-          <Typography gutterBottom style={{ margin: '20px 0px 5px 0px' }}>
-            Progress: {`${sliderValue}%`}
-          </Typography>
-          <Slider
-            value={sliderValue}
-            step={5}
-            marks={marks}
-            min={5}
-            max={100}
-            onChange={handleSliderChange}
-            style={{ marginBottom: '30px' }}
-          />
-
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            multiline
-            rows={2}
-            label='Notes'
-            value={notes}
-            onChange={e => {
-              setNotes(e.target.value)
-            }}
-          />
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-            variant='outlined'
-            className={classes.button}
-            onClick={handleCloseEditDialog}
-            color='primary'
-          >
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+      <EntriesDialog open={openEditDialog} onClose={handleCloseEditDialog} entry={currentEntry} />
     </>
   )
 }

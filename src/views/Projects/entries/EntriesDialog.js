@@ -14,7 +14,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns'
 import { useDispatch } from 'react-redux'
 import { editEntryFetch } from '../../../actions/tasks'
-import { getUnixTime } from 'date-fns'
+import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useEffect } from 'react'
 
 const useStyle = makeStyles(theme => ({
@@ -30,21 +30,17 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function EntriesDialog({ open, onClose, entry = {} }) {
+  console.log('renders dialog')
   const classes = useStyle()
   const dispatch = useDispatch()
-  const [sliderValue, setSliderValue] = useState(80)
-  const [notes, setNotes] = useState() // should use null
+  const [sliderValue, setSliderValue] = useState(50)
+  const [notes, setNotes] = useState('') // should use null
   const [date, setDate] = useState()
-
-  // console.log('THIS IS entry: ', entry.entries() ? 'true' : 'false')
-
-  // if (open && notes === undefined) {
-  //   setNotes(entry.notes || '')
-  //   console.log('enters if statement')
-  // }
 
   useEffect(() => {
     setNotes(entry.notes)
+    setSliderValue(entry.progress)
+    setDate(fromUnixTime(entry.date))
   }, [entry])
 
   const handleClose = () => {
@@ -64,16 +60,16 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     setSliderValue(newValue)
   }
   const handleEditSubmit = () => {
-    console.log('pressed the submit button')
-    // const requestBody = {
-    //   entry: {
-    //     date: getUnixTime(date),
-    //     progress: sliderValue,
-    //     notes: notes,
-    //   },
-    // }
-    // dispatch(editEntryFetch(requestBody, currentEntry.id)) // sends the request body for fetch
-    // onClose()
+    // console.log('pressed the submit button')
+    const requestBody = {
+      entry: {
+        date: getUnixTime(date),
+        progress: sliderValue,
+        notes: notes,
+      },
+    }
+    dispatch(editEntryFetch(requestBody, entry.id)) // sends the request body for fetch
+    onClose()
   }
 
   return (
