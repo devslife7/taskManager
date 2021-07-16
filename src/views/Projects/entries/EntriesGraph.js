@@ -5,6 +5,7 @@ import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
 export default function EntriesGraph() {
+  console.log('RENDERS ENTRIES GRAPH')
   const entries = useSelector(state => state.tasks.currentTask.entries)
 
   // const sortAndFormatEntries = () => {

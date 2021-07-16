@@ -13,7 +13,6 @@ function MilestonesGraph() {
     x: format(fromUnixTime(t.end_date), 'PP'),
     y: t.progress,
   }))
-  console.log('Milestone timelineSeries: ', timelineSeries)
 
   const [options] = useState({
     chart: {

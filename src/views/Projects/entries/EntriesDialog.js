@@ -41,17 +41,16 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
 
   // console.log('Entry: ', entry.id ? 'true' : 'false')
 
-  // useEffect(() => {
-  //   if (entry.id) {
-  //     setNotes(entry.notes)
-  //     setSliderValue(entry.progress)
-  //     setDate(fromUnixTime(entry.date))
-  //   }
-  // }, [entry])
+  useEffect(() => {
+    if (entry.id) {
+      setNotes(entry.notes)
+      setSliderValue(entry.progress)
+      setDate(fromUnixTime(entry.date))
+    }
+  }, [entry])
 
   const handleClose = () => {
     onClose()
-    setNotes()
   }
 
   const marks = [
@@ -66,7 +65,6 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     setSliderValue(newValue)
   }
   const handleEditSubmit = () => {
-    console.log('DATE HERE: ', date)
     if (entry.id) {
       const requestBody = {
         entry: {

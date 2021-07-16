@@ -35,30 +35,30 @@ export const createEntryFetch = requestBody => {
           type: 'ADD_ENTRY',
           payload: { entry: data.entry },
         })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_TASK_PROGRESS',
-        //   payload: { taskProgress: data.task.progress },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_TASK',
-        //   payload: { task: data.task },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
-        //   payload: { milestoneProgress: data.milestone.progress },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_ALLPROJECTS_PROGRESS',
-        //   payload: { project: data.project },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
-        //   payload: { milestone: data.milestone },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
-        //   payload: { projectProgress: data.project.progress },
-        // })
+        dispatch({
+          type: 'UPDATE_CURRENT_TASK_PROGRESS',
+          payload: { taskProgress: data.task.progress },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_MILESTONE_TASK',
+          payload: { task: data.task },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
+          payload: { milestoneProgress: data.milestone.progress },
+        })
+        dispatch({
+          type: 'UPDATE_ALLPROJECTS_PROGRESS',
+          payload: { project: data.project },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
+          payload: { milestone: data.milestone },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
+          payload: { projectProgress: data.project.progress },
+        })
       })
   }
 }
@@ -74,30 +74,30 @@ export const editEntryFetch = (requestBody, entryId) => {
       .then(resp => resp.json())
       .then(data => {
         dispatch({ type: 'UPDATE_CURRENT_ENTRY', payload: data })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_TASK_PROGRESS',
-        //   payload: { taskProgress: data.task.progress },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_TASK',
-        //   payload: { task: data.task },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
-        //   payload: { milestoneProgress: data.milestone.progress },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_ALLPROJECTS_PROGRESS',
-        //   payload: { project: data.project },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
-        //   payload: { milestone: data.milestone },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
-        //   payload: { projectProgress: data.project.progress },
-        // })
+        dispatch({
+          type: 'UPDATE_CURRENT_TASK_PROGRESS',
+          payload: { taskProgress: data.task.progress },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_MILESTONE_TASK',
+          payload: { task: data.task },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
+          payload: { milestoneProgress: data.milestone.progress },
+        })
+        dispatch({
+          type: 'UPDATE_ALLPROJECTS_PROGRESS',
+          payload: { project: data.project },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
+          payload: { milestone: data.milestone },
+        })
+        dispatch({
+          type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
+          payload: { projectProgress: data.project.progress },
+        })
       })
   }
 }
