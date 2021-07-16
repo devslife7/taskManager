@@ -1,10 +1,10 @@
 import { Button, Grid, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { clearCurrentProject, fetchCurrentProject } from '../../actions/projects'
+import { clearCurrentProject, fetchCurrentProject } from '../../redux/actions/projects'
 import { fromUnixTime, format } from 'date-fns'
 import { clearCurrentMilestone } from '../../redux/actions/milestones'
-import { clearCurrentTask } from '../../actions/tasks'
+import { clearCurrentTask } from '../../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   ListItem: {

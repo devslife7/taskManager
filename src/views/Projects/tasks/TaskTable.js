@@ -16,7 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import { fetchCurrentTask } from '../../../actions/tasks'
+import { fetchCurrentTask } from '../../../redux/actions/tasks'
 import isPast from 'date-fns/isPast'
 
 const useStyle = makeStyles(theme => ({

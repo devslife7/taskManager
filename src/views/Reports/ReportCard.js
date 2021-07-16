@@ -3,7 +3,7 @@ import { format, parseISO } from 'date-fns'
 // import { useStyles } from '@material-ui/pickers/views/Calendar/Day'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentReport } from '../../actions/user'
+import { fetchCurrentReport } from '../../redux/actions/user'
 
 const useStyles = makeStyles(theme => ({
   ListItem: {

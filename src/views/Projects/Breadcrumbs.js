@@ -1,11 +1,11 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCurrentProject, fetchCurrentProject } from '../../actions/projects'
+import { clearCurrentProject, fetchCurrentProject } from '../../redux/actions/projects'
 import { Grid, makeStyles } from '@material-ui/core'
 import { Breadcrumbs as Bread } from '@material-ui/core'
 import { clearCurrentMilestone, fetchCurrentMilestone } from '../../redux/actions/milestones'
-import { clearCurrentTask, fetchCurrentTask } from '../../actions/tasks'
+import { clearCurrentTask, fetchCurrentTask } from '../../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   iconButton: {

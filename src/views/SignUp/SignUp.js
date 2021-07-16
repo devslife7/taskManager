@@ -1,7 +1,7 @@
 import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setCurrentUser } from '../../actions/user'
+import { setCurrentUser } from '../../redux/actions/user'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'

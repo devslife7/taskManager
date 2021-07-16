@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { createReportFetch } from '../../actions/user'
+import { createReportFetch } from '../../redux/actions/user'
 // import DateFnsUtils from '@date-io/date-fns'
 // import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 

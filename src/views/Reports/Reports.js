@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AddIcon from '@material-ui/icons/Add'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateReportDialog from './CreateReportDialog'
-import { fetchProjects } from '../../actions/projects'
+import { fetchProjects } from '../../redux/actions/projects'
 import ReportCard from './ReportCard'
 import ReportView from './ReportView'
 
