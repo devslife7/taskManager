@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ProjectGraphs from './ProjectGraphs'
 import { Grid, makeStyles } from '@material-ui/core'
-import { fetchProjects } from '../../actions/projects'
+import { fetchProjects } from '../../redux/actions/projects'
 import { fromUnixTime, format, getUnixTime } from 'date-fns'
 
 const useStyles = makeStyles({

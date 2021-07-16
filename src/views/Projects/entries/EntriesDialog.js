@@ -13,7 +13,7 @@ import {
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { createEntryFetch, editEntryFetch } from '../../../actions/tasks'
+import { createEntryFetch, editEntryFetch } from '../../../redux/actions/tasks'
 import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useEffect } from 'react'
 
@@ -37,17 +37,17 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
   const currentUser = useSelector(state => state.user.currentUser)
   const [sliderValue, setSliderValue] = useState(50)
   const [notes, setNotes] = useState('') // should use null
-  const [date, setDate] = useState()
+  const [date, setDate] = useState(new Date())
 
   // console.log('Entry: ', entry.id ? 'true' : 'false')
 
-  useEffect(() => {
-    if (entry.id) {
-      setNotes(entry.notes)
-      setSliderValue(entry.progress)
-      setDate(fromUnixTime(entry.date))
-    }
-  }, [entry])
+  // useEffect(() => {
+  //   if (entry.id) {
+  //     setNotes(entry.notes)
+  //     setSliderValue(entry.progress)
+  //     setDate(fromUnixTime(entry.date))
+  //   }
+  // }, [entry])
 
   const handleClose = () => {
     onClose()
@@ -66,6 +66,7 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     setSliderValue(newValue)
   }
   const handleEditSubmit = () => {
+    console.log('DATE HERE: ', date)
     if (entry.id) {
       const requestBody = {
         entry: {

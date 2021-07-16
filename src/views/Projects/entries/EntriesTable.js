@@ -14,7 +14,7 @@ import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { deleteEntryFetch } from '../../../actions/tasks'
+import { deleteEntryFetch } from '../../../redux/actions/tasks'
 import EntriesDialog from './EntriesDialog'
 
 const useStyle = makeStyles(theme => ({

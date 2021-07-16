@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
-import { setCurrentUser, logOutCurrentUser } from '../../actions/user'
+import { setCurrentUser, logOutCurrentUser } from '../../redux/actions/user'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'

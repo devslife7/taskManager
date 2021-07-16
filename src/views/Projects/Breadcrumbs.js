@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearCurrentProject, fetchCurrentProject } from '../../actions/projects'
 import { Grid, makeStyles } from '@material-ui/core'
 import { Breadcrumbs as Bread } from '@material-ui/core'
-import { clearCurrentMilestone, fetchCurrentMilestone } from '../../actions/milestones'
+import { clearCurrentMilestone, fetchCurrentMilestone } from '../../redux/actions/milestones'
 import { clearCurrentTask, fetchCurrentTask } from '../../actions/tasks'
 
 const useStyles = makeStyles(theme => ({

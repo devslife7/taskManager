@@ -16,13 +16,13 @@ import ListItem from '@material-ui/core/ListItem'
 import { Grid, Typography } from '@material-ui/core'
 import ProTaskLogo from '../img/ProTaskLogo.png'
 import { Link, useLocation } from 'react-router-dom'
-import { logOutCurrentUser } from '../actions/user'
 import { useDispatch } from 'react-redux'
 
 import { useHistory } from 'react-router-dom'
-import { clearCurrentProject } from '../actions/projects'
-import { clearCurrentMilestone } from '../actions/milestones'
-import { clearCurrentTask } from '../actions/tasks'
+import { logOutCurrentUser } from '../redux/actions/user'
+import { clearCurrentProject } from '../redux/actions/projects'
+import { clearCurrentMilestone } from '../redux/actions/milestones'
+import { clearCurrentTask } from '../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   container: {

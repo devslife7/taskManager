@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { clearCurrentProject, fetchCurrentProject } from '../../actions/projects'
 import { fromUnixTime, format } from 'date-fns'
-import { clearCurrentMilestone } from '../../actions/milestones'
+import { clearCurrentMilestone } from '../../redux/actions/milestones'
 import { clearCurrentTask } from '../../actions/tasks'
 
 const useStyles = makeStyles(theme => ({
