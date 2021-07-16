@@ -12,8 +12,8 @@ import {
 } from '@material-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import { useDispatch } from 'react-redux'
-import { editEntryFetch } from '../../../actions/tasks'
+import { useDispatch, useSelector } from 'react-redux'
+import { createEntryFetch, editEntryFetch } from '../../../actions/tasks'
 import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useEffect } from 'react'
 
@@ -33,14 +33,20 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
   console.log('renders dialog')
   const classes = useStyle()
   const dispatch = useDispatch()
+  const currentTask = useSelector(state => state.tasks.currentTask)
+  const currentUser = useSelector(state => state.user.currentUser)
   const [sliderValue, setSliderValue] = useState(50)
   const [notes, setNotes] = useState('') // should use null
   const [date, setDate] = useState()
 
+  // console.log('Entry: ', entry.id ? 'true' : 'false')
+
   useEffect(() => {
-    setNotes(entry.notes)
-    setSliderValue(entry.progress)
-    setDate(fromUnixTime(entry.date))
+    if (entry.id) {
+      setNotes(entry.notes)
+      setSliderValue(entry.progress)
+      setDate(fromUnixTime(entry.date))
+    }
   }, [entry])
 
   const handleClose = () => {
@@ -60,15 +66,27 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     setSliderValue(newValue)
   }
   const handleEditSubmit = () => {
-    // console.log('pressed the submit button')
-    const requestBody = {
-      entry: {
-        date: getUnixTime(date),
-        progress: sliderValue,
-        notes: notes,
-      },
+    if (entry.id) {
+      const requestBody = {
+        entry: {
+          date: getUnixTime(date),
+          progress: sliderValue,
+          notes: notes,
+        },
+      }
+      dispatch(editEntryFetch(requestBody, entry.id)) // sends the request body for fetch
+    } else {
+      const requestBody = {
+        user_id: currentUser.id,
+        entry: {
+          date: getUnixTime(date),
+          progress: sliderValue,
+          notes: notes,
+          task_id: currentTask.id,
+        },
+      }
+      dispatch(createEntryFetch(requestBody))
     }
-    dispatch(editEntryFetch(requestBody, entry.id)) // sends the request body for fetch
     onClose()
   }
 

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Divider, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteReportFetch, fetchCurrentReport } from '../../actions/user'
+import { deleteReportFetch } from '../../actions/user'
 import { getUnixTime, fromUnixTime, parseISO, format } from 'date-fns'
 import ReportTable from './ReportTable'
 
