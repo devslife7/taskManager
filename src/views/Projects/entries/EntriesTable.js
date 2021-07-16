@@ -261,7 +261,7 @@ export default function EntriesTable() {
         </DialogActions>
       </Dialog>
 
-      <EntriesDialog open={openEditDialog} onClose={handleCloseEditDialog} entry={{}} />
+      <EntriesDialog open={openEditDialog} onClose={handleCloseEditDialog} />
 
       {/* <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
         <DialogTitle disableTypography>

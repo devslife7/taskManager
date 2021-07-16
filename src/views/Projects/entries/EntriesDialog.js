@@ -15,6 +15,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { useDispatch } from 'react-redux'
 import { editEntryFetch } from '../../../actions/tasks'
 import { getUnixTime } from 'date-fns'
+import { useEffect } from 'react'
 
 const useStyle = makeStyles(theme => ({
   button: {
@@ -28,13 +29,28 @@ const useStyle = makeStyles(theme => ({
   },
 }))
 
-export default function EntriesDialog({ open, onClose, entry }) {
+export default function EntriesDialog({ open, onClose, entry = {} }) {
   const classes = useStyle()
   const dispatch = useDispatch()
   const [sliderValue, setSliderValue] = useState(80)
-  console.log('NOTES: ', entry.notes)
-  const [notes, setNotes] = useState('')
+  const [notes, setNotes] = useState() // should use null
   const [date, setDate] = useState()
+
+  // console.log('THIS IS entry: ', entry.entries() ? 'true' : 'false')
+
+  // if (open && notes === undefined) {
+  //   setNotes(entry.notes || '')
+  //   console.log('enters if statement')
+  // }
+
+  useEffect(() => {
+    setNotes(entry.notes)
+  }, [entry])
+
+  const handleClose = () => {
+    onClose()
+    setNotes()
+  }
 
   const marks = [
     { value: 5, label: '5%' },
@@ -62,7 +78,7 @@ export default function EntriesDialog({ open, onClose, entry }) {
 
   return (
     <>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle disableTypography>
           <Typography variant='h5'>Edit Entry</Typography>
         </DialogTitle>
@@ -108,7 +124,6 @@ export default function EntriesDialog({ open, onClose, entry }) {
             multiline
             rows={2}
             label='Notes'
-            defaultValue={entry.notes}
             value={notes}
             onChange={e => {
               setNotes(e.target.value)
