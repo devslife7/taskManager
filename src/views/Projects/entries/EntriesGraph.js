@@ -4,21 +4,12 @@ import React from 'react'
 import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
-export default function EntriesGraph() {
-  console.log('RENDERS ENTRIES GRAPH')
-  const entries = useSelector(state => state.tasks.currentTask.entries)
-
-  // const sortAndFormatEntries = () => {
-  const currentEntriesSorted = entries.sort((a, b) => b.date - a.date).reverse()
-
-  // return currentEntriesSorted.map(t => ({
-  //   x: format(fromUnixTime(t.date), "PP"),
-  //   y: t.progress,
-  // }))
-  // }
+export default function EntriesGraph({ records }) {
+  const currentEntriesSorted = records.sort((a, b) => b.date - a.date).reverse()
 
   const options = {
     chart: {
+      backgroundColor: 'white',
       zoom: {
         enabled: true,
       },
@@ -69,7 +60,7 @@ export default function EntriesGraph() {
 
   return (
     <>
-      <Paper style={{ width: '45rem', margin: '2rem auto' }}>
+      <Paper style={{ width: '60rem', margin: '2rem auto' }}>
         <Chart options={options} series={series} type='line' height='350' />
       </Paper>
     </>

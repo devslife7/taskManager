@@ -13,11 +13,8 @@ import {
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AddIcon from '@material-ui/icons/Add'
-import { createEntryFetch } from '../../../redux/actions/tasks'
 import EntriesTable from './EntriesTable'
-import { fromUnixTime, format, getUnixTime } from 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import { fromUnixTime, format } from 'date-fns'
 import EntriesGraph from './EntriesGraph'
 import EntriesDialog from './EntriesDialog'
 
@@ -35,47 +32,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Entries() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
-  const currentUser = useSelector(state => state.user.currentUser)
   const [openDialog, setOpenDialog] = useState(false)
-  const [date, setDate] = useState(new Date())
-  const [sliderValue, setSliderValue] = useState('50')
-  const [notes, setNotes] = useState('')
 
   const handleOpenDialog = () => setOpenDialog(true)
-  const handleCloseDialog = () => {
-    setOpenDialog(false)
-    setDate(new Date())
-    setSliderValue('50')
-    setNotes('')
-  }
-
-  const handleSliderChange = (e, newValue) => {
-    setSliderValue(newValue)
-  }
-
-  const handleEditSubmit = () => {
-    const requestBody = {
-      user_id: currentUser.id,
-      entry: {
-        date: getUnixTime(date),
-        progress: sliderValue,
-        notes: notes,
-        task_id: currentTask.id,
-      },
-    }
-    dispatch(createEntryFetch(requestBody))
-    handleCloseDialog()
-  }
-
-  const marks = [
-    { value: 5, label: '5%' },
-    { value: 25, label: '25%' },
-    { value: 50, label: '50%' },
-    { value: 75, label: '75%' },
-    { value: 100, label: '100%' },
-  ]
+  const handleCloseDialog = () => setOpenDialog(false)
 
   return (
     <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
@@ -116,71 +77,9 @@ export default function Entries() {
         Add Entry
       </Button>
 
-      <EntriesTable />
-      <EntriesGraph />
-
+      <EntriesTable records={currentTask.entries} />
+      <EntriesGraph records={currentTask.entries} />
       <EntriesDialog open={openDialog} onClose={handleCloseDialog} />
-
-      {/* <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>New Entry</Typography>
-        </DialogTitle>
-
-        <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date-picker-inline'
-              label='Date'
-              autoOk // autocloses picker
-              value={date}
-              onChange={setDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-              className={classes.KeyboardDatePicker}
-            />
-          </MuiPickersUtilsProvider>
-
-          <Typography gutterBottom style={{ margin: '20px 0px 5px 0px' }}>
-            Progress: {`${sliderValue}%`}
-          </Typography>
-          <Slider
-            defaultValue={50}
-            step={5}
-            marks={marks}
-            min={5}
-            max={100}
-            onChange={handleSliderChange}
-            style={{ marginBottom: '30px' }}
-          />
-
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            multiline
-            rows={2}
-            label='Notes'
-            value={notes}
-            onChange={e => {
-              setNotes(e.target.value)
-            }}
-          />
-        </DialogContent>
-
-        <DialogActions>
-          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </div>
   )
 }

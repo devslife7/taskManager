@@ -45,10 +45,9 @@ const useStyle = makeStyles(theme => ({
   },
 }))
 
-export default function EntriesTable() {
+export default function EntriesTable({ records }) {
   const dispatch = useDispatch()
   const classes = useStyle()
-  const records = useSelector(state => state.tasks.currentTask.entries)
   const headCells = [
     { id: 'users', label: 'Owner' },
     { id: 'progress', label: 'Progress' },
