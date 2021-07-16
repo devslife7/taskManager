@@ -112,6 +112,9 @@ function Tasks() {
         <Typography variant='subtitle1' align='center'>
           Hours: {currentMilestone.hours}
         </Typography>
+        <Typography variant='subtitle1' align='center'>
+          *The average progress of all tasks determines parent milestones progress*
+        </Typography>
       </Grid>
 
       <Button

@@ -8,54 +8,54 @@ import {
   makeStyles,
   TextField,
   Typography,
-} from "@material-ui/core"
-import React, { useState } from "react"
-import { useSelector } from "react-redux"
-import MilestonesTable from "./MilestonesTable"
-import AddIcon from "@material-ui/icons/Add"
-import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
-import MilestonesGraph from "./MilestonesGraph"
-import { fromUnixTime, format } from "date-fns"
-import DateFnsUtils from "@date-io/date-fns"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+} from '@material-ui/core'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import MilestonesTable from './MilestonesTable'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import MilestonesGraph from './MilestonesGraph'
+import { fromUnixTime, format } from 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: "none",
-    fontSize: "1rem",
+    textTransform: 'none',
+    fontSize: '1rem',
     // marginLeft: "10vw",
     // marginTop: "2vh",
   },
   addMilestoneButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    marginLeft: "6.5vw",
-    marginTop: "2vh",
+    textTransform: 'none',
+    fontSize: '1rem',
+    marginLeft: '6.5vw',
+    marginTop: '2vh',
   },
   editButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    color: "white",
-    marginBotton: "1rem",
+    textTransform: 'none',
+    fontSize: '1rem',
+    color: 'white',
+    marginBotton: '1rem',
     backgroundColor: theme.palette.success.main,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.success.dark,
     },
   },
   removeButton: {
-    textTransform: "none",
-    fontSize: "1rem",
-    color: "white",
+    textTransform: 'none',
+    fontSize: '1rem',
+    color: 'white',
     backgroundColor: theme.palette.error.main,
     // marginLeft: "10vw",
     // marginTop: "2vh",
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.error.dark,
     },
   },
   KeyboardDatePicker: {
-    width: "140px",
+    width: '140px',
   },
 }))
 
@@ -66,10 +66,10 @@ function Milestones() {
   const [openDialog, setOpenDialog] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const [name, setName] = useState("")
+  const [name, setName] = useState('')
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState('')
 
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleOpenEditDialog = () => {
@@ -93,7 +93,7 @@ function Milestones() {
   const handleOpenDialog = () => setOpenDialog(true)
 
   return (
-    <div style={{ padding: "0 50px", height: "90vh", overflow: "scroll" }}>
+    <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
       <Grid container>
         <Grid item xs={10}>
           <Typography variant='h6' align='center'>
@@ -101,13 +101,15 @@ function Milestones() {
           </Typography>
 
           <Typography variant='subtitle1' align='center'>
-            {format(fromUnixTime(currentProject.start_date), "PP")} -{" "}
-            {format(fromUnixTime(currentProject.end_date), "PP")}
+            {format(fromUnixTime(currentProject.start_date), 'PP')} -{' '}
+            {format(fromUnixTime(currentProject.end_date), 'PP')}
           </Typography>
-          <Typography
-            variant='subtitle1'
-            align='center'
-          >{`Progress: ${currentProject.progress}%`}</Typography>
+          <Typography variant='subtitle1' align='center'>
+            Progress: {currentProject.progress}%
+          </Typography>
+          <Typography variant='subtitle1' align='center'>
+            *The average progress of all milestones determines parent project progress*
+          </Typography>
         </Grid>
         <Grid item xs={2} container direction='column' alignItems='flex-end' justify='space-between'>
           <Button
@@ -145,8 +147,8 @@ function Milestones() {
       <MilestonesGraph />
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"New Milestone"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
+          {'New Milestone'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>
@@ -159,7 +161,7 @@ function Milestones() {
             onChange={e => {
               setName(e.target.value)
             }}
-            style={{ marginBottom: "20px" }}
+            style={{ marginBottom: '20px' }}
           />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify='space-around'>
@@ -191,7 +193,7 @@ function Milestones() {
           </MuiPickersUtilsProvider>
         </DialogContent>
 
-        <DialogActions style={{ marginTop: "10px" }}>
+        <DialogActions style={{ marginTop: '10px' }}>
           <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
             Cancel
           </Button>
@@ -206,7 +208,7 @@ function Milestones() {
           <Typography variant='h5'>Deleting Project: {`${currentProject.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
-          {"Are you sure you want to delete this Project?\nThis action cannot be undone."}
+          {'Are you sure you want to delete this Project?\nThis action cannot be undone.'}
         </DialogContent>
 
         <DialogActions>
@@ -220,8 +222,8 @@ function Milestones() {
       </Dialog>
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <Typography variant='h5' style={{ marginTop: "20px", marginLeft: "30px" }}>
-          {"Edit Project"}
+        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
+          {'Edit Project'}
         </Typography>
         <DialogContent className={classes.DialogContent}>
           <TextField
@@ -259,7 +261,7 @@ function Milestones() {
                 value={startDate}
                 onChange={handleSetStartDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />
@@ -274,7 +276,7 @@ function Milestones() {
                 value={endDate}
                 onChange={handleSetEndDate}
                 KeyboardButtonProps={{
-                  "aria-label": "change date",
+                  'aria-label': 'change date',
                 }}
                 className={classes.KeyboardDatePicker}
               />

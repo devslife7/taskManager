@@ -14,9 +14,8 @@ import { fromUnixTime, format, getUnixTime } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
 import { deleteEntryFetch, editEntryFetch } from '../../../actions/tasks'
+import EntriesDialog from './EntriesDialog'
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -41,15 +40,6 @@ const useStyle = makeStyles(theme => ({
   },
   editIcon: {
     color: theme.palette.success.main,
-  },
-  button: {
-    textTransform: 'none',
-    fontSize: '1rem',
-    marginLeft: '10vw',
-  },
-  KeyboardDatePicker: {
-    width: '140px',
-    marginTop: 0,
   },
   removeButton: {
     textTransform: 'none',
@@ -88,9 +78,9 @@ export default function EntriesTable() {
   const [date, setDate] = useState()
   const [notes, setNotes] = useState('')
 
-  const handleSliderChange = (e, newValue) => {
-    setSliderValue(newValue)
-  }
+  // const handleSliderChange = (e, newValue) => {
+  //   setSliderValue(newValue)
+  // }
 
   const handleEditSubmit = () => {
     const requestBody = {
@@ -105,11 +95,12 @@ export default function EntriesTable() {
   }
 
   const handleOpenEditDialog = entry => {
-    setSliderValue(entry.progress)
-    setNotes(entry.notes)
-    setDate(fromUnixTime(entry.date))
-    setOpenEditDialog(true)
     setCurrentEntry(entry)
+    setOpenEditDialog(true)
+    // setSliderValue(entry.progress)
+    // setNotes(entry.notes)
+    // setDate(fromUnixTime(entry.date))
+    // setCurrentEntry(entry)
   }
   const handleCloseEditDialog = () => setOpenEditDialog(false)
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
@@ -209,13 +200,13 @@ export default function EntriesTable() {
         .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
   }
-  const marks = [
-    { value: 5, label: '5%' },
-    { value: 25, label: '25%' },
-    { value: 50, label: '50%' },
-    { value: 75, label: '75%' },
-    { value: 100, label: '100%' },
-  ]
+  // const marks = [
+  //   { value: 5, label: '5%' },
+  //   { value: 25, label: '25%' },
+  //   { value: 50, label: '50%' },
+  //   { value: 75, label: '75%' },
+  //   { value: 100, label: '100%' },
+  // ]
 
   return (
     <>
@@ -224,7 +215,7 @@ export default function EntriesTable() {
           {tableHead()}
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx} onClick={() => console.log('clicks table row')}>
+              <TableRow key={idx}>
                 <TableCell>
                   {item.users && item.users.length > 0 ? item.users[0].first_name : 'Owner'}
                 </TableCell>
@@ -270,7 +261,9 @@ export default function EntriesTable() {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+      <EntriesDialog open={openEditDialog} onClose={handleCloseEditDialog} entry={{}} />
+
+      {/* <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
         <DialogTitle disableTypography>
           <Typography variant='h5'>Edit Entry</Typography>
         </DialogTitle>
@@ -334,7 +327,7 @@ export default function EntriesTable() {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </>
   )
 }
