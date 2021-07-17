@@ -73,10 +73,14 @@ export const editEntryFetch = (requestBody, entryId) => {
     fetch(entriesURL + entryId, configurationObject)
       .then(resp => resp.json())
       .then(data => {
-        dispatch({ type: 'UPDATE_CURRENT_ENTRY', payload: data })
+        // dispatch({ type: 'UPDATE_CURRENT_ENTRY', payload: data })
+        // dispatch({
+        //   type: 'UPDATE_CURRENT_TASK_PROGRESS',
+        //   payload: { taskProgress: data.task.progress },
+        // })
         dispatch({
-          type: 'UPDATE_CURRENT_TASK_PROGRESS',
-          payload: { taskProgress: data.task.progress },
+          type: 'UPDATE_TASK',
+          payload: data,
         })
         dispatch({
           type: 'UPDATE_CURRENT_MILESTONE_TASK',
