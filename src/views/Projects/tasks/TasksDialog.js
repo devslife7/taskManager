@@ -11,6 +11,9 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
+import { fromUnixTime } from 'date-fns'
+import { useDispatch } from 'react-redux'
+import { createTaskFetch } from '../../../redux/actions/tasks'
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -27,8 +30,9 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default function TasksDialog({ open, onClose }) {
+export default function TasksDialog({ open, onClose, milestoneId }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [hours, setHours] = useState('')
   const [notes, setNotes] = useState('')
@@ -39,26 +43,42 @@ export default function TasksDialog({ open, onClose }) {
   const handleSetEndDate = date => setEndDate(date)
 
   const handleSubmit = () => {
-    // const entriesURL = 'http://localhost:3000/tasks/'
-    // const configuratinObj = {
+    const requestBody = {
+      task: {
+        name: name,
+        hours: hours,
+        notes: notes,
+        start_date: fromUnixTime(startDate),
+        end_date: fromUnixTime(endDate),
+        progress: 0,
+        milestone_id: milestoneId,
+      },
+    }
+
+    dispatch(createTaskFetch(requestBody))
+
+    // const tasksURL = 'http://localhost:3000/tasks/'
+    // const postRequest = {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
     //   },
     //   body: JSON.stringify({
-    //     tasks: {
-    //       // date: date,
-    //       // notes: notes,
-    //       // completion_percentage: completionPercentage,
-    //       // user_id: currentUser.id,
-    //       // task_id: currentTask.id,
+    //     task: {
+    //       name: name,
+    //       hours: hours,
+    //       notes: notes,
+    //       start_date: fromUnixTime(startDate),
+    //       end_date: fromUnixTime(endDate),
+    //       progress: 0,
+    //       milestone_id: milestoneId,
     //     },
     //   }),
     // }
-    // fetch(entriesURL, configuratinObj)
+    // fetch(tasksURL, postRequest)
     //   .then(resp => resp.json())
-    //   .then(data => dispatch(addEntry(data)))
-    // setShowForm(false)
+    //   .then(data => console.log('Data from fetch: ', data))
+    onClose()
   }
 
   return (
@@ -110,7 +130,7 @@ export default function TasksDialog({ open, onClose }) {
                 variant='inline'
                 format='MM/dd/yyyy'
                 margin='normal'
-                id='date-picker-inline'
+                id='date-picker-start-date'
                 value={startDate}
                 onChange={handleSetStartDate}
                 KeyboardButtonProps={{
@@ -125,7 +145,7 @@ export default function TasksDialog({ open, onClose }) {
                 variant='inline'
                 format='MM/dd/yyyy'
                 margin='normal'
-                id='date-picker-inline'
+                id='date-picker-end-date'
                 value={endDate}
                 onChange={handleSetEndDate}
                 KeyboardButtonProps={{

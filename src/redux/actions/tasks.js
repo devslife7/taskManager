@@ -126,3 +126,19 @@ export const deleteEntryFetch = entryId => {
       })
   }
 }
+
+export const createTaskFetch = requestBody => {
+  return dispatch => {
+    const postRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    }
+
+    fetch(tasksURL, postRequest)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+  }
+}

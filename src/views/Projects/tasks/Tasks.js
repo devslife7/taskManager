@@ -56,7 +56,7 @@ function Tasks() {
       <TaskTable />
       <TasksGraph />
 
-      <TasksDialog open={openDialog} onClose={handleCloseDialog} />
+      <TasksDialog open={openDialog} onClose={handleCloseDialog} milestoneId={currentMilestone.id} />
     </div>
   )
 }
