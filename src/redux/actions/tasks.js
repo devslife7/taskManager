@@ -139,6 +139,7 @@ export const createTaskFetch = requestBody => {
 
     fetch(tasksURL, postRequest)
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => data)
+    // .then(data => dispatch({type: 'ADD_TASK', data}))
   }
 }

@@ -62,6 +62,11 @@ export default (state = initialState, action) => {
         },
       }
 
+    // case 'ADD_TASK':
+    //   return {
+    //     ...state,
+    //   }
+
     default:
       return state
   }

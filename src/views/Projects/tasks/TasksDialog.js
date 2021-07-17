@@ -56,28 +56,6 @@ export default function TasksDialog({ open, onClose, milestoneId }) {
     }
 
     dispatch(createTaskFetch(requestBody))
-
-    // const tasksURL = 'http://localhost:3000/tasks/'
-    // const postRequest = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     task: {
-    //       name: name,
-    //       hours: hours,
-    //       notes: notes,
-    //       start_date: fromUnixTime(startDate),
-    //       end_date: fromUnixTime(endDate),
-    //       progress: 0,
-    //       milestone_id: milestoneId,
-    //     },
-    //   }),
-    // }
-    // fetch(tasksURL, postRequest)
-    //   .then(resp => resp.json())
-    //   .then(data => console.log('Data from fetch: ', data))
     onClose()
   }
 
