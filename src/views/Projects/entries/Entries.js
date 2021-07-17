@@ -1,17 +1,6 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  makeStyles,
-  Slider,
-  TextField,
-  Typography,
-} from '@material-ui/core'
+import { Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import AddIcon from '@material-ui/icons/Add'
 import EntriesTable from './EntriesTable'
 import { fromUnixTime, format } from 'date-fns'
@@ -40,7 +29,6 @@ export default function Entries() {
 
   return (
     <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
-      {/* <Paper style={{ width: "50vw", margin: "0 auto" }}> */}
       <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>
           Owner(s): Owner
