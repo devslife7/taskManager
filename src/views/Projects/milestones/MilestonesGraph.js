@@ -32,7 +32,7 @@ function MilestonesGraph() {
     },
     title: {
       text: 'Milestone Progress',
-      align: 'left',
+      align: 'center',
     },
     grid: {
       row: {
@@ -70,8 +70,8 @@ function MilestonesGraph() {
   ])
 
   return (
-    <div style={{ width: '45rem', margin: '2vh auto' }}>
-      <Chart options={options} series={series} type='bar' />
+    <div style={{ marginTop: '1rem', padding: '0 200px' }}>
+      <Chart options={options} series={series} type='bar' width='1000' height='370' />
     </div>
   )
 }

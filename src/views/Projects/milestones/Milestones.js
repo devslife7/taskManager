@@ -93,7 +93,7 @@ function Milestones() {
   const handleOpenDialog = () => setOpenDialog(true)
 
   return (
-    <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
+    <div style={{ padding: '0 50px', overflow: 'scroll' }}>
       <Grid container>
         <Grid item xs={10}>
           <Typography variant='h6' align='center'>

@@ -61,7 +61,6 @@ export default function ProjectGraphs() {
 
   return (
     <div>
-      {console.log('renders graph')}
       <Chart options={options} series={series} type='bar' width='1600' height='500' />
     </div>
   )

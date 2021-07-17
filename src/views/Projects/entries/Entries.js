@@ -28,7 +28,7 @@ export default function Entries() {
   const handleCloseDialog = () => setOpenDialog(false)
 
   return (
-    <div style={{ padding: '0 50px', height: '90vh', overflow: 'scroll' }}>
+    <div style={{ padding: '0 50px', overflow: 'scroll' }}>
       <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>
           Owner(s): Owner
