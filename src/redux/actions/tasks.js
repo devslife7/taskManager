@@ -84,28 +84,12 @@ export const deleteEntryFetch = entryId => {
           payload: data,
         })
         dispatch({
-          type: 'UPDATE_CURRENT_TASK_PROGRESS',
-          payload: { taskProgress: data.task.progress },
+          type: 'UPDATE_MILESTONE',
+          payload: { task: data.task, milestone: data.milestone },
         })
         dispatch({
-          type: 'UPDATE_CURRENT_MILESTONE_TASK',
-          payload: { task: data.task },
-        })
-        dispatch({
-          type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
-          payload: { milestoneProgress: data.milestone.progress },
-        })
-        dispatch({
-          type: 'UPDATE_ALLPROJECTS_PROGRESS',
-          payload: { project: data.project },
-        })
-        dispatch({
-          type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
-          payload: { milestone: data.milestone },
-        })
-        dispatch({
-          type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
-          payload: { projectProgress: data.project.progress },
+          type: 'UPDATE_PROJECT',
+          payload: { project: data.project, milestone: data.milestone },
         })
       })
   }
