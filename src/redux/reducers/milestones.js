@@ -49,7 +49,22 @@ export default (state = initialState, action) => {
         ...state,
         currentMilestone: {
           ...state.currentMilestone,
-          tasks: [...state.currentMilestone.tasks, action.payload],
+          progress: action.payload.milestone.progress,
+          tasks: [...state.currentMilestone.tasks, action.payload.task],
+        },
+      }
+
+    case 'EDIT_TASK':
+      idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
+      return {
+        ...state,
+        currentMilestone: {
+          ...state.currentMilestone,
+          tasks: [
+            ...state.currentMilestone.tasks.slice(0, idx),
+            action.payload.task,
+            ...state.currentMilestone.tasks.slice(idx + 1),
+          ],
         },
       }
 

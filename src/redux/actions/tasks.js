@@ -59,7 +59,7 @@ export const editEntryFetch = (requestBody, entryId) => {
       .then(resp => resp.json())
       .then(data => {
         dispatch({
-          type: 'UPDATE_TASK',
+          type: 'EDIT_ENTRY',
           payload: data,
         })
         dispatch({
@@ -108,6 +108,32 @@ export const createTaskFetch = requestBody => {
     fetch(tasksURL, postRequest)
       .then(resp => resp.json())
       .then(data => data)
-      .then(data => dispatch({ type: 'ADD_TASK', payload: data }))
+      .then(data => {
+        dispatch({ type: 'ADD_TASK', payload: data })
+
+        dispatch({
+          type: 'UPDATE_PROJECT',
+          payload: { project: data.project, milestone: data.milestone },
+        })
+      })
+  }
+}
+
+export const editTaskFetch = (requestBody, taskId) => {
+  return dispatch => {
+    const configurationObject = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    }
+    fetch(tasksURL + taskId, configurationObject)
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+    //     .then(data => {
+    //       dispatch({
+    //         type: 'EDIT_TASK',
+    //         payload: data,
+    //       })
+    //     })
   }
 }

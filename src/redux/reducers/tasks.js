@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         },
       }
 
-    case 'UPDATE_TASK':
+    case 'EDIT_ENTRY':
       idx = state.currentTask.entries.findIndex(entry => entry.id === action.payload.entry.id)
       return {
         ...state,
