@@ -33,6 +33,7 @@ export default (state = initialState, action) => {
         ...state,
         currentTask: {
           ...state.currentTask,
+          progress: action.payload.task.progress,
           entries: [...state.currentTask.entries, action.payload.entry],
         },
       }
@@ -61,11 +62,6 @@ export default (state = initialState, action) => {
           entries: [...state.currentTask.entries.slice(0, idx), ...state.currentTask.entries.slice(idx + 1)],
         },
       }
-
-    // case 'ADD_TASK':
-    //   return {
-    //     ...state,
-    //   }
 
     default:
       return state

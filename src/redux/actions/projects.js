@@ -36,9 +36,3 @@ export const removeProject = projectId => {
     payload: projectId,
   }
 }
-export const addTask = task => {
-  return {
-    type: 'ADD_TASK',
-    payload: task,
-  }
-}

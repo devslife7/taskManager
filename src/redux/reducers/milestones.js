@@ -35,12 +35,21 @@ export default (state = initialState, action) => {
         ...state,
         currentMilestone: {
           ...state.currentMilestone,
-          progress: action.payload.milestoneProgress,
+          progress: action.payload.milestone.progress,
           tasks: [
             ...state.currentMilestone.tasks.slice(0, idx),
             { ...state.currentMilestone.tasks[idx], progress: action.payload.task.progress },
             ...state.currentMilestone.tasks.slice(idx + 1),
           ],
+        },
+      }
+
+    case 'ADD_TASK':
+      return {
+        ...state,
+        currentMilestone: {
+          ...state.currentMilestone,
+          tasks: [...state.currentMilestone.tasks, action.payload],
         },
       }
 

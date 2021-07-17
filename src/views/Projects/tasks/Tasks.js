@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function Tasks() {
+export default function Tasks() {
   const classes = useStyles()
   const currentMilestone = useSelector(state => state.milestones.currentMilestone)
 
@@ -60,5 +60,3 @@ function Tasks() {
     </div>
   )
 }
-
-export default Tasks

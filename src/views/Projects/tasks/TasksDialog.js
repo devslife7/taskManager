@@ -71,6 +71,7 @@ export default function TasksDialog({ open, onClose, milestoneId }) {
             label='Name'
             variant='outlined'
             margin='normal'
+            autoFocus
             fullWidth
             value={name}
             onChange={e => {

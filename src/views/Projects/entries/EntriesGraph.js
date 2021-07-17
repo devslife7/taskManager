@@ -2,7 +2,6 @@ import { Paper } from '@material-ui/core'
 import { format, fromUnixTime } from 'date-fns'
 import React from 'react'
 import Chart from 'react-apexcharts'
-import { useSelector } from 'react-redux'
 
 export default function EntriesGraph({ records }) {
   const currentEntriesSorted = records.sort((a, b) => b.date - a.date).reverse()

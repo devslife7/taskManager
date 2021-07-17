@@ -66,15 +66,6 @@ export default (state = initialState, action) => {
         allProjects: [...state.allProjects, action.payload],
       }
 
-    case 'ADD_TASK':
-      return {
-        ...state,
-        currentProject: {
-          ...state.currentProject,
-          tasks: [...state.currentProject.tasks, action.payload],
-        },
-      }
-
     case 'REMOVE_PROJECT':
       console.log('enters remove proj action', state)
       idx = state.allProjects.findIndex(proj => proj.id === action.payload)
