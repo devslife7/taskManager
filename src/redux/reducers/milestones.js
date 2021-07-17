@@ -68,6 +68,17 @@ export default (state = initialState, action) => {
         },
       }
 
+    // case 'DELETE_ENTRY':
+    // idx = state.currentTask.entries.findIndex(entry => entry.id === action.payload.entry_id)
+    // return {
+    //   ...state,
+    //   currentTask: {
+    //     ...state.currentTask,
+    //     progress: action.payload.task.progress,
+    //     entries: [...state.currentTask.entries.slice(0, idx), ...state.currentTask.entries.slice(idx + 1)],
+    //   },
+    // }
+
     default:
       return state
   }

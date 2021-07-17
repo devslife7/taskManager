@@ -128,12 +128,32 @@ export const editTaskFetch = (requestBody, taskId) => {
     }
     fetch(tasksURL + taskId, configurationObject)
       .then(resp => resp.json())
-      .then(data => console.log(data))
-    //     .then(data => {
-    //       dispatch({
-    //         type: 'EDIT_TASK',
-    //         payload: data,
-    //       })
-    //     })
+      .then(data => {
+        dispatch({
+          type: 'EDIT_TASK',
+          payload: data,
+        })
+      })
+  }
+}
+
+export const deleteTaskFetch = taskId => {
+  return dispatch => {
+    fetch(tasksURL + taskId, { method: 'DELETE' })
+      .then(resp => resp.json())
+      .then(data => {
+        dispatch({
+          type: 'DELETE_TASK',
+          payload: data,
+        })
+        // dispatch({
+        //   type: 'UPDATE_MILESTONE',
+        //   payload: { task: data.task, milestone: data.milestone },
+        // })
+        // dispatch({
+        //   type: 'UPDATE_PROJECT',
+        //   payload: { project: data.project, milestone: data.milestone },
+        // })
+      })
   }
 }
