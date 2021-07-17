@@ -31,6 +31,7 @@ export const createEntryFetch = requestBody => {
     fetch(entriesURL, configurationObject)
       .then(resp => resp.json())
       .then(data => {
+        console.log('DATA', data)
         dispatch({
           type: 'ADD_ENTRY',
           payload: { entry: data.entry },
@@ -77,29 +78,13 @@ export const editEntryFetch = (requestBody, entryId) => {
           type: 'UPDATE_TASK',
           payload: data,
         })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_TASK',
-        //   payload: { task: data.task },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_CURRENT_MILESTONE_PROGRESS',
-        //   payload: { milestoneProgress: data.milestone.progress },
-        // })
         dispatch({
           type: 'UPDATE_MILESTONE',
           payload: { milestoneProgress: data.milestone.progress, task: data.task },
         })
         dispatch({
-          type: 'UPDATE_ALLPROJECTS_PROGRESS',
-          payload: { project: data.project },
-        })
-        dispatch({
-          type: 'UPDATE_CURRENT_PROJECT_MILESTONE',
-          payload: { milestone: data.milestone },
-        })
-        dispatch({
-          type: 'UPDATE_CURRENT_PROJECT_PROGRESS',
-          payload: { projectProgress: data.project.progress },
+          type: 'UPDATE_PROJECT',
+          payload: { project: data.project, milestone: data.milestone },
         })
       })
   }

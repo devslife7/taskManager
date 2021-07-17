@@ -29,29 +29,6 @@ export default (state = initialState, action) => {
         currentMilestone: { tasks: [] },
       }
 
-    // case "UPDATE_CURRENT_MILESTONE_TASK":
-    //   idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
-    //   return {
-    //     ...state,
-    //     currentMilestone: {
-    //       ...state.currentMilestone,
-    //       tasks: [
-    //         ...state.currentMilestone.tasks.slice(0, idx),
-    //         action.payload.task,
-    //         ...state.currentMilestone.tasks.slice(idx + 1),
-    //       ],
-    //     },
-    //   }
-
-    // case "UPDATE_CURRENT_MILESTONE_PROGRESS":
-    //   return {
-    //     ...state,
-    //     currentMilestone: {
-    //       ...state.currentMilestone,
-    //       progress: action.payload.milestoneProgress,
-    //     },
-    //   }
-
     case 'UPDATE_MILESTONE':
       idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
       return {

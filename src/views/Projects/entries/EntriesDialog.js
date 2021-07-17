@@ -30,7 +30,6 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function EntriesDialog({ open, onClose, entry = {} }) {
-  console.log('renders dialog')
   const classes = useStyle()
   const dispatch = useDispatch()
   const currentTask = useSelector(state => state.tasks.currentTask)
@@ -38,8 +37,6 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
   const [sliderValue, setSliderValue] = useState(50)
   const [notes, setNotes] = useState('') // should use null
   const [date, setDate] = useState(new Date())
-
-  // console.log('Entry: ', entry.id ? 'true' : 'false')
 
   useEffect(() => {
     if (entry.id) {
@@ -106,7 +103,6 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
               id='date-picker-inline'
               label='Date'
               autoOk // autocloses picker
-              // defaultValue={entry.date}
               value={date}
               onChange={setDate}
               KeyboardButtonProps={{
@@ -120,7 +116,6 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
             Progress: {sliderValue}%
           </Typography>
           <Slider
-            // defaultValue={entry.progress}
             value={sliderValue}
             step={5}
             marks={marks}

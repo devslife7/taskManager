@@ -49,7 +49,7 @@ export default function EntriesTable({ records }) {
   const dispatch = useDispatch()
   const classes = useStyle()
   const headCells = [
-    { id: 'users', label: 'Owner' },
+    { id: 'users', label: 'Owner(s)' },
     { id: 'progress', label: 'Progress' },
     { id: 'date', label: 'Date' },
     { id: 'notes', label: 'Notes', disableSorting: true },
@@ -178,7 +178,8 @@ export default function EntriesTable({ records }) {
             {recordsAfterPagingAndSorting().map((item, idx) => (
               <TableRow key={idx}>
                 <TableCell>
-                  {item.users && item.users.length > 0 ? item.users[0].first_name : 'Owner'}
+                  {/* {item.users && item.users.length > 0 ? item.users[0].first_name : 'Owner'} */}
+                  {item.users.length > 0 ? item.users[0].first_name : 'Owner'}
                 </TableCell>
                 <TableCell>{`${item.progress}%`}</TableCell>
                 <TableCell>{format(fromUnixTime(item.date), 'PP')}</TableCell>
