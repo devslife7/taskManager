@@ -86,7 +86,7 @@ export const editEntryFetch = (requestBody, entryId) => {
         //   payload: { milestoneProgress: data.milestone.progress },
         // })
         dispatch({
-          type: 'UPDATE_CURRENT_MILESTONE',
+          type: 'UPDATE_MILESTONE',
           payload: { milestoneProgress: data.milestone.progress },
         })
         dispatch({
