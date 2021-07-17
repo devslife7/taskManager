@@ -146,14 +146,10 @@ export const deleteTaskFetch = taskId => {
           type: 'DELETE_TASK',
           payload: data,
         })
-        // dispatch({
-        //   type: 'UPDATE_MILESTONE',
-        //   payload: { task: data.task, milestone: data.milestone },
-        // })
-        // dispatch({
-        //   type: 'UPDATE_PROJECT',
-        //   payload: { project: data.project, milestone: data.milestone },
-        // })
+        dispatch({
+          type: 'UPDATE_PROJECT',
+          payload: { project: data.project, milestone: data.milestone },
+        })
       })
   }
 }

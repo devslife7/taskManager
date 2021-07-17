@@ -1,23 +1,14 @@
 import React, { useState } from 'react'
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-} from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@material-ui/core'
 import { Paper, Table, TableBody, TableCell, TableHead, makeStyles } from '@material-ui/core'
 import { TablePagination, TableRow, TableSortLabel, TextField, Typography } from '@material-ui/core'
 import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
 import { fetchCurrentMilestone } from '../../../redux/actions/milestones'
 import isPast from 'date-fns/isPast'
+import MilestonesDialog from './MilestonesDialog'
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -48,10 +39,6 @@ const useStyle = makeStyles(theme => ({
     fontSize: '1rem',
     marginLeft: '10vw',
   },
-  KeyboardDatePicker: {
-    width: '140px',
-    marginTop: 0,
-  },
   removeButton: {
     textTransform: 'none',
     fontSize: '1rem',
@@ -74,17 +61,6 @@ export default function useTable() {
   const dispatch = useDispatch()
   const classes = useStyle()
   const records = useSelector(state => state.projects.currentProject.milestones)
-  const headCells = [
-    { id: 'name', label: 'Name' },
-    { id: 'progress', label: 'Progress' },
-    { id: 'owner', label: 'Owner' },
-    { id: 'hours', label: 'Hours' },
-    { id: 'start_date', label: 'Start' },
-    { id: 'end_date', label: 'End' },
-    { id: 'start', label: 'Status' },
-    { id: 'actions', label: 'Actions', disableSorting: true },
-  ]
-
   const pages = [5, 10, 25]
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(pages[0])
@@ -127,6 +103,17 @@ export default function useTable() {
     localStorage.setItem('currentMilestoneId', `${milestoneId}`)
     dispatch(fetchCurrentMilestone())
   }
+
+  const headCells = [
+    { id: 'name', label: 'Name' },
+    { id: 'progress', label: 'Progress' },
+    { id: 'owner', label: 'Owner' },
+    { id: 'hours', label: 'Hours' },
+    { id: 'start_date', label: 'Start' },
+    { id: 'end_date', label: 'End' },
+    { id: 'start', label: 'Status' },
+    { id: 'actions', label: 'Actions', disableSorting: true },
+  ]
 
   const tableHead = () => {
     const handleSortRequest = cellId => {
@@ -281,78 +268,7 @@ export default function useTable() {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'Edit Milestone'}
-        </Typography>
-
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            label='Name'
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-            style={{ marginBottom: '20px' }}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
-              <KeyboardDatePicker
-                label='Start Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                value={startDate}
-                onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-              <KeyboardDatePicker
-                label='End Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                value={endDate}
-                onChange={handleSetEndDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-        </DialogContent>
-
-        <DialogActions style={{ marginTop: '10px' }}>
-          <Button
-            variant='outlined'
-            className={classes.button}
-            onClick={handleCloseEditDialog}
-            color='primary'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleEditDialogSubmit}
-            color='primary'
-          >
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <MilestonesDialog open={openEditDialog} onClose={handleCloseEditDialog} milestone={currentMilestone} />
     </>
   )
 }

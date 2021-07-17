@@ -6,7 +6,7 @@ import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { fetchCurrentTask } from '../../../redux/actions/tasks'
+import { deleteTaskFetch, fetchCurrentTask } from '../../../redux/actions/tasks'
 import isPast from 'date-fns/isPast'
 import TasksDialog from './TasksDialog'
 
@@ -84,8 +84,7 @@ export default function TaskTable() {
   }
 
   const handleDeleteConfirm = () => {
-    console.log('Confirms delete task')
-    // dispatch(deleteEntryFetch(currentTask.id))
+    dispatch(deleteTaskFetch(currentTask.id))
     handleCloseDeleteDialog()
   }
 
