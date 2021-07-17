@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import {
@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import { fromUnixTime } from 'date-fns'
 import { useDispatch } from 'react-redux'
-import { createTaskFetch } from '../../../redux/actions/tasks'
+import { createTaskFetch, editTaskFetch } from '../../../redux/actions/tasks'
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default function TasksDialog({ open, onClose, milestoneId }) {
+export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [name, setName] = useState('')
@@ -39,23 +39,48 @@ export default function TasksDialog({ open, onClose, milestoneId }) {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
+  useEffect(() => {
+    if (task.id) {
+      setName(task.name)
+      setHours(task.hours)
+      setNotes(task.notes)
+      setStartDate(fromUnixTime(task.start_date))
+      setEndDate(fromUnixTime(task.end_date))
+    }
+  }, [task])
+
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
   const handleSubmit = () => {
-    const requestBody = {
-      task: {
-        name: name,
-        hours: hours,
-        notes: notes,
-        start_date: fromUnixTime(startDate),
-        end_date: fromUnixTime(endDate),
-        progress: 0,
-        milestone_id: milestoneId,
-      },
+    if (task.id) {
+      const requestBody = {
+        task: {
+          name: name,
+          hours: hours,
+          notes: notes,
+          start_date: fromUnixTime(startDate),
+          end_date: fromUnixTime(endDate),
+          progress: 0,
+        },
+      }
+      dispatch(editTaskFetch(requestBody, task.id)) // sends the request body for edit fetch
+    } else {
+      const requestBody = {
+        task: {
+          name: name,
+          hours: hours,
+          notes: notes,
+          start_date: fromUnixTime(startDate),
+          end_date: fromUnixTime(endDate),
+          progress: 0,
+          milestone_id: milestoneId,
+        },
+      }
+
+      dispatch(createTaskFetch(requestBody))
     }
 
-    dispatch(createTaskFetch(requestBody))
     onClose()
   }
 

@@ -18,6 +18,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns'
 import { fetchCurrentTask } from '../../../redux/actions/tasks'
 import isPast from 'date-fns/isPast'
+import TasksDialog from './TasksDialog'
 
 const useStyle = makeStyles(theme => ({
   table: {
@@ -115,11 +116,12 @@ export default function TaskTable() {
     setCurrentTask(task)
   }
   const handleOpenEditDialog = task => {
-    setName(task.name)
-    setHours(task.hours)
-    setNotes(task.notes)
-    setStartDate(fromUnixTime(task.start_date))
-    setEndDate(fromUnixTime(task.end_date))
+    // setName(task.name)
+    // setHours(task.hours)
+    // setNotes(task.notes)
+    // setStartDate(fromUnixTime(task.start_date))
+    // setEndDate(fromUnixTime(task.end_date))
+    setCurrentTask(task)
     setOpenEditDialog(true)
   }
 
@@ -292,7 +294,9 @@ export default function TaskTable() {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+      <TasksDialog open={openEditDialog} onClose={handleCloseEditDialog} task={currentTask} />
+
+      {/* <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
           {'Edit Task'}
         </Typography>
@@ -378,7 +382,7 @@ export default function TaskTable() {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </>
   )
 }

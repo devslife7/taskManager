@@ -46,10 +46,6 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     }
   }, [entry])
 
-  const handleClose = () => {
-    onClose()
-  }
-
   const marks = [
     { value: 5, label: '5%' },
     { value: 25, label: '25%' },
@@ -61,7 +57,7 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
   const handleSliderChange = (e, newValue) => {
     setSliderValue(newValue)
   }
-  const handleEditSubmit = () => {
+  const handleSubmit = () => {
     if (entry.id) {
       const requestBody = {
         entry: {
@@ -88,7 +84,7 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={onClose}>
         <DialogTitle disableTypography>
           <Typography variant='h5'>Edit Entry</Typography>
         </DialogTitle>
@@ -143,7 +139,7 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
           <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={handleEditSubmit} color='primary'>
+          <Button variant='contained' className={classes.button} onClick={handleSubmit} color='primary'>
             Submit
           </Button>
         </DialogActions>
