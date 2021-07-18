@@ -20,7 +20,7 @@ export const clearCurrentTask = () => {
 
 export const createEntryFetch = requestBody => {
   return dispatch => {
-    const configurationObject = {
+    const configObject = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const createEntryFetch = requestBody => {
       body: JSON.stringify(requestBody),
     }
 
-    fetch(entriesURL, configurationObject)
+    fetch(entriesURL, configObject)
       .then(resp => resp.json())
       .then(data => {
         console.log('DATA', data)
@@ -50,12 +50,12 @@ export const createEntryFetch = requestBody => {
 
 export const editEntryFetch = (requestBody, entryId) => {
   return dispatch => {
-    const configurationObject = {
+    const configObject = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     }
-    fetch(entriesURL + entryId, configurationObject)
+    fetch(entriesURL + entryId, configObject)
       .then(resp => resp.json())
       .then(data => {
         dispatch({
@@ -97,7 +97,7 @@ export const deleteEntryFetch = entryId => {
 
 export const createTaskFetch = requestBody => {
   return dispatch => {
-    const postRequest = {
+    const configObject = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export const createTaskFetch = requestBody => {
       body: JSON.stringify(requestBody),
     }
 
-    fetch(tasksURL, postRequest)
+    fetch(tasksURL, configObject)
       .then(resp => resp.json())
       .then(data => data)
       .then(data => {
@@ -121,12 +121,12 @@ export const createTaskFetch = requestBody => {
 
 export const editTaskFetch = (requestBody, taskId) => {
   return dispatch => {
-    const configurationObject = {
+    const configObject = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     }
-    fetch(tasksURL + taskId, configurationObject)
+    fetch(tasksURL + taskId, configObject)
       .then(resp => resp.json())
       .then(data => {
         dispatch({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Dialog,
@@ -14,11 +14,12 @@ import {
 } from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import { useDispatch } from 'react-redux'
+import { addProjectFetch } from '../../redux/actions/projects'
+import { fromUnixTime, getUnixTime } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: 'none',
-    margin: '5vh 0 0 10vw',
     fontSize: '1rem',
   },
   KeyboardDatePicker: {
@@ -30,37 +31,66 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function AddProjectDialog({ open, onClose }) {
+export default function ProjectDialog({ open, onClose, project = {} }) {
   const classes = useStyles()
-
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [displayImport, setDisplayImport] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
+  const [displayImport, setDisplayImport] = useState(false)
+
+  useEffect(() => {
+    if (project.id) {
+      setName(project.name)
+      setDescription(project.description)
+      setStartDate(fromUnixTime(project.start_date))
+      setEndDate(fromUnixTime(project.end_date))
+    }
+  }, [project])
 
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
+
+  const handleSubmit = () => {
+    console.log('SUBMITS FORM')
+
+    const requestBody = {
+      project: {
+        name: name,
+        description: description,
+        start_date: getUnixTime(startDate),
+        end_date: getUnixTime(endDate),
+      },
+    }
+
+    dispatch(addProjectFetch(requestBody))
+    onClose()
+  }
 
   return (
     <>
       <Dialog open={open} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'New Project'}
+          {project.id ? 'Edit Project' : 'New Project'}
         </Typography>
 
-        <FormControlLabel
-          control={
-            <Switch
-              checked={displayImport}
-              onChange={() => setDisplayImport(!displayImport)}
-              name='checkedB'
-              color='primary'
+        {!project.id && (
+          <>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={displayImport}
+                  onChange={() => setDisplayImport(!displayImport)}
+                  name='checkedB'
+                  color='primary'
+                />
+              }
+              label='Import From Excel File'
+              style={{ marginTop: '20px', marginLeft: '15px', marginBottom: '10px' }}
             />
-          }
-          label='Import From Excel File'
-          style={{ marginTop: '20px', marginLeft: '15px', marginBottom: '10px' }}
-        />
+          </>
+        )}
 
         {displayImport ? (
           <DialogContent className={classes.DialogContent}>
@@ -137,7 +167,7 @@ export default function AddProjectDialog({ open, onClose }) {
           <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.button} onClick={onClose} color='primary'>
+          <Button variant='contained' className={classes.button} onClick={handleSubmit} color='primary'>
             Submit
           </Button>
         </DialogActions>

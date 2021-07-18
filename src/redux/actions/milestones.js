@@ -18,7 +18,7 @@ export const clearCurrentMilestone = () => {
 
 export const createMilestoneFetch = requestBody => {
   return dispatch => {
-    const postRequest = {
+    const configObject = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const createMilestoneFetch = requestBody => {
       body: JSON.stringify(requestBody),
     }
 
-    fetch(milestonesURL, postRequest)
+    fetch(milestonesURL, configObject)
       .then(resp => resp.json())
       .then(data => data)
       .then(data => {
@@ -37,12 +37,12 @@ export const createMilestoneFetch = requestBody => {
 
 export const editMilestoneFetch = (requestBody, milestoneId) => {
   return dispatch => {
-    const configurationObject = {
+    const configObject = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     }
-    fetch(milestonesURL + milestoneId, configurationObject)
+    fetch(milestonesURL + milestoneId, configObject)
       .then(resp => resp.json())
       .then(data => {
         dispatch({

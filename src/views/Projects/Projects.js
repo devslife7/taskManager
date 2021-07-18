@@ -9,7 +9,7 @@ import Breadcrumbs from './Breadcrumbs'
 import Tasks from './tasks/Tasks'
 import Entries from './entries/Entries'
 import Milestones from './milestones/Milestones'
-import AddProjectDialog from './AddProjectDialog'
+import ProjectDialog from './ProjectDialog'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -74,7 +74,8 @@ export default function Projects() {
     const filterProjects = allProjects.filter(proj =>
       proj.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    filterProjects.sort((a, b) => b.end_date - a.end_date) // Sorts Projects by end_date
+
+    // filterProjects.sort((a, b) => b.end_date - a.end_date) // Sorts Projects by end_date
 
     return filterProjects
       .map((proj, idx) => (
@@ -164,8 +165,7 @@ export default function Projects() {
                       </Grid>
                     </Grid>
 
-                    {/* Dialog for creating new project */}
-                    <AddProjectDialog open={openDialog} onClose={handleCloseDialog} />
+                    <ProjectDialog open={openDialog} onClose={handleCloseDialog} />
 
                     {loadingProject ? (
                       <Typography variant='h1' style={{ fontSize: '1.3em', marginTop: '90px' }}>

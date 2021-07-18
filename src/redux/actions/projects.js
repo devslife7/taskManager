@@ -24,12 +24,22 @@ export const clearCurrentProject = () => {
     type: 'CLEAR_CURRENT_PROJECT',
   }
 }
-export const addProject = project => {
-  return {
-    type: 'ADD_PROJECT',
-    payload: project,
+export const addProjectFetch = requestBody => {
+  return dispatch => {
+    const configObject = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    }
+
+    fetch(projectsURL, configObject)
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: 'ADD_PROJECT', payload: data }))
   }
 }
+
 export const removeProject = projectId => {
   return {
     type: 'REMOVE_PROJECT',

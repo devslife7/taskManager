@@ -20,10 +20,10 @@ import { fromUnixTime, format } from 'date-fns'
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MilestonesDialog from './MilestonesDialog'
+import ProjectDialog from '../ProjectDialog'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    textTransform: 'none',
     fontSize: '1rem',
     // marginLeft: "10vw",
     // marginTop: "2vh",
@@ -54,9 +54,6 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: theme.palette.error.dark,
     },
-  },
-  KeyboardDatePicker: {
-    width: '140px',
   },
 }))
 
@@ -148,63 +145,7 @@ export default function Milestones() {
       <MilestonesGraph />
 
       <MilestonesDialog open={openDialog} onClose={handleCloseDialog} projectId={currentProject.id} />
-
-      {/* <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'New Milestone'}
-        </Typography>
-
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            label='Name'
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-            style={{ marginBottom: '20px' }}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
-              <KeyboardDatePicker
-                label='Start Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                value={startDate}
-                onChange={handleSetStartDate}
-                className={classes.KeyboardDatePicker}
-              />
-              <KeyboardDatePicker
-                label='End Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                value={endDate}
-                onChange={handleSetEndDate}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-        </DialogContent>
-
-        <DialogActions style={{ marginTop: '10px' }}>
-          <Button variant='outlined' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleCloseDialog} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+      <ProjectDialog open={openEditDialog} onClose={handleCloseEditDialog} project={currentProject} />
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle disableTypography>
@@ -220,89 +161,6 @@ export default function Milestones() {
           </Button>
           <Button variant='contained' className={classes.removeButton} onClick={handleOk}>
             Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'Edit Project'}
-        </Typography>
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            label='Name'
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            multiline
-            rows={2}
-            label='Description'
-            value={description}
-            onChange={e => {
-              setDescription(e.target.value)
-            }}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                label='Start Date'
-                value={startDate}
-                onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                label='End Date'
-                value={endDate}
-                onChange={handleSetEndDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-            variant='outlined'
-            className={classes.button}
-            onClick={handleCloseEditDialog}
-            color='primary'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={handleCloseEditDialog}
-            color='primary'
-          >
-            Submit
           </Button>
         </DialogActions>
       </Dialog>

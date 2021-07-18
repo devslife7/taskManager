@@ -109,29 +109,16 @@ export default (state = initialState, action) => {
           ],
         },
       }
-    // case 'DELETE_TASK':
-    // idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
-    // return {
-    //   ...state,
-    //   currentMilestone: {
-    //     ...state.currentMilestone,
-    //     progress: action.payload.milestone.progress,
-    //     tasks: [
-    //       ...state.currentMilestone.tasks.slice(0, idx),
-    //       ...state.currentMilestone.tasks.slice(idx + 1),
-    //     ],
-    //   },
-    // }
 
-    // case 'ADD_PROJECT':
-    //   return {
-    //     ...state,
-    //     allProjects: [...state.allProjects, action.payload],
-    //   }
+    case 'ADD_PROJECT':
+      return {
+        ...state,
+        allProjects: [...state.allProjects, action.payload.project],
+      }
 
     // case 'EDIT_PROJECT'
 
-    // case 'REMOVE_PROJECT':
+    // case 'DELETE_PROJECT':
     //   console.log('enters remove proj action', state)
     //   idx = state.allProjects.findIndex(proj => proj.id === action.payload)
     //   console.log('found idx: ', idx)
