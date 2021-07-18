@@ -62,27 +62,6 @@ export const deleteMilestoneFetch = milestoneId => {
           type: 'DELETE_MILESTONE',
           payload: data,
         })
-        // dispatch({
-        //   type: 'UPDATE_PROJECT',
-        //   payload: { project: data.project, milestone: data.milestone },
-        // })
       })
   }
 }
-
-// export const deleteTaskFetch = taskId => {
-//   return dispatch => {
-//     fetch(tasksURL + taskId, { method: 'DELETE' })
-//       .then(resp => resp.json())
-//       .then(data => {
-//         dispatch({
-//           type: 'DELETE_TASK',
-//           payload: data,
-//         })
-//         dispatch({
-//           type: 'UPDATE_PROJECT',
-//           payload: { project: data.project, milestone: data.milestone },
-//         })
-//       })
-//   }
-// }

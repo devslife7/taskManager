@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { fromUnixTime } from 'date-fns'
+import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useDispatch } from 'react-redux'
 import { createTaskFetch, editTaskFetch } from '../../../redux/actions/tasks'
 
@@ -59,8 +59,8 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
           name: name,
           hours: hours,
           notes: notes,
-          start_date: fromUnixTime(startDate),
-          end_date: fromUnixTime(endDate),
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
           progress: 0,
         },
       }
@@ -71,8 +71,8 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
           name: name,
           hours: hours,
           notes: notes,
-          start_date: fromUnixTime(startDate),
-          end_date: fromUnixTime(endDate),
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
           progress: 0,
           milestone_id: milestoneId,
         },
@@ -88,7 +88,7 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
     <>
       <Dialog open={open} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
-          {'New Task'}
+          {task.id ? 'Edit Task' : 'New Task'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>

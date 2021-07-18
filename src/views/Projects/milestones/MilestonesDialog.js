@@ -15,6 +15,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { createMilestoneFetch, editMilestoneFetch } from '../../../redux/actions/milestones'
 import { useDispatch } from 'react-redux'
 import { fromUnixTime } from 'date-fns/esm'
+import { getUnixTime } from 'date-fns'
 
 const useStyle = makeStyles(() => ({
   button: {
@@ -51,8 +52,8 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
       const requestBody = {
         milestone: {
           name: name,
-          start_date: fromUnixTime(startDate),
-          end_date: fromUnixTime(endDate),
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
         },
       }
 
@@ -61,8 +62,8 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
       const requestBody = {
         milestone: {
           name: name,
-          start_date: fromUnixTime(startDate),
-          end_date: fromUnixTime(endDate),
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
           project_id: projectId,
         },
       }
@@ -77,7 +78,7 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
     <>
       <Dialog open={open} onClose={onClose}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {'Edit Milestone'}
+          {milestone.id ? 'Edit Milestone' : 'New Milestone'}
         </Typography>
 
         <DialogContent className={classes.DialogContent}>

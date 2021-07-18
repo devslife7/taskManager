@@ -86,7 +86,7 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
     <>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle disableTypography>
-          <Typography variant='h5'>Edit Entry</Typography>
+          <Typography variant='h5'>{entry.id ? 'Edit Entry' : 'New Entry'}</Typography>
         </DialogTitle>
 
         <DialogContent>
