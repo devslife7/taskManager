@@ -16,13 +16,21 @@ export default function Inbox() {
     delimiter: ', ',
   })
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log('submits')
+  }
+
   return (
     <>
       <div style={{ margin: '100px auto', fontSize: '2rem', backgroundColor: 'yellow' }}>
         <div>Inbox Page coming soon...</div>
         <div style={{ backgroundColor: 'green' }}> Testing until deadline feature</div>
-        <div>{format(fromUnixTime(1626582842), 'eeee PPP')}</div>
-        <div>{formatedDuration}</div>
+        <form onSubmit={e => handleSubmit(e)}>
+          <label>name:</label>
+          <input />
+          <button type='submit'>Submit</button>
+        </form>
       </div>
     </>
   )
