@@ -61,7 +61,6 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
           notes: notes,
           start_date: getUnixTime(startDate),
           end_date: getUnixTime(endDate),
-          progress: 0,
         },
       }
       dispatch(editTaskFetch(requestBody, task.id)) // sends the request body for edit fetch
@@ -73,7 +72,6 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
           notes: notes,
           start_date: getUnixTime(startDate),
           end_date: getUnixTime(endDate),
-          progress: 0,
           milestone_id: milestoneId,
         },
       }
