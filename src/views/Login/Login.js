@@ -45,6 +45,12 @@ const useStyles = makeStyles(theme => ({
     width: '2.7rem',
     marginRight: '10px',
   },
+  demoLogin: {
+    margin: '30px 0 15px 0',
+    borderRadius: '5px',
+    color: theme.palette.primary.main,
+    fontSize: '18px',
+  },
 }))
 
 function Copyright() {
@@ -117,6 +123,9 @@ export default function Login({ history }) {
           <Typography component='h1' variant='h5' color='primary'>
             Login
           </Typography>
+
+          <div className={classes.demoLogin}>Demo Login: demo/demo</div>
+
           <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
               variant='outlined'
@@ -142,6 +151,7 @@ export default function Login({ history }) {
                 setPassword(e.target.value)
               }}
             />
+
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
               Log In
             </Button>

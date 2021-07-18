@@ -17,7 +17,7 @@ import { createEntryFetch, editEntryFetch } from '../../../redux/actions/tasks'
 import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useEffect } from 'react'
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   button: {
     textTransform: 'none',
     fontSize: '1rem',

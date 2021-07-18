@@ -3,15 +3,7 @@ import { Button, Divider, Grid, makeStyles, Paper, Typography } from '@material-
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteReportFetch } from '../../redux/actions/user'
-import {
-  getUnixTime,
-  fromUnixTime,
-  parseISO,
-  format,
-  isFuture,
-  intervalToDuration,
-  formatDuration,
-} from 'date-fns'
+import { fromUnixTime, parseISO, format, isFuture, intervalToDuration, formatDuration } from 'date-fns'
 import ReportTable from './ReportTable'
 
 const useStyles = makeStyles(() => ({
