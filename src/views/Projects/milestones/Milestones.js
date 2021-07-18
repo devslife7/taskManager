@@ -15,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import MilestonesGraph from './MilestonesGraph'
-import { fromUnixTime, format } from 'date-fns'
+import { fromUnixTime, format, differenceInDays } from 'date-fns'
 import MilestonesDialog from './MilestonesDialog'
 import ProjectDialog from '../ProjectDialog'
 import { clearCurrentProject, deleteProjectFetch } from '../../../redux/actions/projects'
@@ -86,10 +86,17 @@ export default function Milestones() {
             {currentProject.description}
           </Typography>
 
-          <Typography variant='subtitle1' align='center'>
-            {format(fromUnixTime(currentProject.start_date), 'PP')} -{' '}
-            {format(fromUnixTime(currentProject.end_date), 'PP')}
-          </Typography>
+          <Grid container justify='center'>
+            <Typography variant='h6' align='center'>
+              {format(fromUnixTime(currentProject.start_date), 'PP')} {' - '}
+              {format(fromUnixTime(currentProject.end_date), 'PP')}
+            </Typography>
+
+            <Typography variant='h6' align='center' style={{ marginLeft: '1rem' }}>
+              ( Time until deadline: {differenceInDays(fromUnixTime(currentProject.end_date), new Date())}{' '}
+              days )
+            </Typography>
+          </Grid>
           <Typography variant='subtitle1' align='center'>
             Progress: {currentProject.progress}%
           </Typography>
