@@ -52,7 +52,9 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
+
     if (task.id) {
       const requestBody = {
         task: {
@@ -77,6 +79,13 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
       }
 
       dispatch(createTaskFetch(requestBody))
+
+      // Clears form
+      setName('')
+      setHours('')
+      setNotes('')
+      setStartDate(new Date())
+      setEndDate(new Date())
     }
 
     onClose()
@@ -85,88 +94,90 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
-          {task.id ? 'Edit Task' : 'New Task'}
-        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '20px' }}>
+            {task.id ? 'Edit Task' : 'New Task'}
+          </Typography>
 
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            label='Name'
-            variant='outlined'
-            margin='normal'
-            autoFocus
-            fullWidth
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            label='Hours'
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            value={hours}
-            onChange={e => {
-              setHours(e.target.value)
-            }}
-          />
-          <TextField
-            label='Notes'
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            multiline
-            rows={2}
-            value={notes}
-            onChange={e => {
-              setNotes(e.target.value)
-            }}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
-              <KeyboardDatePicker
-                label='Start Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-start-date'
-                value={startDate}
-                onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-              <KeyboardDatePicker
-                label='End Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-end-date'
-                value={endDate}
-                onChange={handleSetEndDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-        </DialogContent>
+          <DialogContent className={classes.DialogContent}>
+            <TextField
+              label='Name'
+              variant='outlined'
+              margin='normal'
+              autoFocus
+              fullWidth
+              value={name}
+              onChange={e => {
+                setName(e.target.value)
+              }}
+            />
+            <TextField
+              label='Hours'
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              value={hours}
+              onChange={e => {
+                setHours(e.target.value)
+              }}
+            />
+            <TextField
+              label='Notes'
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              multiline
+              rows={2}
+              value={notes}
+              onChange={e => {
+                setNotes(e.target.value)
+              }}
+            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Grid container justify='space-around'>
+                <KeyboardDatePicker
+                  label='Start Date'
+                  disableToolbar
+                  autoOk
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-start-date'
+                  value={startDate}
+                  onChange={handleSetStartDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+                <KeyboardDatePicker
+                  label='End Date'
+                  disableToolbar
+                  autoOk
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-end-date'
+                  value={endDate}
+                  onChange={handleSetEndDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+          </DialogContent>
 
-        <DialogActions>
-          <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleSubmit} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
+          <DialogActions>
+            <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
+              Cancel
+            </Button>
+            <Button type='submit' variant='contained' className={classes.button} color='primary'>
+              Submit
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   )
