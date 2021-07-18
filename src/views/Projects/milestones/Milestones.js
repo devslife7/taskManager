@@ -6,21 +6,21 @@ import {
   DialogTitle,
   Grid,
   makeStyles,
-  TextField,
   Typography,
 } from '@material-ui/core'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import MilestonesTable from './MilestonesTable'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import MilestonesGraph from './MilestonesGraph'
 import { fromUnixTime, format } from 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MilestonesDialog from './MilestonesDialog'
 import ProjectDialog from '../ProjectDialog'
+import { clearCurrentProject, deleteProjectFetch } from '../../../redux/actions/projects'
+import { clearCurrentMilestone } from '../../../redux/actions/milestones'
+import { clearCurrentTask } from '../../../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -59,36 +59,31 @@ const useStyles = makeStyles(theme => ({
 
 export default function Milestones() {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const currentProject = useSelector(state => state.projects.currentProject)
 
   const [openDialog, setOpenDialog] = useState(false)
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-  const [name, setName] = useState('')
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
-  const [description, setDescription] = useState('')
 
+  const handleOpenEditDialog = () => setOpenEditDialog(true)
   const handleCloseEditDialog = () => setOpenEditDialog(false)
-  const handleOpenEditDialog = () => {
-    setName(currentProject.name)
-    setDescription(currentProject.description)
-    setOpenEditDialog(true)
-    setStartDate(fromUnixTime(currentProject.start_date))
-    setEndDate(fromUnixTime(currentProject.end_date))
-  }
-  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
   const handleOpenDeleteDialog = () => setOpenDeleteDialog(true)
+  const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
 
-  const handleOk = () => {
-    // dispatch(deleteEntryFetch(currentEntry.id))
+  const clearProject = () => {
+    dispatch(clearCurrentProject())
+  }
+
+  const handleDeleteProject = () => {
+    // dispatch(deleteProjectFetch(currentProject.id))
+    // go back to project show
+    clearProject()
     handleCloseDeleteDialog()
   }
 
-  const handleSetStartDate = date => setStartDate(date)
-  const handleSetEndDate = date => setEndDate(date)
-  const handleCloseDialog = () => setOpenDialog(false)
-  const handleOpenDialog = () => setOpenDialog(true)
+  const handleOpenAddMilestoneDialog = () => setOpenDialog(true)
+  const handleCloseAddMilestoneDialog = () => setOpenDialog(false)
 
   return (
     <div style={{ padding: '0 50px', overflow: 'scroll' }}>
@@ -136,7 +131,7 @@ export default function Milestones() {
         color='primary'
         startIcon={<AddIcon />}
         className={classes.addMilestoneButton}
-        onClick={handleOpenDialog}
+        onClick={handleOpenAddMilestoneDialog}
       >
         Add Milestone
       </Button>
@@ -144,7 +139,11 @@ export default function Milestones() {
       <MilestonesTable />
       <MilestonesGraph />
 
-      <MilestonesDialog open={openDialog} onClose={handleCloseDialog} projectId={currentProject.id} />
+      <MilestonesDialog
+        open={openDialog}
+        onClose={handleCloseAddMilestoneDialog}
+        projectId={currentProject.id}
+      />
       <ProjectDialog open={openEditDialog} onClose={handleCloseEditDialog} project={currentProject} />
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
@@ -159,7 +158,7 @@ export default function Milestones() {
           <Button variant='outlined' className={classes.button} onClick={handleCloseDeleteDialog}>
             Cancel
           </Button>
-          <Button variant='contained' className={classes.removeButton} onClick={handleOk}>
+          <Button variant='contained' className={classes.removeButton} onClick={handleDeleteProject}>
             Delete
           </Button>
         </DialogActions>

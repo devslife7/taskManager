@@ -53,11 +53,11 @@ export default function Breadcrumbs() {
 
   const clearProject = () => {
     dispatch(clearCurrentProject())
-    clearMilestone()
+    // clearMilestone()
   }
   const clearMilestone = () => {
     dispatch(clearCurrentMilestone())
-    clearTask()
+    // clearTask()
   }
   const clearTask = () => {
     dispatch(clearCurrentTask())

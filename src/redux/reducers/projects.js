@@ -131,20 +131,12 @@ export default (state = initialState, action) => {
         currentProject: action.payload.project,
       }
 
-    // case 'DELETE_PROJECT':
-    //   console.log('enters remove proj action', state)
-    //   idx = state.allProjects.findIndex(proj => proj.id === action.payload)
-    //   console.log('found idx: ', idx)
-    //   console.log('first slice: ', state.allProjects.slice(0, idx))
-    //   console.log('second slice: ', state.allProjects.slice(idx + 1))
-    //   if (idx < 0) {
-    //     idx = state.allProjects.length
-    //   }
-    //   console.log('parsed foundidx: ', idx)
-    //   return {
-    //     ...state,
-    //     allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
-    //   }
+    case 'DELETE_PROJECT':
+      // idx = state.
+      return {
+        ...state,
+        // allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
+      }
 
     default:
       return state

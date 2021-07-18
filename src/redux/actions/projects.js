@@ -56,9 +56,10 @@ export const editProjectFetch = (requestBody, projectId) => {
   }
 }
 
-export const removeProject = projectId => {
-  return {
-    type: 'REMOVE_PROJECT',
-    payload: projectId,
+export const deleteProjectFetch = projectId => {
+  return dispatch => {
+    fetch(projectsURL + projectId, { method: 'DELETE' })
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: 'DELETE_PROJECT', payload: data }))
   }
 }
