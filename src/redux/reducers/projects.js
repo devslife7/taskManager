@@ -132,10 +132,10 @@ export default (state = initialState, action) => {
       }
 
     case 'DELETE_PROJECT':
-      // idx = state.
+      idx = state.allProjects.findIndex(item => item.id === action.payload.project.id)
       return {
         ...state,
-        // allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
+        allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
       }
 
     default:

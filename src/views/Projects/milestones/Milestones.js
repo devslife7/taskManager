@@ -19,8 +19,6 @@ import { fromUnixTime, format } from 'date-fns'
 import MilestonesDialog from './MilestonesDialog'
 import ProjectDialog from '../ProjectDialog'
 import { clearCurrentProject, deleteProjectFetch } from '../../../redux/actions/projects'
-import { clearCurrentMilestone } from '../../../redux/actions/milestones'
-import { clearCurrentTask } from '../../../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -71,15 +69,10 @@ export default function Milestones() {
   const handleOpenDeleteDialog = () => setOpenDeleteDialog(true)
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
 
-  const clearProject = () => {
-    dispatch(clearCurrentProject())
-  }
-
   const handleDeleteProject = () => {
-    // dispatch(deleteProjectFetch(currentProject.id))
-    // go back to project show
-    clearProject()
+    dispatch(deleteProjectFetch(currentProject.id))
     handleCloseDeleteDialog()
+    dispatch(clearCurrentProject()) // makes it go back to projects view
   }
 
   const handleOpenAddMilestoneDialog = () => setOpenDialog(true)
