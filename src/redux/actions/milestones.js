@@ -53,23 +53,22 @@ export const editMilestoneFetch = (requestBody, milestoneId) => {
   }
 }
 
-// export const editTaskFetch = (requestBody, taskId) => {
-//   return dispatch => {
-//     const configurationObject = {
-//       method: 'PATCH',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(requestBody),
-//     }
-//     fetch(tasksURL + taskId, configurationObject)
-//       .then(resp => resp.json())
-//       .then(data => {
-//         dispatch({
-//           type: 'EDIT_TASK',
-//           payload: data,
-//         })
-//       })
-//   }
-// }
+export const deleteMilestoneFetch = milestoneId => {
+  return dispatch => {
+    fetch(milestonesURL + milestoneId, { method: 'DELETE' })
+      .then(resp => resp.json())
+      .then(data => {
+        dispatch({
+          type: 'DELETE_MILESTONE',
+          payload: data,
+        })
+        // dispatch({
+        //   type: 'UPDATE_PROJECT',
+        //   payload: { project: data.project, milestone: data.milestone },
+        // })
+      })
+  }
+}
 
 // export const deleteTaskFetch = taskId => {
 //   return dispatch => {

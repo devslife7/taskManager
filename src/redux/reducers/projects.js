@@ -30,6 +30,13 @@ export default (state = initialState, action) => {
         loadingProject: false,
       }
 
+    case 'CLEAR_CURRENT_PROJECT':
+      localStorage.removeItem('currentProjectId')
+      return {
+        ...state,
+        currentProject: { milestones: [] },
+      }
+
     case 'UPDATE_PROJECT':
       let idx1 = state.allProjects.findIndex(project => project.id === action.payload.project.id)
       let idx2 = state.currentProject.milestones.findIndex(
@@ -51,34 +58,6 @@ export default (state = initialState, action) => {
             ...state.currentProject.milestones.slice(idx2 + 1),
           ],
         },
-      }
-
-    case 'CLEAR_CURRENT_PROJECT':
-      localStorage.removeItem('currentProjectId')
-      return {
-        ...state,
-        currentProject: { milestones: [] },
-      }
-
-    case 'ADD_PROJECT':
-      return {
-        ...state,
-        allProjects: [...state.allProjects, action.payload],
-      }
-
-    case 'REMOVE_PROJECT':
-      console.log('enters remove proj action', state)
-      idx = state.allProjects.findIndex(proj => proj.id === action.payload)
-      console.log('found idx: ', idx)
-      console.log('first slice: ', state.allProjects.slice(0, idx))
-      console.log('second slice: ', state.allProjects.slice(idx + 1))
-      if (idx < 0) {
-        idx = state.allProjects.length
-      }
-      console.log('parsed foundidx: ', idx)
-      return {
-        ...state,
-        allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
       }
 
     case 'ADD_MILESTONE':
@@ -111,19 +90,61 @@ export default (state = initialState, action) => {
         },
       }
 
-    case 'EDIT_TASK':
-      idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
+    case 'DELETE_MILESTONE':
+      idx = state.currentProject.milestones.findIndex(item => item.id === action.payload.milestone.id)
+      let idx3 = state.allProjects.findIndex(item => item.id === action.payload.project.id)
       return {
         ...state,
-        currentMilestone: {
-          ...state.currentMilestone,
-          tasks: [
-            ...state.currentMilestone.tasks.slice(0, idx),
-            action.payload.task,
-            ...state.currentMilestone.tasks.slice(idx + 1),
+        allProjects: [
+          ...state.allProjects.slice(0, idx3),
+          { ...state.allProjects[idx3], progress: action.payload.project.progress },
+          ...state.allProjects.slice(idx3 + 1),
+        ],
+        currentProject: {
+          ...state.currentProject,
+          progress: action.payload.project.progress,
+          milestones: [
+            ...state.currentProject.milestones.slice(0, idx),
+            ...state.currentProject.milestones.slice(idx + 1),
           ],
         },
       }
+    // case 'DELETE_TASK':
+    // idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
+    // return {
+    //   ...state,
+    //   currentMilestone: {
+    //     ...state.currentMilestone,
+    //     progress: action.payload.milestone.progress,
+    //     tasks: [
+    //       ...state.currentMilestone.tasks.slice(0, idx),
+    //       ...state.currentMilestone.tasks.slice(idx + 1),
+    //     ],
+    //   },
+    // }
+
+    // case 'ADD_PROJECT':
+    //   return {
+    //     ...state,
+    //     allProjects: [...state.allProjects, action.payload],
+    //   }
+
+    // case 'EDIT_PROJECT'
+
+    // case 'REMOVE_PROJECT':
+    //   console.log('enters remove proj action', state)
+    //   idx = state.allProjects.findIndex(proj => proj.id === action.payload)
+    //   console.log('found idx: ', idx)
+    //   console.log('first slice: ', state.allProjects.slice(0, idx))
+    //   console.log('second slice: ', state.allProjects.slice(idx + 1))
+    //   if (idx < 0) {
+    //     idx = state.allProjects.length
+    //   }
+    //   console.log('parsed foundidx: ', idx)
+    //   return {
+    //     ...state,
+    //     allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
+    //   }
 
     default:
       return state

@@ -6,7 +6,7 @@ import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { fetchCurrentMilestone } from '../../../redux/actions/milestones'
+import { deleteMilestoneFetch, fetchCurrentMilestone } from '../../../redux/actions/milestones'
 import isPast from 'date-fns/isPast'
 import MilestonesDialog from './MilestonesDialog'
 
@@ -85,14 +85,10 @@ export default function useTable() {
   }
   const handleOpenEditDialog = milestone => {
     setCurrentMilestone(milestone)
-    // setName(milestone.name)
-    // setStartDate(fromUnixTime(milestone.start_date))
-    // setEndDate(fromUnixTime(milestone.end_date))
     setOpenEditDialog(true)
   }
   const handleDeleteConfirm = () => {
-    console.log('Confirms delete milestone')
-    // dispatch(deleteEntryFetch(currentMilestone.id))
+    dispatch(deleteMilestoneFetch(currentMilestone.id))
     handleCloseDeleteDialog()
   }
 
