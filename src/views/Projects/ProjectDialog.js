@@ -53,27 +53,16 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
   const handleSetEndDate = date => setEndDate(date)
 
   const handleSubmit = () => {
-    if (project.id) {
-      const requestBody = {
-        project: {
-          name: name,
-          description: description,
-          start_date: getUnixTime(startDate),
-          end_date: getUnixTime(endDate),
-        },
-      }
-      dispatch(editProjectFetch(requestBody, project.id))
-    } else {
-      const requestBody = {
-        project: {
-          name: name,
-          description: description,
-          start_date: getUnixTime(startDate),
-          end_date: getUnixTime(endDate),
-        },
-      }
-      dispatch(addProjectFetch(requestBody))
+    const requestBody = {
+      project: {
+        name: name,
+        description: description,
+        start_date: getUnixTime(startDate),
+        end_date: getUnixTime(endDate),
+      },
     }
+
+    project.id ? dispatch(editProjectFetch(requestBody, project.id)) : dispatch(addProjectFetch(requestBody))
 
     onClose()
   }

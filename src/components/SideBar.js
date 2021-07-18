@@ -6,7 +6,7 @@ import DescriptionIcon from '@material-ui/icons/Description'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-// import InboxIcon from '@material-ui/icons/MoveToInbox'
+import InboxIcon from '@material-ui/icons/MoveToInbox'
 // import GroupIcon from '@material-ui/icons/Group'
 // import EventAvailableIcon from '@material-ui/icons/EventAvailable'
 
@@ -67,11 +67,11 @@ export default function CustomizedMenus() {
   const location = useLocation()
   const dispatch = useDispatch()
 
-  // const clearProject = () => {
-  //   dispatch(clearCurrentProject())
-  //   dispatch(clearCurrentMilestone())
-  //   dispatch(clearCurrentTask())
-  // }
+  const clearProjects = () => {
+    dispatch(clearCurrentProject())
+    dispatch(clearCurrentMilestone())
+    dispatch(clearCurrentTask())
+  }
 
   const handleLogOut = () => {
     if (window.confirm('Are you sure you want to Log Out?')) {
@@ -106,7 +106,7 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
-        <Link to='/projects' className={classes.linkStyle}>
+        <Link to='/projects' className={classes.linkStyle} onClick={clearProjects}>
           <ListItem button className={isSelectedStyle('/projects')}>
             <ListItemIcon className={classes.iconStyle}>
               <AssignmentTurnedInIcon />
@@ -150,6 +150,15 @@ export default function CustomizedMenus() {
             <ListItemText primary='Inbox' />
           </ListItem>
         </Link> */}
+
+        <Link to='/inbox' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/inbox')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary='Inbox' />
+          </ListItem>
+        </Link>
 
         <Link to='/profile' className={classes.linkStyle}>
           <ListItem button className={isSelectedStyle('/profile')}>

@@ -218,7 +218,7 @@ export default function useTable() {
           {tableHead()}
           <TableBody>
             {recordsAfterPagingAndSorting().map((item, idx) => (
-              <TableRow key={idx} onClick={() => console.log('clicks table row')}>
+              <TableRow key={idx}>
                 <TableCell className={classes.nameHover} onClick={() => handleSetCurrentMilestone(item.id)}>
                   {item.name}
                 </TableCell>

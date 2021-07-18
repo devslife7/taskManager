@@ -17,7 +17,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   let idx
-  console.log('ACTION:', action) // consoles the redux action for everything in state
+  console.log('ACTION:', action) // consoles the redux action for every action called in state
 
   switch (action.type) {
     case 'SET_CURRENT_USER':
