@@ -19,6 +19,7 @@ import MilestonesGraph from './MilestonesGraph'
 import { fromUnixTime, format } from 'date-fns'
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import MilestonesDialog from './MilestonesDialog'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Milestones() {
+export default function Milestones() {
   const classes = useStyles()
   const currentProject = useSelector(state => state.projects.currentProject)
 
@@ -146,7 +147,9 @@ function Milestones() {
       <MilestonesTable />
       <MilestonesGraph />
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <MilestonesDialog open={openDialog} onClose={handleCloseDialog} projectId={currentProject.id} />
+
+      {/* <Dialog open={openDialog} onClose={handleCloseDialog}>
         <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
           {'New Milestone'}
         </Typography>
@@ -201,7 +204,7 @@ function Milestones() {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle disableTypography>
@@ -306,5 +309,3 @@ function Milestones() {
     </div>
   )
 }
-
-export default Milestones

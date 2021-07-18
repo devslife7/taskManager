@@ -70,33 +70,30 @@ export default function useTable() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
   const [currentMilestone, setCurrentMilestone] = useState({ name: '' })
-  const [name, setName] = useState('')
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
+  // const [name, setName] = useState('')
+  // const [startDate, setStartDate] = useState()
+  // const [endDate, setEndDate] = useState()
 
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
   const handleCloseEditDialog = () => setOpenEditDialog(false)
-  const handleSetStartDate = date => setStartDate(date)
-  const handleSetEndDate = date => setEndDate(date)
+  // const handleSetStartDate = date => setStartDate(date)
+  // const handleSetEndDate = date => setEndDate(date)
 
   const handleOpenDeleteDialog = milestone => {
     setOpenDeleteDialog(true)
     setCurrentMilestone(milestone)
   }
   const handleOpenEditDialog = milestone => {
-    setName(milestone.name)
-    setStartDate(fromUnixTime(milestone.start_date))
-    setEndDate(fromUnixTime(milestone.end_date))
+    setCurrentMilestone(milestone)
+    // setName(milestone.name)
+    // setStartDate(fromUnixTime(milestone.start_date))
+    // setEndDate(fromUnixTime(milestone.end_date))
     setOpenEditDialog(true)
   }
   const handleDeleteConfirm = () => {
     console.log('Confirms delete milestone')
     // dispatch(deleteEntryFetch(currentMilestone.id))
     handleCloseDeleteDialog()
-  }
-  const handleEditDialogSubmit = () => {
-    console.log('submits edit dialog')
-    handleCloseEditDialog()
   }
 
   const handleSetCurrentMilestone = milestoneId => {

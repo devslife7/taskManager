@@ -12,6 +12,9 @@ import {
 
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
+import { createMilestoneFetch } from '../../../redux/actions/milestones'
+import { useDispatch } from 'react-redux'
+import { fromUnixTime } from 'date-fns/esm'
 
 const useStyle = makeStyles(() => ({
   button: {
@@ -25,16 +28,29 @@ const useStyle = makeStyles(() => ({
   },
 }))
 
-export default function MilestonesDialog({ open, onClose }) {
+export default function MilestonesDialog({ open, onClose, projectId }) {
   const classes = useStyle()
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    const requestBody = {
+      milestone: {
+        name: name,
+        start_date: fromUnixTime(startDate),
+        end_date: fromUnixTime(endDate),
+        project_id: projectId,
+      },
+    }
+
+    dispatch(createMilestoneFetch(requestBody))
+    onClose()
+  }
 
   return (
     <>
