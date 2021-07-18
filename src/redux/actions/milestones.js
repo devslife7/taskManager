@@ -35,6 +35,24 @@ export const createMilestoneFetch = requestBody => {
   }
 }
 
+export const editMilestoneFetch = (requestBody, milestoneId) => {
+  return dispatch => {
+    const configurationObject = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    }
+    fetch(milestonesURL + milestoneId, configurationObject)
+      .then(resp => resp.json())
+      .then(data => {
+        dispatch({
+          type: 'EDIT_MILESTONE',
+          payload: data,
+        })
+      })
+  }
+}
+
 // export const editTaskFetch = (requestBody, taskId) => {
 //   return dispatch => {
 //     const configurationObject = {

@@ -97,6 +97,34 @@ export default (state = initialState, action) => {
         },
       }
 
+    case 'EDIT_MILESTONE':
+      idx = state.currentProject.milestones.findIndex(item => item.id === action.payload.milestone.id)
+      return {
+        ...state,
+        currentProject: {
+          ...state.currentProject,
+          milestones: [
+            ...state.currentProject.milestones.slice(0, idx),
+            action.payload.milestone,
+            ...state.currentProject.milestones.slice(idx + 1),
+          ],
+        },
+      }
+
+    case 'EDIT_TASK':
+      idx = state.currentMilestone.tasks.findIndex(task => task.id === action.payload.task.id)
+      return {
+        ...state,
+        currentMilestone: {
+          ...state.currentMilestone,
+          tasks: [
+            ...state.currentMilestone.tasks.slice(0, idx),
+            action.payload.task,
+            ...state.currentMilestone.tasks.slice(idx + 1),
+          ],
+        },
+      }
+
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Dialog,
@@ -12,7 +12,7 @@ import {
 
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import { createMilestoneFetch } from '../../../redux/actions/milestones'
+import { createMilestoneFetch, editMilestoneFetch } from '../../../redux/actions/milestones'
 import { useDispatch } from 'react-redux'
 import { fromUnixTime } from 'date-fns/esm'
 
@@ -28,27 +28,48 @@ const useStyle = makeStyles(() => ({
   },
 }))
 
-export default function MilestonesDialog({ open, onClose, projectId }) {
+export default function MilestonesDialog({ open, onClose, projectId, milestone = {} }) {
   const classes = useStyle()
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
+  useEffect(() => {
+    if (milestone.id) {
+      setName(milestone.name)
+      setStartDate(fromUnixTime(milestone.start_date))
+      setEndDate(fromUnixTime(milestone.end_date))
+    }
+  }, [milestone])
+
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
   const handleSubmit = () => {
-    const requestBody = {
-      milestone: {
-        name: name,
-        start_date: fromUnixTime(startDate),
-        end_date: fromUnixTime(endDate),
-        project_id: projectId,
-      },
+    if (milestone.id) {
+      const requestBody = {
+        milestone: {
+          name: name,
+          start_date: fromUnixTime(startDate),
+          end_date: fromUnixTime(endDate),
+        },
+      }
+
+      dispatch(editMilestoneFetch(requestBody, milestone.id))
+    } else {
+      const requestBody = {
+        milestone: {
+          name: name,
+          start_date: fromUnixTime(startDate),
+          end_date: fromUnixTime(endDate),
+          project_id: projectId,
+        },
+      }
+
+      dispatch(createMilestoneFetch(requestBody))
     }
 
-    dispatch(createMilestoneFetch(requestBody))
     onClose()
   }
 
