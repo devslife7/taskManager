@@ -81,15 +81,21 @@ export default (state = initialState, action) => {
         allProjects: [...state.allProjects.slice(0, idx), ...state.allProjects.slice(idx + 1)],
       }
 
-    // case 'ADD_MILESTONE':
-    //   return {
-    //     ...state,
-    //     currentMilestone: {
-    //       ...state.currentMilestone,
-    //       progress: action.payload.milestone.progress,
-    //       tasks: [...state.currentMilestone.tasks, action.payload.task],
-    //     },
-    //   }
+    case 'ADD_MILESTONE':
+      idx = state.allProjects.findIndex(project => project.id === action.payload.project.id)
+      return {
+        ...state,
+        allProjects: [
+          ...state.allProjects.slice(0, idx),
+          { ...state.allProjects[idx], progress: action.payload.project.progress },
+          ...state.allProjects.slice(idx + 1),
+        ],
+        currentProject: {
+          ...state.currentProject,
+          progress: action.payload.project.progress,
+          milestones: [...state.currentProject.milestones, action.payload.milestone],
+        },
+      }
 
     default:
       return state
