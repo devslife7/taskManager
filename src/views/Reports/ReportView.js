@@ -3,7 +3,15 @@ import { Button, Divider, Grid, makeStyles, Paper, Typography } from '@material-
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteReportFetch } from '../../redux/actions/user'
-import { getUnixTime, fromUnixTime, parseISO, format } from 'date-fns'
+import {
+  getUnixTime,
+  fromUnixTime,
+  parseISO,
+  format,
+  isFuture,
+  intervalToDuration,
+  formatDuration,
+} from 'date-fns'
 import ReportTable from './ReportTable'
 
 const useStyles = makeStyles(() => ({
@@ -43,10 +51,20 @@ export default function ReportView({ handleExitReportView }) {
   //   dispatch(fetchCurrentReport(6))
   // }, [dispatch]) // temp auto fetch of report id: 6
 
-  const projectStatus = proj => {
-    const todaysDate = getUnixTime(new Date()) // Today's date
-    return proj.end_date < todaysDate ? 'Inactive' : 'Active'
+  const timeUntilProjectDeadline = () => {
+    const duration = intervalToDuration({
+      start: fromUnixTime(reportProj.end_date),
+      end: new Date(),
+    })
+
+    delete duration.hours
+    delete duration.minutes
+    delete duration.seconds
+
+    return formatDuration(duration, { delimiter: ', ' })
   }
+
+  const isProjectActive = () => isFuture(fromUnixTime(reportProj.end_date))
 
   const handleDeleteReport = () => {
     const message = 'Are you sure you want to delete the current report?\nThis action can not be undone.'
@@ -81,8 +99,9 @@ export default function ReportView({ handleExitReportView }) {
           <Divider />
 
           <div className={classes.detailsContainer}>
-            <div>Status: {projectStatus(reportProj)}</div>
+            <div>Status: {isProjectActive() ? 'Active' : 'Inactive'}</div>
             <div>Progress: {reportProj.progress}%</div>
+            <div>Time until deadline: {isProjectActive() ? timeUntilProjectDeadline() : 'Past deadline'}</div>
             <div>Description: {reportProj.description}</div>
           </div>
 
@@ -90,8 +109,8 @@ export default function ReportView({ handleExitReportView }) {
 
           <div className={classes.detailsContainer}>
             <div>Project id: {reportProj.id}</div>
-            <div>Project Created: {format(parseISO(reportProj.created_at), 'p PP')}</div>
-            <div>Project Lasted Update: {format(parseISO(reportProj.updated_at), 'p PP')}</div>
+            <div>Project Created: {format(parseISO(reportProj.created_at), "PPPP ' at ' p")}</div>
+            <div>Project Laste Update: {format(parseISO(reportProj.updated_at), "PPPP ' at ' p")}</div>
             <div>Project Start: {format(fromUnixTime(reportProj.start_date), 'PP')}</div>
             <div>Project Deadline: {format(fromUnixTime(reportProj.end_date), 'PP')}</div>
           </div>
@@ -102,7 +121,7 @@ export default function ReportView({ handleExitReportView }) {
             <div>
               Report Owner: {currentUser.first_name} {currentUser.last_name}
             </div>
-            <div>Report Created: {format(parseISO(currentReport.created_at), 'p PP')}</div>
+            <div>Report Created: {format(parseISO(currentReport.created_at), "PPPP ' at ' p")}</div>
             <div>Report Owner Notes: {currentReport.notes}</div>
           </div>
 
