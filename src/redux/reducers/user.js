@@ -71,7 +71,6 @@ export default (state = initialState, action) => {
 
     case 'DELETE_REPORT':
       idx = state.currentUser.reports.findIndex(report => report.id === action.payload)
-      console.log('payload: ', action.payload)
       return {
         ...state,
         currentUser: {
