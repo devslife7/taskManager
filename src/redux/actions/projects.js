@@ -40,6 +40,22 @@ export const addProjectFetch = requestBody => {
   }
 }
 
+export const editProjectFetch = (requestBody, projectId) => {
+  return dispatch => {
+    const configObject = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    }
+
+    fetch(projectsURL + projectId, configObject)
+      .then(resp => resp.json())
+      .then(data => dispatch({ type: 'EDIT_PROJECT', payload: data }))
+  }
+}
+
 export const removeProject = projectId => {
   return {
     type: 'REMOVE_PROJECT',

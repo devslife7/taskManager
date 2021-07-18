@@ -116,7 +116,20 @@ export default (state = initialState, action) => {
         allProjects: [...state.allProjects, action.payload.project],
       }
 
-    // case 'EDIT_PROJECT'
+    case 'EDIT_PROJECT':
+      idx = state.allProjects.findIndex(item => item.id === action.payload.project.id)
+      let proj = action.payload.project
+      let simpleProj = {
+        id: proj.id,
+        name: proj.name,
+        progress: proj.progress,
+        end_date: proj.end_date,
+      }
+      return {
+        ...state,
+        allProjects: [...state.allProjects.slice(0, idx), simpleProj, ...state.allProjects.slice(idx + 1)],
+        currentProject: action.payload.project,
+      }
 
     // case 'DELETE_PROJECT':
     //   console.log('enters remove proj action', state)

@@ -15,7 +15,7 @@ import {
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { useDispatch } from 'react-redux'
-import { addProjectFetch } from '../../redux/actions/projects'
+import { addProjectFetch, editProjectFetch } from '../../redux/actions/projects'
 import { fromUnixTime, getUnixTime } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
@@ -53,18 +53,28 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
   const handleSetEndDate = date => setEndDate(date)
 
   const handleSubmit = () => {
-    console.log('SUBMITS FORM')
-
-    const requestBody = {
-      project: {
-        name: name,
-        description: description,
-        start_date: getUnixTime(startDate),
-        end_date: getUnixTime(endDate),
-      },
+    if (project.id) {
+      const requestBody = {
+        project: {
+          name: name,
+          description: description,
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
+        },
+      }
+      dispatch(editProjectFetch(requestBody, project.id))
+    } else {
+      const requestBody = {
+        project: {
+          name: name,
+          description: description,
+          start_date: getUnixTime(startDate),
+          end_date: getUnixTime(endDate),
+        },
+      }
+      dispatch(addProjectFetch(requestBody))
     }
 
-    dispatch(addProjectFetch(requestBody))
     onClose()
   }
 
