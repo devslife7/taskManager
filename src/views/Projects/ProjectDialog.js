@@ -52,6 +52,14 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
+  const addProjectClearForm = requestBody => {
+    dispatch(addProjectFetch(requestBody))
+    setName('')
+    setDescription('')
+    setStartDate(new Date())
+    setEndDate(new Date())
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
 
@@ -64,7 +72,7 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
       },
     }
 
-    project.id ? dispatch(editProjectFetch(requestBody, project.id)) : dispatch(addProjectFetch(requestBody))
+    project.id ? dispatch(editProjectFetch(requestBody, project.id)) : addProjectClearForm(requestBody)
 
     onClose()
   }
@@ -109,6 +117,7 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
           ) : (
             <DialogContent className={classes.DialogContent}>
               <TextField
+                autoFocus
                 variant='outlined'
                 margin='normal'
                 fullWidth

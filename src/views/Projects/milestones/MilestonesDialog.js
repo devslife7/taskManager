@@ -47,7 +47,9 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
   const handleSetStartDate = date => setStartDate(date)
   const handleSetEndDate = date => setEndDate(date)
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
+
     if (milestone.id) {
       const requestBody = {
         milestone: {
@@ -69,6 +71,11 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
       }
 
       dispatch(createMilestoneFetch(requestBody))
+
+      // Clears the form
+      setName('')
+      setStartDate(new Date())
+      setEndDate(new Date())
     }
 
     onClose()
@@ -77,66 +84,69 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
-          {milestone.id ? 'Edit Milestone' : 'New Milestone'}
-        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Typography variant='h5' style={{ marginTop: '20px', marginLeft: '30px' }}>
+            {milestone.id ? 'Edit Milestone' : 'New Milestone'}
+          </Typography>
 
-        <DialogContent className={classes.DialogContent}>
-          <TextField
-            label='Name'
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            value={name}
-            onChange={e => {
-              setName(e.target.value)
-            }}
-            style={{ marginBottom: '20px' }}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
-              <KeyboardDatePicker
-                label='Start Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-start-date'
-                value={startDate}
-                onChange={handleSetStartDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-              <KeyboardDatePicker
-                label='End Date'
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='MM/dd/yyyy'
-                margin='normal'
-                id='date-picker-end-date'
-                value={endDate}
-                onChange={handleSetEndDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-                className={classes.KeyboardDatePicker}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-        </DialogContent>
+          <DialogContent className={classes.DialogContent}>
+            <TextField
+              autoFocus
+              label='Name'
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              value={name}
+              onChange={e => {
+                setName(e.target.value)
+              }}
+              style={{ marginBottom: '20px' }}
+            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Grid container justify='space-around'>
+                <KeyboardDatePicker
+                  label='Start Date'
+                  disableToolbar
+                  autoOk
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-start-date'
+                  value={startDate}
+                  onChange={handleSetStartDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+                <KeyboardDatePicker
+                  label='End Date'
+                  disableToolbar
+                  autoOk
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-end-date'
+                  value={endDate}
+                  onChange={handleSetEndDate}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  className={classes.KeyboardDatePicker}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+          </DialogContent>
 
-        <DialogActions style={{ marginTop: '10px' }}>
-          <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
-            Cancel
-          </Button>
-          <Button variant='contained' className={classes.button} onClick={handleSubmit} color='primary'>
-            Submit
-          </Button>
-        </DialogActions>
+          <DialogActions style={{ marginTop: '10px' }}>
+            <Button variant='outlined' className={classes.button} onClick={onClose} color='primary'>
+              Cancel
+            </Button>
+            <Button type='submit' variant='contained' className={classes.button} color='primary'>
+              Submit
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   )
