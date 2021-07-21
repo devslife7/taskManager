@@ -240,8 +240,13 @@ export default function useTable() {
             ))}
           </TableBody>
         </Table>
-        {/* {tablePagination()} */}
-        <div>what is this</div>
+        {records.length === 0 ? (
+          <Typography align='center' variant='subtitle1' color='textSecondary' style={{ padding: '2rem 0' }}>
+            No milestones created...
+          </Typography>
+        ) : (
+          tablePagination()
+        )}
       </Paper>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
