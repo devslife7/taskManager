@@ -84,7 +84,6 @@ export default function Milestones() {
       end: new Date(),
     })
 
-    delete duration.hours
     delete duration.minutes
     delete duration.seconds
 
