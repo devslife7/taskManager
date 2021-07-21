@@ -238,7 +238,14 @@ export default function TaskTable() {
             ))}
           </TableBody>
         </Table>
-        {tablePagination()}
+
+        {records.length === 0 ? (
+          <Typography align='center' variant='subtitle1' color='textSecondary' style={{ padding: '2rem 0' }}>
+            No tasks created...
+          </Typography>
+        ) : (
+          tablePagination()
+        )}
       </Paper>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
