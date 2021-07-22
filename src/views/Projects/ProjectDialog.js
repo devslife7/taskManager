@@ -16,8 +16,9 @@ import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { useDispatch } from 'react-redux'
 import { addProjectFetch, editProjectFetch } from '../../redux/actions/projects'
-import { fromUnixTime, getUnixTime } from 'date-fns'
+import { addDays, fromUnixTime, getUnixTime } from 'date-fns'
 import * as XLSX from 'xlsx'
+import ProjectPreviewTable from './ProjectPreviewTable'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -27,8 +28,8 @@ const useStyles = makeStyles(theme => ({
     width: '140px',
   },
   DialogContent: {
-    height: '250px',
-    width: '350px',
+    // height: '250px',
+    width: '450px',
   },
 }))
 
@@ -104,9 +105,8 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
       setData(d)
       setName(d[0]['Name'])
       setDescription(d[0]['Description'])
-      setStartDate(d[0]['Start Date'])
-      setEndDate(d[0]['End Date'])
-      console.log(d)
+      setStartDate(addDays(new Date(1899, 11, 30), d[0]['Start Date']))
+      setEndDate(addDays(new Date(1899, 11, 30), d[0]['End Date']))
     })
   }
 
@@ -142,27 +142,7 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
               </InputLabel>
               <input id='customFile' type='file' onChange={readExcel} />
 
-              <table>
-                <thead>
-                  <tr>
-                    <th scope='col'>Name</th>
-                    <th scope='col'>Description</th>
-                    <th scope='col'>Start Date</th>
-                    <th scope='col'>End Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item['Name']}</td>
-                      <td>{item['Description']}</td>
-                      <td>{item['Start Date']}</td>
-                      <td>{item['End Date']}</td>
-                      {/* {console.log('format', format(item['Start Date'], 'PP'))} */}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <ProjectPreviewTable data={data} />
             </DialogContent>
           ) : (
             <DialogContent className={classes.DialogContent}>
