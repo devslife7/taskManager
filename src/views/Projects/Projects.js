@@ -75,7 +75,7 @@ export default function Projects() {
       proj.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-    filterProjects.sort((a, b) => a.id - b.id) // Sorts Projects by id so the newest one shows first
+    filterProjects.sort((a, b) => a.id - b.id) // Sorts Projects by id so the newest one shows
 
     return filterProjects
       .map((proj, idx) => (

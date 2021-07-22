@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import * as XLSX from 'xlsx'
 import { useState } from 'react'
+import { format } from 'date-fns'
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -16,7 +17,9 @@ export default function Inbox() {
 
   const [data, setData] = useState([])
 
-  const readExcel = file => {
+  const readExcel = e => {
+    const file = e.target.files[0]
+
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader()
       fileReader.readAsArrayBuffer(file)
@@ -48,29 +51,26 @@ export default function Inbox() {
         <div>format Exel sheets</div>
 
         <div>
-          <input
-            type='file'
-            onChange={e => {
-              const file = e.target.files[0]
-              readExcel(file)
-            }}
-          />
+          <input type='file' onChange={readExcel} />
         </div>
 
         <table>
           <thead>
             <tr>
               <th scope='col'>Name</th>
-              <th scope='col'>Age</th>
-              <th scope='col'>Phone</th>
+              <th scope='col'>Description</th>
+              <th scope='col'>Start Date</th>
+              <th scope='col'>End Date</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item, idx) => (
               <tr key={idx}>
                 <td>{item['Name']}</td>
-                <td>{item['Age']}</td>
-                <td>{item['Phone']}</td>
+                <td>{item['Description']}</td>
+                <td>{item['Start Date']}</td>
+                <td>{item['End Date']}</td>
+                {/* {console.log('format', format(item['Start Date'], 'PP'))} */}
               </tr>
             ))}
           </tbody>

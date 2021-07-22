@@ -17,6 +17,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import { useDispatch } from 'react-redux'
 import { addProjectFetch, editProjectFetch } from '../../redux/actions/projects'
 import { fromUnixTime, getUnixTime } from 'date-fns'
+import * as XLSX from 'xlsx'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -39,6 +40,9 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [displayImport, setDisplayImport] = useState(false)
+  const [data, setData] = useState([])
+  // console.log(startDate)
+  // console.log(new Date('07/21/2021'))
 
   useEffect(() => {
     if (project.id) {
@@ -77,6 +81,35 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
     onClose()
   }
 
+  const readExcel = e => {
+    const file = e.target.files[0]
+
+    const promise = new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.readAsArrayBuffer(file)
+
+      fileReader.onload = e => {
+        const bufferArray = e.target.result
+        const wb = XLSX.read(bufferArray, { type: 'buffer' })
+        const wsname = wb.SheetNames[0]
+        const ws = wb.Sheets[wsname]
+        const data = XLSX.utils.sheet_to_json(ws)
+        resolve(data)
+      }
+      fileReader.onerror = error => {
+        reject(error)
+      }
+    })
+    promise.then(d => {
+      setData(d)
+      setName(d[0]['Name'])
+      setDescription(d[0]['Description'])
+      setStartDate(d[0]['Start Date'])
+      setEndDate(d[0]['End Date'])
+      console.log(d)
+    })
+  }
+
   return (
     <>
       <Dialog open={open} onClose={onClose}>
@@ -107,12 +140,29 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
               <InputLabel htmlFor='my-input' style={{ margin: '20px 0px' }}>
                 Select Import File
               </InputLabel>
-              <input
-                id='customFile'
-                type='file'
-                // onChange={e => setImportFile(e.target.files[0])}
-                // style={{ color: "red", backgroundColor: "yellow" }}
-              />
+              <input id='customFile' type='file' onChange={readExcel} />
+
+              <table>
+                <thead>
+                  <tr>
+                    <th scope='col'>Name</th>
+                    <th scope='col'>Description</th>
+                    <th scope='col'>Start Date</th>
+                    <th scope='col'>End Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item['Name']}</td>
+                      <td>{item['Description']}</td>
+                      <td>{item['Start Date']}</td>
+                      <td>{item['End Date']}</td>
+                      {/* {console.log('format', format(item['Start Date'], 'PP'))} */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </DialogContent>
           ) : (
             <DialogContent className={classes.DialogContent}>
