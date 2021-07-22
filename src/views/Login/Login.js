@@ -98,13 +98,11 @@ export default function Login({ history }) {
         .then(data => {
           localStorage.token = data.token
           localStorage.userId = data.user.id
-          console.log('this is the data.user from fetch: ', data.user)
           dispatch(setCurrentUser(data.user))
-          console.log('CURRENT user from login', data)
           history.push('/projects')
         })
         .catch(error => {
-          console.error('Error is this :', error)
+          console.error('Error :', error.message)
         })
     }
 

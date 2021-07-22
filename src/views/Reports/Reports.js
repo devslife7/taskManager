@@ -1,4 +1,4 @@
-import { Button, Grid, makeStyles } from '@material-ui/core'
+import { Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@material-ui/icons/Add'
 import { useDispatch, useSelector } from 'react-redux'
@@ -58,12 +58,13 @@ export default function Reports() {
             </Button>
           </div>
 
-          {/* Dialog prompting to create a new Report */}
           <CreateReportDialog open={openDialog} onClose={handleCloseDialog} />
 
           <div className={classes.reportsContainer}>
             {userReports.length === 0 ? (
-              <div>Click on the create report button above to create your first report.</div>
+              <Typography variant='h6' color='textSecondary' style={{ marginLeft: '35rem' }}>
+                No reports created...
+              </Typography>
             ) : (
               <Grid container spacing={5}>
                 {renderReports(handleEnterReportView)}
