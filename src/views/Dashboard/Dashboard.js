@@ -7,7 +7,6 @@ import { fromUnixTime, format, getUnixTime } from 'date-fns'
 
 const useStyles = makeStyles({
   graph: {
-    // backgroundColor: '#f4f4f4',
     margin: '0 auto',
   },
   boxesContainer: {
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
 })
 
 export default function Dashboard() {
+  console.log('renders Dashboard')
   const classes = useStyles()
   const dispatch = useDispatch()
   const allProjects = useSelector(state => state.projects.allProjects)
@@ -52,7 +52,6 @@ export default function Dashboard() {
   return (
     <>
       <Grid container direction='column'>
-        {console.log('renders Dashboard')}
         <Grid item container justify='space-around' className={classes.boxesContainer}>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Total Projects</div>
