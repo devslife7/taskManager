@@ -46,16 +46,6 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center' style={{ color: '#fff' }}>
-      {'Copyright © '}
-      {' ProTask '} {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
-
 export default function SignUp({ history }) {
   const dispatch = useDispatch()
   const [firstName, setFirstName] = useState('')
@@ -171,7 +161,9 @@ export default function SignUp({ history }) {
           </form>
         </Paper>
         <Box mt={5}>
-          <Copyright />
+          <Typography variant='body2' align='center' style={{ color: '#fff' }}>
+            Copyright © ProTask {new Date().getFullYear()}.
+          </Typography>
         </Box>
       </div>
     </div>
