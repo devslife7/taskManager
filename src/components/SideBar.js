@@ -151,14 +151,14 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link> */}
 
-        <Link to='/inbox' className={classes.linkStyle}>
+        {/* <Link to='/inbox' className={classes.linkStyle}>
           <ListItem button className={isSelectedStyle('/inbox')}>
             <ListItemIcon className={classes.iconStyle}>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary='Inbox' />
           </ListItem>
-        </Link>
+        </Link> */}
 
         <Link to='/profile' className={classes.linkStyle}>
           <ListItem button className={isSelectedStyle('/profile')}>
