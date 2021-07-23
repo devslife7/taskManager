@@ -67,6 +67,8 @@ export default function Login({ history }) {
     e.preventDefault()
     const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
 
+    console.log('loginURL:', logInURL)
+
     let requestBody = {
       method: 'POST',
       headers: {
