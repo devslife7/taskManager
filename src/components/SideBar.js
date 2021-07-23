@@ -1,90 +1,88 @@
-import React, { useState } from "react"
-import { withStyles } from "@material-ui/core/styles"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
-import DashboardIcon from "@material-ui/icons/Dashboard"
-import DescriptionIcon from "@material-ui/icons/Description"
-import GroupIcon from "@material-ui/icons/Group"
-import ExitToAppIcon from "@material-ui/icons/ExitToApp"
-import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn"
-import AccountCircleIcon from "@material-ui/icons/AccountCircle"
+import React from 'react'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import DescriptionIcon from '@material-ui/icons/Description'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import InboxIcon from '@material-ui/icons/MoveToInbox'
+// import GroupIcon from '@material-ui/icons/Group'
+// import EventAvailableIcon from '@material-ui/icons/EventAvailable'
 
-import { makeStyles } from "@material-ui/core/styles"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import Divider from "@material-ui/core/Divider"
-import { Grid, Typography } from "@material-ui/core"
-import ProTaskLogo from "../images/ProTaskLogo.png"
-import { Link, Redirect, useLocation } from "react-router-dom"
-import { logOutCurrentUser } from "../actions/user"
-import { useDispatch, useSelector } from "react-redux"
+import { makeStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import { Grid, Typography } from '@material-ui/core'
+import ProTaskLogo from '../img/ProTaskLogo.png'
+import { Link, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import { useHistory } from "react-router-dom"
-import { clearCurrentProject } from "../actions/projects"
-import { clearCurrentMilestone } from "../actions/milestones"
-import { clearCurrentTask } from "../actions/tasks"
+import { useHistory } from 'react-router-dom'
+import { logOutCurrentUser } from '../redux/actions/user'
+import { clearCurrentProject } from '../redux/actions/projects'
+import { clearCurrentMilestone } from '../redux/actions/milestones'
+import { clearCurrentTask } from '../redux/actions/tasks'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: "#33435F",
-    width: "100%",
-    maxWidth: "14rem",
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    backgroundColor: '#33435F',
+    width: '100%',
+    maxWidth: '14rem',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   menuItem: {
-    height: "3.7rem",
-    paddingLeft: "2rem",
-    color: "#B5C2C9",
+    height: '3.7rem',
+    paddingLeft: '2rem',
+    color: '#B5C2C9',
   },
   menuItemSelected: {
-    height: "3.7rem",
-    paddingLeft: "2.6rem",
+    height: '3.7rem',
+    paddingLeft: '2rem',
     backgroundColor: theme.palette.primary.main,
-    "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
       color: theme.palette.common.white,
     },
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.primary.main,
     },
   },
   iconStyle: {
-    color: "#B5C2C9",
+    color: '#B5C2C9',
   },
   linkStyle: {
-    textDecoration: "none",
-    color: "inherit",
+    textDecoration: 'none',
+    color: 'inherit',
   },
 }))
 
 export default function CustomizedMenus() {
-  console.log("--------------------")
-  console.log("renders SideBar")
+  console.log('--------------------')
+  console.log('renders SideBar')
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.user.currentUser)
 
-  // const clearProject = () => {
-  //   dispatch(clearCurrentProject())
-  //   dispatch(clearCurrentMilestone())
-  //   dispatch(clearCurrentTask())
-  // }
+  const clearProjects = () => {
+    dispatch(clearCurrentProject())
+    dispatch(clearCurrentMilestone())
+    dispatch(clearCurrentTask())
+  }
 
   const handleLogOut = () => {
-    if (window.confirm("Are you sure you want to Log Out?")) {
-      console.log("loggin out")
-      history.push("/login")
+    if (window.confirm('Are you sure you want to Log Out?')) {
+      console.log('loggin out')
+      history.push('/login')
       dispatch(logOutCurrentUser())
       dispatch(clearCurrentProject())
       dispatch(clearCurrentMilestone())
       dispatch(clearCurrentTask())
     } else {
-      console.log("canceled")
+      console.log('canceled')
     }
   }
 
@@ -95,12 +93,12 @@ export default function CustomizedMenus() {
   return (
     <div className={classes.container}>
       <List component='nav'>
-        <Grid container alignItems='center' style={{ margin: "2rem", color: "#fff" }}>
-          <img src={ProTaskLogo} alt='logo' style={{ width: "2.7rem", marginRight: "10px" }} />
+        <Grid container alignItems='center' style={{ margin: '2rem', color: '#fff' }}>
+          <img src={ProTaskLogo} alt='logo' style={{ width: '2.7rem', marginRight: '10px' }} />
           <Typography variant='h5'>ProTask</Typography>
         </Grid>
         <Link to='/dashboard' className={classes.linkStyle}>
-          <ListItem className={isSelectedStyle("/dashboard")}>
+          <ListItem className={isSelectedStyle('/dashboard')}>
             <ListItemIcon className={classes.iconStyle}>
               <DashboardIcon />
             </ListItemIcon>
@@ -108,8 +106,8 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
-        <Link to='/projects' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle("/projects")}>
+        <Link to='/projects' className={classes.linkStyle} onClick={clearProjects}>
+          <ListItem button className={isSelectedStyle('/projects')}>
             <ListItemIcon className={classes.iconStyle}>
               <AssignmentTurnedInIcon />
             </ListItemIcon>
@@ -118,7 +116,7 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/reports' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle("/reports")}>
+          <ListItem button className={isSelectedStyle('/reports')}>
             <ListItemIcon className={classes.iconStyle}>
               <DescriptionIcon />
             </ListItemIcon>
@@ -126,8 +124,17 @@ export default function CustomizedMenus() {
           </ListItem>
         </Link>
 
+        {/* <Link to='/calendar' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/calendar')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <EventAvailableIcon />
+            </ListItemIcon>
+            <ListItemText primary='Calendar' />
+          </ListItem>
+        </Link>
+
         <Link to='/team' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle("/team")}>
+          <ListItem button className={isSelectedStyle('/team')}>
             <ListItemIcon className={classes.iconStyle}>
               <GroupIcon />
             </ListItemIcon>
@@ -136,11 +143,29 @@ export default function CustomizedMenus() {
         </Link>
 
         <Link to='/inbox' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle("/inbox")}>
+          <ListItem button className={isSelectedStyle('/inbox')}>
             <ListItemIcon className={classes.iconStyle}>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary='Inbox' />
+          </ListItem>
+        </Link> */}
+
+        {/* <Link to='/inbox' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/inbox')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary='Inbox' />
+          </ListItem>
+        </Link> */}
+
+        <Link to='/profile' className={classes.linkStyle}>
+          <ListItem button className={isSelectedStyle('/profile')}>
+            <ListItemIcon className={classes.iconStyle}>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary='Profile' />
           </ListItem>
         </Link>
 
@@ -150,17 +175,6 @@ export default function CustomizedMenus() {
           </ListItemIcon>
           <ListItemText primary='Log Out' />
         </ListItem>
-      </List>
-
-      <List component='nav'>
-        <Link to='/profile' className={classes.linkStyle}>
-          <ListItem button className={isSelectedStyle("/profile")}>
-            <ListItemIcon className={classes.iconStyle}>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary={`${currentUser.first_name}`} />
-          </ListItem>
-        </Link>
       </List>
     </div>
   )

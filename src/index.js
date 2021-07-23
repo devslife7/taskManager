@@ -1,12 +1,12 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import "./index.css"
-import App from "./App"
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles"
-import { Provider } from "react-redux"
-import { createStore, applyMiddleware, compose } from "redux"
-import thunk from "redux-thunk"
-import rootReducer from "./reducers/index"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import rootReducer from './redux/reducers/index'
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -24,8 +24,8 @@ const theme = createMuiTheme({
       // main: "#2196f3" // blue
 
       // main: "#33435F" // dark blue
-      main: "#2196f3", // graph blue
-      dark: "#0C60A6",
+      main: '#2196f3', // graph blue
+      dark: '#0C60A6',
       // main: "#6D84AB" // dark blue complementary color
       // main: "#4B6EAB" // dark blue complementary color
 
@@ -35,14 +35,21 @@ const theme = createMuiTheme({
     },
     secondary: {
       // main: "#fca21c" // orange
-      main: "#F2A122", // complementary orange
+      main: '#F2A122', // complementary orange
     },
   },
   overrides: {
     MuiButton: {
       root: {
-        textTransform: "none",
+        textTransform: 'none',
       },
+    },
+  },
+  props: {
+    // Name of the component
+    MuiButtonBase: {
+      // The properties to apply
+      disableRipple: true, // No more ripple, on the whole application!
     },
   },
 })
@@ -53,5 +60,5 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 )
