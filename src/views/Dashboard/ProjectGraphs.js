@@ -5,11 +5,12 @@ import { useSelector } from 'react-redux'
 export default function ProjectGraphs() {
   const allProjects = useSelector(state => state.projects.allProjects)
 
-  const filteredProjects = allProjects.sort((a, b) => b.end_date - a.end_date).reverse()
+  // const filteredProjects = allProjects.sort((a, b) => b.end_date - a.end_date).reverse() // organize by end date
+  const filteredProjects = allProjects.sort((a, b) => b.id - a.id) // organize by date created
   const projectNames = filteredProjects.map(proj => proj.name)
   const projectProgress = filteredProjects.map(proj => proj.progress)
 
-  const [options] = useState({
+  const [options, setOptions] = useState({
     chart: {
       // background: '#dcdcdc',
       background: '#f4f4f4',
@@ -57,6 +58,12 @@ export default function ProjectGraphs() {
         data: projectProgress,
       },
     ])
+    setOptions({
+      ...options,
+      xaxis: {
+        categories: projectNames,
+      },
+    })
   }
 
   return (
