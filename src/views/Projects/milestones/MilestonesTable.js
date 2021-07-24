@@ -70,14 +70,9 @@ export default function useTable() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const [openEditDialog, setOpenEditDialog] = useState(false)
   const [currentMilestone, setCurrentMilestone] = useState({ name: '' })
-  // const [name, setName] = useState('')
-  // const [startDate, setStartDate] = useState()
-  // const [endDate, setEndDate] = useState()
 
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false)
   const handleCloseEditDialog = () => setOpenEditDialog(false)
-  // const handleSetStartDate = date => setStartDate(date)
-  // const handleSetEndDate = date => setEndDate(date)
 
   const handleOpenDeleteDialog = milestone => {
     setOpenDeleteDialog(true)
