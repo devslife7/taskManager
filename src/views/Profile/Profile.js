@@ -61,7 +61,8 @@ export default function Profile() {
     )
   }
 
-  const handleProfileEdit = () => {
+  const handleProfileEdit = e => {
+    e.preventDefault()
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
@@ -74,68 +75,64 @@ export default function Profile() {
     <div className={classes.container}>
       <div className={classes.title}>Personal Info</div>
 
-      <TextField
-        id='first-name'
-        label='First Name'
-        className={classes.textField}
-        value={firstName}
-        fullWidth
-        variant='outlined'
-        onChange={onValueChange}
-      />
-      <TextField
-        id='last-name'
-        label='Last Name'
-        fullWidth
-        className={classes.textField}
-        value={lastName}
-        variant='outlined'
-        onChange={onValueChange}
-      />
-      <TextField
-        id='username'
-        label='Username'
-        disabled
-        fullWidth
-        className={classes.textField}
-        value={`${currentUser.username}`}
-        // InputProps={{
-        //   readOnly: true,
-        // }}
-        variant='outlined'
-      />
-      <TextField
-        id='role'
-        label='Role'
-        disabled
-        fullWidth
-        className={classes.textField}
-        value={`${currentUser.role}`}
-        // InputProps={{
-        //   readOnly: true,
-        // }}
-        variant='outlined'
-      />
+      <form onSubmit={handleProfileEdit}>
+        <TextField
+          id='first-name'
+          label='First Name'
+          className={classes.textField}
+          value={firstName}
+          fullWidth
+          variant='outlined'
+          onChange={onValueChange}
+        />
+        <TextField
+          id='last-name'
+          label='Last Name'
+          fullWidth
+          className={classes.textField}
+          value={lastName}
+          variant='outlined'
+          onChange={onValueChange}
+        />
+        <TextField
+          id='username'
+          label='Username'
+          disabled
+          fullWidth
+          className={classes.textField}
+          value={`${currentUser.username}`}
+          variant='outlined'
+        />
+        <TextField
+          id='role'
+          label='Role'
+          disabled
+          fullWidth
+          className={classes.textField}
+          value={`${currentUser.role}`}
+          variant='outlined'
+        />
 
-      <TextField
-        id='email'
-        label='Email'
-        className={classes.textField}
-        value={email}
-        fullWidth
-        variant='outlined'
-        onChange={onValueChange}
-      />
+        <TextField
+          id='email'
+          label='Email'
+          className={classes.textField}
+          value={email}
+          fullWidth
+          variant='outlined'
+          onChange={onValueChange}
+        />
 
-      {isInfoEdited() ? (
-        <Button className={classes.submitBtn} variant='contained' color='primary' onClick={handleProfileEdit}>
-          Save Changes
-        </Button>
-      ) : (
-        <Button className={classes.submitBtn} variant='contained' color='primary' disabled>
-          Save Changes
-        </Button>
-      )}
+        {isInfoEdited() ? (
+          <Button type='submit' className={classes.submitBtn} variant='contained' color='primary'>
+            Save Changes
+          </Button>
+        ) : (
+          <Button className={classes.submitBtn} variant='contained' color='primary' disabled>
+            Save Changes
+          </Button>
+        )}
+      </form>
     </div>
   )
 }
