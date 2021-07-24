@@ -1,14 +1,10 @@
-import { format, fromUnixTime } from 'date-fns'
-import React, { useState } from 'react'
+import React from 'react'
 import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
 export default function MilestonesGraph() {
-  const currentProject = useSelector(state => state.projects.currentProject)
-  const currentProjectMilestonesSorted = currentProject.milestones
-    .sort((a, b) => b.end_date - a.end_date)
-    .reverse()
-  const timelineSeries = currentProjectMilestonesSorted.map(t => t.progress)
+  const milestones = useSelector(state => state.projects.currentProject.milestones)
+  const milestonesSorted = milestones.sort((a, b) => b.end_date - a.end_date).reverse()
 
   const options = {
     chart: {
@@ -37,7 +33,7 @@ export default function MilestonesGraph() {
       },
     },
     xaxis: {
-      categories: currentProjectMilestonesSorted.map(milestone => milestone.name),
+      categories: milestonesSorted.map(milestone => milestone.name),
       // categories: ['No Milestones'],
     },
     yaxis: {
@@ -52,7 +48,7 @@ export default function MilestonesGraph() {
   const series = [
     {
       name: 'Progress',
-      data: timelineSeries,
+      data: milestonesSorted.map(t => t.progress),
     },
   ]
 

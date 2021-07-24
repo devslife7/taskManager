@@ -3,15 +3,11 @@ import React, { useState } from 'react'
 import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
-function TasksGraph() {
-  const currentMilestone = useSelector(state => state.milestones.currentMilestone)
-  const currentMilestoneTasksSorted = currentMilestone.tasks.sort((a, b) => b.end_date - a.end_date).reverse()
-  // const timelineSeries = currentMilestoneTasksSorted.map(t => ({
-  //   x: format(fromUnixTime(t.end_date), "PP"),
-  //   y: t.progress,
-  // }))
+export default function TasksGraph() {
+  const tasks = useSelector(state => state.milestones.currentMilestone.tasks)
+  const tasksSorted = tasks.sort((a, b) => b.end_date - a.end_date).reverse()
 
-  const [options] = useState({
+  const options = {
     chart: {
       zoom: {
         enabled: true,
@@ -31,7 +27,7 @@ function TasksGraph() {
       },
     },
     xaxis: {
-      categories: currentMilestoneTasksSorted.map(t => t.name),
+      categories: tasksSorted.map(t => t.name),
     },
     yaxis: {
       title: {
@@ -40,22 +36,14 @@ function TasksGraph() {
       min: 0,
       max: 100,
     },
-  })
-  const [series] = useState([
+  }
+
+  const series = [
     {
       name: 'Progress',
-      // data: [
-      //   [1486684800000, 34],
-      //   [1486771200000, 43],
-      //   [1486857600000, 31],
-      //   [1486944000000, 43],
-      //   [1487030400000, 33],
-      //   [1487116800000, 52],
-      // ],
-      // data: timelineSeries,
-      data: currentMilestoneTasksSorted.map(t => t.progress),
+      data: tasksSorted.map(t => t.progress),
     },
-  ])
+  ]
 
   return (
     <div style={{ margin: '2vh auto', padding: '0 200px' }}>
@@ -63,5 +51,3 @@ function TasksGraph() {
     </div>
   )
 }
-
-export default TasksGraph
