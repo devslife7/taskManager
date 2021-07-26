@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Grid, Paper, Snackbar, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
 import { setCurrentUser, logOutCurrentUser, bypassHerokuSleep } from '../../redux/actions/user'
@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
+import MuiAlert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -53,11 +54,21 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />
+}
+
 export default function Login({ history }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [openSnack, setOpenSnack] = useState(false)
+
+  const openSnackBar = () => setOpenSnack(true)
+  const handleSnackClose = () => setOpenSnack(false)
+  const vertical = 'top'
+  const horizontal = 'center'
 
   useEffect(() => {
     dispatch(logOutCurrentUser())
@@ -87,13 +98,15 @@ export default function Login({ history }) {
       fetch(logInURL, requestBody)
         .then(resp => resp.json())
         .then(data => {
-          localStorage.token = data.token
-          localStorage.userId = data.user.id
-          dispatch(setCurrentUser(data.user))
-          history.push('/projects')
-        })
-        .catch(error => {
-          console.error('Error :', error.message)
+          if (!data.error) {
+            console.log('Data: ', data)
+            localStorage.token = data.token
+            localStorage.userId = data.user.id
+            dispatch(setCurrentUser(data.user))
+            history.push('/projects')
+          } else {
+            openSnackBar()
+          }
         })
     }
 
@@ -159,6 +172,17 @@ export default function Login({ history }) {
             Copyright © ProTask {new Date().getFullYear()}.
           </Typography>
         </Box>
+
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={3000}
+          onClose={handleSnackClose}
+          anchorOrigin={{ vertical, horizontal }}
+        >
+          <Alert onClose={handleSnackClose} severity='error'>
+            Invalid Username or Password
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   )
