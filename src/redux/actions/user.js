@@ -79,3 +79,12 @@ export const deleteReportFetch = reportId => {
       )
   }
 }
+
+export const bypassHerokuSleep = () => {
+  return () => {
+    fetch(usersURL, { method: 'GET' })
+      .then(resp => resp.json())
+      .then(data => console.log('Data: ', data))
+      .catch(error => console.log('Error: ', error))
+  }
+}
