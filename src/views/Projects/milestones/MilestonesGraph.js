@@ -25,6 +25,12 @@ export default function MilestonesGraph() {
     title: {
       text: 'Milestone Progress',
       align: 'center',
+      offsetY: 30,
+      style: {
+        fontSize: '1.1rem',
+        fontWeight: 500,
+        color: 'black',
+      },
     },
     grid: {
       row: {
@@ -52,9 +58,56 @@ export default function MilestonesGraph() {
     },
   ]
 
+  const optionsPlaceHolder = {
+    title: {
+      text: 'No milestones created...',
+      align: 'center',
+      offsetY: 190,
+      style: {
+        fontSize: '1.6rem',
+        fontWeight: 500,
+        color: 'rgba(0, 0, 0, 0.50)',
+      },
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: [''],
+    },
+    yaxis: {
+      title: {
+        text: 'Progress %',
+      },
+      min: 0,
+      max: 100,
+    },
+  }
+
+  const seriesPlaceHolder = [
+    {
+      name: 'Progress',
+      data: [0],
+    },
+  ]
+
   return (
     <div style={{ marginTop: '1rem', padding: '0 200px' }}>
-      <Chart options={options} series={series} type='bar' width='1000' height='370' />
+      {milestones.length === 0 ? (
+        <Chart
+          options={optionsPlaceHolder}
+          series={seriesPlaceHolder}
+          type='bar'
+          width='1000'
+          height='370'
+          style={{ marginTop: '5rem' }}
+        />
+      ) : (
+        <Chart options={options} series={series} type='bar' width='1000' height='370' />
+      )}
     </div>
   )
 }
