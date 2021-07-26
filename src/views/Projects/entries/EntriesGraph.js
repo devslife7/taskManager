@@ -23,6 +23,12 @@ export default function EntriesGraph({ records }) {
     title: {
       text: 'Task Progress',
       align: 'center',
+      offsetY: 30,
+      style: {
+        fontSize: '1.1rem',
+        fontWeight: 500,
+        color: 'black',
+      },
     },
     grid: {
       row: {
@@ -57,11 +63,58 @@ export default function EntriesGraph({ records }) {
     },
   ]
 
+  const optionsPlaceHolder = {
+    title: {
+      text: 'No entries created...',
+      align: 'center',
+      offsetY: 181,
+      style: {
+        fontSize: '1.6rem',
+        fontWeight: 500,
+        color: 'rgba(0, 0, 0, 0.50)',
+      },
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: [''],
+    },
+    yaxis: {
+      title: {
+        text: 'Progress %',
+      },
+      min: 0,
+      max: 100,
+    },
+  }
+
+  const seriesPlaceHolder = [
+    {
+      name: 'Progress',
+      data: [0],
+    },
+  ]
+
   return (
     <>
-      <Paper style={{ width: '60rem', margin: '2rem auto' }}>
-        <Chart options={options} series={series} type='line' height='350' />
-      </Paper>
+      <div style={{ marginTop: '1rem', padding: '0 300px' }}>
+        {currentEntriesSorted.length === 0 ? (
+          <Chart
+            options={optionsPlaceHolder}
+            series={seriesPlaceHolder}
+            type='line'
+            width='1000'
+            height='350'
+            style={{ marginTop: '5rem' }}
+          />
+        ) : (
+          <Chart options={options} series={series} type='line' width='1000' height='350' />
+        )}
+      </div>
     </>
   )
 }
