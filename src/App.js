@@ -13,6 +13,11 @@ export default function App() {
   const dispatch = useDispatch()
   const loggedIn = useSelector(state => state.user.loggedIn)
 
+  fetch(`${process.env.REACT_APP_SERVER_URL}/wakeup`)
+    .then(resp => resp.json())
+    .then(data => console.log(data.message))
+    .catch(err => console.log(err))
+
   useEffect(() => {
     localStorage.getItem('userId') && dispatch(fetchUser())
     localStorage.getItem('currentProjectId') && dispatch(fetchCurrentProject())
