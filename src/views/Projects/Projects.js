@@ -142,7 +142,7 @@ export default function Projects() {
                           onChange={event => setSearchTerm(event.target.value)}
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment>
+                              <InputAdornment position='start'>
                                 <SearchIcon />
                               </InputAdornment>
                             ),
