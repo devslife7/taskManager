@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
 import MuiAlert from '@material-ui/lab/Alert'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from 'axios'
 
 const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
@@ -67,6 +68,7 @@ export default function Login({ history }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [openSnack, setOpenSnack] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const openSnackBar = () => setOpenSnack(true)
   const handleSnackClose = () => setOpenSnack(false)
@@ -80,6 +82,12 @@ export default function Login({ history }) {
 
   const handleLogin = async e => {
     e.preventDefault()
+    setIsLoading(true)
+
+    if (username === '' || password === '') {
+      alert('Username or Password cannot be blank')
+      return
+    }
 
     let requestBody = {
       user: {
@@ -88,27 +96,24 @@ export default function Login({ history }) {
       },
     }
 
-    if (username === '' || password === '') {
-      alert('Username or Password cannot be blank')
-      return
-    }
-
     const response = await axios.post(logInURL, requestBody)
     const data = response.data
 
     if (data.error) {
       openSnackBar()
     } else {
-      console.log('Data: ', data)
+      resetForm()
+      dispatch(setCurrentUser(data.user))
       localStorage.token = data.token
       localStorage.userId = data.user.id
-      dispatch(setCurrentUser(data.user))
-
-      setUsername('')
-      setPassword('')
-
       history.push('/projects')
     }
+  }
+
+  const resetForm = () => {
+    // setIsLoading(false)
+    setUsername('')
+    setPassword('')
   }
 
   return (
@@ -152,7 +157,11 @@ export default function Login({ history }) {
             />
 
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-              Log In what
+              {isLoading ? (
+                <CircularProgress style={{ width: '30px', height: '30px', color: 'inherit' }} />
+              ) : (
+                'Log In'
+              )}
             </Button>
 
             <Grid container justifyContent='flex-end'>
