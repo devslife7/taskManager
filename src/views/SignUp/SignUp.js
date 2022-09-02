@@ -151,7 +151,7 @@ export default function SignUp({ history }) {
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
               Sign Up
             </Button>
-            <Grid container justify='flex-end'>
+            <Grid container justifyContent='flex-end'>
               <Grid item>
                 <Link to='/login' className={classes.links}>
                   Already have an account? Login

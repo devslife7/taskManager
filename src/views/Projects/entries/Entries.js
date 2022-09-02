@@ -29,7 +29,7 @@ export default function Entries() {
 
   return (
     <div style={{ padding: '0 50px', overflow: 'scroll' }}>
-      <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
+      <Grid container justifyContent='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>
           Owner(s): Owner
         </Typography>

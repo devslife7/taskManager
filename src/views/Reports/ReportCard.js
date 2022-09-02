@@ -31,7 +31,7 @@ export default function ReportCard({ report, handleEnterReportView }) {
           <Grid item>
             <ListItemText primary={report.title} />
           </Grid>
-          <Grid item container justify='space-between'>
+          <Grid item container justifyContent='space-between'>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
               Created: {format(parseISO(report.created_at), 'p PP')}
             </Typography>

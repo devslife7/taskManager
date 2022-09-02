@@ -143,7 +143,7 @@ export default function CreateReportDialog({ open, onClose }) {
           />
 
           {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify='space-around'>
+            <Grid container justifyContent='space-around'>
               <KeyboardDatePicker
                 id='new-project-start-date-picker'
                 disableToolbar

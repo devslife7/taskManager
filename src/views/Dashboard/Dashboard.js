@@ -52,7 +52,7 @@ export default function Dashboard() {
   return (
     <>
       <Grid container direction='column'>
-        <Grid item container justify='space-around' className={classes.boxesContainer}>
+        <Grid item container justifyContent='space-around' className={classes.boxesContainer}>
           <div className={classes.projectBox}>
             <div style={{ marginBottom: '10px' }}>Total Projects</div>
             <div>{projectsCount}</div>

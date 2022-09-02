@@ -168,7 +168,7 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
                 }}
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container justify='space-around'>
+                <Grid container justifyContent='space-around'>
                   <KeyboardDatePicker
                     id='new-project-start-date-picker'
                     disableToolbar

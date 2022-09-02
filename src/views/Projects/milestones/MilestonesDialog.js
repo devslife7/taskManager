@@ -103,7 +103,7 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
               style={{ marginBottom: '20px' }}
             />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify='space-around'>
+              <Grid container justifyContent='space-around'>
                 <KeyboardDatePicker
                   label='Start Date'
                   disableToolbar

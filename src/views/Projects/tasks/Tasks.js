@@ -27,7 +27,7 @@ export default function Tasks() {
 
   return (
     <div style={{ padding: '0 50px', overflow: 'scroll' }}>
-      <Grid container justify='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
+      <Grid container justifyContent='space-around' style={{ margin: '1rem auto', width: '50vw' }}>
         <Typography variant='subtitle1' align='center'>
           {format(fromUnixTime(currentMilestone.start_date), 'PP')} {' - '}
           {format(fromUnixTime(currentMilestone.end_date), 'PP')}

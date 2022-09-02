@@ -135,7 +135,7 @@ export default function Projects() {
                   </Typography>
                 ) : (
                   <>
-                    <Grid container justify='space-between'>
+                    <Grid container justifyContent='space-between'>
                       <Grid item>
                         <TextField
                           value={searchTerm}

@@ -134,7 +134,7 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
               }}
             />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify='space-around'>
+              <Grid container justifyContent='space-around'>
                 <KeyboardDatePicker
                   label='Start Date'
                   disableToolbar

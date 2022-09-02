@@ -158,7 +158,7 @@ export default function Login({ history }) {
               Log In what
             </Button>
 
-            <Grid container justify='flex-end'>
+            <Grid container justifyContent='flex-end'>
               <Grid item>
                 <Link to='/signup' className={classes.links}>
                   Don't have an account? Sign Up

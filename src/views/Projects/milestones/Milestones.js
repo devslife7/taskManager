@@ -100,7 +100,7 @@ export default function Milestones() {
             {currentProject.description}
           </Typography>
 
-          <Grid container justify='center'>
+          <Grid container justifyContent='center'>
             <Typography variant='h6' align='center'>
               {format(fromUnixTime(currentProject.start_date), 'PP')} {' - '}
               {format(fromUnixTime(currentProject.end_date), 'PP')}
@@ -117,7 +117,7 @@ export default function Milestones() {
             *The average progress of all milestones determines parent project progress*
           </Typography>
         </Grid>
-        <Grid item xs={2} container direction='column' alignItems='flex-end' justify='space-between'>
+        <Grid item xs={2} container direction='column' alignItems='flex-end' justifyContent='space-between'>
           <Button
             variant='contained'
             color='primary'

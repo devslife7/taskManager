@@ -36,7 +36,7 @@ export default function ProjectCard({ project }) {
           <Grid item>
             <ListItemText primary={project.name} />
           </Grid>
-          <Grid item container justify='space-between'>
+          <Grid item container justifyContent='space-between'>
             <Typography variant='subtitle2' color='textSecondary' gutterBottom>
               {format(fromUnixTime(project.end_date), 'PP')}
             </Typography>
