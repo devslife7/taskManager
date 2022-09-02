@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
 import MuiAlert from '@material-ui/lab/Alert'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -80,34 +81,27 @@ export default function Login({ history }) {
     const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
 
     let requestBody = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      user: {
+        username: username,
+        password: password,
       },
-      body: JSON.stringify({
-        user: {
-          username: username,
-          password: password,
-        },
-      }),
     }
 
     if (username === '' || password === '') {
       alert('Username or Password cannot be blank')
     } else {
-      fetch(logInURL, requestBody)
-        .then(resp => resp.json())
-        .then(data => {
-          if (!data.error) {
-            console.log('Data: ', data)
-            localStorage.token = data.token
-            localStorage.userId = data.user.id
-            dispatch(setCurrentUser(data.user))
-            history.push('/projects')
-          } else {
-            openSnackBar()
-          }
-        })
+      axios.post(logInURL, requestBody).then(resp => {
+        const data = resp.data
+        if (!data.error) {
+          console.log('Data: ', data)
+          localStorage.token = data.token
+          localStorage.userId = data.user.id
+          dispatch(setCurrentUser(data.user))
+          history.push('/projects')
+        } else {
+          openSnackBar()
+        }
+      })
     }
 
     setUsername('')
