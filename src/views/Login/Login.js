@@ -9,6 +9,8 @@ import ProTaskLogo from '../../img/ProTaskLogo.png'
 import MuiAlert from '@material-ui/lab/Alert'
 import axios from 'axios'
 
+const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
+
 const useStyles = makeStyles(theme => ({
   container: {
     width: '100%',
@@ -76,9 +78,8 @@ export default function Login({ history }) {
     dispatch(bypassHerokuSleep())
   }, [dispatch])
 
-  const handleLogin = e => {
+  const handleLogin = async e => {
     e.preventDefault()
-    const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
 
     let requestBody = {
       user: {
@@ -89,23 +90,25 @@ export default function Login({ history }) {
 
     if (username === '' || password === '') {
       alert('Username or Password cannot be blank')
-    } else {
-      axios.post(logInURL, requestBody).then(resp => {
-        const data = resp.data
-        if (!data.error) {
-          console.log('Data: ', data)
-          localStorage.token = data.token
-          localStorage.userId = data.user.id
-          dispatch(setCurrentUser(data.user))
-          history.push('/projects')
-        } else {
-          openSnackBar()
-        }
-      })
+      return
     }
 
-    setUsername('')
-    setPassword('')
+    const response = await axios.post(logInURL, requestBody)
+    const data = response.data
+
+    if (data.error) {
+      openSnackBar()
+    } else {
+      console.log('Data: ', data)
+      localStorage.token = data.token
+      localStorage.userId = data.user.id
+      dispatch(setCurrentUser(data.user))
+
+      setUsername('')
+      setPassword('')
+
+      history.push('/projects')
+    }
   }
 
   return (
