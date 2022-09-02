@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
   },
   root: {
-    padding: '4vh',
-    maxWidth: '40vh',
+    padding: '3vh',
+    maxWidth: '25vh',
     margin: '0px auto',
   },
   submit: {
@@ -155,7 +155,7 @@ export default function Login({ history }) {
             />
 
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-              Log In
+              Log In what
             </Button>
 
             <Grid container justify='flex-end'>
