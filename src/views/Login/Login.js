@@ -33,11 +33,24 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    marginBottom: '1.5rem',
   },
   links: {
     color: theme.palette.primary.main,
     textDecoration: 'none',
     fontFamily: 'Arial',
+
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  guestLogInLink: {
+    cursor: 'pointer',
+    color: theme.palette.primary.main,
+
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
   titleContainer: {
     margin: '4rem 0',
@@ -111,9 +124,15 @@ export default function Login({ history }) {
   }
 
   const resetForm = () => {
-    // setIsLoading(false)
+    setIsLoading(false)
     setUsername('')
     setPassword('')
+  }
+
+  const handleGuestLogIn = e => {
+    setUsername('demo')
+    setPassword('demo')
+    handleLogin(e)
   }
 
   return (
@@ -127,8 +146,6 @@ export default function Login({ history }) {
           <Typography component='h1' variant='h5' color='primary'>
             Login
           </Typography>
-
-          <div className={classes.demoLogin}>Demo Login: demo/demo</div>
 
           <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
@@ -164,11 +181,16 @@ export default function Login({ history }) {
               )}
             </Button>
 
-            <Grid container justifyContent='flex-end'>
+            <Grid container direction='column' justifyContent='space-between' style={{ height: '4rem' }}>
               <Grid item>
                 <Link to='/signup' className={classes.links}>
                   Don't have an account? Sign Up
                 </Link>
+              </Grid>
+              <Grid item>
+                <button type='submit' className={classes.guestLogInLink} onClick={e => handleGuestLogIn(e)}>
+                  Log In as Guest
+                </button>
               </Grid>
             </Grid>
           </form>
