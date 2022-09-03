@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, Snackbar, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
-import { setCurrentUser, logOutCurrentUser, bypassHerokuSleep } from '../../redux/actions/user'
+import { setCurrentUser, logOutCurrentUser, wakeupHeroku } from '../../redux/actions/user'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
@@ -90,12 +90,17 @@ export default function Login({ history }) {
 
   useEffect(() => {
     dispatch(logOutCurrentUser())
-    dispatch(bypassHerokuSleep())
+    dispatch(wakeupHeroku())
   }, [dispatch])
 
   const handleLogin = async e => {
     e.preventDefault()
     setIsLoading(true)
+
+    setUsername('demo')
+    setPassword('demo')
+    console.log('Username after setUsername(): ', username)
+    console.log('Username after setPassword(): ', password)
 
     if (username === '' || password === '') {
       alert('Username or Password cannot be blank')
@@ -126,18 +131,23 @@ export default function Login({ history }) {
   const resetForm = () => {
     setIsLoading(false)
     setUsername('')
+    console.log('Username after set Username::: ', username)
     setPassword('')
   }
 
   const handleGuestLogIn = e => {
+    console.log('Enters handleGuestLogIn method')
     setUsername('demo')
     setPassword('demo')
+    // console.log('Username after setUsername(): ', username)
+    // console.log('Username after setPassword(): ', password)
     handleLogin(e)
   }
 
   return (
     <div className={classes.container}>
       <div className={classes.backgroundFilter}>
+        {console.log('Renders Login page.')}
         <div className={classes.titleContainer}>
           <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
           ProTasker
