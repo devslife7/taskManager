@@ -98,6 +98,10 @@ export default function Login({ history }) {
     e.preventDefault()
     setIsLoading(true)
 
+    console.log('enters handleLogin')
+    console.log('username: ', username)
+    console.log('password: ', password)
+
     if (username === '' || password === '') {
       alert('Username or Password cannot be blank')
       setIsLoading(false)
@@ -114,7 +118,6 @@ export default function Login({ history }) {
     try {
       const resp = await axios.post(logInURL, requestBody)
       let data = resp.data
-      console.log('data: ', data)
       localStorage.token = data.token
       dispatch(setCurrentUser(data.user))
     } catch (err) {
@@ -131,17 +134,12 @@ export default function Login({ history }) {
   const resetForm = () => {
     setIsLoading(false)
     setUsername('')
-    console.log('Username after set Username::: ', username)
     setPassword('')
   }
 
-  const handleGuestLogIn = e => {
-    console.log('Enters handleGuestLogIn method')
+  const handleGuestLogIn = () => {
     setUsername('demo')
     setPassword('demo')
-    // console.log('Username after setUsername(): ', username)
-    // console.log('Username after setPassword(): ', password)
-    handleLogin(e)
   }
 
   return (

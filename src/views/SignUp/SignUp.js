@@ -82,20 +82,13 @@ export default function SignUp({ history }) {
 
     fetch(signUpURL, postRequest)
       .then(resp => resp.json())
-      .then(
-        data => {
-          console.log(data)
-          // if (data.error) {
-          //   openSnackBar(data.error)
-          // } else {
-          localStorage.token = data.token
-          localStorage.userId = data.user.id
-          dispatch(setCurrentUser(data.user))
-          history.push('/projects')
-          clearForm()
-        }
-        // }
-      )
+      .then(data => {
+        console.log(data)
+        localStorage.token = data.token
+        dispatch(setCurrentUser(data.user))
+        history.push('/projects')
+        clearForm()
+      })
   }
 
   return (
