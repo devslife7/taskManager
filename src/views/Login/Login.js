@@ -82,6 +82,7 @@ export default function Login({ history }) {
   const [password, setPassword] = useState('')
   const [openSnack, setOpenSnack] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const openSnackBar = () => setOpenSnack(true)
   const handleSnackClose = () => setOpenSnack(false)
@@ -97,13 +98,9 @@ export default function Login({ history }) {
     e.preventDefault()
     setIsLoading(true)
 
-    setUsername('demo')
-    setPassword('demo')
-    console.log('Username after setUsername(): ', username)
-    console.log('Username after setPassword(): ', password)
-
     if (username === '' || password === '') {
       alert('Username or Password cannot be blank')
+      setIsLoading(false)
       return
     }
 
@@ -114,18 +111,21 @@ export default function Login({ history }) {
       },
     }
 
-    const response = await axios.post(logInURL, requestBody)
-    const data = response.data
-
-    if (data.error) {
-      openSnackBar()
-    } else {
-      resetForm()
-      dispatch(setCurrentUser(data.user))
+    try {
+      const resp = await axios.post(logInURL, requestBody)
+      let data = resp.data
+      console.log('data: ', data)
       localStorage.token = data.token
-      localStorage.userId = data.user.id
-      history.push('/projects')
+      dispatch(setCurrentUser(data.user))
+    } catch (err) {
+      setErrorMessage(err.response.data.error)
+      openSnackBar()
+      resetForm()
+      return
     }
+
+    resetForm()
+    history.push('/projects')
   }
 
   const resetForm = () => {
@@ -146,8 +146,8 @@ export default function Login({ history }) {
 
   return (
     <div className={classes.container}>
+      {console.log('Renders Login page.')}
       <div className={classes.backgroundFilter}>
-        {console.log('Renders Login page.')}
         <div className={classes.titleContainer}>
           <img src={ProTaskLogo} alt='logo' className={classes.logoStyle} />
           ProTasker
@@ -218,7 +218,7 @@ export default function Login({ history }) {
           anchorOrigin={{ vertical, horizontal }}
         >
           <Alert onClose={handleSnackClose} severity='error'>
-            Invalid Username or Password
+            {errorMessage}
           </Alert>
         </Snackbar>
       </div>

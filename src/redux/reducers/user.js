@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case 'SET_CURRENT_USER':
+      localStorage.userId = action.payload.id
       return {
         ...state,
         currentUser: action.payload,
