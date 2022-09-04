@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
   },
   paper: {
-    padding: '4vh',
-    maxWidth: '40vh',
+    padding: '3vh',
+    maxWidth: '25vh',
     margin: '0 auto',
   },
   submit: {

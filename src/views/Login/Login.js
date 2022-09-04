@@ -45,7 +45,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   guestLogInLink: {
-    // all: unset,
     border: 'none',
     backgroundColor: 'white',
     fontSize: '1rem',
