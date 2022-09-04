@@ -69,12 +69,6 @@ const useStyles = makeStyles(theme => ({
     width: '2.7rem',
     marginRight: '10px',
   },
-  demoLogin: {
-    margin: '30px 0 15px 0',
-    borderRadius: '5px',
-    color: theme.palette.primary.main,
-    fontSize: '18px',
-  },
 }))
 
 function Alert(props) {
@@ -122,8 +116,8 @@ export default function Login({ history }) {
     }
 
     try {
-      const resp = await axios.post(logInURL, requestBody)
-      let data = resp.data
+      const response = await axios.post(logInURL, requestBody)
+      let data = response.data
       localStorage.token = data.token
       dispatch(setCurrentUser(data.user))
     } catch (err) {
