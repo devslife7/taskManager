@@ -5,6 +5,9 @@ import { setCurrentUser } from '../../redux/actions/user'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+const signUpURL = process.env.REACT_APP_SERVER_URL + '/users'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -52,6 +55,7 @@ export default function SignUp({ history }) {
   const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const classes = useStyles()
 
   const clearForm = () => {
@@ -63,7 +67,7 @@ export default function SignUp({ history }) {
 
   const handleSignup = e => {
     e.preventDefault()
-    const signUpURL = process.env.REACT_APP_SERVER_URL + '/users'
+    setIsLoading(true)
 
     let postRequest = {
       method: 'POST',
@@ -88,6 +92,10 @@ export default function SignUp({ history }) {
         dispatch(setCurrentUser(data.user))
         history.push('/projects')
         clearForm()
+      })
+      .catch(err => {
+        console.log(err)
+        setIsLoading(false)
       })
   }
 
@@ -142,7 +150,11 @@ export default function SignUp({ history }) {
               onChange={e => setPassword(e.target.value)}
             />
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-              Sign Up
+              {isLoading ? (
+                <CircularProgress style={{ width: '30px', height: '30px', color: 'inherit' }} />
+              ) : (
+                'Sign Up'
+              )}
             </Button>
             <Grid container justifyContent='flex-end'>
               <Grid item>

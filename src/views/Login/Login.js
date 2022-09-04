@@ -137,8 +137,8 @@ export default function Login({ history }) {
   }
 
   const handleGuestLogIn = () => {
-    setUsername('demo')
-    setPassword('demo')
+    setUsername('Guest')
+    setPassword('guest')
   }
 
   return (
