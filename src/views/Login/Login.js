@@ -45,6 +45,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   guestLogInLink: {
+    // all: unset,
+    border: 'none',
+    backgroundColor: 'white',
+    fontSize: '1rem',
+    padding: 0,
+
     cursor: 'pointer',
     color: theme.palette.primary.main,
 
@@ -196,7 +202,7 @@ export default function Login({ history }) {
                 </Link>
               </Grid>
               <Grid item>
-                <button type='submit' className={classes.guestLogInLink} onClick={e => handleGuestLogIn(e)}>
+                <button className={classes.guestLogInLink} onClick={handleGuestLogIn}>
                   Log In as Guest
                 </button>
               </Grid>
