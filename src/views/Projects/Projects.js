@@ -26,21 +26,6 @@ const useStyles = makeStyles(theme => ({
   projectCards: {
     margin: '0 0 0 6rem',
   },
-  // addProject: {
-  //   padding: '1.2rem 2.2vw',
-  //   width: '13rem',
-  //   textAlign: 'center',
-  //   fontSize: '5rem',
-  //   fontWeight: '200',
-  //   color: '#2196f3',
-  //   height: '6.8rem',
-  //   transition: '0.4s all ease',
-
-  //   '&:hover': {
-  //     backgroundColor: '#f4f4f4',
-  //     cursor: 'pointer',
-  //   },
-  // },
   loading: {
     margin: '8vh 0 0 18vw',
   },

@@ -10,11 +10,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { addDays, format } from 'date-fns'
 
-const useStyles = makeStyles({
-  // table: {
-  //   minWidth: 650,
-  // },
-})
+const useStyles = makeStyles({})
 
 export default function ProjectPreviewTable({ data }) {
   const classes = useStyles()
