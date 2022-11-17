@@ -1,7 +1,6 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
 const usersURL = serverURL + '/users/'
 const reportsURL = serverURL + '/reports/'
-const wakeupHerokuURL = serverURL + '/wakeup'
 
 export const setCurrentUser = user => {
   return {
@@ -78,14 +77,5 @@ export const deleteReportFetch = reportId => {
           payload: data.deletedReportId,
         })
       )
-  }
-}
-
-export const wakeupHeroku = () => {
-  return () => {
-    fetch(wakeupHerokuURL, { method: 'GET' })
-      .then(resp => resp.json())
-      .then(data => console.log(data.message))
-      .catch(error => console.log('Error: ', error))
   }
 }

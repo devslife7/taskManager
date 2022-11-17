@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, Snackbar, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
-import { setCurrentUser, logOutCurrentUser, wakeupHeroku } from '../../redux/actions/user'
+import { setCurrentUser, logOutCurrentUser } from '../../redux/actions/user'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
@@ -90,7 +90,6 @@ export default function Login({ history }) {
 
   useEffect(() => {
     dispatch(logOutCurrentUser())
-    dispatch(wakeupHeroku())
   }, [dispatch])
 
   const handleLogin = async e => {
