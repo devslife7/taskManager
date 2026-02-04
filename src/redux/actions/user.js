@@ -1,6 +1,6 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const usersURL = serverURL + '/users/'
-const reportsURL = serverURL + '/reports/'
+const usersURL = serverURL ? serverURL + '/users/' : null
+const reportsURL = serverURL ? serverURL + '/reports/' : null
 
 export const setCurrentUser = user => {
   return {
@@ -10,10 +10,25 @@ export const setCurrentUser = user => {
 }
 
 export const fetchUser = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    // If no server URL, use mock data from state
+    if (!usersURL) {
+      const { currentUser } = getState().user
+      setTimeout(() => {
+        dispatch({ type: 'SET_CURRENT_USER', payload: currentUser })
+      }, 100)
+      return
+    }
+    
     fetch(usersURL + localStorage.userId)
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_CURRENT_USER', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch user:', err)
+        // Use mock data on error
+        const { currentUser } = getState().user
+        dispatch({ type: 'SET_CURRENT_USER', payload: currentUser })
+      })
   }
 }
 
@@ -60,10 +75,31 @@ export const createReportFetch = requestBody => {
 }
 
 export const fetchCurrentReport = reportId => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    // If no server URL, use mock data from state
+    if (!reportsURL) {
+      const { currentUser } = getState().user
+      const report = currentUser.reports?.find(r => r.id === reportId)
+      if (report) {
+        setTimeout(() => {
+          dispatch({ type: 'SET_CURRENT_REPORT', payload: report })
+        }, 100)
+      }
+      return
+    }
+    
     fetch(reportsURL + reportId, { method: 'GET' })
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_CURRENT_REPORT', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch current report:', err)
+        // Use mock data on error
+        const { currentUser } = getState().user
+        const report = currentUser.reports?.find(r => r.id === reportId)
+        if (report) {
+          dispatch({ type: 'SET_CURRENT_REPORT', payload: report })
+        }
+      })
   }
 }
 

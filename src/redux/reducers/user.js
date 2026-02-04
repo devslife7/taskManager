@@ -6,7 +6,98 @@ const initialState = {
     last_name: 'User',
     email: 'dev@example.com',
     role: 'developer',
-    reports: [],
+    reports: [
+      {
+        id: 1,
+        title: 'Q4 2025 Progress Report',
+        created_at: '2025-12-15T10:30:00.000Z',
+        project: {
+          id: 1,
+          name: 'Website Redesign',
+          start_date: Math.floor(new Date('2025-11-01').getTime() / 1000),
+          end_date: Math.floor(new Date('2026-01-30').getTime() / 1000),
+          progress: 65,
+          updated_at: '2025-12-15T10:30:00.000Z',
+          created_at: '2025-11-01T08:00:00.000Z',
+          milestones: [
+            {
+              id: 1,
+              name: 'UI/UX Design',
+              progress: 100,
+              hours: 40
+            },
+            {
+              id: 2,
+              name: 'Frontend Development',
+              progress: 70,
+              hours: 80
+            },
+            {
+              id: 3,
+              name: 'Testing & Launch',
+              progress: 20,
+              hours: 40
+            }
+          ]
+        }
+      },
+      {
+        id: 2,
+        title: 'Mobile App Sprint Review',
+        created_at: '2025-12-20T14:15:00.000Z',
+        project: {
+          id: 2,
+          name: 'Mobile App Development',
+          start_date: Math.floor(new Date('2025-11-15').getTime() / 1000),
+          end_date: Math.floor(new Date('2026-02-28').getTime() / 1000),
+          progress: 45,
+          updated_at: '2025-12-20T14:15:00.000Z',
+          created_at: '2025-11-15T09:00:00.000Z',
+          milestones: [
+            {
+              id: 4,
+              name: 'Backend API',
+              progress: 80,
+              hours: 60
+            },
+            {
+              id: 5,
+              name: 'Mobile UI',
+              progress: 30,
+              hours: 70
+            }
+          ]
+        }
+      },
+      {
+        id: 3,
+        title: 'Marketing Campaign Results',
+        created_at: '2025-11-25T16:45:00.000Z',
+        project: {
+          id: 3,
+          name: 'Marketing Campaign',
+          start_date: Math.floor(new Date('2025-10-01').getTime() / 1000),
+          end_date: Math.floor(new Date('2025-11-20').getTime() / 1000),
+          progress: 100,
+          updated_at: '2025-11-25T16:45:00.000Z',
+          created_at: '2025-10-01T08:00:00.000Z',
+          milestones: [
+            {
+              id: 6,
+              name: 'Content Creation',
+              progress: 100,
+              hours: 50
+            },
+            {
+              id: 7,
+              name: 'Campaign Launch',
+              progress: 100,
+              hours: 30
+            }
+          ]
+        }
+      }
+    ],
   },
   currentReport: {
     project: {

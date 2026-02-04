@@ -1,13 +1,36 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const milestonesURL = serverURL + '/milestones/'
+const milestonesURL = serverURL ? serverURL + '/milestones/' : null
 
 export const fetchCurrentMilestone = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: 'LOADING_MILESTONE' })
+    
+    const milestoneId = localStorage.getItem('currentMilestoneId')
+    
+    // If no server URL, use mock data from state
+    if (!milestonesURL) {
+      const { currentProject } = getState().projects
+      const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
+      if (milestone) {
+        setTimeout(() => {
+          dispatch({ type: 'SET_CURRENT_MILESTONE', payload: milestone })
+        }, 100)
+      }
+      return
+    }
 
-    fetch(milestonesURL + localStorage.getItem('currentMilestoneId'))
+    fetch(milestonesURL + milestoneId)
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_CURRENT_MILESTONE', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch current milestone:', err)
+        // Use mock data on error
+        const { currentProject } = getState().projects
+        const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
+        if (milestone) {
+          dispatch({ type: 'SET_CURRENT_MILESTONE', payload: milestone })
+        }
+      })
   }
 }
 export const clearCurrentMilestone = () => {

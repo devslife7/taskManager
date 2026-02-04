@@ -1,22 +1,58 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const projectsURL = serverURL + '/projects/'
+const projectsURL = serverURL ? serverURL + '/projects/' : null
 
 export const fetchProjects = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: 'LOADING_PROJECT' })
+
+    // If no server URL, use mock data from state
+    if (!projectsURL) {
+      const { allProjects } = getState().projects
+      setTimeout(() => {
+        dispatch({ type: 'SET_ALL_PROJECTS', payload: allProjects })
+      }, 100)
+      return
+    }
 
     fetch(projectsURL)
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_ALL_PROJECTS', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch projects:', err)
+        // Use mock data on error
+        const { allProjects } = getState().projects
+        dispatch({ type: 'SET_ALL_PROJECTS', payload: allProjects })
+      })
   }
 }
 export const fetchCurrentProject = () => {
-  return dispatch => {
-    // dispatch({ type: "LOADING_PROJECT" })
+  return (dispatch, getState) => {
+    const projectId = localStorage.getItem('currentProjectId')
+    
+    // If no server URL, use mock data from state
+    if (!projectsURL) {
+      const { allProjects } = getState().projects
+      const project = allProjects.find(p => p.id === parseInt(projectId))
+      if (project) {
+        setTimeout(() => {
+          dispatch({ type: 'SET_CURRENT_PROJECT', payload: project })
+        }, 100)
+      }
+      return
+    }
 
-    fetch(projectsURL + localStorage.getItem('currentProjectId'))
+    fetch(projectsURL + projectId)
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_CURRENT_PROJECT', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch current project:', err)
+        // Use mock data on error
+        const { allProjects } = getState().projects
+        const project = allProjects.find(p => p.id === parseInt(projectId))
+        if (project) {
+          dispatch({ type: 'SET_CURRENT_PROJECT', payload: project })
+        }
+      })
   }
 }
 export const clearCurrentProject = () => {

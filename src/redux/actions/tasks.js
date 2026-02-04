@@ -1,14 +1,37 @@
 const serverURL = process.env.REACT_APP_SERVER_URL
-const tasksURL = serverURL + '/tasks/'
-const entriesURL = serverURL + '/entries/'
+const tasksURL = serverURL ? serverURL + '/tasks/' : null
+const entriesURL = serverURL ? serverURL + '/entries/' : null
 
 export const fetchCurrentTask = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: 'LOADING_TASK' })
+    
+    const taskId = localStorage.getItem('currentTaskId')
+    
+    // If no server URL, use mock data from state
+    if (!tasksURL) {
+      const { currentMilestone } = getState().milestones
+      const task = currentMilestone.tasks?.find(t => t.id === parseInt(taskId))
+      if (task) {
+        setTimeout(() => {
+          dispatch({ type: 'SET_CURRENT_TASK', payload: task })
+        }, 100)
+      }
+      return
+    }
 
-    fetch(tasksURL + localStorage.getItem('currentTaskId'))
+    fetch(tasksURL + taskId)
       .then(resp => resp.json())
       .then(data => dispatch({ type: 'SET_CURRENT_TASK', payload: data }))
+      .catch(err => {
+        console.error('Failed to fetch current task:', err)
+        // Use mock data on error
+        const { currentMilestone } = getState().milestones
+        const task = currentMilestone.tasks?.find(t => t.id === parseInt(taskId))
+        if (task) {
+          dispatch({ type: 'SET_CURRENT_TASK', payload: task })
+        }
+      })
   }
 }
 
