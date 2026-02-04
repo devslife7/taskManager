@@ -1,5 +1,11 @@
 const initialState = {
   currentUser: {
+    id: 1,
+    username: 'dev_user',
+    first_name: 'Dev',
+    last_name: 'User',
+    email: 'dev@example.com',
+    role: 'developer',
     reports: [],
   },
   currentReport: {
@@ -12,7 +18,7 @@ const initialState = {
     },
     created_at: '2000-01-01T00:00:00',
   },
-  loggedIn: false,
+  loggedIn: true,
 }
 
 const userReducer = (state = initialState, action) => {
