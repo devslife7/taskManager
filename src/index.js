@@ -1,11 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
+import { StylesProvider, ThemeProvider } from '@mui/styles'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 import rootReducer from './redux/reducers/index'
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -38,27 +39,31 @@ const theme = createTheme({
       main: '#F2A122', // complementary orange
     },
   },
-  overrides: {
+  components: {
     MuiButton: {
-      root: {
-        textTransform: 'none',
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
       },
     },
-  },
-  props: {
-    // Name of the component
     MuiButtonBase: {
-      // The properties to apply
-      disableRipple: true, // No more ripple, on the whole application!
+      defaultProps: {
+        disableRipple: true, // No more ripple, on the whole application!
+      },
     },
   },
 })
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </Provider>,
-  document.getElementById('root')
+    <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <StylesProvider injectFirst>
+          <App />
+        </StylesProvider>
+      </ThemeProvider>
+    </MuiThemeProvider>
+  </Provider>
 )

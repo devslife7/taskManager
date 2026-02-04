@@ -5,13 +5,14 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  makeStyles,
   Slider,
   TextField,
   Typography,
-} from '@material-ui/core'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEntryFetch, editEntryFetch } from '../../../redux/actions/tasks'
 import { fromUnixTime, getUnixTime } from 'date-fns'
@@ -85,28 +86,25 @@ export default function EntriesDialog({ open, onClose, entry = {} }) {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>{entry.id ? 'Edit Entry' : 'New Entry'}</Typography>
+        <DialogTitle>
+          <Typography variant='h5' component='span'>{entry.id ? 'Edit Entry' : 'New Entry'}</Typography>
         </DialogTitle>
 
         <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date-picker-inline'
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
               label='Date'
-              autoOk // autocloses picker
               value={date}
               onChange={setDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
+              format='MM/dd/yyyy'
+              slotProps={{
+                textField: {
+                  margin: 'normal',
+                  className: classes.KeyboardDatePicker,
+                },
               }}
-              className={classes.KeyboardDatePicker}
             />
-          </MuiPickersUtilsProvider>
+          </LocalizationProvider>
 
           <Typography gutterBottom style={{ margin: '20px 0px 5px 0px' }}>
             Progress: {sliderValue}%

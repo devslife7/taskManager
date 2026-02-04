@@ -1,7 +1,8 @@
-import { Button, Grid, makeStyles, Typography } from '@material-ui/core'
+import { Button, Grid, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import AddIcon from '@material-ui/icons/Add'
+import AddIcon from '@mui/icons-material/Add'
 import TasksGraph from './TasksGraph'
 
 import TaskTable from './TaskTable'

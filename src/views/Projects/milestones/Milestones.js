@@ -5,15 +5,15 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  makeStyles,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MilestonesTable from './MilestonesTable'
-import AddIcon from '@material-ui/icons/Add'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import MilestonesGraph from './MilestonesGraph'
 import { fromUnixTime, format, formatDuration, intervalToDuration, isFuture } from 'date-fns'
 import MilestonesDialog from './MilestonesDialog'
@@ -160,8 +160,8 @@ export default function Milestones() {
       <ProjectDialog open={openEditDialog} onClose={handleCloseEditDialog} project={currentProject} />
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>Deleting Project: {`${currentProject.name}`}</Typography>
+        <DialogTitle>
+          <Typography variant='h5' component='span'>Deleting Project: {`${currentProject.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
           {'Are you sure you want to delete this Project?\nThis action cannot be undone.'}

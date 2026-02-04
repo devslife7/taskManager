@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   Grid,
-  makeStyles,
   TextField,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { fromUnixTime, getUnixTime } from 'date-fns'
 import { useDispatch } from 'react-redux'
 import { createTaskFetch, editTaskFetch } from '../../../redux/actions/tasks'
@@ -133,40 +134,34 @@ export default function TasksDialog({ open, onClose, milestoneId, task = {} }) {
                 setNotes(e.target.value)
               }}
             />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Grid container justifyContent='space-around'>
-                <KeyboardDatePicker
+                <DesktopDatePicker
                   label='Start Date'
-                  disableToolbar
-                  autoOk
-                  variant='inline'
-                  format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-start-date'
                   value={startDate}
                   onChange={handleSetStartDate}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                  className={classes.KeyboardDatePicker}
-                />
-                <KeyboardDatePicker
-                  label='End Date'
-                  disableToolbar
-                  autoOk
-                  variant='inline'
                   format='MM/dd/yyyy'
-                  margin='normal'
-                  id='date-picker-end-date'
+                  slotProps={{
+                    textField: {
+                      margin: 'normal',
+                      className: classes.KeyboardDatePicker,
+                    },
+                  }}
+                />
+                <DesktopDatePicker
+                  label='End Date'
                   value={endDate}
                   onChange={handleSetEndDate}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
+                  format='MM/dd/yyyy'
+                  slotProps={{
+                    textField: {
+                      margin: 'normal',
+                      className: classes.KeyboardDatePicker,
+                    },
                   }}
-                  className={classes.KeyboardDatePicker}
                 />
               </Grid>
-            </MuiPickersUtilsProvider>
+            </LocalizationProvider>
           </DialogContent>
 
           <DialogActions>

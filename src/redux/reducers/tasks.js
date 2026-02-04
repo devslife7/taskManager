@@ -5,7 +5,7 @@ const initialState = {
   loadingTask: false,
 }
 
-export default (state = initialState, action) => {
+const tasksReducer = (state = initialState, action) => {
   let idx
   switch (action.type) {
     case 'LOADING_TASK':
@@ -68,3 +68,5 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+export default tasksReducer

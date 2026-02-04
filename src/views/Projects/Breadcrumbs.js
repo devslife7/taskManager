@@ -1,9 +1,8 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
+import { Typography, Grid, Breadcrumbs as Bread } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCurrentProject, fetchCurrentProject } from '../../redux/actions/projects'
-import { Grid, makeStyles } from '@material-ui/core'
-import { Breadcrumbs as Bread } from '@material-ui/core'
 import { clearCurrentMilestone, fetchCurrentMilestone } from '../../redux/actions/milestones'
 import { clearCurrentTask, fetchCurrentTask } from '../../redux/actions/tasks'
 

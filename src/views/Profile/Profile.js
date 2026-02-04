@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateCurrentUser } from '../../redux/actions/user'
-import { Button, makeStyles, TextField } from '@material-ui/core'
+import { Button, TextField } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(theme => ({
   container: {

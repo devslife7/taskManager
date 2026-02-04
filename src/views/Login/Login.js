@@ -1,13 +1,13 @@
-import { Box, Button, Grid, Paper, Snackbar, TextField, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Grid, Paper, Snackbar, TextField, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { useDispatch } from 'react-redux'
 import { setCurrentUser, logOutCurrentUser } from '../../redux/actions/user'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
-import MuiAlert from '@material-ui/lab/Alert'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import MuiAlert from '@mui/lab/Alert'
+import CircularProgress from '@mui/material/CircularProgress'
 import axios from 'axios'
 
 const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
@@ -74,8 +74,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />
 }
 
-export default function Login({ history }) {
+export default function Login() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const classes = useStyles()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -126,7 +127,7 @@ export default function Login({ history }) {
     }
 
     resetForm()
-    history.push('/projects')
+    navigate('/projects')
   }
 
   const resetForm = () => {

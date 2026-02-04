@@ -15,7 +15,7 @@ const initialState = {
   loggedIn: false,
 }
 
-export default (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   let idx
   console.log('ACTION:', action) // consoles the redux action for every action called in state
 
@@ -84,3 +84,5 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+export default userReducer

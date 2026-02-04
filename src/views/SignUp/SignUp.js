@@ -1,11 +1,12 @@
-import { Box, Button, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setCurrentUser } from '../../redux/actions/user'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BackgroundImg from '../../img/BackgroundImg.jpg'
 import ProTaskLogo from '../../img/ProTaskLogo.png'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const signUpURL = process.env.REACT_APP_SERVER_URL + '/users'
 
@@ -49,8 +50,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function SignUp({ history }) {
+export default function SignUp() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState('')
@@ -90,7 +92,7 @@ export default function SignUp({ history }) {
         console.log(data)
         localStorage.token = data.token
         dispatch(setCurrentUser(data.user))
-        history.push('/projects')
+        navigate('/projects')
         clearForm()
       })
       .catch(err => {

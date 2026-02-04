@@ -6,7 +6,7 @@ const initialState = {
   loadingProject: false,
 }
 
-export default (state = initialState, action) => {
+const projectsReducer = (state = initialState, action) => {
   let idx
 
   switch (action.type) {
@@ -142,3 +142,5 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+export default projectsReducer

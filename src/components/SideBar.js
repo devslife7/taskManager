@@ -1,24 +1,24 @@
 import React from 'react'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import DescriptionIcon from '@material-ui/icons/Description'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-// import InboxIcon from '@material-ui/icons/MoveToInbox'
-// import GroupIcon from '@material-ui/icons/Group'
-// import EventAvailableIcon from '@material-ui/icons/EventAvailable'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import DescriptionIcon from '@mui/icons-material/Description'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+// import InboxIcon from '@mui/icons-material/MoveToInbox'
+// import GroupIcon from '@mui/icons-material/Group'
+// import EventAvailableIcon from '@mui/icons-material/EventAvailable'
 
-import { makeStyles } from '@material-ui/core/styles'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import { Grid, Typography } from '@material-ui/core'
+import { makeStyles } from '@mui/styles'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import { Grid, Typography } from '@mui/material'
 import ProTaskLogo from '../img/ProTaskLogo.png'
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { logOutCurrentUser } from '../redux/actions/user'
 import { clearCurrentProject } from '../redux/actions/projects'
 import { clearCurrentMilestone } from '../redux/actions/milestones'
@@ -63,7 +63,7 @@ export default function CustomizedMenus() {
   console.log('--------------------')
   console.log('renders SideBar')
   const classes = useStyles()
-  const history = useHistory()
+  const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
 
@@ -76,7 +76,7 @@ export default function CustomizedMenus() {
   const handleLogOut = () => {
     if (window.confirm('Are you sure you want to Log Out?')) {
       console.log('loggin out')
-      history.push('/login')
+      navigate('/login')
       dispatch(logOutCurrentUser())
       dispatch(clearCurrentProject())
       dispatch(clearCurrentMilestone())

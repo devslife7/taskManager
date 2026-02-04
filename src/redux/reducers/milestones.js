@@ -5,7 +5,7 @@ const initialState = {
   loadingMilestone: false,
 }
 
-export default (state = initialState, action) => {
+const milestonesReducer = (state = initialState, action) => {
   let idx
   switch (action.type) {
     case 'LOADING_MILESTONE':
@@ -86,3 +86,5 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+export default milestonesReducer

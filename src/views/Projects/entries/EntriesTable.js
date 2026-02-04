@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip } from '@material-ui/core'
-import { Paper, Table, TableBody, TableCell, TableHead, makeStyles, IconButton } from '@material-ui/core'
-import { TablePagination, TableRow, TableSortLabel, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip, Paper, Table, TableBody, TableCell, TableHead, IconButton, TablePagination, TableRow, TableSortLabel, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { fromUnixTime, format } from 'date-fns'
 import { useDispatch } from 'react-redux'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import { deleteEntryFetch } from '../../../redux/actions/tasks'
 import EntriesDialog from './EntriesDialog'
 
@@ -125,8 +124,8 @@ export default function EntriesTable({ records }) {
         rowsPerPageOptions={pages}
         rowsPerPage={rowsPerPage}
         count={records.length}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     )
   }
@@ -209,8 +208,8 @@ export default function EntriesTable({ records }) {
       </Paper>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle disableTypography>
-          <Typography variant='h5'>
+        <DialogTitle>
+          <Typography variant='h5' component='span'>
             Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), 'PP')}
           </Typography>
         </DialogTitle>

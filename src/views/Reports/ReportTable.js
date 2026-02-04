@@ -1,13 +1,6 @@
 import * as React from 'react'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import format from 'date-fns/format'
-import { fromUnixTime, getUnixTime } from 'date-fns'
-import { Divider } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider } from '@mui/material'
+import { format, fromUnixTime, getUnixTime } from 'date-fns'
 
 export default function ReportTable({ milestones }) {
   const getStatus = end_date => {

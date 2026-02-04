@@ -1,4 +1,5 @@
-import { Button, Grid, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core'
+import { Button, Grid, ListItemText, Paper, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { clearCurrentProject, fetchCurrentProject } from '../../redux/actions/projects'
