@@ -24,19 +24,25 @@ const initialState = {
               id: 1,
               name: 'UI/UX Design',
               progress: 100,
-              hours: 40
+              hours: 40,
+              start_date: Math.floor(new Date('2025-11-01').getTime() / 1000),
+              end_date: Math.floor(new Date('2025-11-20').getTime() / 1000)
             },
             {
               id: 2,
               name: 'Frontend Development',
               progress: 70,
-              hours: 80
+              hours: 80,
+              start_date: Math.floor(new Date('2025-11-21').getTime() / 1000),
+              end_date: Math.floor(new Date('2025-12-31').getTime() / 1000)
             },
             {
               id: 3,
               name: 'Testing & Launch',
               progress: 20,
-              hours: 40
+              hours: 40,
+              start_date: Math.floor(new Date('2026-01-01').getTime() / 1000),
+              end_date: Math.floor(new Date('2026-01-30').getTime() / 1000)
             }
           ]
         }
@@ -58,13 +64,17 @@ const initialState = {
               id: 4,
               name: 'Backend API',
               progress: 80,
-              hours: 60
+              hours: 60,
+              start_date: Math.floor(new Date('2025-11-15').getTime() / 1000),
+              end_date: Math.floor(new Date('2025-12-31').getTime() / 1000)
             },
             {
               id: 5,
               name: 'Mobile UI',
               progress: 30,
-              hours: 70
+              hours: 70,
+              start_date: Math.floor(new Date('2026-01-01').getTime() / 1000),
+              end_date: Math.floor(new Date('2026-02-28').getTime() / 1000)
             }
           ]
         }
@@ -86,13 +96,17 @@ const initialState = {
               id: 6,
               name: 'Content Creation',
               progress: 100,
-              hours: 50
+              hours: 50,
+              start_date: Math.floor(new Date('2025-10-01').getTime() / 1000),
+              end_date: Math.floor(new Date('2025-10-31').getTime() / 1000)
             },
             {
               id: 7,
               name: 'Campaign Launch',
               progress: 100,
-              hours: 30
+              hours: 30,
+              start_date: Math.floor(new Date('2025-11-01').getTime() / 1000),
+              end_date: Math.floor(new Date('2025-11-20').getTime() / 1000)
             }
           ]
         }

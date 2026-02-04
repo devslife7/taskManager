@@ -1,38 +1,27 @@
-const serverURL = process.env.REACT_APP_SERVER_URL
-const milestonesURL = serverURL ? serverURL + '/milestones/' : null
+// Helper to simulate API delay
+const simulateRequest = (data, ms = 300) => new Promise(resolve => setTimeout(() => resolve(data), ms))
 
 export const fetchCurrentMilestone = () => {
   return (dispatch, getState) => {
     dispatch({ type: 'LOADING_MILESTONE' })
-    
-    const milestoneId = localStorage.getItem('currentMilestoneId')
-    
-    // If no server URL, use mock data from state
-    if (!milestonesURL) {
-      const { currentProject } = getState().projects
-      const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
-      if (milestone) {
-        setTimeout(() => {
-          dispatch({ type: 'SET_CURRENT_MILESTONE', payload: milestone })
-        }, 100)
-      }
-      return
-    }
 
-    fetch(milestonesURL + milestoneId)
-      .then(resp => resp.json())
-      .then(data => dispatch({ type: 'SET_CURRENT_MILESTONE', payload: data }))
-      .catch(err => {
-        console.error('Failed to fetch current milestone:', err)
-        // Use mock data on error
-        const { currentProject } = getState().projects
-        const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
-        if (milestone) {
-          dispatch({ type: 'SET_CURRENT_MILESTONE', payload: milestone })
-        }
+    const milestoneId = localStorage.getItem('currentMilestoneId')
+    if (!milestoneId) return
+
+    const { currentProject } = getState().projects
+    const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
+
+    if (milestone) {
+      simulateRequest(milestone).then(data => {
+        dispatch({ type: 'SET_CURRENT_MILESTONE', payload: data })
       })
+    } else {
+      // Handle not found
+      dispatch({ type: 'SET_CURRENT_MILESTONE', payload: { tasks: [] } })
+    }
   }
 }
+
 export const clearCurrentMilestone = () => {
   return {
     type: 'CLEAR_CURRENT_MILESTONE',
@@ -40,51 +29,58 @@ export const clearCurrentMilestone = () => {
 }
 
 export const createMilestoneFetch = requestBody => {
-  return dispatch => {
-    const configObject = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
+  return (dispatch, getState) => {
+    const { currentProject } = getState().projects
+    if (!currentProject) return
+
+    // Generate Mock ID
+    const nextId = currentProject.milestones && currentProject.milestones.length > 0
+      ? Math.max(...currentProject.milestones.map(m => m.id)) + 1
+      : 1
+
+    const newMilestone = {
+      id: nextId,
+      ...requestBody,
+      progress: 0,
+      tasks: []
     }
 
-    fetch(milestonesURL, configObject)
-      .then(resp => resp.json())
-      .then(data => data)
-      .then(data => {
-        dispatch({ type: 'ADD_MILESTONE', payload: data })
-      })
+    // Determine project progress (mock logic or keep same)
+    const updatedProject = { ...currentProject }
+
+    simulateRequest({ project: updatedProject, milestone: newMilestone }).then(data => {
+      dispatch({ type: 'ADD_MILESTONE', payload: data })
+    })
   }
 }
 
 export const editMilestoneFetch = (requestBody, milestoneId) => {
-  return dispatch => {
-    const configObject = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody),
-    }
-    fetch(milestonesURL + milestoneId, configObject)
-      .then(resp => resp.json())
-      .then(data => {
+  return (dispatch, getState) => {
+    const { currentProject } = getState().projects
+    const milestone = currentProject.milestones?.find(m => m.id === parseInt(milestoneId))
+
+    if (milestone) {
+      const updatedMilestone = { ...milestone, ...requestBody }
+
+      simulateRequest({ milestone: updatedMilestone }).then(data => {
         dispatch({
           type: 'EDIT_MILESTONE',
           payload: data,
         })
       })
+    }
   }
 }
 
 export const deleteMilestoneFetch = milestoneId => {
-  return dispatch => {
-    fetch(milestonesURL + milestoneId, { method: 'DELETE' })
-      .then(resp => resp.json())
-      .then(data => {
-        dispatch({
-          type: 'DELETE_MILESTONE',
-          payload: data,
-        })
+  return (dispatch, getState) => {
+    const { currentProject } = getState().projects
+
+    simulateRequest({ project: currentProject, milestone: { id: parseInt(milestoneId) } }).then(data => {
+      dispatch({
+        type: 'DELETE_MILESTONE',
+        payload: data,
       })
+    })
   }
 }

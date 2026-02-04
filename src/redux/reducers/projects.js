@@ -10,6 +10,7 @@ const initialState = {
     {
       id: 1,
       name: 'Website Redesign',
+      start_date: getUnixTimestamp(-30),
       end_date: getUnixTimestamp(30),
       progress: 65,
       milestones: [
@@ -183,6 +184,7 @@ const initialState = {
     {
       id: 2,
       name: 'Mobile App Development',
+      start_date: getUnixTimestamp(-20),
       end_date: getUnixTimestamp(60),
       progress: 45,
       milestones: [
@@ -297,6 +299,7 @@ const initialState = {
     {
       id: 3,
       name: 'Marketing Campaign',
+      start_date: getUnixTimestamp(-60),
       end_date: getUnixTimestamp(-5),
       progress: 100,
       milestones: [
@@ -397,6 +400,7 @@ const initialState = {
     {
       id: 4,
       name: 'Data Migration Project',
+      start_date: getUnixTimestamp(-15),
       end_date: getUnixTimestamp(90),
       progress: 15,
       milestones: [

@@ -107,27 +107,22 @@ export default function Login() {
       return
     }
 
-    let requestBody = {
-      user: {
+    setTimeout(() => {
+      const mockUser = {
+        id: 1,
         username: username,
-        password: password,
-      },
-    }
-
-    try {
-      const response = await axios.post(logInURL, requestBody)
-      let data = response.data
-      localStorage.token = data.token
-      dispatch(setCurrentUser(data.user))
-    } catch (err) {
-      setErrorMessage(err.response.data.error)
-      openSnackBar()
+        first_name: 'Mock',
+        last_name: 'User',
+        email: 'mock@example.com',
+        role: 'developer',
+        reports: [],
+        friends: []
+      }
+      localStorage.token = 'mock-token-123'
+      dispatch(setCurrentUser(mockUser))
       resetForm()
-      return
-    }
-
-    resetForm()
-    navigate('/projects')
+      navigate('/projects')
+    }, 500)
   }
 
   const resetForm = () => {
@@ -143,7 +138,7 @@ export default function Login() {
 
   console.log('Login component rendering, classes:', classes)
   console.log('Login component state:', { username, password, isLoading })
-  
+
   return (
     <div className={classes.container}>
       {console.log('Renders Login page.')}

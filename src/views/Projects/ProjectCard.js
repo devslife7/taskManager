@@ -20,14 +20,10 @@ export default function ProjectCard({ project }) {
   const dispatch = useDispatch()
 
   const handleSetCurrentProject = () => {
-    if (project.id.toString() !== localStorage.getItem('currentProjectId')) {
-      localStorage.setItem('currentProjectId', `${project.id}`)
-      dispatch(fetchCurrentProject())
-      dispatch(clearCurrentProject()) // fixes sligh flash of current project after selecting new prject
-    }
     localStorage.setItem('currentProjectId', `${project.id}`)
     dispatch(clearCurrentMilestone())
     dispatch(clearCurrentTask())
+    dispatch(fetchCurrentProject())
   }
 
   return (

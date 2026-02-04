@@ -1,6 +1,5 @@
-const serverURL = process.env.REACT_APP_SERVER_URL
-const usersURL = serverURL ? serverURL + '/users/' : null
-const reportsURL = serverURL ? serverURL + '/reports/' : null
+// Helper to simulate API delay
+const simulateRequest = (data, ms = 300) => new Promise(resolve => setTimeout(() => resolve(data), ms))
 
 export const setCurrentUser = user => {
   return {
@@ -11,42 +10,23 @@ export const setCurrentUser = user => {
 
 export const fetchUser = () => {
   return (dispatch, getState) => {
-    // If no server URL, use mock data from state
-    if (!usersURL) {
-      const { currentUser } = getState().user
-      setTimeout(() => {
-        dispatch({ type: 'SET_CURRENT_USER', payload: currentUser })
-      }, 100)
-      return
-    }
-    
-    fetch(usersURL + localStorage.userId)
-      .then(resp => resp.json())
-      .then(data => dispatch({ type: 'SET_CURRENT_USER', payload: data }))
-      .catch(err => {
-        console.error('Failed to fetch user:', err)
-        // Use mock data on error
-        const { currentUser } = getState().user
-        dispatch({ type: 'SET_CURRENT_USER', payload: currentUser })
-      })
+    const { currentUser } = getState().user
+    // If we want to simulate an initial fetch or login check
+    // we can just return the current mock user
+    simulateRequest(currentUser).then(data => {
+      dispatch({ type: 'SET_CURRENT_USER', payload: data })
+    })
   }
 }
 
 export const updateCurrentUser = requestBody => {
-  return dispatch => {
-    const patchRequest = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    }
+  return (dispatch, getState) => {
+    const { currentUser } = getState().user
+    const updatedUser = { ...currentUser, ...requestBody }
 
-    fetch(usersURL + localStorage.userId, patchRequest)
-      .then(resp => resp.json())
-      .then(data => {
-        dispatch({ type: 'SET_CURRENT_USER', payload: data })
-      })
+    simulateRequest(updatedUser).then(data => {
+      dispatch({ type: 'SET_CURRENT_USER', payload: data })
+    })
   }
 }
 
@@ -56,62 +36,52 @@ export const logOutCurrentUser = () => {
   }
 }
 
-export const createReportFetch = requestBody => {
-  return dispatch => {
-    const patchRequest = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
+export const createReportFetch = (requestBody) => {
+  return (dispatch, getState) => {
+    const { currentUser } = getState().user
+
+    const nextId = currentUser.reports && currentUser.reports.length > 0
+      ? Math.max(...currentUser.reports.map(r => r.id)) + 1
+      : 1
+
+    // The requestBody likely contains title, notes, and potentially a snapshot of project
+    // For demo purposes we can create a simple mock report or try to use what is passed
+    const newReport = {
+      id: nextId,
+      created_at: new Date().toISOString(),
+      ...requestBody,
+      // If requestBody doesn't have project, we might need to mock one or it's just metadata
     }
 
-    fetch(reportsURL, patchRequest)
-      .then(resp => resp.json())
-      .then(data => {
-        dispatch({ type: 'ADD_REPORT', payload: data })
-      })
+    simulateRequest(newReport).then(data => {
+      dispatch({ type: 'ADD_REPORT', payload: { report: data } })
+    })
   }
 }
 
 export const fetchCurrentReport = reportId => {
   return (dispatch, getState) => {
-    // If no server URL, use mock data from state
-    if (!reportsURL) {
-      const { currentUser } = getState().user
-      const report = currentUser.reports?.find(r => r.id === reportId)
-      if (report) {
-        setTimeout(() => {
-          dispatch({ type: 'SET_CURRENT_REPORT', payload: report })
-        }, 100)
-      }
-      return
-    }
-    
-    fetch(reportsURL + reportId, { method: 'GET' })
-      .then(resp => resp.json())
-      .then(data => dispatch({ type: 'SET_CURRENT_REPORT', payload: data }))
-      .catch(err => {
-        console.error('Failed to fetch current report:', err)
-        // Use mock data on error
-        const { currentUser } = getState().user
-        const report = currentUser.reports?.find(r => r.id === reportId)
-        if (report) {
-          dispatch({ type: 'SET_CURRENT_REPORT', payload: report })
-        }
+    const { currentUser } = getState().user
+    const report = currentUser.reports?.find(r => r.id === parseInt(reportId))
+
+    if (report) {
+      simulateRequest(report).then(data => {
+        dispatch({ type: 'SET_CURRENT_REPORT', payload: data })
       })
+    } else {
+      // Fallback
+      dispatch({ type: 'SET_CURRENT_REPORT', payload: { project: { milestones: [] } } })
+    }
   }
 }
 
 export const deleteReportFetch = reportId => {
   return dispatch => {
-    fetch(reportsURL + reportId, { method: 'DELETE' })
-      .then(resp => resp.json())
-      .then(data =>
-        dispatch({
-          type: 'DELETE_REPORT',
-          payload: data.deletedReportId,
-        })
-      )
+    simulateRequest(parseInt(reportId)).then(id => {
+      dispatch({
+        type: 'DELETE_REPORT',
+        payload: id,
+      })
+    })
   }
 }

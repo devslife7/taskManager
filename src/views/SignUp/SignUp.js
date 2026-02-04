@@ -71,34 +71,22 @@ export default function SignUp() {
     e.preventDefault()
     setIsLoading(true)
 
-    let postRequest = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          first_name: firstName,
-          last_name: lastName,
-          username: username,
-          password: password,
-        },
-      }),
-    }
-
-    fetch(signUpURL, postRequest)
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        localStorage.token = data.token
-        dispatch(setCurrentUser(data.user))
-        navigate('/projects')
-        clearForm()
-      })
-      .catch(err => {
-        console.log(err)
-        setIsLoading(false)
-      })
+    setTimeout(() => {
+      const mockUser = {
+        id: 1,
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        email: 'mock@example.com',
+        role: 'developer',
+        reports: [],
+        friends: []
+      }
+      localStorage.token = 'mock-token-123'
+      dispatch(setCurrentUser(mockUser))
+      navigate('/projects')
+      clearForm()
+    }, 500)
   }
 
   return (
