@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip, Paper, Table, TableBody, TableCell, TableHead, IconButton, TablePagination, TableRow, TableSortLabel, Typography } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableHead, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { TablePagination, TableRow, TableSortLabel, Typography } from '@mui/material'
 import { fromUnixTime, format } from 'date-fns'
 import { useDispatch } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -124,8 +126,8 @@ export default function EntriesTable({ records }) {
         rowsPerPageOptions={pages}
         rowsPerPage={rowsPerPage}
         count={records.length}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     )
   }
@@ -208,8 +210,8 @@ export default function EntriesTable({ records }) {
       </Paper>
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>
-          <Typography variant='h5' component='span'>
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>
             Deleting Entry: {!!currentEntry.date && format(fromUnixTime(currentEntry.date), 'PP')}
           </Typography>
         </DialogTitle>

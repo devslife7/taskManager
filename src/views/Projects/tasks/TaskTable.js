@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, TableSortLabel, Typography } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableHead } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { fromUnixTime, format, isPast } from 'date-fns'
+import { TablePagination, TableRow, TableSortLabel, Typography } from '@mui/material'
+import { fromUnixTime, format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { deleteTaskFetch, fetchCurrentTask } from '../../../redux/actions/tasks'
+import isPast from 'date-fns/isPast'
 import TasksDialog from './TasksDialog'
 
 const useStyle = makeStyles(theme => ({
@@ -147,8 +150,8 @@ export default function TaskTable() {
         rowsPerPageOptions={pages}
         rowsPerPage={rowsPerPage}
         count={records.length}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     )
   }

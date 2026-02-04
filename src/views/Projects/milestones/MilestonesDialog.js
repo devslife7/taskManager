@@ -9,13 +9,13 @@ import {
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { createMilestoneFetch, editMilestoneFetch } from '../../../redux/actions/milestones'
 import { useDispatch } from 'react-redux'
-import { fromUnixTime } from 'date-fns'
-import { getUnixTime } from 'date-fns'
+import { fromUnixTime, getUnixTime } from 'date-fns'
 
 const useStyle = makeStyles(() => ({
   button: {
@@ -104,26 +104,24 @@ export default function MilestonesDialog({ open, onClose, projectId, milestone =
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Grid container justifyContent='space-around'>
-                <DesktopDatePicker
+                <DatePicker
                   label='Start Date'
                   value={startDate}
                   onChange={handleSetStartDate}
                   format='MM/dd/yyyy'
                   slotProps={{
                     textField: {
-                      margin: 'normal',
                       className: classes.KeyboardDatePicker,
                     },
                   }}
                 />
-                <DesktopDatePicker
+                <DatePicker
                   label='End Date'
                   value={endDate}
                   onChange={handleSetEndDate}
                   format='MM/dd/yyyy'
                   slotProps={{
                     textField: {
-                      margin: 'normal',
                       className: classes.KeyboardDatePicker,
                     },
                   }}

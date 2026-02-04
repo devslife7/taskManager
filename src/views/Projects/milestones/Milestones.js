@@ -160,8 +160,8 @@ export default function Milestones() {
       <ProjectDialog open={openEditDialog} onClose={handleCloseEditDialog} project={currentProject} />
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>
-          <Typography variant='h5' component='span'>Deleting Project: {`${currentProject.name}`}</Typography>
+        <DialogTitle disableTypography>
+          <Typography variant='h5'>Deleting Project: {`${currentProject.name}`}</Typography>
         </DialogTitle>
         <DialogContent>
           {'Are you sure you want to delete this Project?\nThis action cannot be undone.'}

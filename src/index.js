@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
+import ErrorBoundary from './ErrorBoundary'
 import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
 import { StylesProvider, ThemeProvider } from '@mui/styles'
 import { Provider } from 'react-redux'
@@ -55,15 +56,26 @@ const theme = createTheme({
   },
 })
 
-const root = createRoot(document.getElementById('root'))
+console.log('index.js: About to render app')
+const rootElement = document.getElementById('root')
+console.log('Root element:', rootElement)
+
+if (!rootElement) {
+  console.error('Root element not found!')
+}
+
+const root = createRoot(rootElement)
+console.log('Root created, about to render')
 root.render(
-  <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <ThemeProvider theme={theme}>
-        <StylesProvider injectFirst>
-          <App />
-        </StylesProvider>
-      </ThemeProvider>
-    </MuiThemeProvider>
-  </Provider>
+  <ErrorBoundary>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <StylesProvider injectFirst>
+            <App />
+          </StylesProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
+    </Provider>
+  </ErrorBoundary>
 )

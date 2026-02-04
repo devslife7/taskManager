@@ -10,16 +10,20 @@ import { SignUp, Login, Projects, Dashboard, Profile, Calendar, Reports, Inbox, 
 import { Grid, Box } from '@mui/material'
 
 export default function App() {
+  console.log('App component rendering')
   const dispatch = useDispatch()
   const loggedIn = useSelector(state => state.user.loggedIn)
+  console.log('App loggedIn state:', loggedIn)
 
   useEffect(() => {
+    console.log('App useEffect running')
     localStorage.getItem('userId') && dispatch(fetchUser())
     localStorage.getItem('currentProjectId') && dispatch(fetchCurrentProject())
     localStorage.getItem('currentMilestoneId') && dispatch(fetchCurrentMilestone())
     localStorage.getItem('currentTaskId') && dispatch(fetchCurrentTask())
   }, [dispatch])
 
+  console.log('App about to return JSX')
   return (
     <Box>
       <Router>

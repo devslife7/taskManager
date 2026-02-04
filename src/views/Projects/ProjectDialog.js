@@ -12,9 +12,9 @@ import {
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { useDispatch } from 'react-redux'
 import { addProjectFetch, editProjectFetch } from '../../redux/actions/projects'
 import { addDays, fromUnixTime, getUnixTime } from 'date-fns'
@@ -170,26 +170,24 @@ export default function ProjectDialog({ open, onClose, project = {} }) {
               />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Grid container justifyContent='space-around'>
-                  <DesktopDatePicker
+                  <DatePicker
                     label='Start Date'
                     value={startDate}
                     onChange={handleSetStartDate}
                     format='MM/dd/yyyy'
                     slotProps={{
                       textField: {
-                        margin: 'normal',
                         className: classes.KeyboardDatePicker,
                       },
                     }}
                   />
-                  <DesktopDatePicker
+                  <DatePicker
                     label='End Date'
                     value={endDate}
                     onChange={handleSetEndDate}
                     format='MM/dd/yyyy'
                     slotProps={{
                       textField: {
-                        margin: 'normal',
                         className: classes.KeyboardDatePicker,
                       },
                     }}

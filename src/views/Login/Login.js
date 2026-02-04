@@ -10,7 +10,7 @@ import MuiAlert from '@mui/lab/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import axios from 'axios'
 
-const logInURL = process.env.REACT_APP_SERVER_URL + '/login'
+const logInURL = (process.env.REACT_APP_SERVER_URL || 'http://localhost:3001') + '/login'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -141,6 +141,9 @@ export default function Login() {
     setPassword('password')
   }
 
+  console.log('Login component rendering, classes:', classes)
+  console.log('Login component state:', { username, password, isLoading })
+  
   return (
     <div className={classes.container}>
       {console.log('Renders Login page.')}

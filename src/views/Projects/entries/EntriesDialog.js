@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { createEntryFetch, editEntryFetch } from '../../../redux/actions/tasks'
